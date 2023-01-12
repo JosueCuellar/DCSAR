@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-
+@section('title','Proveedores')
 @section('content')
 
 <div class="container">
@@ -24,28 +24,72 @@
                 <form action="{{route('proveedor.update',$proveedor)}}" method="POST">
                     @csrf
                     @method('put')
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group has-feedback row">
-                                <label for="nombre" class="col-12 control-label">Nombre de proveedor:</label>
-                                <div class="col-12">
-                                    <input value="{{old('nombre',$proveedor->nombre)}}" id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre de la categoría" required>
-                                </div>
-                                <div class="col-12">
-                                    <input value="{{old('nombre',$proveedor->nombre)}}" id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre de la categoría" required>
-                                </div>
-                                <div class="col-12">
-                                    <input value="{{old('nombre',$proveedor->nombre)}}" id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre de la categoría" required>
-                                </div>
-                                <div class="col-12">
-                                    <input value="{{old('nombre',$proveedor->nombre)}}" id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre de la categoría" required>
+                    <div class="card-body">
+                        <div class="row">
+                            
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback row">
+                                    <label for="nombreComercial" class="col-12 control-label">Nombre comercial:</label>
+                                    <div class="col-12">
+                                        <input id="nombreComercial" type="text" class="form-control"  name="nombreComercial" 
+                                        value="{{old('nombreComercial', $proveedor->nombreComercial)}}" placeholder="Nombre comercial del proveedor" >
+                                    </div>
                                 </div>
                             </div>
+    
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback row">
+                                    <label for="razonSocial" class="col-12 control-label">Razón social:</label>
+                                    <div class="col-12">
+                                        <input id="razonSocial" type="text" class="form-control"  name="razonSocial" 
+                                        value="{{old('razonSocial', $proveedor->razonSocial)}}" placeholder="Razón social del proveedor" >
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback row">
+                                    <label for="direccion" class="col-12 control-label">Dirección:</label>
+                                    <div class="col-12">
+                                        <input id="direccion" type="text" class="form-control"  name="direccion" 
+                                        value="{{old('direccion', $proveedor->direccion)}}" placeholder="Dirección del proveedor" >
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback row">
+                                    <label for="fax" class="col-12 control-label">FAX:</label>
+                                    <div class="col-12">
+                                        <input id="fax" type="text" class="form-control"  name="fax" 
+                                        value="{{old('fax', $proveedor->fax)}}" placeholder="FAX del proveedor" >
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback row">
+                                    <label for="telefono1" class="col-12 control-label">Teléfono:</label>
+                                    <div class="col-12">
+                                        <input id="telefono1" type="tel" maxlength="15" class="form-control"  name="telefono1" 
+                                        value="{{old('telefono1', $proveedor->telefono1)}}" placeholder="Teléfono del proveedor" >
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback row">
+                                    <label for="telefono2" class="col-12 control-label">Teléfono Opcional:</label>
+                                    <div class="col-12">
+                                        <input id="telefono2" type="tel" maxlength="15" class="form-control"  name="telefono2" 
+                                        value="{{old('telefono2',$proveedor->telefono2)}}" placeholder="Teléfono del proveedor" >
+                                    </div>
+                                </div>
+                            </div>
+    
+     
                         </div>
-                    </div>
-                </div>
-
+                    </div> 
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-9"></div>
@@ -54,10 +98,10 @@
                                 <button type="submit" class="btn btn-success btn-lg btn-block" value="Guardar" name="action">
                                     <i class="fa fa-save fa-fw">
                                         <span class="sr-only">
-                                            Guardar marca Icono
+                                            Guardar proveedor Icono
                                         </span>
                                     </i>
-                                            Guardar marca
+                                            Guardar proveedor
                                 </button>
                             </span>
                         </div>

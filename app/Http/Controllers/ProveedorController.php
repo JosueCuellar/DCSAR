@@ -52,12 +52,12 @@ class ProveedorController extends Controller
     {
         try{
             
-            $proveedor->nomreComercial->$request->nombreComercial;
-            $proveedor->razonSocial->$request->razonSocial;
-            $proveedor->direccion->$request->direccion;
-            $proveedor->fax->$request->fax;
-            $proveedor->telefono1->$request->telefono1;
-            $proveedor->telefono2->$request->telefono2;
+            $proveedor->nombreComercial = $request->nombreComercial;
+            $proveedor->razonSocial = $request->razonSocial;
+            $proveedor->direccion = $request->direccion;
+            $proveedor->fax = $request->fax;
+            $proveedor->telefono1 = $request->telefono1;
+            $proveedor->telefono2 = $request->telefono2;
             $proveedor->save();            
             //Se redirige al listado de todos los registros
             return redirect()->route('proveedor.index');

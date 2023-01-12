@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-
+@section('title','Proveedores')
 @section('content')
 
 <div class="container">

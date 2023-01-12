@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-
+@section('title','Requisicion producto')
 @section('content')
     <div>
         <div class="row py-lg-2">

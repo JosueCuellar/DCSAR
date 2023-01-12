@@ -67,12 +67,18 @@
   <!-- Sidebar -->
   <div class="sidebar">
 
+
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="info">
+        <a href="#" class="d-block"><h3>DCSAR</h3></a>
+      </div>
+    </div>
+
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-header"></li>
         <li class="nav-header" style="color:#fff">REQUISICIÓN DE PRODUCTO </li>
         <li class="nav-header"></li>
 
@@ -113,21 +119,21 @@
               Proveedor
             </p>
           </a>
-          <a href="{{ asset('proveedor')}}" class="nav-link">
+          <a href="{{ asset('medida')}}" class="nav-link">
             <i class="nav-icon fas fa-calendar-alt"></i>
             <p>
               Medida
             </p>
           </a>
 
-          <a href="{{ asset('proveedor')}}" class="nav-link">
+          <a href="{{ asset('estado')}}" class="nav-link">
             <i class="nav-icon fas fa-calendar-alt"></i>
             <p>
               Estado
             </p>
           </a>
 
-          <a href="{{ asset('proveedor')}}" class="nav-link">
+          <a href="{{ asset('unidadOrganizativa')}}" class="nav-link">
             <i class="nav-icon fas fa-calendar-alt"></i>
             <p>
               Unidad Organizativa
@@ -190,7 +196,7 @@
 </div>
   <!-- Main Footer -->
   <footer class="main-footer">
-    Defensoria del
+    Defensoria del consumidor 2022
   </footer>
 <!-- ./wrapper -->
 

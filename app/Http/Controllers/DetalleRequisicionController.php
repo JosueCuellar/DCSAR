@@ -62,7 +62,7 @@ class DetalleRequisicionController extends Controller
     {
         try{
             $detalleRequisicion->forceDelete();
-            return redirect()->route('requisicion.detalle', $requisicionProducto);
+            return redirect()->route('requisicionProducto.detalle', $requisicionProducto);
         }catch(\Exception $e){
             return $e->getMessage();
         }

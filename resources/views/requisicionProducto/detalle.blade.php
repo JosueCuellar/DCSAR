@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-
+@section('title','Requisicion producto')
 @section('content')
     <div>
         <h1>Detalle de la Requisicion</h1>
@@ -61,7 +61,7 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">Productos</th>
-                                <th scope="col">Cantidad Venta</th>
+                                <th scope="col">Cantidad</th>
                                 <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
@@ -87,7 +87,7 @@
                                                     id="button-addon2">Actualizar</button>
                                             </div>
                                         </form>
-                                    </td>>
+                                    </td>
                                     <td>
                                         <a href="{{ route('detalleRequisicion.destroy', ['requisicionProducto' => $requisicionProducto, 'detalleRequisicion' => $item]) }}"
                                         data-toggle="modal" data-target="#deleteModal" data-ventaid="{{$requisicionProducto->id}}" data-detalleid="{{$item->id}}"><i class="fas fa-trash-alt"></i></a>
@@ -99,7 +99,6 @@
                                     <th></th>
                                     <td></td>
                                     <td></td>
-                                    <td><strong>TOTAL</strong</td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -158,8 +157,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
                 </div>
-                <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este medicamento de la venta 
-</div>
+                <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este producto de la requisicion</div>
                 <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                 <form method="POST" action="">
@@ -176,7 +174,7 @@
     <div class="card-footer small text-muted"></div>
 </div>
     
-    @section('js_venta_page')
+    @section('js_datatable')
     <script>
         $('#deleteModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) 
@@ -184,8 +182,7 @@
             var detalle_id = button.data('detalleid') 
             
             var modal = $(this)
-            // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action','/venta/detalle/' + venta_id + '/eliminar/' + detalle_id);
+            modal.find('form').attr('action','' + venta_id + '/eliminar/' + detalle_id);
         })
     </script>
 <script>
