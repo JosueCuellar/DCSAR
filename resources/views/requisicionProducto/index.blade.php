@@ -73,14 +73,14 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable11" width="100%" cellspacing="0">
-                            <thead>
+                            <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">id</th>
                                     <th scope="col">fecha</th>
                                     <th scope="col">Ver</th>
                                 </tr>
                             </thead>
-                            <tfoot>
+                            <tfoot class="thead-light">
                                 <tr>
                                     <th scope="col">id</th>
                                     <th scope="col">fecha</th>

@@ -11,8 +11,6 @@
   </div>
 </div>
 
-
-<div>
 <div class="card mb-3">
     <div class="card-header">
         <i class="fas fa-table"></i>
@@ -20,7 +18,7 @@
     <div class="card-body">
         <div class="table-responsive">
         <table class="table table-bordered" id="dataTable6" width="100%" cellspacing="0">
-            <thead>
+            <thead class="thead-dark">
           <tr>
             <th scope="col">id</th>
             <th scope="col">Codigo Presupuestario</th>
@@ -29,7 +27,7 @@
             <th scope="col">Opciones</th>
           </tr>
         </thead>
-        <tfoot>
+        <tfoot class="thead-light">
             <tr>
             <th scope="col">id</th>
             <th scope="col">Codigo Presupuestario</th>

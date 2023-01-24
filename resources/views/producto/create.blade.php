@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-@section('title','Rubro')
+@section('title','Producto')
 @section('content')
 
 <div class="container">
@@ -14,25 +14,89 @@
             <div class="card card-post" id="post_card">
                 <div class="card-header">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        Creando rubro: 
+                        Creando producto: 
                         <div class="pull-right">
-                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip" data-placement="left" title data-original-title="Regresar a lista de categorias">Regresar</a>
+                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip" data-placement="left" title data-original-title="Regresar a lista de productos">Regresar</a>
                         </div>
                     </div>
                 </div>
                 <x-errores class="mb-4" />
-                <form action="{{route('rubro.store')}}" method="POST">
+                <form action="{{route('producto.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback row">
-                                <label for="codigoPresupuestario" class="col-12 control-label">Codigo presupuestario:</label>
+                                <label for="cod_producto" class="col-12 control-label">Codigo producto:</label>
                                 <div class="col-12">
-                                <input id="n" type="text" class="form-control"  name="codigoPresupuestario" 
-                                value="{{old('codigoPresupuestario')}}" placeholder="Codigo presupuestario" >
+                                <input id="cod_producto" type="text" class="form-control"  name="cod_producto" 
+                                value="{{old('cod_producto')}}" placeholder="Codigo producto" >
                                 </div>
                             </div>
+
+                            <div class="form-group has-feedback row">
+                                <label for="descripcion" class="col-12 control-label">Descripcion:</label>
+                                <div class="col-12">
+                                <input id="descripcion" type="text" class="form-control"  name="descripcion" 
+                                value="{{old('descripcion')}}" placeholder="Descripcion" >
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback row">
+                                <label for="observacion" class="col-12 control-label">Observacion:</label>
+                                <div class="col-12">
+                                <input id="observacion" type="text" class="form-control"  name="observacion" 
+                                value="{{old('observacion')}}" placeholder="Observacion" >
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback row">
+                                <img id="imagenSeleccionada" style="max-height: 300px">
+                            </div>
+
+                            <div class="form-group has-feedback row">
+                                <label for="imagen" class="col-12 control-label">Seleccionar imagen</label>
+                                <div class="col-12">
+                                <input id="imagen" class="form-control"   name="imagen" type="file">
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback row">
+                                <label for="marca_id" class="col-12 control-label">Marca:</label>
+                                <div class="col-12">
+                                    <select class="form-control" name="marca_id" id="marca_id" value="{{old('marca_id')}}">
+                                        <option selected='true' disabled='disabled'>Seleccionar marca</option>
+                                            @foreach( $marcas as $item )
+                                            <option value="{{ $item->id }}">{{ $item->nombre}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            </div>  
+                            
+                            <div class="form-group has-feedback row">
+                                <label for="medida_id" class="col-12 control-label">Medida:</label>
+                                <div class="col-12">
+                                    <select class="form-control" name="medida_id" id="medida_id" value="{{old('medida_id')}}">
+                                        <option selected='true' disabled='disabled'>Seleccionar unidad de medida</option>
+                                            @foreach( $medidas as $item )
+                                            <option value="{{ $item->id }}">{{ $item->nombreMedida}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            </div> 
+
+                            <div class="form-group has-feedback row">
+                                <label for="rubro_id" class="col-12 control-label">Rubro:</label>
+                                <div class="col-12">
+                                    <select class="form-control" name="rubro_id" id="rubro_id" value="{{old('rubro_id')}}">
+                                        <option selected='true' disabled='disabled'>Seleccionar rubro del producto</option>
+                                            @foreach( $rubros as $item )
+                                            <option value="{{ $item->id }}">{{ $item->descripcionRubro}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            </div> 
+
                             <div class="form-group has-feedback row">
                                 <label for="estado_id" class="col-12 control-label">Estado:</label>
                                 <div class="col-12">
@@ -43,14 +107,8 @@
                                             @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group has-feedback row">
-                                <label for="descripcionRubro" class="col-12 control-label">Descripcion de rubro:</label>
-                                <div class="col-12">
-                                <input id="descripcionRubro" type="text" class="form-control"  name="descripcionRubro" 
-                                value="{{old('descripcionRubro')}}" placeholder="Descripcion de rubro">
-                                </div>
-                            </div>    
+                            </div>  
+
 
                         </div>
                     </div>
@@ -64,10 +122,10 @@
                                 <button type="submit" class="btn btn-success btn-lg btn-block" value="Guardar" name="action">
                                     <i class="fa fa-save fa-fw">
                                         <span class="sr-only">
-                                            Guardar rubro Icono
+                                            Guardar producto Icono
                                         </span>
                                     </i>
-                                            Guardar rubro
+                                            Guardar producto
                                 </button>
                             </span>
                         </div>
@@ -79,4 +137,22 @@
     </div>
 </div>   
 
+@section('js_imagen')
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function (e){
+            $('#imagen').change(function(){
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#imagenSeleccionada').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
+
 @endsection
+
+
+@endsection
+
