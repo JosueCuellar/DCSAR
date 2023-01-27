@@ -30,6 +30,8 @@ Route::get('/', function () {
   return view('dashboard');
 });
 
+
+
 //----------------------------Estado------------------------
 //listar
 Route::get('estado', [EstadoController::class, 'index'])->name('estado.index');

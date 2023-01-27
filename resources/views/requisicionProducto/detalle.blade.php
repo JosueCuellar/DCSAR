@@ -8,16 +8,10 @@
                 <h3>Ingresa los productos a pedir</h3>
                 <form action="{{ route('requisicionProducto.detalle', $requisicionProducto) }}" method="GET">
 
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <input class="form-control" type="text" name="cod_producto"
-                                    placeholder="Código de producto">
-                            </div>
-                            <div class="col-sm-4">
-                                <button type="submit" class="btn btn-success">Filtrar</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="row">
+                        <div class="col-sm-12"><p><br></p></div>
+                    </div>
+                </form>
                 <div class="table-responsive" style="margin-top:1em">
                     <table class="table table-bordered table-hover" id="dataTable13" width="100%" cellspacing="0">
                         <thead class="thead-dark">
@@ -51,7 +45,17 @@
                                     <td>{{ $item->cod_producto }}</td>
                                     <td>{{ $item->descripcion }}</td>
                                     <td>{{ $item->observacion }}</td>
-                                    <td><img src="/imagen/{{ $item->imagen }}" width="80%"></td>
+                                    <td>
+                                        {{-- <img src="/imagen/{{ $item->imagen }}" class="img-fluid mb-2"
+                                            style="width:100%;max-width:300px"> --}}
+                                        <div class="filter-container p-0 row">
+                                            <div class="filtr-item col-sm-2">
+                                                <a href="/imagen/{{ $item->imagen}}" data-toggle="lightbox">
+                                                    <img src="/imagen/{{ $item->imagen }}" class="img-fluid mb-2" style="width:100px;max-width:300px">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{ $item->marca->nombre }}</td>
                                     <td>{{ $item->medida->nombreMedida }}</td>
 
@@ -133,40 +137,40 @@
         </div>
     @else
         <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-table"></i>
-                    Productos de esta requisición
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable12" width="100%" cellspacing="0">
-                            <thead class="thead-dark">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Productos de esta requisición
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable12" width="100%" cellspacing="0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Codigo de producto</th>
+                                <th scope="col">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($detalle_requisicion as $item)
                                 <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">Codigo de producto</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th scope="row">{{ $item->id }}</th>
+                                    <td>{{ $item->producto->cod_producto }}</td>
+                                    <td>{{ $item->cantidad }}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($detalle_requisicion as $item)
-                                    <tr>
-                                        <th scope="row">{{ $item->id }}</th>
-                                        <td>{{ $item->producto->cod_producto }}</td>
-                                        <td>{{ $item->cantidad }}</td>
-                                    </tr>
-                                @endforeach
-                            <tfoot class="thead-light">
-                                <tr>
-                                    <th></th>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        <tfoot class="thead-light">
+                            <tr>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
     @endif
 
 
@@ -228,6 +232,26 @@
             });
         });
     </script>
+
+    <script>
+        $(function() {
+            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+
+            $('.filter-container').filterizr({
+                gutterPixels: 3
+            });
+            $('.btn[data-filter]').on('click', function() {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
+            });
+        })
+    </script>
+
 
 @endsection
 

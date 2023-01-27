@@ -4,12 +4,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12"></div>
-    </div>
-</div>
+        <div class="col-md-12" >
+            <p></p>
+        </div>
 
-<div class="container">
-    <div class="row">
         <div class="col-12">
             <div class="card card-post" id="post_card">
                 <div class="card-header">
