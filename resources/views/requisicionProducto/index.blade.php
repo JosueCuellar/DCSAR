@@ -1,6 +1,10 @@
 @extends('admin.layouts.index')
 @section('title', 'Requisicion producto')
 @section('content')
+
+<div class="content">
+    <div class="container-fluid">
+
         <div class="row">
             <div class="col-md-6">
                 <h2>Requisiciones de productos</h2>
@@ -52,7 +56,7 @@
                                         <td>{{ $item->fecha_requisicion }}</td>
                                         <td>{{ $item->estado }}</td>
                                         <td>
-                                            <a href="{{ route('requisicionProducto.detalle', $item->id) }}"><ion-icon name="create-outline" class="fa-lg text-warning"></ion-icon></a>
+                                            <a href="{{ route('requisicionProducto.detalle', $item->id) }}"><ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -62,7 +66,8 @@
                 </div>
             </div>
         </div>
- 
+    </div>
+</div>
 
 @section('js_datatable')
 

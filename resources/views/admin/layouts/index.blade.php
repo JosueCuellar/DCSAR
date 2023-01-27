@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('fondo/def.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('fondo/logo.png') }}">
 
     <!-- Page level plugin CSS-->
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -112,7 +112,7 @@
                             </ul>
                         </li>
 
-                        {{-- <li class="nav-header"></li>
+                        <li class="nav-header"></li>
                         <li class="nav-header text-light">INVENTARIO </li>
                         <li class="nav-header"></li>
                         <li class="nav-item">
@@ -203,7 +203,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li>
 
 
                 </nav>
