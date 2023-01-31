@@ -52,9 +52,9 @@
                                 @foreach ($requisicionesSinCompletar as $item)
                                     <tr>
                                         <th scope="row">{{ $item->id }}</th>
+                                        <td>{{ $item->nCorrelativo }}</td>
                                         <td>{{ $item->fecha_requisicion }}</td>
-                                        <td>{{ $item->fecha_requisicion }}</td>
-                                        <td>{{ $item->estado }}</td>
+                                        <td>{{ $item->estado->nombreEstado }}</td>
                                         <td>
                                             <a href="{{ route('requisicionProducto.detalle', $item->id) }}"><ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon></a>
                                         </td>

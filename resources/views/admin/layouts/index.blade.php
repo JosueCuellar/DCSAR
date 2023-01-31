@@ -102,7 +102,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item menu-is-opening menu-open">
-                                    <a href="{{ asset('requisicionProducto') }}" class="nav-link dark">
+                                    <a href="{{ asset('requisicionProducto/estado') }}" class="nav-link dark">
                                         <ion-icon name="hourglass-outline" class="nav-icon"></ion-icon>
                                         <p>
                                             Estado de requisicion

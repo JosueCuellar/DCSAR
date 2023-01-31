@@ -3,6 +3,7 @@
 use App\Http\Controllers\DetalleCompraController;
 use App\Http\Controllers\DetalleRequisicionController;
 use App\Http\Controllers\EstadoController;
+use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\MedidaController;
 use App\Http\Controllers\ProductoController;
@@ -119,6 +120,7 @@ Route::get('producto/destroy/{producto}', [ProductoController::class, 'destroy']
 
 //---------------------------RequisicionProducto------------------------------------------------------
 Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index');
+Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado');
 Route::post('requisicionProducto', [RequisicionProductoController::class, 'store'])->name('requisicionProducto.store');
 Route::put('requisicionProducto/completar/{requisicionProducto}', [RequisicionProductoController::class, 'update'])->name('requisicionProducto.pagar');
 //---------------------------Detalle requisicion------------------------------------------------------
@@ -151,3 +153,8 @@ Route::controller(DetalleCompraController::class)->group(function () {
   //Dar de baja el detalle del ingreso
   Route::get('detalleCompra/detalle/destroy/{ingreso}/{detalleCompra}', 'destroy')->name('detalleCompra.destroy');
 });
+
+//---------------------------Inventario------------------------------------------------------
+
+Route::get('inventario', [InventarioController::class,'index'])->name('inventario.index');
+

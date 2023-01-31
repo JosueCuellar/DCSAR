@@ -3,8 +3,7 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
-            <h1>Detalle de la Requisicion</h1>
-            @if ($requisicionProducto->estado == false)
+            @if (!($requisicionProducto->estado_id == 3))
                 <div class="row">
                     <div class="col-sm-7" style="height:40rem;overflow-y: scroll;">
                         <h3>Ingresa los productos a pedir</h3>
@@ -83,7 +82,8 @@
                         <form action="{{ route('requisicionProducto.pagar', $requisicionProducto) }}" method="POST">
                             @csrf
                             @method('put')
-                            <button type="submit" class="btn btn-warning float-md-right" style="margin-bottom:1em">Completar
+                            <button type="submit" class="btn btn-warning float-md-right"
+                                style="margin-bottom:1em">Completar
                                 Requisicion</button>
                         </form>
                         <div class="table-responsive" style="margin-top:1em">
@@ -144,41 +144,70 @@
                     </div>
                 </div>
             @else
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fas fa-table"></i>
-                        Productos de esta requisición
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable12" width="100%" cellspacing="0">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">id</th>
-                                        <th scope="col">Codigo de producto</th>
-                                        <th scope="col">Cantidad</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($detalle_requisicion as $item)
-                                        <tr>
-                                            <th scope="row">{{ $item->id }}</th>
-                                            <td>{{ $item->producto->cod_producto }}</td>
-                                            <td>{{ $item->cantidad }}</td>
-                                        </tr>
-                                    @endforeach
-                                <tfoot class="thead-light">
-                                    <tr>
-                                        <th></th>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-                                </tbody>
-                            </table>
+                <div class="row">
+
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <b>Detalles de la Requisicion de Productos</b>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">Numero Requisicion: <label>{{ $requisicionProducto->nCorrelativo }}</label>
+                                    </div>
+                                    <div class="col-6">Fecha de solicitud: <label>{{ $requisicionProducto->fecha_requisicion }}</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-12">Unidad Organizativa: <label>------------------------------------</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <b>Detalle de Solicitud</b>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable12" width="100%" cellspacing="0">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Codigo de Producto</th>
+                                                <th scope="col">Unidad de Medida</th>
+                                                <th scope="col">Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($detalle_requisicion as $item)
+                                                <tr>
+                                                    <th scope="row">{{ $item->id }}</th>
+                                                    <td>{{ $item->producto->cod_producto }}</td>
+                                                    <td>{{ $item->producto->medida->nombreMedida }}</td>
+                                                    <td>{{ $item->cantidad }}</td>
+                                                </tr>
+                                            @endforeach
+                                        <tfoot class="thead-light">
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Codigo de Producto</th>
+                                                <th scope="col">Unidad de Medida</th>
+                                                <th scope="col">Cantidad</th>
+                                            </tr>
+                                        </tfoot>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-1"></div>
                 </div>
+
             @endif
 
 

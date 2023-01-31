@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('requisicion_productos', function (Blueprint $table) {
             $table->id();
             $table->date('fecha_requisicion');
-            $table->boolean('estado');
+            $table->string('nCorrelativo');
+            $table->unsignedBigInteger('estado_id')->unsigned();
+            $table->foreign('estado_id')->references('id')->on('estados');
             $table->timestamps();
         });
     }

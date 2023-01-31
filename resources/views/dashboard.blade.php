@@ -35,7 +35,7 @@
                                 <ion-icon name="cube-sharp"></ion-icon>
                             </i>
                         </div>
-                        <a href="{{ asset('producto/crear') }}" class="small-box-footer">Ver <i
+                        <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                                 <ion-icon name="hourglass-sharp"></ion-icon>
                             </i>
                         </div>
-                        <a href="{{ asset('producto/crear') }}" class="small-box-footer">Ver <i
+                        <a href="{{ asset('requisicionProducto/estado') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>
