@@ -24,6 +24,22 @@ class DetalleRequisicionController extends Controller
         $productos = Producto::all();
         
     }
+
+    public function detalle(RequisicionProducto $requisicionProducto, Request $request)
+    {
+        $detalle_requisicion = DetalleRequisicion::where('requisicion_id',$requisicionProducto->id)->get();
+        $cod_producto = $request->get('cod_producto');
+        if($cod_producto){
+            $productos = Producto::where('cod_producto','LIKE',"%$cod_producto%")->get();
+            return view('requisicionProducto.detalleRevision',compact('detalle_requisicion', 'productos','requisicionProducto'));
+        }else{
+            $productos = Producto::all();
+            return view('requisicionProducto.detalleRevision',compact('detalle_requisicion', 'productos','requisicionProducto'));
+        }
+        $productos = Producto::all();
+        
+    }
+
     public function store(Request $request, RequisicionProducto $requisicionProducto, Producto $producto)
     {
         try{

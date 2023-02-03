@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('requisicion_id');
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');
-            $table->foreign('requisicion_id')->references('id')->on('requisicion_productos');
+            $table->foreign('requisicion_id')->references('id')->on('requisicion_productos')->onDelete('cascade');
             $table->timestamps();
         });
     }

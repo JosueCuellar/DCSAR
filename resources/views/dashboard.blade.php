@@ -69,7 +69,7 @@
                                 <ion-icon name="documents-sharp"></ion-icon>
                             </i>
                         </div>
-                        <a href="{{ asset('producto/crear') }}" class="small-box-footer">Ver <i
+                        <a href="{{ asset('') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>
@@ -161,14 +161,13 @@
                                 Consumidor</h5><br>
                             <ul class="list-group">
                                 <li class="list-group-item "><b class="text-info">Enviada:</b> Indica que la solicitud ha
-                                    sido realizada y enviada para su revisión</li>
+                                    sido realizada y enviada por le solicitante para su revisión</li>
                                 <li class="list-group-item"><b class="text-success">Aprobada:</b> Indica que la solicitud ha
-                                    sido aprobada con éxito por el gerente</li>
+                                    sido aprobada con éxito por el jefe de la unidad organizativa</li>
                                 <li class="list-group-item"><b class="text-danger">Rechazada:</b> Indica que la solicitud ha
                                     sido rechazada y puede modificarse por el solicitante</li>
                             </ul>
                             <p></p>
-                            <a href="#" class="btn btn-secondary">Ver más</a>
                         </div>
                     </div>
                 </div>
@@ -178,4 +177,20 @@
         </div>
     </div>
 
+
+
+@section('js_datatable')
+    <script>
+        if({{$existe}}){
+            $(document).Toasts('create', {
+            title: 'Solicitudes',
+            position: 'topRight',
+            body: 'Hay {{$n}} solicitudes recibidas por revisar.',
+            class: 'bg-info',
+            icon: '	far fa-file',
+            buttons: 'xd'
+        })
+        }
+    </script>
+@endsection
 @endsection

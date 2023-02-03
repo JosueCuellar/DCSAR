@@ -16,16 +16,16 @@
                         <table class="table table-bordered" id="dataTable25" width="100%" cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Nombre comercial medicamento</th>
-                                    <th scope="col">Presentacion medicamento</th>
+                                    <th scope="col">Codigo producto</th>
+                                    <th scope="col">Descripcion producto</th>
                                     <th scope="col">Observacion</th>
                                     <th scope="col">Cantidad disponible</th>
                                 </tr>
                             </thead>
                             <tfoot class="thead-light">
                                 <tr>
-                                    <th scope="col">Nombre comercial medicamento</th>
-                                    <th scope="col">Presentacion medicamento</th>
+                                    <th scope="col">Codigo producto</th>
+                                    <th scope="col">Descripcion producto</th>
                                     <th scope="col">Observacion</th>
                                     <th scope="col">Cantidad disponible</th>
                                 </tr>

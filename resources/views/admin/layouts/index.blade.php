@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -79,7 +80,7 @@
                         role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
-                        <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO </li>
+                        <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
                         <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
@@ -112,7 +113,34 @@
                             </ul>
                         </li>
 
+                        <br>
+
+                        <li class="nav-header text-light">INVENTARIO</li>
                         <li class="nav-header"></li>
+                        <li class="nav-item">
+                            <a href="{{ asset('inventario') }}" class="nav-link active">
+                                <ion-icon name="cube-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Inventario
+                                </p>
+                            </a>
+                        </li>
+
+                        <br>
+
+                        <li class="nav-header text-light">REVISAR SOLICITUDES</li>
+                        <li class="nav-header"></li>
+                        <li class="nav-item">
+                            <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
+                                <ion-icon name="folder-open-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Solicitudes recibidas
+                                    {{-- <span class="badge badge-info right">{{$nEnviadas}}</span> --}}
+                                </p>
+                            </a>
+                        </li>
+
+                        {{-- <li class="nav-header"></li>
                         <li class="nav-header text-light">INVENTARIO </li>
                         <li class="nav-header"></li>
                         <li class="nav-item">
@@ -203,7 +231,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
 
 
                 </nav>
@@ -254,7 +282,6 @@
 
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -266,6 +293,9 @@
     <!-- DataTables -->
     <script src="{{ asset('vendor/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+
+    <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
+
 
     @yield('js_datatable')
     @yield('js_imagen')

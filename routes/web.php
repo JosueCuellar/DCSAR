@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetalleCompraController;
 use App\Http\Controllers\DetalleRequisicionController;
 use App\Http\Controllers\EstadoController;
@@ -27,9 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-  return view('dashboard');
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 
 
@@ -121,10 +120,17 @@ Route::get('producto/destroy/{producto}', [ProductoController::class, 'destroy']
 //---------------------------RequisicionProducto------------------------------------------------------
 Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index');
 Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado');
+Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar');
 Route::post('requisicionProducto', [RequisicionProductoController::class, 'store'])->name('requisicionProducto.store');
 Route::put('requisicionProducto/completar/{requisicionProducto}', [RequisicionProductoController::class, 'update'])->name('requisicionProducto.pagar');
+Route::put('requisicionProducto/aceptar/{requisicionProducto}', [RequisicionProductoController::class, 'aceptar'])->name('requisicionProducto.aceptarRequi');
+Route::put('requisicionProducto/denegar/{requisicionProducto}', [RequisicionProductoController::class, 'denegar'])->name('requisicionProducto.denegarRequi');
+Route::get('requisicionProducto/destroy/{requisicionProducto}', [RequisicionProductoController::class, 'destroy'])->name('requisicionProducto.destroy');
+
+
 //---------------------------Detalle requisicion------------------------------------------------------
 Route::get('requisicionProducto/detalle/{requisicionProducto}', [DetalleRequisicionController::class, 'index'])->name('requisicionProducto.detalle');
+Route::get('requisicionProducto/detalleRevision/{requisicionProducto}', [DetalleRequisicionController::class, 'detalle'])->name('requisicionProducto.detalleRevision');
 Route::post('requisicionProducto/detalle/{requisicionProducto}/{producto}', [DetalleRequisicionController::class, 'store'])->name('detalleRequisicion.store');
 Route::put('requisicionProducto/detalle/{requisicionProducto}/{detalleRequisicion}', [DetalleRequisicionController::class, 'update'])->name('detalleRequisicion.update');
 Route::get('requisicionProducto/detalle/{requisicionProducto}/eliminar/{detalleRequisicion}', [DetalleRequisicionController::class, 'destroy'])->name('detalleRequisicion.destroy');
@@ -146,7 +152,7 @@ Route::controller(DetalleCompraController::class)->group(function () {
   Route::get('detalleCompra/detalle/{ingreso}', 'create')->name('recepcionCompra.detalle');
   Route::post('detalleCompra/detalle/{ingreso}', 'store')->name('detalleCompra.store');
 
-  //Editar ingreso de medicamentos
+  //Editar ingreso 
   Route::get('detalleCompra/detalle/edit/{ingreso}/{detalleCompra}', 'edit')->name('detalleCompra.edit');
   Route::post('detalleCompra/detalle/update/{ingreso}/{detalleCompra}', 'update')->name('detalleCompra.update');
 

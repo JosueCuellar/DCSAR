@@ -22,31 +22,120 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        //Estados
         DB::table('estados')->insert([
-            'codigoEstado' => 'Solicitud Enviada',
+            'codigoEstado' => 'SE',
             'descripcionEstado' => 'Una requisicion ha sido enviada',
             'nombreEstado' => 'Solicitud Enviada',
         ]);
 
-        
+
         DB::table('estados')->insert([
-            'codigoEstado' => 'Sin completar',
+            'codigoEstado' => 'SSC',
             'descripcionEstado' => 'Una requisicion sin completar',
             'nombreEstado' => 'Solicitud SIN COMPLETAR',
         ]);
 
-        
+
         DB::table('estados')->insert([
-            'codigoEstado' => 'Solicitud Aprobada',
+            'codigoEstado' => 'SA',
             'descripcionEstado' => 'Una requisicion ha sido aprobada',
-            'nombreEstado' => 'Solicitud aprobada',
+            'nombreEstado' => 'Solicitud Aprobada',
         ]);
 
         DB::table('estados')->insert([
-            'codigoEstado' => 'Solicitud Rechazada',
+            'codigoEstado' => 'SR',
             'descripcionEstado' => 'Una requisicion ha sido rechazada',
             'nombreEstado' => 'Solicitud Rechazada',
         ]);
 
+        DB::table('estados')->insert([
+            'codigoEstado' => 'Activo',
+            'descripcionEstado' => 'Activo',
+            'nombreEstado' => 'Activo',
+        ]);
+
+        DB::table('estados')->insert([
+            'codigoEstado' => 'De baja',
+            'descripcionEstado' => 'De baja',
+            'nombreEstado' => 'De baja',
+        ]);
+
+
+        //Marcas
+        DB::table('marcas')->insert([
+            'nombre' => 'Marca 1',
+        ]);
+        DB::table('marcas')->insert([
+            'nombre' => 'Marca 2',
+        ]);
+        DB::table('marcas')->insert([
+            'nombre' => 'Marca 3',
+        ]);
+        DB::table('marcas')->insert([
+            'nombre' => 'Marca 4',
+        ]);
+
+        //Marcas
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Kilos(kg)',
+        ]);
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Cajas',
+        ]);
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Rollos',
+        ]);
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Paquetes',
+        ]);
+
+        //Medidas
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Kilos(kg)',
+        ]);
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Cajas',
+        ]);
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Rollos',
+        ]);
+        DB::table('medidas')->insert([
+            'nombreMedida' => 'Paquetes',
+        ]);
+
+        //Rubros
+        DB::table('rubros')->insert([
+            'codigoPresupuestario' => '5000',
+            'descripcionRubro' => 'Descripcion 5000',
+            'estado_id' =>  5,
+        ]);
+        DB::table('rubros')->insert([
+            'codigoPresupuestario' => '5001',
+            'descripcionRubro' => 'Descripcion 5001',
+            'estado_id' =>  5,
+        ]);
+        DB::table('rubros')->insert([
+            'codigoPresupuestario' => '5002',
+            'descripcionRubro' => 'Descripcion 5002',
+            'estado_id' =>  5,
+        ]);
+        DB::table('rubros')->insert([
+            'codigoPresupuestario' => '5003',
+            'descripcionRubro' => 'Descripcion 5004',
+            'estado_id' =>  5,
+        ]);
+
+
+        //Rubros
+        DB::table('proveedors')->insert([
+            'nombreComercial' => 'Proveedor',
+            'razonSocial' => 'Proveedor',
+            'direccion' =>  'Direccion',
+            'fax' => '5000',
+            'telefono1' => '22222222',
+            'telefono2' => '22222222',
+
+        ]);
     }
 }

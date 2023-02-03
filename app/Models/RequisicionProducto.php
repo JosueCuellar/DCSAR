@@ -11,7 +11,9 @@ class RequisicionProducto extends Model
     protected $fillable = [
         'fecha_requisicion',
         'nCorrelativo',
-        'estado_id'
+        'estado_id',
+        'descripcion',
+        'observacion'
     ];
     public function productos()
     {
