@@ -39,15 +39,9 @@ class RequisicionProductoController extends Controller
 
     public function store(Request $request)
     {
-        $nR = 1;
-        $n = DB::select("SELECT COUNT(id) AS nRequi FROM requisicion_productos;");
-        foreach($n as $item){
-            $nR += $item->nRequi;
-        }
         $requisicionProducto = new RequisicionProducto();
-        $date = new Carbon();
-        $requisicionProducto->fecha_requisicion =  new DateTime();
-        $requisicionProducto->nCorrelativo =  $nR.'-'.$date->format('Y');
+        $date =  new DateTime();
+        $requisicionProducto->fecha_requisicion = $date->format('Y-m-d H:i:s');
         $requisicionProducto->estado_id = 2;
         $requisicionProducto->save();
         return redirect()->route('requisicionProducto.detalle',$requisicionProducto);
@@ -59,12 +53,23 @@ class RequisicionProductoController extends Controller
         $requisicionProducto->estado_id =  1;
         $requisicionProducto->descripcion = $request->descripcion;
         $requisicionProducto->save();
-        return  redirect()->route('requisicionProducto.estado');
+        return  redirect()->route('requisicionProducto.index');
     }
 
     public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
     {
         $requisicionProducto->estado_id =  3;
+        $nR = 1;
+        $date = new Carbon();
+        $n = DB::select("SELECT COUNT(id) AS nRequi FROM requisicion_productos WHERE nCorrelativo IS NOT NULL;");
+        foreach($n as $item){
+            $nR += $item->nRequi;
+        }
+        if($nR<10)
+        $requisicionProducto->nCorrelativo =  '0'.$nR.'-'.$date->format('Y');
+        else
+        $requisicionProducto->nCorrelativo =  $nR.'-'.$date->format('Y');
+        $requisicionProducto->observacion = $request->observacion;
         $requisicionProducto->save();
         return  redirect()->route('requisicionProducto.revisar');
     }

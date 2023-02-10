@@ -40,9 +40,9 @@
                                 </div>
                             </div>
                             <div class="form-group has-feedback row">
-                                <label for="descripcionEstado" class="col-12 control-label">Descripcion de estado:</label>
+                                <label for="descripcionEstado" class="col-12 control-label">Descripción de estado:</label>
                                 <div class="col-12">
-                                    <input value="{{old('descripcionEstado',$estado->descripcionEstado)}}" id="descripcionEstado" type="text" class="form-control" name="descripcionEstado" placeholder="Descripcion de estado" required>
+                                    <input value="{{old('descripcionEstado',$estado->descripcionEstado)}}" id="descripcionEstado" type="text" class="form-control" name="descripcionEstado" placeholder="Descripción de estado" required>
                                 </div>
                             </div>
                         </div>

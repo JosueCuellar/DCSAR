@@ -25,7 +25,7 @@
                             <th scope="col">id</th>
                             <th scope="col">Codigo Presupuestario</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Descripcion</th>
+                            <th scope="col">Descripción</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -34,7 +34,7 @@
                             <th scope="col">id</th>
                             <th scope="col">Codigo Presupuestario</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Descripcion</th>
+                            <th scope="col">Descripción</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </tfoot>

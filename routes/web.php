@@ -128,7 +128,7 @@ Route::put('requisicionProducto/denegar/{requisicionProducto}', [RequisicionProd
 Route::get('requisicionProducto/destroy/{requisicionProducto}', [RequisicionProductoController::class, 'destroy'])->name('requisicionProducto.destroy');
 
 
-//---------------------------Detalle requisicion------------------------------------------------------
+//---------------------------Detalle requisición------------------------------------------------------
 Route::get('requisicionProducto/detalle/{requisicionProducto}', [DetalleRequisicionController::class, 'index'])->name('requisicionProducto.detalle');
 Route::get('requisicionProducto/detalleRevision/{requisicionProducto}', [DetalleRequisicionController::class, 'detalle'])->name('requisicionProducto.detalleRevision');
 Route::post('requisicionProducto/detalle/{requisicionProducto}/{producto}', [DetalleRequisicionController::class, 'store'])->name('detalleRequisicion.store');

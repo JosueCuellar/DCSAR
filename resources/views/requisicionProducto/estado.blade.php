@@ -1,220 +1,165 @@
 @extends('admin.layouts.index')
 @section('title', 'Estados requisiciones')
+@section('header')
+    <div class="col-md-12">
+        <h2>Estado de las requisiciones</h2>
+    </div>
+@endsection
 @section('content')
-
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
-                    <h2>Requisiciones de productos</h2>
-                </div>
-            </div>
+                <div class="col-12">
+                    <div class="card card-secondary card-outline card-outline-tabs">
+                        <div class="card-header p-0 pt-1">
+                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="enviadas-tab" data-toggle="pill" href="#enviadas"
+                                        role="tab" aria-controls="enviadas" aria-selected="true"><h5>Enviadas <span class="badge badge-info">{{$nEnviadas}}</span></h5>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="aceptadas-tab" data-toggle="pill" href="#aceptadas"
+                                        role="tab" aria-controls="aceptadas" aria-selected="false"><h5>Aprobadas <span class="badge badge-success">{{$nAprobadas}}</span></h5></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="denegadas-tab" data-toggle="pill" href="#denegadas"
+                                        role="tab" aria-controls="denegadas" aria-selected="false"><h5>Denegadas <span class="badge badge-danger">{{$nRechazadas}}</span></h5></a>
+                                </li>
 
-            <div class="row">
-                <div class="card card-secondary card-outline" style="width: 100%">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="fas fa-edit"></i>
-                            Estado de requisiciones
-                        </h3>
-                    </div>
-                    <div class="card-body card-secondary">
-                        <div class="row">
-                            <div class="col-5 col-sm-3">
-                                <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist"
-                                    aria-orientation="vertical">
-                                    <a class="nav-link active" id="vert-tabs-enviadas-tab" data-toggle="pill"
-                                        href="#vert-tabs-enviadas" role="tab" aria-controls="vert-tabs-enviadas"
-                                        aria-selected="true">
-                                        <p>
-                                            <h5>Enviadas
-                                                <b><span class="badge badge-info float-right">{{ $nEnviadas }}</span></b>
-                                            </h5>
-                                        </p>
-                                    </a>
-                                    <a class="nav-link" id="vert-tabs-aceptadas-tab" data-toggle="pill"
-                                        href="#vert-tabs-aceptadas" role="tab" aria-controls="vert-tabs-aceptadas"
-                                        aria-selected="false">
-                                        <p>
-                                            <h5>Aprobadas
-                                                <b><span class="badge badge-success float-right">{{ $nAprobadas }}</b>
-                                            </h5></span>
-                                        </p>
-                                    </a>
-                                    <a class="nav-link" id="vert-tabs-rechazadas-tab" data-toggle="pill"
-                                        href="#vert-tabs-rechazadas" role="tab" aria-controls="vert-tabs-rechazadas"
-                                        aria-selected="false">
-                                        <p>
-                                            <h5>Rechazadas
-                                                <b><span class="badge badge-danger float-right">{{ $nRechazadas }}</b>
-                                            </h5></span>
-                                        </p>
-                                    </a>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="custom-tabs-one-tabContent">
 
+                                {{-- Enviadas --}}
+                                <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
+                                    aria-labelledby="enviadas-tab">
+                                    <table class="table table-striped text-center" id="dataTable11" width="100%"
+                                        cellspacing="0">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Descripción</th>
+                                                <th scope="col">Estado</th>
+                                                <th scope="col">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($requisicionesEnviadas as $item)
+                                                    <td scope="row">{{ $item->fecha_requisicion }}</td>
+                                                    <td>{{ $item->descripcion }}</td>
+                                                    <td><span
+                                                            class="badge badge-info">{{ $item->estado->nombreEstado }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
+                                                            <ion-icon name="create-outline" class="fa-lg text-primary">
+                                                            </ion-icon>
+                                                        </a>
+
+                                                        <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                            data-toggle="modal" data-target="#deleteModal"
+                                                            data-categoriaid="{{ $item->id }}">
+                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">>
+                                                            </ion-icon>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
-                            <div class="col-7 col-sm-9">
-                                <div class="tab-content" id="vert-tabs-tabContent">
 
-                                    {{-- Enviadas --}}
-                                    <div class="tab-pane text-left fade show active" id="vert-tabs-enviadas" role="tabpanel"
-                                        aria-labelledby="vert-tabs-enviadas-tab">
-                                        <div class="table-responsive">
-                                            <table class="table" id="dataTable11" width="100%" cellspacing="0">
-                                                <thead class="thead-dark">
+                                {{-- Aceptadas --}}
+                                <div class="tab-pane fade" id="aceptadas" role="tabpanel" aria-labelledby="aceptadas-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped text-center" id="dataTable12" width="100%"
+                                            cellspacing="0">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Numero correlativo</th>
+                                                    <th scope="col">Fecha</th>
+                                                    <th scope="col">Descripción</th>
+                                                    <th scope="col">Observacion</th>
+                                                    <th scope="col">Estado</th>
+                                                    <th scope="col">Ver</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($requisicionesAprobadas as $item)
                                                     <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Numero correlativo</th>
-                                                        <th scope="col">Fecha</th>
-                                                        <th scope="col">Estado</th>
-                                                        <th scope="col">Opciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tfoot class="thead-light">
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Numero correlativo</th>
-                                                        <th scope="col">Fecha</th>
-                                                        <th scope="col">Estado</th>
-                                                        <th scope="col">Opciones</th>
-                                                    </tr>
-                                                </tfoot>
-                                                <tbody>
-                                                    @foreach ($requisicionesEnviadas as $item)
-                                                        <tr>
-                                                            <th scope="row">{{ $item->id }}</th>
-                                                            <td>{{ $item->nCorrelativo }}</td>
-                                                            <td>{{ $item->fecha_requisicion }}</td>
-                                                            <td><span
-                                                                    class="badge badge-info">{{ $item->estado->nombreEstado }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <a
-                                                                    href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                                    <ion-icon name="create-outline"
-                                                                        class="fa-lg text-primary"></ion-icon>
-                                                                </a>
+                                                        <th scope="row">{{ $item->nCorrelativo }}</th>
+                                                        <td>{{ $item->fecha_requisicion }}</td>
+                                                        <td>{{ $item->descripcion }}</td>
+                                                        <td>{{ $item->observacion }}</td>
 
-                                                                <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                        <td><span
+                                                                class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <a
+                                                                href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
+                                                                <ion-icon name="eye-outline" class="fa-lg text-success">
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                {{-- Denegadas --}}
+                                <div class="tab-pane fade" id="denegadas" role="tabpanel" aria-labelledby="denegadas-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped text-center" id="dataTable13" width="100%"
+                                            cellspacing="0">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Fecha</th>
+                                                    <th scope="col">Descripción</th>
+                                                    <th scope="col">Observacion</th>
+                                                    <th scope="col">Estado</th>
+                                                    <th scope="col">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($requisicionesRechazadas as $item)
+                                                    <tr>
+                                                        <td scope="row">{{ $item->fecha_requisicion }}</td>
+                                                        <td>{{ $item->descripcion }}</td>
+                                                        <td>{{ $item->observacion }}</td>
+
+                                                        <td><span
+                                                                class="badge badge-danger">{{ $item->estado->nombreEstado }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <a
+                                                                href="{{ route('requisicionProducto.detalle', $item->id) }}">
+                                                                <ion-icon name="create-outline"
+                                                                    class="fa-lg text-primary"></ion-icon>
+                                                            </a>
+                                                            <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                                 data-toggle="modal" data-target="#deleteModal"
                                                                 data-categoriaid="{{ $item->id }}">
-                                                                <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
-                                                            </a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    {{-- Aceptadas --}}
-                                    <div class="tab-pane fade" id="vert-tabs-aceptadas" role="tabpanel"
-                                        aria-labelledby="vert-tabs-aceptadas-tab">
-                                        <div class="table-responsive">
-                                            <table class="table" id="dataTable12" width="100%" cellspacing="0">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Numero correlativo</th>
-                                                        <th scope="col">Fecha</th>
-                                                        <th scope="col">Estado</th>
-                                                        <th scope="col">Ver</th>
-                                                    </tr>
-                                                </thead>
-                                                <tfoot class="thead-light">
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Numero correlativo</th>
-                                                        <th scope="col">Fecha</th>
-                                                        <th scope="col">Estado</th>
-                                                        <th scope="col">Ver</th>
-                                                    </tr>
-                                                </tfoot>
-                                                <tbody>
-                                                    @foreach ($requisicionesAprobadas as $item)
-                                                        <tr>
-                                                            <th scope="row">{{ $item->id }}</th>
-                                                            <td>{{ $item->nCorrelativo }}</td>
-                                                            <td>{{ $item->fecha_requisicion }}</td>
-                                                            <td><span
-                                                                    class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <a
-                                                                    href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
-                                                                    <ion-icon name="eye-outline"
-                                                                        class="fa-lg text-success">
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    {{-- Denegadas --}}
-                                    <div class="tab-pane fade" id="vert-tabs-rechazadas" role="tabpanel"
-                                        aria-labelledby="vert-tabs-rechazadas-tab">
-                                        <div class="table-responsive">
-                                            <table class="table" id="dataTable13" width="100%" cellspacing="0">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Numero correlativo</th>
-                                                        <th scope="col">Fecha</th>
-                                                        <th scope="col">Estado</th>
-                                                        <th scope="col">Observacion</th>
-                                                        <th scope="col">Opciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tfoot class="thead-light">
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Numero correlativo</th>
-                                                        <th scope="col">Fecha</th>
-                                                        <th scope="col">Estado</th>
-                                                        <th scope="col">Observacion</th>
-                                                        <th scope="col">Opciones</th>
-                                                    </tr>
-                                                </tfoot>
-                                                <tbody>
-                                                    @foreach ($requisicionesRechazadas as $item)
-                                                        <tr>
-                                                            <th scope="row">{{ $item->id }}</th>
-                                                            <td>{{ $item->nCorrelativo }}</td>
-                                                            <td>{{ $item->fecha_requisicion }}</td>
-                                                            <td><span
-                                                                    class="badge badge-danger">{{ $item->estado->nombreEstado }}</span>
-                                                            </td>
-                                                            <td>{{ $item->observacion }}</td>
-                                                            <td>
-                                                                <a
-                                                                    href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                                    <ion-icon name="create-outline"
-                                                                        class="fa-lg text-primary"></ion-icon>
-                                                                </a>
-                                                                <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                                data-toggle="modal" data-target="#deleteModal"
-                                                                data-categoriaid="{{ $item->id }}">
-                                                                <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
+                                                                <ion-icon name="trash-outline" class="fa-lg text-danger">>
+                                                                </ion-icon>
                                                             </a>
 
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
-
                                 </div>
+
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
 
         </div>
@@ -262,25 +207,77 @@
     <script>
         $(document).ready(function() {
 
+            $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
+                $.fn.dataTable.tables({
+                    visible: true,
+                    api: true
+                }).columns.adjust();
+            });
+            
             $('#dataTable11').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
+                },
+                "autoWidth": false,
+                "responsive": true,
+                "columnDefs": [{
+                        "responsivePriority": 10001,
+                        "targets": 1
+                    },
+                    {
+                        "responsivePriority": 10002,
+                        'targets': 2
+                    }
+                ]
             });
+
             $('#dataTable12').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
+                },
+                "autoWidth": false,
+                "responsive": true,
+                "columnDefs": [{
+                        "responsivePriority": 10043,
+                        "targets": 2
+                    },
+                    {
+                        "responsivePriority": 10003,
+                        'targets': 3
+                    },
+                    {
+                    "responsivePriority": 10002,
+                        "targets": 4
+                    },
+                    {
+                    "responsivePriority": 10001,
+                        "targets": 1
+                    }
+                ]
             });
 
             $('#dataTable13').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
+                },
+                "autoWidth": false,
+                "responsive": true,
+                "columnDefs": [{
+                        "responsivePriority": 10002,
+                        "targets": 1
+                    },
+                    {
+                        "responsivePriority": 10003,
+                        'targets': 2
+                    },
+                    {
+                        "responsivePriority": 10001,
+                        'targets': 3
+                    }
+                ]
             });
         });
     </script>
 
 @endsection
-
 @endsection

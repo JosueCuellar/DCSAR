@@ -45,10 +45,10 @@
                                 </div>
                             </div>
                             <div class="form-group has-feedback row">
-                                <label for="descripcionRubro" class="col-12 control-label">Descripcion de rubro:</label>
+                                <label for="descripcionRubro" class="col-12 control-label">Descripción de rubro:</label>
                                 <div class="col-12">
                                 <input id="descripcionRubro" type="text" class="form-control"  name="descripcionRubro" 
-                                value="{{old('descripcionRubro')}}" placeholder="Descripcion de rubro">
+                                value="{{old('descripcionRubro')}}" placeholder="Descripción de rubro">
                                 </div>
                             </div>    
 

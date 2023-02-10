@@ -25,7 +25,7 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">Codigo producto</th>
-                            <th scope="col">Descripcion</th>
+                            <th scope="col">Descripción</th>
                             <th scope="col">Observacion</th>
                             <th scope="col">Imagen</th>
                             <th scope="col">Marca</th>
@@ -39,7 +39,7 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">Codigo producto</th>
-                            <th scope="col">Descripcion</th>
+                            <th scope="col">Descripción</th>
                             <th scope="col">Observacion</th>
                             <th scope="col">Imagen</th>
                             <th scope="col">Marca</th>

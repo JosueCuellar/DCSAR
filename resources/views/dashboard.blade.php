@@ -1,17 +1,60 @@
 @extends('admin.layouts.index')
 @section('title', 'Dashboard')
-
 @section('content')
-
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3 col-6">
+            <h5 class="text-bold">Cantidad de solicitudes</h5>
+            <div class="row p-2">
+                <div class="col-md-4 col-sm-6 col-12">
+                    <div class="info-box shadow">
+                        <span class="info-box-icon text-white" style="background-color: #003f5c"><i
+                                class="far fa-envelope"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Enviadas</span>
+                            <span class="info-box-number">{{ $nEnviadas }}</span>
+                        </div>
 
-                    <div class="text-white small-box" style="background-color: #992c4b">
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-12">
+                    <div class="info-box shadow">
+                        <span class="info-box-icon text-white" style="background-color: #3e8e41">
+                            <ion-icon name="checkmark-done-sharp" class="text-white"></ion-icon>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Aprobadas</span>
+                            <span class="info-box-number">{{ $nAprobadas }}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-12">
+                    <div class="info-box shadow">
+                        <span class="info-box-icon text-white" style="background-color: #e63946">
+                            <ion-icon name="alert-circle-sharp" class="text-white"></ion-icon>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Rechazadas</span>
+                            <span class="info-box-number">{{ $nRechazadas }}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <h5 class="text-bold">Accesos directos</h5>
+            <div class="row p-2">
+                <div class="col-lg-4 col-6">
+                    <div class="text-white small-box" style="background-color: #003f5c">
                         <div class="inner">
-                            <h5>Requisicion productos</h5>
-                            <p>Agregar una nueva solicitud</p><br>
+                            <h5>Requisición productos</h5>
+                            <p>Agregar una nueva solicitud</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag">
@@ -23,29 +66,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-6">
 
-                    <div class="text-white small-box" style="background-color: #66324c">
-                        <div class="inner">
-                            <h5>Inventario</h5>
-                            <p>Productos y su cantidad en existencia</p><br>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="cube-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-
-                    <div class="text-white small-box" style="background-color: #33384e">
+                    <div class="text-white small-box" style="background-color: #3e8e41">
                         <div class="inner">
                             <h5>Estado requisiciones</h5>
-                            <p>Requisiciones en proceso</p><br>
+                            <p>Requisiciones en proceso</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag">
@@ -57,118 +83,36 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-6">
-
-                    <div class="text-white small-box" style="background-color: #003e4f">
+                <div class="col-lg-4 col-6">
+                    <div class="text-white small-box" style="background-color: #e63946 ">
                         <div class="inner">
-                            <h5>Historial de requisiciones</h5>
-                            <p>Requisiciones realizadas</p><br>
+                            <h5>Inventario</h5>
+                            <p>Cantidad en existencias</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag">
-                                <ion-icon name="documents-sharp"></ion-icon>
+                                <ion-icon name="cube-sharp"></ion-icon>
                             </i>
                         </div>
-                        <a href="{{ asset('') }}" class="small-box-footer">Ver <i
+                        <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>
 
-
-
             </div>
 
-            {{-- <div class="row">
-                <div class="col-lg-3 col-6">
-
-                    <div class="text-white small-box" style="background-color: #E74C3C">
-                        <div class="inner">
-                            <h5>Realizar solicitud</h5>
-                            <p>Requisiciones de productos</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="hammer-outline"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('producto/crear') }}" class="small-box-footer">Ver  <i class="fas fa-external-link-square-alt"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-
-                    <div class="text-white small-box" style="background-color: #74766f
-                    ">
-                        <div class="inner">
-                            <h5>Gris</h5>
-                            <p>Ingresar nuevos productos</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="hammer-outline"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h5>Productos</h5>
-                            <p>Ingresar nuevos productos</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="hammer-outline"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-
-                    <div class="text-white small-box" style="background-color: #213058">
-                        <div class="inner">
-                            <h5>Productos</h5>
-                            <p>Ingresar nuevos productos</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="hammer-outline"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-
-
-            </div> --}}
-
-            <div class="row">
-
+            <h5 class="text-bold">Proceso de requisiciones</h5>
+            <div class="row p-2">
                 <div class="col-lg-12">
-                    <div class="card border-dark card-dark card-outline">
-                        <div class="card-header">
-                            <h5 class="m-0"><b> Proceso de requisiciones</b></h5>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="m-0">Estado de las solicitudes
-                                de bienes y/o insumos de los empleados de la Defensoría del
-                                Consumidor</h5><br>
-                            <ul class="list-group">
-                                <li class="list-group-item "><b class="text-info">Enviada:</b> Indica que la solicitud ha
-                                    sido realizada y enviada por le solicitante para su revisión</li>
-                                <li class="list-group-item"><b class="text-success">Aprobada:</b> Indica que la solicitud ha
-                                    sido aprobada con éxito por el jefe de la unidad organizativa</li>
-                                <li class="list-group-item"><b class="text-danger">Rechazada:</b> Indica que la solicitud ha
-                                    sido rechazada y puede modificarse por el solicitante</li>
-                            </ul>
-                            <p></p>
-                        </div>
+                    <div class="card card-dark card-outline">
+                        <ul class="list-group">
+                            <li class="list-group-item "><b class="text-info">Enviada:</b> Indica que la solicitud ha
+                                sido realizada y enviada por el solicitante para su revisión</li>
+                            <li class="list-group-item"><b class="text-success">Aprobada:</b> Indica que la solicitud ha 
+                                sido aprobada con éxito por el jefe de la unidad organizativa</li>
+                            <li class="list-group-item"><b class="text-danger">Rechazada:</b> Indica que la solicitud ha
+                                sido rechazada y puede modificarse por el solicitante</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -178,19 +122,21 @@
     </div>
 
 
+    {{-- @if ($existe)
+        @section('js_datatable')
+            <script>
+                $(document).Toasts('create', {
+                    title: 'Solicitudes',
+                    position: 'topRight',
+                    body: 'Hay {{ $n }} solicitudes recibidas por revisar.',
+                    class: 'bg-info',
+                    icon: '	far fa-file',
+                })
+            </script>
+        @endsection
+    @endif --}}
 
-@section('js_datatable')
-    <script>
-        if({{$existe}}){
-            $(document).Toasts('create', {
-            title: 'Solicitudes',
-            position: 'topRight',
-            body: 'Hay {{$n}} solicitudes recibidas por revisar.',
-            class: 'bg-info',
-            icon: '	far fa-file',
-            buttons: 'xd'
-        })
-        }
-    </script>
-@endsection
+
+
+
 @endsection

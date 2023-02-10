@@ -22,7 +22,7 @@
           <tr>
             <th scope="col">id</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
+            <th scope="col">Decripción</th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
@@ -30,7 +30,7 @@
             <tr>
             <th scope="col">id</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
+            <th scope="col">Decripción</th>
             <th scope="col">Opciones</th>
             </tr>
          </tfoot>
