@@ -49,17 +49,6 @@ class DatabaseSeeder extends Seeder
             'nombreEstado' => 'Solicitud Rechazada',
         ]);
 
-        DB::table('estados')->insert([
-            'codigoEstado' => 'Activo',
-            'descripcionEstado' => 'Activo',
-            'nombreEstado' => 'Activo',
-        ]);
-
-        DB::table('estados')->insert([
-            'codigoEstado' => 'De baja',
-            'descripcionEstado' => 'De baja',
-            'nombreEstado' => 'De baja',
-        ]);
 
 
         //Marcas
@@ -108,22 +97,18 @@ class DatabaseSeeder extends Seeder
         DB::table('rubros')->insert([
             'codigoPresupuestario' => '5000',
             'descripcionRubro' => 'Descripcion 5000',
-            'estado_id' =>  5,
         ]);
         DB::table('rubros')->insert([
             'codigoPresupuestario' => '5001',
             'descripcionRubro' => 'Descripcion 5001',
-            'estado_id' =>  5,
         ]);
         DB::table('rubros')->insert([
             'codigoPresupuestario' => '5002',
             'descripcionRubro' => 'Descripcion 5002',
-            'estado_id' =>  5,
         ]);
         DB::table('rubros')->insert([
             'codigoPresupuestario' => '5003',
             'descripcionRubro' => 'Descripcion 5004',
-            'estado_id' =>  5,
         ]);
 
 

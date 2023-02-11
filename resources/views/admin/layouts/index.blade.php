@@ -143,8 +143,9 @@
                             </a>
                         </li>
 
-                        {{-- <li class="nav-header"></li>
-                        <li class="nav-header text-light">INVENTARIO </li>
+                        <br>
+                        <li class="nav-header"></li>
+                        <li class="nav-header text-light">CATALOGOS </li>
                         <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
@@ -214,7 +215,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-header"></li>
+                        {{-- <li class="nav-header"></li>
                         <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
                         <li class="nav-header"></li>
                         <li class="nav-item menu-open">
@@ -294,11 +295,11 @@
 
 
     <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
-
-
+    <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 
     @yield('js_datatable')
     @yield('js_imagen')
+    @yield('js')
 
 </body>
 

@@ -16,8 +16,8 @@ class Producto extends Model
         'imagen',
         'marca_id',
         'medida_id',
-        'rubro_id',
-        'estado_id'
+        'rubro_id'
+        // 'estado_id'
     ];
 
     public function marca()
@@ -34,9 +34,9 @@ class Producto extends Model
     {
         return $this->belongsTo(Rubro::class);
     }
-    public function estado()
-    {
-        return $this->belongsTo(Estado::class);
-    }
+    // public function estado()
+    // {
+    //     return $this->belongsTo(Estado::class);
+    // }
 
 }

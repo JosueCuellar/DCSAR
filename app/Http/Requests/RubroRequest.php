@@ -25,7 +25,6 @@ class RubroRequest extends FormRequest
     {
         return [
             'codigoPresupuestario'=>'required|max:100',
-            'estado_id'=>'required',
             'descripcionRubro'=>'required|max:100',
         ];
     }
@@ -33,7 +32,6 @@ class RubroRequest extends FormRequest
     {
         return [
             'codigoPresupuestario.*'=>'Ingrese un codigo, de no mas de 100 caracteres',
-            'estado_id.*'=>'Ingrese un estado',
             'descripcionRubro.*'=>'Ingrese una descripcion, de no mas de 100 caracteres',
 
         ];

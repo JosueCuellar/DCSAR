@@ -1,29 +1,27 @@
 @extends('admin.layouts.index')
 @section('title', 'Producto')
-@section('content')
-
-    <div class="row py-lg-2">
-        <div class="col-md-6">
-            <h2>Lista de productos</h2>
-        </div>
-        <div class="col-md-6">
-            <a href="{{ route('producto.create') }}" class="btn btn-primary btn-lg float-md-right" role="button"
-                aria-pressed="true">Nuevo producto</a>
+@section('header')
+    <div class="col-md-12">
+        <h2>Lista de productos</h2>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-12 d-grid gap-2 d-md-flex">
+            <form action="{{ route('producto.create') }}" method="GET">
+                @csrf
+                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                        class="fa fa-plus"></i> Nuevo producto</button>
+            </form>
         </div>
     </div>
-
-
+@endsection
+@section('content')
     <div class="card mb-3">
-        <div class="card-header">
-            <i class="fas fa-table"></i>
-            Tabla de productos
-        </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">id</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Codigo producto</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Observacion</th>
@@ -31,24 +29,9 @@
                             <th scope="col">Marca</th>
                             <th scope="col">Medida</th>
                             <th scope="col">Rubro</th>
-                            <th scope="col">Estado</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
-                    <tfoot class="thead-light">
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Codigo producto</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Observacion</th>
-                            <th scope="col">Imagen</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Medida</th>
-                            <th scope="col">Rubro</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($productos as $item)
                             <tr>
@@ -56,17 +39,26 @@
                                 <td>{{ $item->cod_producto }}</td>
                                 <td>{{ $item->descripcion }}</td>
                                 <td>{{ $item->observacion }}</td>
-                                <td><img src="/imagen/{{ $item->imagen }}" width="50%"></td>
-                                <td>{{ $item->marca->nombre }}</td>
+                                <td>
+                                    <div class="filter-container row">
+                                        <div class="filtr-item col-sm-2">
+                                            <a href="/imagen/{{ $item->imagen }}" data-toggle="lightbox">
+                                                <img src="/imagen/{{ $item->imagen }}" class="img-fluid"
+                                                    style="width:40px;max-width:100px">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>                                <td>{{ $item->marca->nombre }}</td>
                                 <td>{{ $item->medida->nombreMedida }}</td>
                                 <td>{{ $item->rubro->descripcionRubro }}</td>
-                                <td>{{ $item->estado->nombreEstado }}</td>
-
                                 <td>
-                                    <a href="{{ route('producto.edit', $item->id) }}"><i class="fa fa fa-edit"></i></a>
+                                    <a href="{{ route('producto.edit', $item->id) }}">
+                                        <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
+                                    </a>
                                     <a href="{{ route('producto.destroy', $item) }}" data-toggle="modal"
-                                        data-target="#deleteModal" data-categoriaid="{{ $item->id }}"><i
-                                            class="fas fa-trash-alt"></i></a>
+                                        data-target="#deleteModal" data-delete="{{ $item->id }}">
+                                        <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -108,11 +100,11 @@
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
+            var delete_id = button.data('delete')
 
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', 'producto/destroy/' + categoria_id);
+            modal.find('form').attr('action', 'producto/destroy/' + delete_id);
         })
     </script>
     <script>
@@ -120,10 +112,39 @@
             $('#dataTable6').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
+                },
+                "autoWidth": false,
+                "responsive": true,
+                "columnDefs": [{
+                    "responsivePriority": 10001,
+                    "targets": 1
+                }]
             });
         });
     </script>
 @endsection
+
+@section('js')
+
+<script>
+    $(function() {
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+
+        $('.filter-container').filterizr({
+            gutterPixels: 3
+        });
+        $('.btn[data-filter]').on('click', function() {
+            $('.btn[data-filter]').removeClass('active');
+            $(this).addClass('active');
+        });
+    })
+</script>
+@endsection
+
 
 @endsection

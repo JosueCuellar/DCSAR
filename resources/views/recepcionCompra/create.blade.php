@@ -30,7 +30,7 @@
                     <table class="table table-bordered" id="dataTable15" width="100%" cellspacing="0">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">id</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Proveedor</th>
                                 <th scope="col"># Orden de Compra</th>
                                 <th scope="col"># Presupuestario</th>
@@ -41,18 +41,6 @@
 
                             </tr>
                         </thead>
-                        <tfoot class="thead-light">
-                            <tr>
-                                <th scope="col">id</th>
-                                <th scope="col">Proveedor</th>
-                                <th scope="col"># Orden de Compra</th>
-                                <th scope="col"># Presupuestario</th>
-                                <th scope="col"># Compromiso</th>
-                                <th scope="col">Acta Recepcion</th>
-                                <th scope="col">Codigo Factura</th>
-                                <th scope="col">Ver</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             @foreach ($recepcionCompras as $item)
                                 <tr>

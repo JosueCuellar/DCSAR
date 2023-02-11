@@ -33,7 +33,6 @@ class RubroController extends Controller
            try{
                //Se crea y almacena un nuevo objeto
                $rubro = new Rubro();
-               $rubro->estado_id = $request->estado_id;
                $rubro->codigoPresupuestario = $request->codigoPresupuestario;
                $rubro->descripcionRubro = $request->descripcionRubro;
                $rubro->save();
@@ -59,7 +58,6 @@ class RubroController extends Controller
        public function update(RubroRequest $request, Rubro $rubro)
        {
            try{
-                $rubro->estado_id = $request->estado_id;
                 $rubro->codigoPresupuestario = $request->codigoPresupuestario;
                 $rubro->descripcionRubro = $request->descripcionRubro;
                 $rubro->save();            

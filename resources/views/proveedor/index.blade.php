@@ -1,28 +1,29 @@
 @extends('admin.layouts.index')
 @section('title', 'Proveedores')
-@section('content')
-
-    <div class="row py-lg-2">
-        <div class="col-md-6">
-            <h2>Lista de proveedores</h2>
-        </div>
-        <div class="col-md-6">
-            <a href="{{ route('proveedor.create') }}" class="btn btn-primary btn-lg float-md-right" role="button"
-                aria-pressed="true">Nuevo proveedor</a>
+@section('header')
+    <div class="col-md-12">
+        <h2>Lista de proveedores</h2>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-12 d-grid gap-2 d-md-flex">
+            <form action="{{ route('proveedor.create') }}" method="GET">
+                @csrf
+                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                        class="fa fa-plus"></i> Nuevo proveedor</button>
+            </form>
         </div>
     </div>
 
+@endsection
+
+@section('content')
     <div class="card mb-3">
-        <div class="card-header">
-            <i class="fas fa-table"></i>
-            Tabla de proveedores
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable6" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">id</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Nombre Comercial</th>
                             <th scope="col">Razon social</th>
                             <th scope="col">Dirección</th>
@@ -32,18 +33,6 @@
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
-                    <tfoot class="thead-light">
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Nombre Comercial</th>
-                            <th scope="col">Razon social</th>
-                            <th scope="col">Dirección</th>
-                            <th scope="col">Fax</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Teléfono Secundario</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($proveedores as $item)
                             <tr>
@@ -56,10 +45,14 @@
                                 <td>{{ $item->telefono2 }}</td>
 
                                 <td>
-                                    <a href="{{ route('proveedor.edit', $item->id) }}"><i class="fa fa fa-edit"></i></a>
-                                    <a href="#" data-toggle="modal"
-                                        data-target="#deleteModal" data-categoriaid="{{ $item->id }}"><i
-                                            class="fas fa-trash-alt"></i></a>
+                                    <a href="{{ route('proveedor.edit', $item->id) }}">
+                                        <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
+                                    </a>
+                                    <a href="{{ route('proveedor.destroy', $item) }}"
+                                        data-toggle="modal" data-target="#deleteModal"
+                                        data-delete="{{ $item->id }}">
+                                        <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -85,7 +78,6 @@
                             <form method="POST" action="">
                                 @method('GET')
                                 @csrf
-                                <!--{{-- <input type="hidden" id="user_id" name="user_id" value=""> --}}-->
                                 <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Borrar</a>
                             </form>
                         </div>
@@ -113,7 +105,14 @@
             $('#dataTable6').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
+                },
+                "autoWidth": false,
+                "responsive": true,
+                "columnDefs": [{
+                        "responsivePriority": 10001,
+                        "targets": 1
+                    }
+                ]
             });
         });
     </script>

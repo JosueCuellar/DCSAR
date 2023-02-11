@@ -8,13 +8,13 @@
         <div class="col-md-12 d-grid gap-2 d-md-flex">
             <div class="m-1">
                 <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
-                    data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning btn-flat text-left"><i
+                    data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning  text-left"><i
                         class="fa fa-check"></i> Finalizar
                     Requisición</button>
             </div>
             <div class="m-1">
                 <button type="submit" data-toggle="modal" data-target="#modalDetalle"
-                    data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-info btn-flat text-left"><i
+                    data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-info  text-left"><i
                         class="fa fa-eye"></i> Detalles Requisición</button>
             </div>
         </div>
@@ -49,11 +49,11 @@
                                         <td>
                                             {{-- <img src="/imagen/{{ $item->imagen }}" class="img-fluid mb-2"
                                             style="width:100%;max-width:300px"> --}}
-                                            <div class="filter-container p-0 row">
+                                            <div class="filter-container row">
                                                 <div class="filtr-item col-sm-2">
                                                     <a href="/imagen/{{ $item->imagen }}" data-toggle="lightbox">
-                                                        <img src="/imagen/{{ $item->imagen }}" class="img-fluid mb-2"
-                                                            style="width:50px;max-width:100px">
+                                                        <img src="/imagen/{{ $item->imagen }}" class="img-fluid"
+                                                            style="width:40px;max-width:100px">
                                                     </a>
                                                 </div>
                                             </div>
@@ -65,7 +65,7 @@
                                                 action="{{ route('detalleRequisicion.store', ['requisicionProducto' => $requisicionProducto->id, 'producto' => $item->id]) }}"
                                                 method="POST">
                                                 @csrf
-                                                <button type="submit" class="btn btn-success">Agregar</button>
+                                                    <button type="submit" class="btn btn-success">Agregar</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -90,14 +90,14 @@
                             <tbody>
                                 @foreach ($detalle_requisicion as $item)
                                     <tr>
-                                        <td scope="row">
+                                        <th scope="row">
                                             <a href="{{ route('detalleRequisicion.destroy', ['requisicionProducto' => $requisicionProducto, 'detalleRequisicion' => $item]) }}"
                                                 data-toggle="modal" data-target="#deleteModal"
                                                 data-ventaid="{{ $requisicionProducto->id }}"
                                                 data-detalleid="{{ $item->id }}">
                                                 <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                             </a>
-                                        </td>
+                                        </th>
                                         <td>{{ $item->producto->cod_producto }}</td>
                                         <td>
                                             <form
@@ -105,17 +105,20 @@
                                                 method="POST">
                                                 @csrf
                                                 @method('put')
-                                                <div class="input-group mb-3">
-                                                    <input type="text" value="{{ old('cantidad', $item->cantidad) }}"
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <button class="btn btn-success" type="submit"
+                                                            id="button-addon2"><ion-icon name="refresh-outline"></ion-icon></ion-icon></button>
+                                                    </div>
+                                                    <input type="number" value="{{ old('cantidad', $item->cantidad) }}"
                                                         name="cantidad" class="form-control" placeholder="Cantidad"
                                                         aria-label="Cantidad" aria-describedby="button-addon2">
-                                                    @error('cantidad')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                    <button class="btn btn-success" type="submit"
-                                                        id="button-addon2">Actualizar</button>
                                                 </div>
+                                                @error('cantidad')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </form>
+
                                         </td>
                                         <td>{{ $item->producto->medida->nombreMedida }}</td>
                                     </tr>

@@ -108,7 +108,7 @@
                         <ul class="list-group">
                             <li class="list-group-item "><b class="text-info">Enviada:</b> Indica que la solicitud ha
                                 sido realizada y enviada por el solicitante para su revisión</li>
-                            <li class="list-group-item"><b class="text-success">Aprobada:</b> Indica que la solicitud ha 
+                            <li class="list-group-item"><b class="text-success">Aprobada:</b> Indica que la solicitud ha
                                 sido aprobada con éxito por el jefe de la unidad organizativa</li>
                             <li class="list-group-item"><b class="text-danger">Rechazada:</b> Indica que la solicitud ha
                                 sido rechazada y puede modificarse por el solicitante</li>
@@ -135,8 +135,5 @@
             </script>
         @endsection
     @endif --}}
-
-
-
 
 @endsection

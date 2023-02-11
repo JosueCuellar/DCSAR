@@ -32,7 +32,6 @@ class ProductoRequest extends FormRequest
             'marca_id'=>'required',
             'medida_id'=>'required',
             'rubro_id'=>'required',
-            'estado_id'=>'required',
         ];
     }
 
@@ -46,7 +45,6 @@ class ProductoRequest extends FormRequest
             'marca_id.*'=>'Ingrese una marca',
             'medida_id.*'=>'Ingrese una medida',
             'rubro_id.*'=>'Ingrese un rubro',
-            'estado_id.*'=>'Ingrese un estado',
         ];
     }
 }

@@ -8,12 +8,11 @@
         <div class="col-md-12 d-grid gap-2 d-md-flex">
             <form action="{{ route('requisicionProducto.store') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-success btn-flat text-left" role="button" aria-pressed="true"><i
+                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
                         class="fa fa-plus"></i> Crear una requisición</button>
             </form>
         </div>
     </div>
-
 @endsection
 @section('content')
     <div class="content">
@@ -84,7 +83,7 @@
                     <form method="POST" action="">
                         @method('GET')
                         @csrf
-                        <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Borrar</a>
+                        <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Borrar</a>
                     </form>
                 </div>
             </div>

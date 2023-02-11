@@ -11,7 +11,7 @@
                 <table class="table table-bordered" id="dataTable20" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th scope="col">id</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Cantidad ingreso</th>
                             <th scope="col">Precio de compra ($)</th>
@@ -21,16 +21,6 @@
                             <th scope="col">Precio de venta (unidad)</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <th scope="col">id</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Cantidad ingreso</th>
-                        <th scope="col">Precio de compra ($)</th>
-                        <th scope="col">Descuento (%)</th>
-                        <th scope="col">Fecha de vencimiento</th>
-                        <th scope="col">Precio de compra (unidad)</th>
-                        <th scope="col">Precio de venta (unidad)</th>
-                    </tfoot>
                     <tbody>
                         @foreach ($detalle_ingreso as $item)
                             <tr>

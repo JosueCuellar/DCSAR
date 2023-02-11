@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('rubros', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('estado_id')->unsigned();
+            // $table->unsignedBigInteger('estado_id')->unsigned();
             $table->string('codigoPresupuestario',20);
             $table->string('descripcionRubro',100);
-            $table->foreign('estado_id')->references('id')->on('estados');
+            // $table->foreign('estado_id')->references('id')->on('estados');
         });
     }
 

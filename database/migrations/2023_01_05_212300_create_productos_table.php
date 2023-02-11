@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('marca_id')->unsigned();
             $table->unsignedBigInteger('medida_id')->unsigned();
             $table->unsignedBigInteger('rubro_id')->unsigned();
-            $table->unsignedBigInteger('estado_id')->unsigned();
             $table->string('cod_producto',250);
             $table->string('descripcion',250);
             $table->string('observacion',250);
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->foreign('marca_id')->references('id')->on('marcas');
             $table->foreign('medida_id')->references('id')->on('medidas');
             $table->foreign('rubro_id')->references('id')->on('rubros');
-            $table->foreign('estado_id')->references('id')->on('estados');
             $table->timestamps();
         });
     }

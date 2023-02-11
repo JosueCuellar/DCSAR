@@ -1,80 +1,158 @@
 @extends('admin.layouts.index')
-@section('title','Rubro')
-@section('content')
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12"></div>
+@section('title', 'Producto')
+@section('header')
+    <div class="container">
+        <div class="col-md-12">
+            <h2>Editar producto</h2>
+        </div>
     </div>
-</div>
+@endsection
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-post" id="post_card">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            Editando producto:
+                            <div class="pull-right">
+                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
+                                    data-toggle="tooltip" data-placement="left" title
+                                    data-original-title="Regresar a lista de productos">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <x-errores class="mb-4" />
+                    <form action="{{ route('producto.update', $producto->id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback row">
+                                        <label for="cod_producto" class="col-12 control-label">Codigo producto:</label>
+                                        <div class="col-12">
+                                            <input id="cod_producto" type="text" class="form-control" name="cod_producto"
+                                                value="{{ old('cod_producto', $producto->cod_producto) }}"
+                                                placeholder="Codigo producto">
+                                        </div>
+                                    </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-post" id="post_card">
-                <div class="card-header">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        Editando rubro: 
-                        <div class="pull-right">
-                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip" data-placement="left" title data-original-title="Regresar a lista de marcas">Regresar</a>
-                        </div>
-                    </div>
-                </div>
-                <x-errores class="mb-4" />
-                <form action="{{route('rubro.update',$rubro)}}" method="POST">
-                    @csrf
-                    @method('put')
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback row">
-                                <label for="codigoPresupuestario" class="col-12 control-label">Codigo Presupuestario:</label>
-                                <div class="col-12">
-                                    <input value="{{old('codigoPresupuestario',$rubro->codigoPresupuestario)}}" id="codigoPresupuestario" type="text" class="form-control" name="codigoPresupuestario" placeholder="Codigo Presupuestario" required>
-                                </div>
-                            </div>
-                            <div class="form-group has-feedback row">
-                                <label for="estado_id" class="col-12 control-label">Estado:</label>
-                                <div class="col-12">
-                                    <select class="form-control" name="estado_id" id="estado_id" value="{{old('estado_id')}}">
-                                        <option selected='true' disabled='disabled'>Seleccionar estado</option>
-                                            @foreach( $estados as $item )
-                                            <option value="{{ $item->id }}" @if ($rubro->estado_id == $item->id){{'selected'}} @endif >{{ $item->nombreEstado}}</option>
-                                            @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group has-feedback row">
-                                <label for="descripcionRubro" class="col-12 control-label">Descripción:</label>
-                                <div class="col-12">
-                                    <input value="{{old('descripcionRubro',$rubro->descripcionRubro)}}" id="descripcionRubro" type="text" class="form-control" name="descripcionRubro" placeholder="Descripción" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="form-group has-feedback row">
+                                        <label for="descripcion" class="col-12 control-label">Descripción:</label>
+                                        <div class="col-12">
+                                            <input id="descripcion" type="text" class="form-control" name="descripcion"
+                                                value="{{ old('descripcion', $producto->descripcion) }}"
+                                                placeholder="Descripción">
+                                        </div>
+                                    </div>
 
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-9"></div>
-                        <div class="col-3 pull-rigth">
-                            <span data-toggle="tooltip" title data-original-title="Guardar cambios realizados">
-                                <button type="submit" class="btn btn-success btn-lg btn-block" value="Guardar" name="action">
-                                    <i class="fa fa-save fa-fw">
-                                        <span class="sr-only">
-                                            Guardar rubro Icono
-                                        </span>
-                                    </i>
-                                            Guardar rubro
-                                </button>
-                            </span>
+                                    <div class="form-group has-feedback row">
+                                        <label for="marca_id" class="col-12 control-label">Marca:</label>
+                                        <div class="col-12">
+                                            <select class="form-control" name="marca_id" id="marca_id"
+                                                value="{{ old('marca_id') }}">
+                                                <option selected='true' disabled='disabled'>Seleccionar marca</option>
+                                                @foreach ($marcas as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if ($producto->marca_id == $item->id) {{ 'selected' }} @endif>
+                                                        {{ $item->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group has-feedback row">
+                                        <label for="rubro_id" class="col-12 control-label">Rubro:</label>
+                                        <div class="col-12">
+                                            <select class="form-control" name="rubro_id" id="rubro_id"
+                                                value="{{ old('rubro_id') }}">
+                                                <option selected='true' disabled='disabled'>Seleccionar rubro del producto
+                                                </option>
+                                                @foreach ($rubros as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if ($producto->rubro_id == $item->id) {{ 'selected' }} @endif>
+                                                        {{ $item->descripcionRubro }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback row">
+                                        <label for="observacion" class="col-12 control-label">Observacion:</label>
+                                        <div class="col-12">
+                                            <input id="observacion" type="text" class="form-control" name="observacion"
+                                                value="{{ old('observacion', $producto->observacion) }}"
+                                                placeholder="Observacion">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group has-feedback row">
+                                        <label for="medida_id" class="col-12 control-label">Medida:</label>
+                                        <div class="col-12">
+                                            <select class="form-control" name="medida_id" id="medida_id"
+                                                value="{{ old('medida_id') }}">
+                                                <option selected='true' disabled='disabled'>Seleccionar unidad de medida
+                                                </option>
+                                                @foreach ($medidas as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        @if ($producto->medida_id == $item->id) {{ 'selected' }} @endif>
+                                                        {{ $item->nombreMedida }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback row">
+                                        <label for="imagen" class="col-12 control-label">Seleccionar imagen</label>
+                                        <div class="col-12">
+                                            <input id="imagen" class="img-fluid" name="imagen" type="file">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group has-feedback row">
+                                        <img src="/imagen/{{ $producto->imagen }}" id="imagenSeleccionada"
+                                            style="max-height: 100px">
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-12">
+                                    <span data-toggle="tooltip" title data-original-title="Guardar cambios realizados">
+                                        <button type="submit" class="btn btn-success" value="Guardar" name="action">
+                                            <ion-icon name="save-outline"></ion-icon>
+                                            Actualizar producto
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
     </div>
-</div>   
-
+@section('js_imagen')
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(e) {
+            $('#imagen').change(function() {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#imagenSeleccionada').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
+@endsection
 @endsection

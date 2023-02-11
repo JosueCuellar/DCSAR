@@ -1,55 +1,47 @@
 @extends('admin.layouts.index')
 @section('title', 'Rubro')
-@section('content')
-
-    <div class="row py-lg-2">
-        <div class="col-md-6">
-            <h2>Lista de rubros</h2>
-        </div>
-        <div class="col-md-6">
-            <a href="{{ route('rubro.create') }}" class="btn btn-primary btn-lg float-md-right" role="button"
-                aria-pressed="true">Nuevo rubro</a>
+@section('header')
+    <div class="col-md-12">
+        <h2>Lista de rubros</h2>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-12 d-grid gap-2 d-md-flex">
+            <form action="{{ route('rubro.create') }}" method="GET">
+                @csrf
+                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                        class="fa fa-plus"></i> Nuevo rubro</button>
+            </form>
         </div>
     </div>
-
+@endsection
+@section('content')
     <div class="card mb-3">
-        <div class="card-header">
-            <i class="fas fa-table"></i>
-            Tabla de rubros
-        </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-bordered table-striped text-center" id="dataTable6" width="100%"
+                    cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">id</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Codigo Presupuestario</th>
-                            <th scope="col">Estado</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
-                    <tfoot class="thead-light">
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Codigo Presupuestario</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($rubros as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
                                 <td>{{ $item->codigoPresupuestario }}</td>
-                                <td>{{ $item->estado->nombreEstado }}</td>
                                 <td>{{ $item->descripcionRubro }}</td>
                                 <td>
-                                    <a href="{{ route('rubro.edit', $item->id) }}"><i class="fa fa fa-edit"></i></a>
+                                    <a href="{{ route('rubro.edit', $item->id) }}">
+                                        <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
+                                    </a>
                                     <a href="{{ route('rubro.destroy', $item) }}" data-toggle="modal"
-                                        data-target="#deleteModal" data-categoriaid="{{ $item->id }}"><i
-                                            class="fas fa-trash-alt"></i></a>
+                                        data-target="#deleteModal" data-delete="{{ $item->id }}">
+                                        <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -85,17 +77,16 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
-
 @section('js_datatable')
 
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
+            var delete_id = button.data('delete')
 
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', 'rubro/destroy/' + categoria_id);
+            modal.find('form').attr('action', 'rubro/destroy/' + delete_id);
         })
     </script>
     <script>
@@ -103,10 +94,15 @@
             $('#dataTable6').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
+                },
+                "autoWidth": false,
+                "responsive": true,
+                "columnDefs": [{
+                    "responsivePriority": 10001,
+                    "targets": 1
+                }]
             });
         });
     </script>
 @endsection
-
 @endsection

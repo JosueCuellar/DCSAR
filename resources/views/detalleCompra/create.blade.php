@@ -111,7 +111,7 @@
                         <table class="table table-bordered" id="dataTable7" width="100%" cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">id</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Producto</th>
                                     <th scope="col">cantidad</th>
                                     <th scope="col">Precio unidad</th>
@@ -119,16 +119,6 @@
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">cantidad</th>
-                                    <th scope="col">Precio unidad</th>
-                                    <th scope="col">Fecha vencimiento</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </tfoot>
                             <tbody>
                                 @foreach ($detalleCompra as $itemDet)
                                     <tr>

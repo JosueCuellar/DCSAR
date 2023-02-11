@@ -10,11 +10,11 @@ class Rubro extends Model
     use HasFactory;
     protected $fillable = [
         'codigoPresupuestario',
-        'estado_id',
+        // 'estado_id',
         'descripcionRubro'
     ];
 
-    public function estado(){
-        return $this->belongsTo(Estado::class);
-    }
+    // public function estado(){
+    //     return $this->belongsTo(Estado::class);
+    // }
 }
