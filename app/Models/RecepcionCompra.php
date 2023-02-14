@@ -15,6 +15,7 @@ class RecepcionCompra extends Model
         'nPresupuestario',
         'nCompromiso',
         'actaRecepcion',
+        'estado',
         'codigoFactura'
     ];
 

@@ -15,16 +15,16 @@
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="enviadas-tab" data-toggle="pill" href="#enviadas"
-                                        role="tab" aria-controls="enviadas" aria-selected="true"><h5>Enviadas <span class="badge badge-info">{{$nEnviadas}}</span></h5>
+                                        role="tab" aria-controls="enviadas" aria-selected="true"><h6>Enviadas <span class="badge badge-info">{{$nEnviadas}}</span></h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="aceptadas-tab" data-toggle="pill" href="#aceptadas"
-                                        role="tab" aria-controls="aceptadas" aria-selected="false"><h5>Aprobadas <span class="badge badge-success">{{$nAprobadas}}</span></h5></a>
+                                        role="tab" aria-controls="aceptadas" aria-selected="false"><h6>Aprobadas <span class="badge badge-success">{{$nAprobadas}}</span></h6></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="denegadas-tab" data-toggle="pill" href="#denegadas"
-                                        role="tab" aria-controls="denegadas" aria-selected="false"><h5>Denegadas <span class="badge badge-danger">{{$nRechazadas}}</span></h5></a>
+                                        role="tab" aria-controls="denegadas" aria-selected="false"><h6>Denegadas <span class="badge badge-danger">{{$nRechazadas}}</span></h6></a>
                                 </li>
 
                             </ul>
@@ -61,7 +61,7 @@
                                                         <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                             data-toggle="modal" data-target="#deleteModal"
                                                             data-categoriaid="{{ $item->id }}">
-                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">>
+                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">
                                                             </ion-icon>
                                                         </a>
                                                     </td>
@@ -78,7 +78,7 @@
                                             cellspacing="0">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Numero correlativo</th>
+                                                    <th scope="col">Número correlativo</th>
                                                     <th scope="col">Fecha</th>
                                                     <th scope="col">Descripción</th>
                                                     <th scope="col">Observacion</th>
@@ -143,7 +143,7 @@
                                                             <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                                 data-toggle="modal" data-target="#deleteModal"
                                                                 data-categoriaid="{{ $item->id }}">
-                                                                <ion-icon name="trash-outline" class="fa-lg text-danger">>
+                                                                <ion-icon name="trash-outline" class="fa-lg text-danger">
                                                                 </ion-icon>
                                                             </a>
 
@@ -168,8 +168,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro de que quieres eliminar esto?
-                        </h5>
+                        <h6 class="modal-title" id="exampleModalLabel">¿Estás seguro de que quieres eliminar esto?
+                        </h6>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>

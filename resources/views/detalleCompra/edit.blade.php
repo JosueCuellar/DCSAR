@@ -1,115 +1,110 @@
 @extends('admin.layouts.index')
-@section('content')
-
-<div class="container">
-      <div class="card card-post" id="post_card">
-        <div class="card-header">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            Editando ingrerso:
-          </div>
+@section('title', 'Recepción compra')
+@section('header')
+    <div class="container">
+        <div class="col-md-12">
+            <h2>Editar detalle de compra</h2>
         </div>
-        <form action="{{ route('detalleingreso.update', ['ingreso'=>$ingreso->id, 'detalleIngreso'=>$detalleIngreso->id, 'credit'=>$credit->id]) }}" method='POST'>
-          @csrf
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group has-feedback row">
-                  <label for="medicamento" class="col-12 control-label">Seleccionar medicamento:</label>
-                  <div class="col-12">
-                    <select class="medicamento form-control" name="medicamento" id="medicamento">
-                      <option disabled='disabled'>Seleccionar medicamento</option>
-                      @foreach( $medicamentos as $item )
+    </div>
+@endsection
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-post" id="post_card">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            Editando detalle:
+                            <div class="pull-right">
+                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
+                                    data-toggle="tooltip" data-placement="left" title
+                                    data-original-title="Regresar a lista de marcas">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <x-errores class="mb-4" />
+                    <form
+                        action="{{ route('detalleCompra.update', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $detalleCompra->id]) }}"
+                        method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-group has-feedback row">
+                                    <label for="producto_id" class="col-12 control-label">Seleccionar
+                                        producto:</label>
+                                    <div class="col-12">
+                                        <select class="form-control" name="producto_id" id="producto_id">
+                                            <option selected disabled='disabled'>Seleccionar producto</option>
+                                            @foreach ($productos as $item)
+                                            <option value="{{ $item->id }}"
+                                                @if ($detalleCompra->producto_id == $item->id) {{ 'selected' }} @endif>
+                                                {{ $item->cod_producto }}</option>
+                                        @endforeach                                    
+                                        </select>
+                                        @error('producto_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback row">
+                                    <label for="cantidadIngreso" class="col-12 control-label">Cantidad
+                                        ingresada:</label>
+                                    <div class="col-12">
+                                        <input id='cantidadIngreso' type='number'
+                                            value="{{ old('cantidadIngreso', $detalleCompra->cantidadIngreso ) }}" min='1' class='form-control'
+                                            name='cantidadIngreso' placeholder='Cantidad ingresada'>
+                                    </div>
+                                    @error('cantidadIngreso')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group has-feedback row">
+                                    <label for="precioUnidad" class="col-12 control-label">Precio de unidad:</label>
+                                    <div class="col-12">
+                                        <input id='precioUnidad' type='number' min='0.01'
+                                            value="{{ old('precioUnidad',$detalleCompra->precioUnidad) }}" step='0.01' class='form-control'
+                                            name='precioUnidad' placeholder='Precio unitario'>
+                                    </div>
 
-                        @if (old('medicamento')==$item->id)
-                        <option value="{{$item->id}}" selected>{{$item->nombre_comercial}}</option>
-                        @endif
-                        @if ($item->id == $detalleIngreso->medicamento->id)
-                          <option selected='true' value="{{ $item->id }}">{{ $item->nombre_comercial }}</option>
-                        @else
-                          <option value="{{ $item->id }}">{{ $item->nombre_comercial }}</option>
-                        @endif
+                                    @error('precioUnidad')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group has-feedback row">
+                                    <label for="fechaVenc" class="col-12 control-label">Fecha de
+                                        vencimiento:</label>
+                                    <div class="col-12">
+                                        <input id='fechaVenc' value="{{ old('fechaVenc',$detalleCompra->fechaVenc) }}" type='date'
+                                            min="{{ date('Y-m-d') }}" class='form-control' name='fechaVenc'
+                                            placeholder='Fecha de vencimiento'>
+                                    </div>
 
-                      @endforeach
-                    </select>
-                  </div>
-                  @error('medicamento')
-                  <div class="text-danger">{{ $message }}</div>
-                  @enderror
+                                    @error('fechaVenc')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
-                <div class="form-group has-feedback row">
-                  <label for="cantidadIngreso" class="col-12 control-label">Cantidad ingresada:</label>
-                  <div class="col-12">
-                    <input id='cantidadIngreso' type='number' min='1' class='form-control' name='cantidadIngreso' placeholder='Cantidad ingresada' value='{{old('cantidadIngreso',$detalleIngreso->cantidadIngreso ) }}'>
-                  </div>
-                  @error('cantidadIngreso')
-                  <div class="text-danger">{{ $message }}</div>
-                  @enderror
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-12">
+                            <span data-toggle="tooltip" title data-original-title="Guardar cambios realizados">
+                                <button type="submit" class="btn btn-success" value="Guardar" name="action">
+                                    <ion-icon name="save-outline"></ion-icon>
+                                    Actualizar detalle de compra
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group has-feedback row">
-                  <label for="precioCompra" class="col-12 control-label">Precio de compra:</label>
-                  <div class="col-12">
-                    <input id='precioCompra' type='number' min='0.01' step='0.01' class='form-control' name='precioCompra' placeholder='Precio de la compra' value='{{old('precioCompra',$detalleIngreso->precioCompra)  }}'>
-                  </div>
-                  @error('precioCompra')
-                  <div class="text-danger">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group has-feedback row">
-                  <label for="descuentoIngreso" class="col-12 control-label">Descuento:</label>
-                  <div class="col-12">
-                    <input id='descuentoIngreso' type='number' min='0' step='0.01' class='form-control' name='descuentoIngreso' placeholder='Descuento' value='{{old('descuentoIngreso',$detalleIngreso->descuentoIngreso)  }}'>
-                  </div>
-                  @error('descuentoIngreso')
-                  <div class="text-danger">{{ $message }}</div>
-                  @enderror
-                </div>
-              <div class="form-group has-feedback row">
-                  <label for="fechaVenc" class="col-12 control-label">Fecha de vencimiento:</label>
-                  <div class="col-12">
-                    <input id='fechaVenc' type='date' min="{{ date('Y-m-d') }}" class='form-control' name='fechaVenc' placeholder='Fecha de vencimiento' value='{{old('fechaVenc', $detalleIngreso->fechaVenc) }}'>
-                  </div>
-                  @error('fechaVenc')
-                  <div class="text-danger">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group has-feedback row">
-                  <label for="precioCompraUnidad" class="col-12 control-label">Precio de compra por unidad:</label>
-                  <div class="col-12">
-                    <input id='precioCompraUnidad' type='number' min='0.01' step='0.01' class='form-control' name='precioCompraUnidad' placeholder='Precio de compra por unidad' value='{{old('precioCompraUnidad',$detalleIngreso->precioCompraUnidad)  }}'>
-                  </div>
-                  @error('precioCompraUnidad')
-                  <div class="text-danger">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group has-feedback row">
-                  <label for="precioVentaUnidad" class="col-12 control-label">Precio de venta:</label>
-                  <div class="col-12">
-                    <input id='precioVentaUnidad' type='number' min='0.01' step='0.01' class='form-control' name='precioVentaUnidad' placeholder='Precio de venta' value='{{old('precioVentaUnidad',$detalleIngreso->precioVentaUnidad)  }}'>
-                  </div>
-                  @error('precioVentaUnidad')
-                  <div class="text-danger">{{ $message }}</div>
-                  @enderror
-                </div>
-              </div>
+                </form>
             </div>
-          </div>
-          <div class="card-footer">
-            <div class="row">
-              <div class="col-md-6">
-                <span data-toggle="tooltip" title data-original-title="Guardar">
-                  <button type="submit" class="btn btn-success btn-lg btn-block" id="agregar" value="Guardar" name="action">
-                    <i class="fa fa-save fa-fw">
-                      <span class="sr-only">
-                        Guardar Icono
-                      </span>
-                    </i>
-                    Guardar 
-                  </button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-<div>
+        </div>
+    </div>
+    </div>
+
 @endsection

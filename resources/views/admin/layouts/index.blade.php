@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
 
@@ -30,7 +31,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-fixed">
 
     <div class="wrapper">
         <!-- Navbar -->
@@ -55,7 +56,8 @@
 
             <!-- Right navbar links -->
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                <li class="nav-item"> <img src="{{ asset('fondo/logo22.png') }}" class="img-fluid" style="max-width: 40px" alt="Responsive image"></li>
+                <li class="nav-item"> <img src="{{ asset('fondo/logo22.png') }}" class="img-fluid"
+                        style="max-width: 40px" alt="Responsive image"></li>
 
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -67,24 +69,22 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-secondary elevation-5" style="background-color:#313945">
+        <aside class="main-sidebar main-sidebar-custom sidebar-dark-secondary elevation-4"
+            style="background-color:#313945">
             <!-- Sidebar -->
 
             <a href="/" class="brand-link" style="background-color:#313945">
                 <img src="{{ asset('fondo/logoPNG.png') }}" alt="AdminLTE Logo" class="brand-image"
-                style="opacity: .8">
+                    style="opacity: .8">
                 <span class="brand-text font-weight-light">DCSAR</span>
             </a>
 
             <div class="sidebar">
                 <!-- Sidebar Menu -->
-                <nav class="mt-3">
+                <nav class="mt-1">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview"
                         role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
                         <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
-                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <ion-icon name="document-attach-outline" class="nav-icon"></ion-icon>
@@ -95,12 +95,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item menu-is-opening menu-open">
-                                    <a href="{{ asset('requisicionProducto') }}" class="nav-link dark">
-                                        <ion-icon name="list-sharp" class="nav-icon"></ion-icon>
-                                        <p>
-                                            Agregar requisición
-                                            <span class="right badge badge-success"> </span>
-                                        </p>
+                                    <a href="{{ asset('requisicionProducto') }}" class="nav-link bg-dark">
+                                        <ion-icon name="list-outline" class="nav-icon"></ion-icon>
+                                        <p>Agregar requisición</p>
                                     </a>
                                 </li>
                             </ul>
@@ -114,12 +111,9 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-
-                        <br>
+                        </li><br>
 
                         <li class="nav-header text-light">INVENTARIO</li>
-                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="{{ asset('inventario') }}" class="nav-link active">
                                 <ion-icon name="cube-outline" class="nav-icon"></ion-icon>
@@ -127,12 +121,9 @@
                                     Inventario
                                 </p>
                             </a>
-                        </li>
-
-                        <br>
+                        </li><br>
 
                         <li class="nav-header text-light">REVISAR SOLICITUDES</li>
-                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
                                 <ion-icon name="folder-open-outline" class="nav-icon"></ion-icon>
@@ -141,12 +132,9 @@
                                     {{-- <span class="badge badge-info right">{{$nEnviadas}}</span> --}}
                                 </p>
                             </a>
-                        </li>
+                        </li><br>
 
-                        <br>
-                        <li class="nav-header"></li>
                         <li class="nav-header text-light">CATALOGOS </li>
-                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <ion-icon name="book-outline" class="nav-icon"></ion-icon>
@@ -213,12 +201,10 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li><br>
 
-                        {{-- <li class="nav-header"></li>
                         <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
-                        <li class="nav-header"></li>
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <ion-icon name="clipboard-outline" class="nav-icon"></ion-icon>
                                 <p>
@@ -228,20 +214,35 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item menu-is-opening menu-open">
-                                    <a href="{{ asset('recepcionCompra') }}" class="nav-link">
+                                    <a href="{{ asset('recepcionCompra') }}" class="nav-link bg-dark">
                                         <ion-icon name="cash-outline" class="nav-icon"></ion-icon>
                                         <p>Registrar compra</p>
-                                        <span class="right badge badge-success"> </span>
                                     </a>
                                 </li>
                             </ul>
-                        </li> --}}
 
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item menu-is-opening menu-open">
+                                    <a href="{{ asset('recepcionCompra/consultar') }}" class="nav-link dark">
+                                        <ion-icon name="file-tray-stacked-outline" class="nav-icon"></ion-icon>
+                                        <p>
+                                            Compras realizadas
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
+            <div class="sidebar-custom">
+                <a href="#" class="btn btn-link">
+                    <ion-icon name="settings-outline" class="fa-2x bg-dark"></ion-icon>
+                </a>
+                <a href="#" class="btn btn-secondary hide-on-collapse pos-right">///</a>
+            </div>
         </aside>
 
 
@@ -292,6 +293,7 @@
     <script src="{{ asset('vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
 
     <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>

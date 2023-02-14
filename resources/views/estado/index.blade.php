@@ -41,7 +41,7 @@
                                     </a>
                                     <a href="{{ route('estado.destroy', $item) }}" data-toggle="modal"
                                         data-target="#deleteModal" data-delete="{{ $item->id }}">
-                                        <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
+                                        <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                     </a>
                                 </td>
                             </tr>

@@ -18,7 +18,8 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover table-striped text-center" id="dataTable6" width="100%"
+                    cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -48,7 +49,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                </td>                                <td>{{ $item->marca->nombre }}</td>
+                                </td>
+                                <td>{{ $item->marca->nombre }}</td>
                                 <td>{{ $item->medida->nombreMedida }}</td>
                                 <td>{{ $item->rubro->descripcionRubro }}</td>
                                 <td>
@@ -57,7 +59,7 @@
                                     </a>
                                     <a href="{{ route('producto.destroy', $item) }}" data-toggle="modal"
                                         data-target="#deleteModal" data-delete="{{ $item->id }}">
-                                        <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
+                                        <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                     </a>
                                 </td>
                             </tr>
@@ -126,24 +128,24 @@
 
 @section('js')
 
-<script>
-    $(function() {
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-                alwaysShowClose: true
+    <script>
+        $(function() {
+            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
             });
-        });
 
-        $('.filter-container').filterizr({
-            gutterPixels: 3
-        });
-        $('.btn[data-filter]').on('click', function() {
-            $('.btn[data-filter]').removeClass('active');
-            $(this).addClass('active');
-        });
-    })
-</script>
+            $('.filter-container').filterizr({
+                gutterPixels: 3
+            });
+            $('.btn[data-filter]').on('click', function() {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
+            });
+        })
+    </script>
 @endsection
 
 

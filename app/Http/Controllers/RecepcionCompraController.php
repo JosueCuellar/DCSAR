@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RecepcionCompraRequest;
 use App\Models\Proveedor;
 use App\Models\RecepcionCompra;
 use DateTime;
@@ -18,11 +19,13 @@ class RecepcionCompraController extends Controller
         return view('recepcionCompra.create', compact('recepcionCompras', 'proveedores'));
     }
 
-    public function store(Request $request)
+
+    public function store(RecepcionCompraRequest $request)
     {
         try {
             $recepcionCompra = new RecepcionCompra();
             $recepcionCompra->proveedor_id = $request->proveedor_id;
+            $recepcionCompra->estado = false;
             $recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
             $recepcionCompra->nPresupuestario = $request->nPresupuestario;
             $recepcionCompra->nCompromiso = $request->nCompromiso;
@@ -33,5 +36,24 @@ class RecepcionCompraController extends Controller
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+
+
+    public function update(Request $request, RecepcionCompra $recepcionCompra)
+    {
+        try {
+            $recepcionCompra->estado = true;
+            $recepcionCompra->save();
+            return redirect()->route('recepcionCompra.consultar');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function consultar()
+    {
+        $recepcionesSinCompletar = RecepcionCompra::where('estado', false)->get();
+        $recepcionesCompletas = RecepcionCompra::where('estado', true)->get();
+        return view('recepcionCompra.consultar', compact('recepcionesCompletas', 'recepcionesSinCompletar'));
     }
 }

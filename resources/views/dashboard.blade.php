@@ -62,7 +62,7 @@
                             </i>
                         </div>
                         <a href="{{ asset('requisicionProducto') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
+                            class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
                             </i>
                         </div>
                         <a href="{{ asset('requisicionProducto/estado') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
+                            class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>
 
@@ -95,6 +95,55 @@
                             </i>
                         </div>
                         <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
+                                class="fas fa-external-link-square-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6">
+                    <div class="text-white small-box" style="background-color: #003f5c">
+                        <div class="inner">
+                            <h5>Recepción de compras</h5>
+                            <p>Agregar una entrada nueva de productos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag">
+                                <ion-icon name="push-sharp"></ion-icon>                            
+                            </i>
+                        </div>
+                        <a href="{{ asset('recepcionCompra') }}" class="small-box-footer">Ver <i
+                                class="fas fa-external-link-square-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6">
+
+                    <div class="text-white small-box" style="background-color: #3e8e41">
+                        <div class="inner">
+                            <h5>Producto nuevo</h5>
+                            <p>Agregar un producto nuevo</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag">
+                                <ion-icon name="cafe-sharp"></ion-icon>
+                            </i>
+                        </div>
+                        <a href="{{ asset('producto/crear') }}" class="small-box-footer">Ver <i
+                                class="fas fa-external-link-square-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6">
+                    <div class="text-white small-box" style="background-color: #e63946 ">
+                        <div class="inner">
+                            <h5>Consultar compras</h5>
+                            <p>Compras realizadas</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag">
+                                <ion-icon name="archive-sharp"></ion-icon>
+                            </i>
+                        </div>
+                        <a href="{{ asset('recepcionCompra/consultar') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>

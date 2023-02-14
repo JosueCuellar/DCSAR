@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-@section('title', 'Requisicin producto')
+@section('title', 'Requisición producto')
 @section('header')
     <div class="col-md-12">
         <h2>Requisiciones de productos</h2>
@@ -45,12 +45,12 @@
                                             <td>{{ $item->estado->nombreEstado }}</td>
                                             <td>
                                                 <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                    <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
+                                                    <ion-icon src="/ionicons.designerpack/create-outline.svg" class="fa-lg text-primary"></ion-icon>
                                                 </a>
                                                 <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                     data-toggle="modal" data-target="#deleteModal"
                                                     data-delete="{{ $item->id }}">
-                                                    <ion-icon name="trash-outline" class="fa-lg text-danger">></ion-icon>
+                                                    <ion-icon src="/ionicons.designerpack/trash-sharp.svg" class="fa-lg text-danger"></ion-icon>
                                                 </a>
                                             </td>
                                         </tr>

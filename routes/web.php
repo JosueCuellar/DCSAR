@@ -142,22 +142,27 @@ Route::controller(RecepcionCompraController::class)->group(function () {
   //Ingresar compras de productos
   Route::get('recepcionCompra', 'index')->name('recepcionCompra.index');
   Route::post('recepcionCompra/store', 'store')->name('recepcionCompra.store');
+  Route::put('recepcionCompra/completar/{recepcionCompra}','update')->name('recepcionCompra.completar');
+  Route::get('recepcionCompra/consultar', 'consultar')->name('recepcionCompra.consultar');
+  Route::get('recepcionCompra/destroy/{recepcionCompra}',  'destroy')->name('recepcionCompra.destroy');
+  Route::get('recepcionCompra/revisar', 'revisar')->name('recepcionCompra.revisar');
+
 });
 
 //---------------------------DetalleCompra------------------------------------------------------
 
 Route::controller(DetalleCompraController::class)->group(function () {
   //Ingresar detalle
-  Route::get('detalleCompra/revisar/{ingreso}', 'index')->name('detalleCompra.detalle');
-  Route::get('detalleCompra/detalle/{ingreso}', 'create')->name('recepcionCompra.detalle');
-  Route::post('detalleCompra/detalle/{ingreso}', 'store')->name('detalleCompra.store');
+  Route::get('detalleCompra/revisar/{recepcionCompra}', 'index')->name('detalleCompra.detalle');
+  Route::get('detalleCompra/detalle/{recepcionCompra}', 'create')->name('recepcionCompra.detalle'); //2
+  Route::post('detalleCompra/detalle/{recepcionCompra}', 'store')->name('detalleCompra.store');
 
-  //Editar ingreso 
-  Route::get('detalleCompra/detalle/edit/{ingreso}/{detalleCompra}', 'edit')->name('detalleCompra.edit');
-  Route::post('detalleCompra/detalle/update/{ingreso}/{detalleCompra}', 'update')->name('detalleCompra.update');
+  //Editar recepcionCompra 
+  Route::get('detalleCompra/detalle/edit/{recepcionCompra}/{detalleCompra}', 'edit')->name('detalleCompra.edit');
+  Route::put('detalleCompra/detalle/update/{recepcionCompra}/{detalleCompra}', 'update')->name('detalleCompra.update');
 
-  //Dar de baja el detalle del ingreso
-  Route::get('detalleCompra/detalle/destroy/{ingreso}/{detalleCompra}', 'destroy')->name('detalleCompra.destroy');
+  //Dar de baja el detalle del recepcionCompra
+  Route::get('detalleCompra/detalle/destroy/{recepcionCompra}/{detalleCompra}', 'destroy')->name('detalleCompra.destroy');
 });
 
 //---------------------------Inventario------------------------------------------------------

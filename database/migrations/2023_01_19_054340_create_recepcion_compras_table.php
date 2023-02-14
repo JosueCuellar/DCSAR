@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nOrdenCompra',50);
             $table->string('nPresupuestario',50);
             $table->string('nCompromiso',50);
+            $table->boolean('estado');
             $table->string('actaRecepcion',250);
             $table->string('codigoFactura',50);
             $table->timestamps();

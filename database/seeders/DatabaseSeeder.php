@@ -25,29 +25,36 @@ class DatabaseSeeder extends Seeder
         //Estados
         DB::table('estados')->insert([
             'codigoEstado' => 'SE',
-            'descripcionEstado' => 'Una requisicion ha sido enviada',
+            'descripcionEstado' => 'Una requisición ha sido enviada',
             'nombreEstado' => 'Solicitud Enviada',
         ]);
 
 
         DB::table('estados')->insert([
             'codigoEstado' => 'SSC',
-            'descripcionEstado' => 'Una requisicion sin completar',
+            'descripcionEstado' => 'Una requisición sin completar',
             'nombreEstado' => 'Solicitud SIN COMPLETAR',
         ]);
 
 
         DB::table('estados')->insert([
             'codigoEstado' => 'SA',
-            'descripcionEstado' => 'Una requisicion ha sido aprobada',
+            'descripcionEstado' => 'Una requisición ha sido aprobada',
             'nombreEstado' => 'Solicitud Aprobada',
         ]);
 
         DB::table('estados')->insert([
             'codigoEstado' => 'SR',
-            'descripcionEstado' => 'Una requisicion ha sido rechazada',
+            'descripcionEstado' => 'Una requisición ha sido rechazada',
             'nombreEstado' => 'Solicitud Rechazada',
         ]);
+
+        DB::table('estados')->insert([
+            'codigoEstado' => 'SEN',
+            'descripcionEstado' => 'Una requisición ha sido entregada',
+            'nombreEstado' => 'Solicitud Entregada',
+        ]);
+
 
 
 
