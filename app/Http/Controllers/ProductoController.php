@@ -9,6 +9,8 @@ use App\Models\Medida;
 use App\Models\Producto;
 use App\Models\Rubro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -35,6 +37,9 @@ class ProductoController extends Controller
     {
         try {
             $imagen = $request->file('imagen');
+            $request->validate([
+                'imagen' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+            ]);
             $rutaGuardarImagen = 'imagen/';
             $imagenProducto = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
             $imagen->move($rutaGuardarImagen, $imagenProducto);
@@ -73,12 +78,12 @@ class ProductoController extends Controller
     {
         try {
             $prod = $request->all();
-            if($imagen = $request->file('imagen')){
+            if ($imagen = $request->file('imagen')) {
                 $rutaGuardarImagen = 'imagen/';
                 $imagenProducto = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
                 $imagen->move($rutaGuardarImagen, $imagenProducto);
                 $prod['imagen'] = "$imagenProducto";
-            }else{
+            } else {
                 unset($prod['imagen']);
             }
             $producto->update($prod);
@@ -92,7 +97,19 @@ class ProductoController extends Controller
     //Función que elimina un registro
     public function destroy(Producto $producto)
     {
-        $producto->delete();
-        return redirect()->route('producto.index');
+
+        try {
+            $url = public_path('imagen/' . $producto->imagen);
+            if (File::exists($url)) {
+                $producto->delete();
+                File::delete($url);
+                return redirect()->route('producto.index');
+            } else {
+                return redirect()->back()->with('msg', 'No existe la imagen!');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'El registro pertenece a otro registro padre, no se puede eliminar');
+        }
+
     }
 }

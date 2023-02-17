@@ -51,7 +51,7 @@
                                                     <td>{{ $item->proveedor->nombreComercial }}</td>
 
                                                     <td>
-                                                        <a href="{{ route('recepcionCompra.revisar', $item->id) }}">
+                                                        <a href="{{ route('recepcionCompra.detalle', $item->id) }}">
                                                             <ion-icon name="create-outline" class="fa-lg text-primary">
                                                             </ion-icon>
                                                         </a>
@@ -93,7 +93,7 @@
                                                     <td>{{ $item->proveedor->nombreComercial }}</td>
 
                                                     <td>
-                                                        <a href="{{ route('recepcionCompra.revisar', $item->id) }}">
+                                                        <a href="{{ route('recepcionCompra.detalle', $item->id) }}">
                                                             <ion-icon name="create-outline" class="fa-lg text-primary">
                                                             </ion-icon>
                                                         </a>

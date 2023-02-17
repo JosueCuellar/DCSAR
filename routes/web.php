@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetalleCompraController;
 use App\Http\Controllers\DetalleRequisicionController;
+use App\Http\Controllers\DocumentoXCompraController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\MarcaController;
@@ -149,6 +150,10 @@ Route::controller(RecepcionCompraController::class)->group(function () {
 
 });
 
+Route::controller(DocumentoXCompraController::class)->group(function () {
+  Route::post('upload/{recepcionCompra}', 'upload')->name('upload.documento');
+  Route::post('delete/{recepcionCompra}', 'delete')->name('delete.documento');
+});
 //---------------------------DetalleCompra------------------------------------------------------
 
 Route::controller(DetalleCompraController::class)->group(function () {
@@ -156,7 +161,6 @@ Route::controller(DetalleCompraController::class)->group(function () {
   Route::get('detalleCompra/revisar/{recepcionCompra}', 'index')->name('detalleCompra.detalle');
   Route::get('detalleCompra/detalle/{recepcionCompra}', 'create')->name('recepcionCompra.detalle'); //2
   Route::post('detalleCompra/detalle/{recepcionCompra}', 'store')->name('detalleCompra.store');
-
   //Editar recepcionCompra 
   Route::get('detalleCompra/detalle/edit/{recepcionCompra}/{detalleCompra}', 'edit')->name('detalleCompra.edit');
   Route::put('detalleCompra/detalle/update/{recepcionCompra}/{detalleCompra}', 'update')->name('detalleCompra.update');

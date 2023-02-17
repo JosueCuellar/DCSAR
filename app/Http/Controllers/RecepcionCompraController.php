@@ -7,7 +7,7 @@ use App\Models\Proveedor;
 use App\Models\RecepcionCompra;
 use DateTime;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 
 class RecepcionCompraController extends Controller
 {

@@ -47,7 +47,6 @@
                 </div>
 
             </div>
-
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
                 <div class="col-lg-4 col-6">

@@ -1,6 +1,9 @@
 @extends('admin.layouts.index')
 @section('title', 'Detalle de Compra')
 @section('header')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <div class="col-md-12">
         <h2>RECEPCIÓN DE COMPRA DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
     </div>
@@ -164,31 +167,34 @@
     </div>
 
     <div class="modal fade" id="modalArchivos" style="display: none;" aria-hidden="true">
-            <form method="POST" class="form-horizontal" action="">
-                @csrf
-                @method('put')
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Subir archivos</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <a class="btn btn-warning" onclick="$(this).closest('form').submit();">Guardar</a>
-                        </div>
+        <form method="POST" class="form-horizontal" action="">
+            @csrf
+            @method('put')
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Subir archivos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
-
+                    <div class="modal-body form-group">
+                        <form action=""></form>
+                        <form method="POST" action="{{ route('upload.documento', $recepcionCompra->id) }}" class="dropzone" id="my-dropzone">
+                            @csrf
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <a class="btn btn-warning" onclick="$(this).closest('form').submit();">Guardar</a>
+                    </div>
                 </div>
-            </form>
+
+            </div>
+        </form>
     </div>
-
-
+    <div>
+    </div>
     <!-- delete Modal-->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -217,7 +223,34 @@
     </div>
 
 @section('js_datatable')
-
+    <script>
+        Dropzone.options.myDropzone = {
+            // Configuration options go here
+            paramName: "file[]",
+            dictDefaultMessage: 'Agrega los documentos aquí',
+            maxFilesize: 4, // MB
+            addRemoveLinks: true,
+            dictFileTooBig: "El archivo es muy grande. Tamaño máximo: 4MiB.",
+            dictRemoveFile: "Eliminar",
+            dictCancelUpload: "Cancelar carga",
+            acceptedFiles: "application/pdf,.doc,.docx,.xls,.xlsx,.csv,.tsv,.ppt,.pptx,.pages,.odt,.rtf",
+            init: function() {
+                this.on("removedfile", function(file) {
+                    // send an AJAX request to delete the file from the server
+                    axios.post('{{ route('delete.documento', $recepcionCompra->id) }}', {
+                            filename: file.name
+                        })
+                        .then(function(response) {
+                            console.log(response);
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        });
+                });
+            }
+        };
+        Dropzone.discover();
+    </script>
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
@@ -238,6 +271,7 @@
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/recepcionCompra/completar/') }}' + '/' + recepcion_id);
+
         });
     </script>
 
@@ -256,5 +290,7 @@
             });
         });
     </script>
+
+
 @endsection
 @endsection

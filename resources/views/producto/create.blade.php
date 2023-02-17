@@ -100,7 +100,7 @@
                                     <div class="form-group has-feedback row">
                                         <label for="imagen" class="col-12 control-label">Seleccionar imagen</label>
                                         <div class="col-12">
-                                            <input id="imagen" class="img-fluid" name="imagen" type="file">
+                                            <input id="imagen" class="img-fluid" name="imagen" type="file" accept="image/png, image/jpg, image/jpeg">
                                         </div>
                                     </div>
 

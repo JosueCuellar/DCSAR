@@ -4,6 +4,14 @@
     <div class="col-md-12">
         <h2>Lista de productos</h2>
     </div>
+
+    @if (\Session::has('msg'))
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <li>{!! \Session::get('msg') !!}</li>
+            </ul>
+        </div>
+    @endif
     <div class="row p-3">
         <div class="col-md-12 d-grid gap-2 d-md-flex">
             <form action="{{ route('producto.create') }}" method="GET">
@@ -107,6 +115,7 @@
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', 'producto/destroy/' + delete_id);
+
         })
     </script>
     <script>
@@ -136,16 +145,9 @@
                     alwaysShowClose: true
                 });
             });
-
-            $('.filter-container').filterizr({
-                gutterPixels: 3
-            });
-            $('.btn[data-filter]').on('click', function() {
-                $('.btn[data-filter]').removeClass('active');
-                $(this).addClass('active');
-            });
         })
     </script>
+
 @endsection
 
 
