@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('fondo/logo22.png') }}">
-
-    <!-- Page level plugin CSS-->
-    <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -17,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -31,7 +29,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed">
 
     <div class="wrapper">
         <!-- Navbar -->
@@ -112,7 +110,7 @@
                                 </li>
                             </ul>
                         </li><br>
-
+                        {{-- 
                         <li class="nav-header text-light">INVENTARIO</li>
                         <li class="nav-item">
                             <a href="{{ asset('inventario') }}" class="nav-link active">
@@ -121,7 +119,7 @@
                                     Inventario
                                 </p>
                             </a>
-                        </li><br>
+                        </li><br> --}}
 
                         <li class="nav-header text-light">REVISAR SOLICITUDES</li>
                         <li class="nav-item">
@@ -168,22 +166,22 @@
                                         </p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{ asset('estado') }}" class="nav-link">
                                         <ion-icon name="options-outline" class="nav-icon"></ion-icon>
                                         <p>
                                             Estado
                                         </p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> --}}
+                                {{-- <li class="nav-item">
                                     <a href="{{ asset('unidadOrganizativa') }}" class="nav-link">
                                         <ion-icon name="people-circle-outline" class="nav-icon"></ion-icon>
                                         <p>
                                             Unidad Organizativa
                                         </p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="{{ asset('rubro') }}" class="nav-link">
                                         <ion-icon name="newspaper-outline" class="nav-icon"></ion-icon>
@@ -201,6 +199,16 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li><br>
+
+                        {{-- <li class="nav-header text-light">SOLICITUDES</li>
+                        <li class="nav-item">
+                            <a href="{{ asset('entregaSolicitud') }}" class="nav-link active">
+                                <ion-icon name="receipt-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Bandeja de solicitudes
+                                </p>
+                            </a>
                         </li><br>
 
                         <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
@@ -231,7 +239,9 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
+
+
 
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -274,9 +284,13 @@
     <!-- jQuery -->
     <script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap -->
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('vendor/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
 
 
     <!-- Bootstrap core JavaScript-->
@@ -297,8 +311,6 @@
     <script src="{{ asset('vendor/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
 
-    <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
-    <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 
     @yield('js_datatable')
     @yield('js_imagen')

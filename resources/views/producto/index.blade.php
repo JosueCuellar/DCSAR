@@ -30,21 +30,20 @@
                     cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Rubro</th>
                             <th scope="col">Codigo producto</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Observacion</th>
                             <th scope="col">Imagen</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Medida</th>
-                            <th scope="col">Rubro</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($productos as $item)
                             <tr>
-                                <th scope="row">{{ $item->id }}</th>
+                                <td>{{ $item->rubro->descripcionRubro }}</td>
                                 <td>{{ $item->cod_producto }}</td>
                                 <td>{{ $item->descripcion }}</td>
                                 <td>{{ $item->observacion }}</td>
@@ -60,7 +59,6 @@
                                 </td>
                                 <td>{{ $item->marca->nombre }}</td>
                                 <td>{{ $item->medida->nombreMedida }}</td>
-                                <td>{{ $item->rubro->descripcionRubro }}</td>
                                 <td>
                                     <a href="{{ route('producto.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
@@ -148,7 +146,66 @@
         })
     </script>
 
-@endsection
+    @if (session('msg'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Error',
+                position: 'topRight',
+                body: '{{ session('msg') }}',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-exclamation-triangle ',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 
+
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Producto agregado',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha actualizado la tabla',
+                class: 'bg-success',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Producto eliminado',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+@endsection
 
 @endsection

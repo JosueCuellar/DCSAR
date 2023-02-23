@@ -5,23 +5,14 @@
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <div class="col-md-12">
-        <h2>RECEPCIÓN DE COMPRA DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
-    </div>
-    <div class="row">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <div class="m-1">
-                <button type="submit" data-toggle="modal" data-target="#modalArchivos"
-                    data-detalle="{{ $recepcionCompra->id }}" class="btn btn-warning  text-left"><i class="fa fa-check"></i>
-                    Finalizar registro</button>
-            </div>
-        </div>
+        <h2>Detalles de la recepción de la compra de insumos</h2>
     </div>
 @endsection
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-12">
                     <div class="card card-post" id="post_card">
                         <div class="card-header">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -33,93 +24,6 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="{{ route('detalleCompra.store', ['recepcionCompra' => $recepcionCompra->id]) }}"
-                            method='POST'>
-                            @csrf
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group has-feedback row">
-                                            <label for="producto_id" class="col-12 control-label">Seleccionar
-                                                producto:</label>
-                                            <div class="col-12">
-                                                <select class="form-control" name="producto_id" id="producto_id">
-                                                    <option selected disabled='disabled'>Seleccionar producto</option>
-                                                    @foreach ($productos as $item)
-                                                        @if (old('producto_id') == $item->id)
-                                                            <option value="{{ $item->id }}" selected>
-                                                                {{ $item->cod_producto.' '.$item->descripcion }}
-
-                                                            </option>
-                                                        @else
-                                                            <option value="{{ $item->id }}">
-                                                                {{ $item->cod_producto.' '.$item->descripcion }}
-                                                            </option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                                @error('producto_id')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-feedback row">
-                                            <label for="cantidadIngreso" class="col-12 control-label">Cantidad
-                                                ingresada:</label>
-                                            <div class="col-12">
-                                                <input id='cantidadIngreso' type='number'
-                                                    value="{{ old('cantidadIngreso') }}" min='1' class='form-control'
-                                                    name='cantidadIngreso' placeholder='Cantidad ingresada'>
-                                            </div>
-                                            @error('cantidadIngreso')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group has-feedback row">
-                                            <label for="precioUnidad" class="col-12 control-label">Precio de unidad:</label>
-                                            <div class="col-12">
-                                                <input id='precioUnidad' type='number' min='0.01'
-                                                    value="{{ old('precioUnidad') }}" step='0.01' class='form-control'
-                                                    name='precioUnidad' placeholder='Precio unitario'>
-                                            </div>
-
-                                            @error('precioUnidad')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group has-feedback row">
-                                            <label for="fechaVenc" class="col-12 control-label">Fecha de
-                                                vencimiento:</label>
-                                            <div class="col-12">
-                                                <input id='fechaVenc' value="{{ old('fechaVenc') }}" type='date'
-                                                    min="{{ date('Y-m-d') }}" class='form-control' name='fechaVenc'
-                                                    placeholder='Fecha de vencimiento'>
-                                            </div>
-
-                                            @error('fechaVenc')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span data-toggle="tooltip" title data-original-title="Guardar cambios realizados">
-                                            <button type="submit" class="btn btn-success" value="Guardar">
-                                                <ion-icon name="save-outline"></ion-icon>
-                                                Agregar producto
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable7" width="100%" cellspacing="0">
@@ -128,9 +32,8 @@
                                             <th scope="col">Producto</th>
                                             <th scope="col">Cantidad</th>
                                             <th scope="col">Precio unidad</th>
-                                            <th scope="col">Subtotal</th>
                                             <th scope="col">Fecha vencimiento</th>
-                                            <th scope="col">Acciones</th>
+                                            {{-- <th scope="col">Acciones</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -139,9 +42,8 @@
                                                 <th scope="row">{{ $itemDet->producto->cod_producto }}</th>
                                                 <td>{{ $itemDet->cantidadIngreso }}</td>
                                                 <td>{{ $itemDet->precioUnidad }}</td>
-                                                <td>{{ $itemDet->total }}</td>
                                                 <td>{{ $itemDet->fechaVenc }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     <a
                                                         href="{{ route('detalleCompra.edit', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $itemDet]) }}">
                                                         <ion-icon name="create-outline" class="fa-lg text-primary">
@@ -155,12 +57,24 @@
                                                         <ion-icon name="trash-outline" class="fa-lg text-danger">
                                                         </ion-icon>
                                                     </a>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="list-group">
+                            <a href="#" class="col-md-12 list-group-item bg-dark">
+                                <strong>Documentos adjuntos a la compra</strong>
+                            </a>
+                            @foreach ($documentos as $item)
+                                <a class="col-md-12 list-group-item list-group-item-action list-group-item-light"
+                                    href="{{ route('leer.documento', $item->id) }}"
+                                    target="_blank">{{ $item->nombreDocumento }}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -182,8 +96,8 @@
                     </div>
                     <div class="modal-body form-group">
                         <form action=""></form>
-                        <form method="POST" action="{{ route('upload.documento', $recepcionCompra->id) }}"
-                            class="dropzone" id="my-dropzone">
+                        <form method="POST" action="{{ route('upload.documento', $recepcionCompra->id) }}" class="dropzone"
+                            id="my-dropzone">
                             @csrf
                         </form>
                     </div>

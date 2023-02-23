@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('detalle_requisicions', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('cantidad');
+            $table->decimal('precioPromedio', $precision = 10, $scale = 2);
             $table->unsignedBigInteger('requisicion_id');
             $table->unsignedBigInteger('producto_id');
+            $table->decimal('total', $precision = 12, $scale = 2);
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->foreign('requisicion_id')->references('id')->on('requisicion_productos')->onDelete('cascade');
             $table->timestamps();

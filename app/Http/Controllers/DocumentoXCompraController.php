@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\File;
 class DocumentoXCompraController extends Controller
 {
 
+
+    public function leerDocumento($uuid)
+    {
+        $documento = DocumentoXCompra::where('id', $uuid)->firstOrFail();
+        $pathToFile = public_path('documentos/'.$documento->nombreDocumento);
+        return response()->file($pathToFile);
+    }
+
     public function upload(Request $request, RecepcionCompra $recepcionCompra)
     {
         // $recepcion = RecepcionCompra::where('id', $recepcionCompra->id)->get();

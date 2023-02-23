@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\JfifNotAllowed;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductoRequest extends FormRequest
@@ -28,7 +29,7 @@ class ProductoRequest extends FormRequest
             'cod_producto'=>'required|max:100',
             'descripcion'=>'required|max:100',
             'observacion'=>'required|max:100',
-            'imagen' => 'required|image|mimes:jpeg,jpg,png',
+            'imagen' => ['required', new JfifNotAllowed],
             'marca_id'=>'required',
             'medida_id'=>'required',
             'rubro_id'=>'required',

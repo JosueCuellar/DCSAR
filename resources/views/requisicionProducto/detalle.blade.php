@@ -2,7 +2,8 @@
 @section('title', 'Requisición producto')
 @section('header')
     <div class="col-md-12">
-        <h2>REQUISICIÓN DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
+        <h2 class="text-center">REQUISICIÓN DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
+        <x-errores class="mb-4"/>
     </div>
     <div class="row">
         <div class="col-md-12 d-grid gap-2 d-md-flex">
@@ -31,8 +32,8 @@
                             width="100%" cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Producto</th>
+                                    <th scope="col">Rubro</th>
+                                    {{-- <th scope="col">Producto</th> --}}
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Imagen</th>
                                     <th scope="col">Medida</th>
@@ -43,8 +44,8 @@
                             <tbody>
                                 @foreach ($productos as $item)
                                     <tr>
-                                        <td scope="row">{{ $item->id }}</td>
-                                        <td>{{ $item->cod_producto }}</td>
+                                        <td>{{ $item->rubro->descripcionRubro }}</td>
+                                        {{-- <td>{{ $item->cod_producto }}</td> --}}
                                         <td>{{ $item->descripcion }}</td>
                                         <td>
                                             {{-- <img src="/imagen/{{ $item->imagen }}" class="img-fluid mb-2"
@@ -59,14 +60,16 @@
                                             </div>
                                         </td>
                                         <td>{{ $item->medida->nombreMedida }}</td>
-
                                         <td>
-                                            <form
+                                            {{-- <form
                                                 action="{{ route('detalleRequisicion.store', ['requisicionProducto' => $requisicionProducto->id, 'producto' => $item->id]) }}"
                                                 method="POST">
-                                                @csrf
-                                                    <button type="submit" class="btn btn-success">Agregar</button>
-                                            </form>
+                                                @csrf --}}
+
+                                            <button type="submit" data-toggle="modal" data-target="#exampleModalCenter"
+                                                data-requi="{{ $requisicionProducto->id }}"
+                                                data-producto="{{ $item->id }}" class="btn btn-success">Agregar</button>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -75,7 +78,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <h4 class="text-center">Productos ingresados</h4>
+                    <h4 class="text-center">Productos en la solicitados</h4>
                     <div class="table-responsive">
                         <table class="table table-bordered text-center table-striped" id="dataTable14" width="100%"
                             cellspacing="0">
@@ -85,6 +88,8 @@
                                     <th scope="col">Producto</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Medida</th>
+                                    <th scope="col">P. Prom</th>
+                                    <th scope="col">Sub-total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,7 +103,7 @@
                                                 <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                             </a>
                                         </th>
-                                        <td>{{ $item->producto->cod_producto }}</td>
+                                        <td>{{ $item->producto->descripcion }}</td>
                                         <td>
                                             <form
                                                 action="{{ route('detalleRequisicion.update', ['requisicionProducto' => $requisicionProducto->id, 'detalleRequisicion' => $item->id]) }}"
@@ -107,8 +112,9 @@
                                                 @method('put')
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <button class="btn btn-success" type="submit"
-                                                            id="button-addon2"><ion-icon name="refresh-outline"></ion-icon></ion-icon></button>
+                                                        <button class="btn btn-success" type="submit" id="button-addon2">
+                                                            <ion-icon name="save-outline"></ion-icon>
+                                                        </button>
                                                     </div>
                                                     <input type="number" value="{{ old('cantidad', $item->cantidad) }}"
                                                         name="cantidad" class="form-control" placeholder="Cantidad"
@@ -121,9 +127,21 @@
 
                                         </td>
                                         <td>{{ $item->producto->medida->nombreMedida }}</td>
+                                        <td>{{ $item->precioPromedio }}</td>
+                                        <td>{{ $item->total }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot class="thead-ligth">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">{{ $totalFinal }}</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -162,7 +180,7 @@
         </div>
 
         <div class="modal fade" id="modalDetalle" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title"><b>Detalles de la Requisición de Productos</b></h4>
@@ -175,15 +193,14 @@
                             <div class="col-6">Fecha de solicitud:
                                 <label>{{ $requisicionProducto->fecha_requisicion }}</label>
                             </div>
-                        </div>
                         <br>
-                        <div class="row">
-                            <div class="col-12">Unidad Organizativa: <label>--------------------------</label>
+                            <div class="col-6">Unidad Organizativa: <label>Unidad de Logistica</label>
                             </div>
-                        </div>
                         <br>
+                        </div>
                         <div class="row">
-                            <div class="col-12">Descripción: <label>{{ $requisicionProducto->descripcion }}</label>
+                            <div class="col-6">Descripción:
+                                <label>{{ $requisicionProducto->descripcion }}</label>
                             </div>
                         </div>
                     </div>
@@ -223,8 +240,110 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form method="POST" class="form-horizontal" action="">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Ingrese la cantidad de productos</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group has-feedback row">
+                                            <label for="cantidad" class="col-12 control-label">Cantidad de
+                                                productos:</label>
+                                            <div class="col-12">
+                                                <input id="cantidadAdd" type="number" class="form-control"
+                                                    name="cantidadAdd" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <a class="btn btn-success" onclick="$(this).closest('form').submit();">Guardar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
     </div>
+
+@section('js')
+
+    @if (session('msg'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Error',
+                position: 'topRight',
+                body: '{{ session('msg') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-exclamation-triangle',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Producto agregado',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha actualizado la tabla',
+                class: 'bg-success',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Producto eliminado',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+@endsection
 @section('js_datatable')
+
+    <script>
+        $('#exampleModalCenter').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var requi = button.data('requi')
+            var producto = button.data('producto')
+            var modal = $(this)
+            console.log(producto);
+            modal.find('form').attr('action', '{{ asset('/requisicionProducto/detalle/') }}' + '/' +
+                requi + '/' + producto);
+        })
+    </script>
 
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
@@ -258,7 +377,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 "columnDefs": [{
-                        "responsivePriority": 10001,
+                        "responsivePriority": 10003,
                         "targets": 2
                     },
                     {

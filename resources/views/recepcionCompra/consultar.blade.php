@@ -18,10 +18,10 @@
                                         role="tab" aria-controls="enviadas" aria-selected="true"><h6>Compras registradas</h6>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" id="aceptadas-tab" data-toggle="pill" href="#aceptadas"
                                         role="tab" aria-controls="aceptadas" aria-selected="false"><h6>Compras SIN COMPLETAR</h6></a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         <div class="card-body">
@@ -51,6 +51,11 @@
                                                     <td>{{ $item->proveedor->nombreComercial }}</td>
 
                                                     <td>
+                                                        <a href="{{ route('recepcionCompra.revisar', $item->id) }}">
+                                                            <ion-icon name="eye-outline" class="fa-lg text-success">
+                                                            </ion-icon>
+                                                        </a>
+
                                                         <a href="{{ route('recepcionCompra.detalle', $item->id) }}">
                                                             <ion-icon name="create-outline" class="fa-lg text-primary">
                                                             </ion-icon>
@@ -70,7 +75,7 @@
                                 </div>
 
                                 {{-- Incompletas --}}
-                                <div class="tab-pane fade" id="aceptadas" role="tabpanel" aria-labelledby="aceptadas-tab">
+                                {{-- <div class="tab-pane fade" id="aceptadas" role="tabpanel" aria-labelledby="aceptadas-tab">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered text-center" id="dataTable12" width="100%"
                                         cellspacing="0">
@@ -110,7 +115,7 @@
                                         </tbody>
                                     </table>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </div>
@@ -156,7 +161,7 @@
 
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', '{{ asset('/requisicionProducto/destroy/') }}' + '/' +
+            modal.find('form').attr('action', '{{ asset('/recepcionCompra/destroy/') }}' + '/' +
                 categoria_id);
         })
     </script>

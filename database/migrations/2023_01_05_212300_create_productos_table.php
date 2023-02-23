@@ -18,9 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('marca_id')->unsigned();
             $table->unsignedBigInteger('medida_id')->unsigned();
             $table->unsignedBigInteger('rubro_id')->unsigned();
-            $table->string('cod_producto',250);
-            $table->string('descripcion',250);
-            $table->string('observacion',250);
+            $table->string('cod_producto',255);
+            $table->string('descripcion',255);
+            $table->decimal('costoPromedio', $precision = 12, $scale = 2)->nullable();
+            $table->string('observacion',255);  
             $table->string('imagen');
             $table->foreign('marca_id')->references('id')->on('marcas');
             $table->foreign('medida_id')->references('id')->on('medidas');

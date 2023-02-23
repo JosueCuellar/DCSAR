@@ -9,7 +9,9 @@ class DetalleRequisicion extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'cantidad'
+        'cantidad',
+        'precioPromedio',
+        'total'
     ];
     public function producto()
     {

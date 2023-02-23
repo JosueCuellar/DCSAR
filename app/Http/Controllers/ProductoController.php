@@ -28,7 +28,8 @@ class ProductoController extends Controller
         $marcas = Marca::all();
         $medidas = Medida::all();
         $rubros = Rubro::all();
-        return view('producto.create', compact('marcas', 'medidas', 'rubros'));
+        $productos = Producto::all();
+        return view('producto.create', compact('marcas', 'medidas', 'rubros', 'productos'));
     }
 
     //Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
@@ -37,9 +38,6 @@ class ProductoController extends Controller
     {
         try {
             $imagen = $request->file('imagen');
-            $request->validate([
-                'imagen' => 'required|image|mimes:png,jpg,jpeg|max:2048'
-            ]);
             $rutaGuardarImagen = 'imagen/';
             $imagenProducto = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
             $imagen->move($rutaGuardarImagen, $imagenProducto);
@@ -54,7 +52,7 @@ class ProductoController extends Controller
             $producto->rubro_id = $request->rubro_id;
             $producto->save();
             //Se redirige al listado de todos los registros
-            return redirect()->route('producto.index');
+            return redirect()->route('producto.index')->with('status', 'Registro correcto');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -88,9 +86,9 @@ class ProductoController extends Controller
             }
             $producto->update($prod);
             //Se redirige al listado de todos los registros
-            return redirect()->route('producto.index');
+            return redirect()->route('producto.index')->with('status', 'Registro correcto');
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return redirect()->back()->with('msg', 'Error no se puede actualizar');
         }
     }
 
@@ -103,7 +101,7 @@ class ProductoController extends Controller
             if (File::exists($url)) {
                 $producto->delete();
                 File::delete($url);
-                return redirect()->route('producto.index');
+                return redirect()->route('producto.index')->with('delete', 'Registro eliminado');
             } else {
                 return redirect()->back()->with('msg', 'No existe la imagen!');
             }

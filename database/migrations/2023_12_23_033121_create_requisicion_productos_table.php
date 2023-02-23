@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->dateTime('fecha_requisicion');
             $table->string('nCorrelativo')->nullable();
-            $table->string('descripcion')->nullable();
-            $table->string('observacion')->nullable();
+            $table->string('descripcion',512)->nullable();
+            $table->string('observacion',512)->nullable();
             $table->unsignedBigInteger('estado_id')->unsigned();
             $table->foreign('estado_id')->references('id')->on('estados');
             $table->timestamps();

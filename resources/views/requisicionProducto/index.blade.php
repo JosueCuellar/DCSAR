@@ -17,50 +17,41 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane"
-                        type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Requisiciones
-                        AÚN SIN COMPLETAR</button>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
-                    tabindex="0">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-center table-striped" id="dataTable11" width="100%"
-                                cellspacing="0">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Fecha de realización</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($requisicionesSinCompletar as $item)
-                                        <tr>
-                                            <td scope="row">{{ $item->fecha_requisicion}}</td>
-                                            <td>{{ $item->estado->nombreEstado }}</td>
-                                            <td>
-                                                <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                    <ion-icon src="/ionicons.designerpack/create-outline.svg" class="fa-lg text-primary"></ion-icon>
-                                                </a>
-                                                <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                    data-toggle="modal" data-target="#deleteModal"
-                                                    data-delete="{{ $item->id }}">
-                                                    <ion-icon src="/ionicons.designerpack/trash-sharp.svg" class="fa-lg text-danger"></ion-icon>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div class="card-body">
+                <h4>Solicitudes enviadas</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center table-striped" id="dataTable11" width="100%"
+                        cellspacing="0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Fecha de realización</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($requisiciones as $item)
+                                <tr>
+                                    <td scope="row">{{ $item->fecha_requisicion }}</td>
+                                    <td><span class="badge badge-info">{{ $item->estado->nombreEstado }}</span></td>
+                                    <td>
+                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
+                                            <ion-icon src="/ionicons.designerpack/create-outline.svg"
+                                                class="fa-lg text-primary"></ion-icon>
+                                        </a>
+                                        <a href="{{ route('requisicionProducto.destroy', $item) }}" data-toggle="modal"
+                                            data-target="#deleteModal" data-delete="{{ $item->id }}">
+                                            <ion-icon src="/ionicons.designerpack/trash-sharp.svg"
+                                                class="fa-lg text-danger"></ion-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -89,6 +80,54 @@
             </div>
         </div>
     </div>
+
+@section('js')
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Solicitud enviada',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha enviado la solicitud para su revisión',
+                class: 'bg-info',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Solicitud eliminada',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+@endsection
+
 
 @section('js_datatable')
     <script>

@@ -117,6 +117,8 @@
     </div>
 
 @section('js')
+<script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+
     <script>
         $(function() { //Money Euro
             $('[data-mask]').inputmask();

@@ -122,6 +122,7 @@ Route::get('producto/destroy/{producto}', [ProductoController::class, 'destroy']
 Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index');
 Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado');
 Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar');
+Route::get('entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega');
 Route::post('requisicionProducto', [RequisicionProductoController::class, 'store'])->name('requisicionProducto.store');
 Route::put('requisicionProducto/completar/{requisicionProducto}', [RequisicionProductoController::class, 'update'])->name('requisicionProducto.pagar');
 Route::put('requisicionProducto/aceptar/{requisicionProducto}', [RequisicionProductoController::class, 'aceptar'])->name('requisicionProducto.aceptarRequi');
@@ -146,11 +147,13 @@ Route::controller(RecepcionCompraController::class)->group(function () {
   Route::put('recepcionCompra/completar/{recepcionCompra}','update')->name('recepcionCompra.completar');
   Route::get('recepcionCompra/consultar', 'consultar')->name('recepcionCompra.consultar');
   Route::get('recepcionCompra/destroy/{recepcionCompra}',  'destroy')->name('recepcionCompra.destroy');
-  Route::get('recepcionCompra/revisar', 'revisar')->name('recepcionCompra.revisar');
+  Route::get('recepcionCompra/revisar/{recepcionCompra}', 'revisar')->name('recepcionCompra.revisar');
 
 });
 
 Route::controller(DocumentoXCompraController::class)->group(function () {
+  // Route::get('expediente/{id}/download', [ExpedienteController::class, 'download'])->name('expediente.download');
+  Route::get('leerDocumento/{documento}', 'leerDocumento')->name('leer.documento');
   Route::post('upload/{recepcionCompra}', 'upload')->name('upload.documento');
   Route::post('delete/{recepcionCompra}', 'delete')->name('delete.documento');
 });
