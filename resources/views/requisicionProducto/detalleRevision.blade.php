@@ -59,8 +59,8 @@
                                                 <td>{{ $item->cantidad }}</td>
                                                 <td>{{ $item->producto->medida->nombreMedida }}</td>
                                                 <td>{{ $item->producto->descripcion }}</td>
-                                                <td>{{ $item->producto->costoPromedio }}</td>
-                                                <td>{{ $item->total }}</td>
+                                                <td>${{ $item->producto->costoPromedio }}</td>
+                                                <td>${{ $item->total }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -71,7 +71,7 @@
                                         <th scope="col"></th>
                                         <th scope="col"></th>
                                         <th scope="col">Total</th>
-                                        <th scope="col">{{ $totalFinal }}</th>
+                                        <th scope="col">${{ $totalFinal }}</th>
                                     </tfoot>
                                 </table>
                             </div>

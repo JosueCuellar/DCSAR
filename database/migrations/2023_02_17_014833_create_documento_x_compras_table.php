@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombreDocumento');
             $table->unsignedBigInteger('recepcionCompra_id');
-            $table->foreign('recepcionCompra_id')->references('id')->on('recepcion_compras');
+            $table->foreign('recepcionCompra_id')->references('id')->on('recepcion_compras')->cascadeOnDelete();
             $table->timestamps();
         });
     }
