@@ -53,7 +53,7 @@ class DetalleCompraController extends Controller
             // $productoA->costoPromedio = $cProm;
             // $productoA->save();
             
-            return redirect()->route('recepcionCompra.detalle', $recepcionCompra);
+            return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
         } catch (\Exception $e) {
             return $e->getMessage();
             // return response()->json(array($productoA, $cProm));   
@@ -86,7 +86,7 @@ class DetalleCompraController extends Controller
             // $productoA->costoPromedio = $cProm;
             // $productoA->save();
 
-            return redirect()->route('recepcionCompra.detalle', $recepcionCompra);
+            return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -102,7 +102,7 @@ class DetalleCompraController extends Controller
         // $productoA = Producto::where('id', $producto_id)->first();
         // $productoA->costoPromedio = $cProm;
         // $productoA->save();
-        return redirect()->route('recepcionCompra.detalle', $recepcionCompra);
+        return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('delete', 'Se ha eliminado el detalle del producto');
     }
 
     // public function costoPromedio($producto){

@@ -38,7 +38,7 @@ class RecepcionCompraController extends Controller
             $recepcionCompra->save();
             return redirect()->route('recepcionCompra.detalle', $recepcionCompra);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return redirect()->back()->with('error', 'Algo salio mal!');
         }
     }
 
@@ -56,9 +56,9 @@ class RecepcionCompraController extends Controller
                 $productoA->save();
             }
             $recepcionCompra->save();
-            return redirect()->route('recepcionCompra.consultar');
+            return redirect()->route('recepcionCompra.consultar')->with('status', 'Registro correcto');
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return redirect()->back()->with('error', 'Algo salio mal!');
         }
     }
 
@@ -74,9 +74,13 @@ class RecepcionCompraController extends Controller
 
     public function revisar(RecepcionCompra $recepcionCompra)
     {
-        $detalleCompra = DetalleCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
+        $totalFinal = 0;
+        $detalleCompra = DetalleCompra::where('recepcionCompra_id',$recepcionCompra->id)->get();
+        foreach($detalleCompra as $item){
+            $totalFinal += $item->total;
+        }
         $documentos  = DocumentoXCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
-        return view('recepcionCompra.revisar', compact('documentos', 'detalleCompra', 'recepcionCompra'));
+        return view('recepcionCompra.revisar', compact('documentos', 'detalleCompra', 'recepcionCompra','totalFinal'));
     }
 
         public function costoPromedio($producto){
@@ -99,6 +103,17 @@ class RecepcionCompraController extends Controller
         $existencias = $cantidadCompra - $cantidadRequi;
         $costoPromedio = $saldoTotal/$existencias;
         return $costoPromedio;
+    }
+
+    public function destroy(RecepcionCompra $recepcionCompra)
+    {
+        try{
+            $recepcionCompra->delete();
+            return redirect()->route('recepcionCompra.consultar')->with('delete', 'Registro eliminado');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Algo salio mal!');
+        }
+
     }
 
 }

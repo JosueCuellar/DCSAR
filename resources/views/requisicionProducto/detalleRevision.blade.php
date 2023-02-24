@@ -13,6 +13,10 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-6">Numero Correlativo: <label>{{ $requisicionProducto->nCorrelativo }}</label>
+                                </div>
+                            </div><br>
+                            <div class="row">
                                 <div class="col-6">Unidad Organizativa: <label>Unidad de Logistica</label>
                                 </div>
                                 <div class="col-6">Fecha de solicitud:
@@ -24,7 +28,6 @@
                                 <div class="col-6">Descripcion: <label>{{ $requisicionProducto->descripcion }}</label>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 

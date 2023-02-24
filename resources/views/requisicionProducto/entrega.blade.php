@@ -39,12 +39,12 @@
                                                                 class="btn btn-info">Detalles</button>
                                                         </div>
 
-                                                        <div class="btn-group">
+                                                        {{-- <div class="btn-group">
                                                             <button type="submit" data-toggle="modal"
                                                                 data-target="#modalObservacionAceptar"
                                                                 data-aceptar="{{ $item->id }}"
                                                                 class="btn bg-gradient-warning">Confirmar entrega</button>
-                                                        </div>
+                                                        </div> --}}
 
 
                                                     </div>

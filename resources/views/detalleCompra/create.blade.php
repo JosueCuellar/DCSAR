@@ -5,7 +5,7 @@
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <div class="col-md-12">
-        <h2>RECEPCIÓN DE COMPRA DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
+        <h2 class="text-center">RECEPCIÓN DEL INGRESO DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
     </div>
     <div class="row">
         <div class="col-md-12 d-grid gap-2 d-md-flex">
@@ -25,7 +25,7 @@
                     <div class="card card-post" id="post_card">
                         <div class="card-header">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                Detalle de la compra
+                                Detalle del ingreso
                                 <div class="pull-right">
                                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
                                         data-toggle="tooltip" data-placement="left" title
@@ -48,12 +48,15 @@
                                                     @foreach ($productos as $item)
                                                         @if (old('producto_id') == $item->id)
                                                             <option value="{{ $item->id }}" selected>
-                                                                {{ $item->cod_producto.' '.$item->descripcion }}
+                                                                {{ $item->cod_producto.'-'.$item->descripcion .''.$item->medida->nombreMedida}}
 
                                                             </option>
                                                         @else
                                                             <option value="{{ $item->id }}">
-                                                                {{ $item->cod_producto.' '.$item->descripcion }}
+                                                                {{ $item->cod_producto}}||
+                                                                {{$item->descripcion}}||
+                                                                Marca:  {{$item->marca->nombre}}||
+                                                                Medida: {{$item->medida->nombreMedida}}
                                                             </option>
                                                         @endif
                                                     @endforeach
@@ -224,6 +227,53 @@
             </div>
         </div>
     </div>
+
+    @section('js')
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Ingreso de producto',
+                position: 'topRight',
+                body: '{{ session('status') }}',
+                class: 'bg-info',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Ingreso de producto',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+@endsection
 
 @section('js_datatable')
     <script>

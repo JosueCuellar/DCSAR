@@ -5,7 +5,7 @@
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <div class="col-md-12">
-        <h2>Detalles de la recepción de la compra de insumos</h2>
+        <h2>Detalles del ingreso de insumos</h2>
     </div>
 @endsection
 @section('content')
@@ -16,7 +16,7 @@
                     <div class="card card-post" id="post_card">
                         <div class="card-header">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                Detalle de la compra
+                                Detalle del ingreso
                                 <div class="pull-right">
                                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
                                         data-toggle="tooltip" data-placement="left" title
@@ -31,8 +31,10 @@
                                         <tr>
                                             <th scope="col">Producto</th>
                                             <th scope="col">Cantidad</th>
+                                            <th scope="col">Medida</th>
+                                            <th scope="col">Descripcion</th>
                                             <th scope="col">Precio unidad</th>
-                                            <th scope="col">Fecha vencimiento</th>
+                                            <th scope="col">Sub-Total</th>
                                             {{-- <th scope="col">Acciones</th> --}}
                                         </tr>
                                     </thead>
@@ -41,8 +43,17 @@
                                             <tr>
                                                 <th scope="row">{{ $itemDet->producto->cod_producto }}</th>
                                                 <td>{{ $itemDet->cantidadIngreso }}</td>
-                                                <td>{{ $itemDet->precioUnidad }}</td>
-                                                <td>{{ $itemDet->fechaVenc }}</td>
+                                                <td>{{ $itemDet->producto->medida->nombreMedida }}</td>
+                                                <td>{{ $itemDet->producto->descripcion }}</td>
+                                                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                                    <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                                                  </svg>{{ $itemDet->precioUnidad }}</td>
+                                                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-currency-dollar"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+                                                    </svg>{{ $itemDet->total }}</td>
                                                 {{-- <td>
                                                     <a
                                                         href="{{ route('detalleCompra.edit', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $itemDet]) }}">
@@ -61,6 +72,19 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot class="thead-light">
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-currency-dollar"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+                                            </svg>{{ $totalFinal }}</th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -96,8 +120,8 @@
                     </div>
                     <div class="modal-body form-group">
                         <form action=""></form>
-                        <form method="POST" action="{{ route('upload.documento', $recepcionCompra->id) }}" class="dropzone"
-                            id="my-dropzone">
+                        <form method="POST" action="{{ route('upload.documento', $recepcionCompra->id) }}"
+                            class="dropzone" id="my-dropzone">
                             @csrf
                         </form>
                     </div>
@@ -198,6 +222,9 @@
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
+                "paging": false,
+                "ordering": false,
+                "info": false,
                 "autoWidth": false,
                 "responsive": true,
                 "columnDefs": [{

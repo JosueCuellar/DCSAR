@@ -3,7 +3,7 @@
 @section('header')
     <div class="container">
         <div class="col-md-12">
-            <h2>Recepción de compras</h2>
+            <h2>Recepción de ingreso de productos</h2>
         </div>
     </div>
 @endsection
@@ -140,7 +140,7 @@
                                     <span data-toggle="tooltip" title data-original-title="Guardar cambios realizados">
                                         <button type="submit" class="btn btn-success" value="Guardar" name="action">
                                             <ion-icon name="save-outline"></ion-icon>
-                                            Guardar compra
+                                            Guardar ingreso
                                         </button>
                                     </span>
                                 </div>

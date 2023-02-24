@@ -2,7 +2,7 @@
 @section('title', 'Recepción Compra')
 @section('header')
     <div class="col-md-12">
-        <h2>Compras realizadas</h2>
+        <h2>Ingresos de productos realizadas</h2>
     </div>
 @endsection
 @section('content')
@@ -15,7 +15,8 @@
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="enviadas-tab" data-toggle="pill" href="#enviadas"
-                                        role="tab" aria-controls="enviadas" aria-selected="true"><h6>Compras registradas</h6>
+                                        role="tab" aria-controls="enviadas" aria-selected="true">
+                                        <h6>Ingresos registrados</h6>
                                     </a>
                                 </li>
                                 {{-- <li class="nav-item">
@@ -30,10 +31,11 @@
                                 {{-- Completas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
-                                    <table class="table table-striped table-bordered text-center" id="dataTable11" width="100%"
-                                        cellspacing="0">
+                                    <table class="table table-striped table-bordered text-center" id="dataTable11"
+                                        width="100%" cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>
+                                                <th scope="col">Fecha realización</th>
                                                 <th scope="col">Número de orden de compra</th>
                                                 <th scope="col">Número presupuestario</th>
                                                 <th scope="col">Número de compromiso</th>
@@ -44,30 +46,31 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($recepcionesCompletas as $item)
-                                                    <td scope="row">{{ $item->nOrdenCompra }}</td>
-                                                    <td>{{ $item->nPresupuestario }}</td>
-                                                    <td>{{ $item->nCompromiso }}</td>
-                                                    <td>{{ $item->codigoFactura }}</td>
-                                                    <td>{{ $item->proveedor->nombreComercial }}</td>
+                                                <td scope="row">{{ $item->created_at }}</td>
+                                                <td>{{ $item->nOrdenCompra }}</td>
+                                                <td>{{ $item->nPresupuestario }}</td>
+                                                <td>{{ $item->nCompromiso }}</td>
+                                                <td>{{ $item->codigoFactura }}</td>
+                                                <td>{{ $item->proveedor->nombreComercial }}</td>
 
-                                                    <td>
-                                                        <a href="{{ route('recepcionCompra.revisar', $item->id) }}">
-                                                            <ion-icon name="eye-outline" class="fa-lg text-success">
-                                                            </ion-icon>
-                                                        </a>
+                                                <td>
+                                                    <a href="{{ route('recepcionCompra.revisar', $item->id) }}">
+                                                        <ion-icon name="eye-outline" class="fa-lg text-success">
+                                                        </ion-icon>
+                                                    </a>
 
-                                                        <a href="{{ route('recepcionCompra.detalle', $item->id) }}">
-                                                            <ion-icon name="create-outline" class="fa-lg text-primary">
-                                                            </ion-icon>
-                                                        </a>
+                                                    <a href="{{ route('recepcionCompra.detalle', $item->id) }}">
+                                                        <ion-icon name="create-outline" class="fa-lg text-primary">
+                                                        </ion-icon>
+                                                    </a>
 
-                                                        <a href="{{ route('recepcionCompra.destroy', $item) }}"
-                                                            data-toggle="modal" data-target="#deleteModal"
-                                                            data-categoriaid="{{ $item->id }}">
-                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                            </ion-icon>
-                                                        </a>
-                                                    </td>
+                                                    <a href="{{ route('recepcionCompra.destroy', $item) }}"
+                                                        data-toggle="modal" data-target="#deleteModal"
+                                                        data-delete="{{ $item->id }}">
+                                                        <ion-icon name="trash-outline" class="fa-lg text-danger">
+                                                        </ion-icon>
+                                                    </a>
+                                                </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -152,17 +155,62 @@
         </div>
     </div>
 
+@section('js')
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Registro de ingreso correcto',
+                position: 'topRight',
+                body: '{{ session('status') }}',
+                class: 'bg-info',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Registro de ingreso eliminada',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+@endsection
+
 @section('js_datatable')
 
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
-
+            var delete_id = button.data('delete')
             var modal = $(this)
-            // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/recepcionCompra/destroy/') }}' + '/' +
-                categoria_id);
+                delete_id);
         })
     </script>
 
@@ -174,7 +222,7 @@
                     api: true
                 }).columns.adjust();
             });
-            
+
             $('#dataTable11').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -207,11 +255,11 @@
                         'targets': 3
                     },
                     {
-                    "responsivePriority": 10002,
+                        "responsivePriority": 10002,
                         "targets": 4
                     },
                     {
-                    "responsivePriority": 10001,
+                        "responsivePriority": 10001,
                         "targets": 1
                     }
                 ]

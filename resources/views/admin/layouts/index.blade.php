@@ -82,7 +82,7 @@
                 <nav class="mt-1">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview"
                         role="menu" data-accordion="false">
-                        <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
+                        {{-- <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <ion-icon name="document-attach-outline" class="nav-icon"></ion-icon>
@@ -109,8 +109,48 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li> --}}
+                        <br>
+                        <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <ion-icon name="clipboard-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Ingreso productos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item menu-is-opening menu-open">
+                                    <a href="{{ asset('recepcionCompra') }}" class="nav-link bg-dark">
+                                        <ion-icon name="cash-outline" class="nav-icon"></ion-icon>
+                                        <p>Registrar ingreso</p>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item menu-is-opening menu-open">
+                                    <a href="{{ asset('recepcionCompra/consultar') }}" class="nav-link dark">
+                                        <ion-icon name="file-tray-stacked-outline" class="nav-icon"></ion-icon>
+                                        <p>
+                                            Ingresos realizados
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li><br>
-                        {{-- 
+
+                        <li class="nav-header text-light">SOLICITUDES A ENTREGAR</li>
+                        <li class="nav-item">
+                            <a href="{{ asset('entregaSolicitud') }}" class="nav-link active">
+                                <ion-icon name="receipt-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Bandeja de solicitudes
+                                </p>
+                            </a>
+                        </li><br>
+
                         <li class="nav-header text-light">INVENTARIO</li>
                         <li class="nav-item">
                             <a href="{{ asset('inventario') }}" class="nav-link active">
@@ -119,18 +159,21 @@
                                     Inventario
                                 </p>
                             </a>
-                        </li><br> --}}
+                        </li><br>
 
-                        <li class="nav-header text-light">REVISAR SOLICITUDES</li>
+                        {{-- <li class="nav-header text-light">REVISAR SOLICITUDES</li>
                         <li class="nav-item">
                             <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
                                 <ion-icon name="folder-open-outline" class="nav-icon"></ion-icon>
                                 <p>
                                     Solicitudes recibidas
-                                    {{-- <span class="badge badge-info right">{{$nEnviadas}}</span> --}}
                                 </p>
                             </a>
-                        </li><br>
+                        </li><br> --}}
+
+
+
+
 
                         <li class="nav-header text-light">CATALOGOS </li>
                         <li class="nav-item">
@@ -200,46 +243,6 @@
                                 </li>
                             </ul>
                         </li><br>
-
-                        {{-- <li class="nav-header text-light">SOLICITUDES</li>
-                        <li class="nav-item">
-                            <a href="{{ asset('entregaSolicitud') }}" class="nav-link active">
-                                <ion-icon name="receipt-outline" class="nav-icon"></ion-icon>
-                                <p>
-                                    Bandeja de solicitudes
-                                </p>
-                            </a>
-                        </li><br>
-
-                        <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <ion-icon name="clipboard-outline" class="nav-icon"></ion-icon>
-                                <p>
-                                    Ingreso productos
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item menu-is-opening menu-open">
-                                    <a href="{{ asset('recepcionCompra') }}" class="nav-link bg-dark">
-                                        <ion-icon name="cash-outline" class="nav-icon"></ion-icon>
-                                        <p>Registrar compra</p>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item menu-is-opening menu-open">
-                                    <a href="{{ asset('recepcionCompra/consultar') }}" class="nav-link dark">
-                                        <ion-icon name="file-tray-stacked-outline" class="nav-icon"></ion-icon>
-                                        <p>
-                                            Compras realizadas
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> --}}
 
 
 

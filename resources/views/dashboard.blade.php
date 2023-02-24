@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
-            <h5 class="text-bold">Cantidad de solicitudes</h5>
+            {{-- <h5 class="text-bold">Cantidad de solicitudes</h5>
             <div class="row p-2">
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow">
@@ -45,11 +45,11 @@
                     </div>
 
                 </div>
-            </div>
+            </div> --}}
 
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
-                <div class="col-lg-4 col-6">
+                {{-- <div class="col-lg-4 col-6">
                     <div class="text-white small-box" style="background-color: #003f5c">
                         <div class="inner">
                             <h5>Requisición productos</h5>
@@ -96,12 +96,12 @@
                         <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
+                </div> --}}
 
-                {{-- <div class="col-lg-4 col-6">
+                <div class="col-lg-4 col-6">
                     <div class="text-white small-box" style="background-color: #003f5c">
                         <div class="inner">
-                            <h5>Recepción de compras</h5>
+                            <h5>Recepción de ingresos</h5>
                             <p>Agregar una entrada nueva de productos</p>
                         </div>
                         <div class="icon">
@@ -134,8 +134,8 @@
                 <div class="col-lg-4 col-6">
                     <div class="text-white small-box" style="background-color: #e63946 ">
                         <div class="inner">
-                            <h5>Consultar compras</h5>
-                            <p>Compras realizadas</p>
+                            <h5>Consultar ingresos</h5>
+                            <p>Ingresos registrados</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag">
@@ -145,10 +145,10 @@
                         <a href="{{ asset('recepcionCompra/consultar') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div> --}}
+                </div>
 
             </div>
-
+{{-- 
             <h5 class="text-bold">Proceso de requisiciones</h5>
             <div class="row p-2">
                 <div class="col-lg-12">
@@ -164,7 +164,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
 
         </div>
     </div>
