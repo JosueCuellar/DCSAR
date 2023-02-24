@@ -128,22 +128,17 @@
                                 <table class="table table-bordered" id="dataTable7" width="100%" cellspacing="0">
                                     <thead class="thead-dark">
                                         <tr>
+                                            <th scope="col"></th>
                                             <th scope="col">Producto</th>
                                             <th scope="col">Cantidad</th>
+                                            <th scope="col">Fecha vencimiento</th>
                                             <th scope="col">Precio unidad</th>
                                             <th scope="col">Subtotal</th>
-                                            <th scope="col">Fecha vencimiento</th>
-                                            <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($detalleCompra as $itemDet)
                                             <tr>
-                                                <th scope="row">{{ $itemDet->producto->cod_producto }}</th>
-                                                <td>{{ $itemDet->cantidadIngreso }}</td>
-                                                <td>{{ $itemDet->precioUnidad }}</td>
-                                                <td>{{ $itemDet->total }}</td>
-                                                <td>{{ $itemDet->fechaVenc }}</td>
                                                 <td>
                                                     <a
                                                         href="{{ route('detalleCompra.edit', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $itemDet]) }}">
@@ -159,9 +154,25 @@
                                                         </ion-icon>
                                                     </a>
                                                 </td>
+                                                <th scope="row">{{ $itemDet->producto->descripcion }}</th>
+                                                <td>{{ $itemDet->cantidadIngreso }}</td>
+                                                <td>{{ $itemDet->fechaVenc }}</td>
+                                                <td>${{ $itemDet->precioUnidad }}</td>
+                                                <td>${{ $itemDet->total }}</td>
+                                               
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot class="thead-light">
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">${{$totalFinal}}</th>
+                                        </tr>
+                                    </tfoot >
                                 </table>
                             </div>
                         </div>

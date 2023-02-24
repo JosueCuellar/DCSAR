@@ -25,10 +25,14 @@ class DetalleCompraController extends Controller
     public function create(RecepcionCompra $recepcionCompra)
     {
         try {
+            $totalFinal = 0;
             $detalleCompra = DetalleCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
             $productos = Producto::all();
+            foreach($detalleCompra as $item){
+                $totalFinal += $item->total;
+            }
             $documentos  = DocumentoXCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
-            return view('detalleCompra.create', compact('recepcionCompra', 'detalleCompra', 'productos', 'documentos'));
+            return view('detalleCompra.create', compact('recepcionCompra', 'detalleCompra', 'productos', 'documentos', 'totalFinal'));
         } catch (\Exception $e) {
             $e->getMessage();
         }
