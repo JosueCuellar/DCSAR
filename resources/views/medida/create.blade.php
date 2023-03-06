@@ -30,7 +30,7 @@
                                 <label for="nombre" class="col-12 control-label">Nombre de unidad de medida:</label>
                                 <div class="col-12">
                                 <input id="nombreMedida" type="text" class="form-control"  name="nombreMedida" 
-                                value="{{old('nombreMedida')}}" placeholder="Nombre de la unidad de medida" >
+                                 placeholder="Nombre de la unidad de medida" >
                                 </div>
                             </div>
                         </div>

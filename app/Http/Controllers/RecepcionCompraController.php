@@ -32,7 +32,7 @@ class RecepcionCompraController extends Controller
             $recepcionCompra->estado = false;
             $recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
             $recepcionCompra->nPresupuestario = $request->nPresupuestario;
-            $recepcionCompra->nCompromiso = $request->nCompromiso;
+            // $recepcionCompra->nCompromiso = $request->nCompromiso;
             $recepcionCompra->actaRecepcion = $request->actaRecepcion;
             $recepcionCompra->codigoFactura = $request->codigoFactura;
             $recepcionCompra->save();

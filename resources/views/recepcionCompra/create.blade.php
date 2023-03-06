@@ -79,7 +79,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
-                                        <label for="nOrdenCompra" class="col-12 control-label">Número de Orden de
+                                        <label for="nOrdenCompra" class="col-12 control-label">Orden de
                                             Compra:</label>
                                         <div class="col-12">
                                             <input id="nOrdenCompra" type="text" class="form-control" name="nOrdenCompra"
@@ -106,7 +106,7 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback row">
-                                        <label for="nPresupuestario" class="col-12 control-label">Número
+                                        <label for="nPresupuestario" class="col-12 control-label">Número Compromiso
                                             Presupuestario:</label>
                                         <div class="col-12">
                                             <input id="nPresupuestario" type="text" class="form-control"
@@ -114,13 +114,13 @@
                                                 placeholder="Número presupuestario">
                                         </div>
                                     </div>
-                                    <div class="form-group has-feedback row">
+                                    {{-- <div class="form-group has-feedback row">
                                         <label for="nCompromiso" class="col-12 control-label">Número Compromiso:</label>
                                         <div class="col-12">
                                             <input id="nCompromiso" type="text" class="form-control" name="nCompromiso"
                                                 value="{{ old('nCompromiso') }}" placeholder="Número compromiso">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group has-feedback row">
                                         <label for="fechaIngreso" class="col-12 control-label">Fecha del ingreso:</label>
                                         <div class="col-12">
@@ -153,4 +153,22 @@
     </div>
 @section('js_datatable')
 @endsection
+@section('js_imagen')
+<script>
+    $(document).ready(function(e) {
+        $('#proveedor_id').select2({
+            language: {
+                noResults: function() {
+                    return "No hay resultado";
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            }
+        });
+    });
+    $("#proveedor_id").select2()
+</script>
+@endsection
+
 @endsection

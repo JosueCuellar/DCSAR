@@ -13,7 +13,7 @@ class RecepcionCompra extends Model
         'proveedor_id',
         'nOrdenCompra',
         'nPresupuestario',
-        'nCompromiso',
+        // 'nCompromiso',
         'actaRecepcion',
         'estado',
         'codigoFactura'

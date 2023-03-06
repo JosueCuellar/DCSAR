@@ -26,9 +26,10 @@ class ProductoRequest extends FormRequest
     {
         return [
 
-            'cod_producto'=>'required|max:100',
-            'descripcion'=>'required|max:100',
-            'observacion'=>'required|max:100',
+            'cod_producto'=>'required',
+            'descripcion'=>'required|max:255',
+            'perecedero'=>'required|boolean',
+            'observacion'=>'max:255',
             'imagen' => ['required', new JfifNotAllowed],
             'marca_id'=>'required',
             'medida_id'=>'required',
@@ -40,9 +41,10 @@ class ProductoRequest extends FormRequest
     {
         return [
             'cod_producto.*'=>'Ingrese codigo de producto',
-            'descripcion.*'=>'Ingrese una descripcion',
-            'observacion.*'=>'Ingrese una observacion',
+            'descripcion.*'=>'Ingrese una descripcion, maximo 255 caracteres',
+            'observacion.*'=>'Ingrese una observacion, maximo 255 caracteres',
             'imagen.*'=>'Ingrese una imagen (Formato: PNG, JPG, JPEG)',
+            'perecedero.*'=>'Ingrese el tipo de producto',
             'marca_id.*'=>'Ingrese una marca',
             'medida_id.*'=>'Ingrese una medida',
             'rubro_id.*'=>'Ingrese un rubro',

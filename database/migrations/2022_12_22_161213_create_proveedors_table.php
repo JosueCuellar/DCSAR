@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('direccion',255);
             $table->string('fax',150);
             $table->string('telefono1',15);
-            $table->string('telefono2',15);
+            $table->string('telefono2',15)->nullable();
             $table->timestamps();
         });
     }

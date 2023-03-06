@@ -33,7 +33,7 @@
                                             presupuestario:</label>
                                         <div class="col-12">
                                             <input id="n" type="text" class="form-control"
-                                                name="codigoPresupuestario" value="{{ old('codigoPresupuestario') }}"
+                                                name="codigoPresupuestario" 
                                                 placeholder="Codigo presupuestario">
                                         </div>
                                     </div>                
@@ -42,7 +42,7 @@
                                             rubro:</label>
                                         <div class="col-12">
                                             <input id="descripcionRubro" type="text" class="form-control"
-                                                name="descripcionRubro" value="{{ old('descripcionRubro') }}"
+                                                name="descripcionRubro" 
                                                 placeholder="Descripción de rubro">
                                         </div>
                                     </div>

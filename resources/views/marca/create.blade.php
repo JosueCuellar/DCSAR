@@ -32,7 +32,7 @@
                                         <label for="nombre" class="col-12 control-label">Nombre de marca:</label>
                                         <div class="col-12">
                                             <input id="nombre" type="text" class="form-control" name="nombre"
-                                                value="{{ old('nombre') }}" placeholder="Nombre de la marca">
+                                               placeholder="Nombre de la marca">
                                         </div>
                                     </div>
                                 </div>

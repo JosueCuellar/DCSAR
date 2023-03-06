@@ -24,13 +24,13 @@ class MarcaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:100',
+            'nombre'=>'required|max:255',
         ];
     }
     public function messages()
     {
         return [
-            'nombre.*'=>'Ingrese un nombre, de no mas de 100 caracteres',
+            'nombre.*'=>'Ingrese un nombre, de no mas de 255 caracteres',
         ];
     }
 }

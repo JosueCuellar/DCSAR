@@ -33,10 +33,11 @@
                             <th scope="col">Rubro</th>
                             <th scope="col">Codigo producto</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">Observacion</th>
+                            <th scope="col">Perecedero</th>
                             <th scope="col">Imagen</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Medida</th>
+                            <th scope="col">Observacion</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -46,7 +47,12 @@
                                 <td>{{ $item->rubro->descripcionRubro }}</td>
                                 <td>{{ $item->cod_producto }}</td>
                                 <td>{{ $item->descripcion }}</td>
-                                <td>{{ $item->observacion }}</td>
+                                @if ($item->perecedero == 1)
+                                    <td><span class="badge bg-success">Perecedero</span> </td>
+                                @else
+                                <td><span class="badge bg-danger">No Perecedero</span> </td>
+
+                                @endif
                                 <td>
                                     <div class="filter-container row">
                                         <div class="filtr-item col-sm-2">
@@ -59,6 +65,7 @@
                                 </td>
                                 <td>{{ $item->marca->nombre }}</td>
                                 <td>{{ $item->medida->nombreMedida }}</td>
+                                <td>{{ $item->observacion }}</td>
                                 <td>
                                     <a href="{{ route('producto.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>

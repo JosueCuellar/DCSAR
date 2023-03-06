@@ -32,8 +32,7 @@
                                         <label for="nombreComercial" class="col-12 control-label">Nombre comercial:</label>
                                         <div class="col-12">
                                             <input id="nombreComercial" type="text" class="form-control"
-                                                name="nombreComercial" value="{{ old('nombreComercial') }}"
-                                                placeholder="Nombre comercial del proveedor">
+                                                name="nombreComercial" placeholder="Nombre comercial del proveedor">
                                         </div>
                                     </div>
 
@@ -41,7 +40,7 @@
                                         <label for="direccion" class="col-12 control-label">Dirección:</label>
                                         <div class="col-12">
                                             <input id="direccion" type="text" class="form-control" name="direccion"
-                                                value="{{ old('direccion') }}" placeholder="Dirección del proveedor">
+                                                placeholder="Dirección del proveedor">
                                         </div>
                                     </div>
 
@@ -56,7 +55,7 @@
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
                                                     data-mask="" inputmode="text" id="telefono1" name="telefono1"
-                                                    value="{{ old('telefono1') }}" placeholder="Teléfono del proveedor">
+                                                    placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
                                     </div>
@@ -68,15 +67,15 @@
                                         <label for="razonSocial" class="col-12 control-label">Razón social:</label>
                                         <div class="col-12">
                                             <input id="razonSocial" type="text" class="form-control" name="razonSocial"
-                                                value="{{ old('razonSocial') }}" placeholder="Razón social del proveedor">
+                                                placeholder="Razón social del proveedor">
                                         </div>
                                     </div>
 
                                     <div class="form-group has-feedback row">
                                         <label for="fax" class="col-12 control-label">FAX:</label>
                                         <div class="col-12">
-                                            <input id="fax" type="text" maxlength="10" class="form-control" name="fax"
-                                                value="{{ old('fax') }}" placeholder="FAX del proveedor">
+                                            <input id="fax" type="text" maxlength="10" class="form-control"
+                                                name="fax" placeholder="FAX del proveedor">
                                         </div>
                                     </div>
 
@@ -90,7 +89,7 @@
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
                                                     data-mask="" inputmode="text" id="telefono2" name="telefono2"
-                                                    value="{{ old('telefono2') }}" placeholder="Teléfono del proveedor">
+                                                    placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +116,7 @@
     </div>
 
 @section('js')
-<script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 
     <script>
         $(function() { //Money Euro

@@ -33,8 +33,7 @@
                                     <div class="form-group has-feedback row">
                                         <label for="rubro_id" class="col-12 control-label">Rubro:</label>
                                         <div class="col-12">
-                                            <select class="form-control" name="rubro_id" id="rubro_id"
-                                                value="{{ old('rubro_id') }}">
+                                            <select class="form-control" name="rubro_id" id="rubro_id">
                                                 <option selected='true' disabled='disabled'>Seleccionar rubro del producto
                                                 </option>
                                                 @foreach ($rubros as $item)
@@ -46,20 +45,25 @@
                                         </div>
                                     </div>
 
+
                                     <div class="form-group has-feedback row">
-                                        <label for="descripcion" class="col-12 control-label">Descripción del
-                                            producto:</label>
+                                        <label for="medida_id" class="col-12 control-label">Unidad de Medida:</label>
                                         <div class="col-12">
-                                            <input id="descripcion" type="text" class="form-control" name="descripcion"
-                                                value="{{ old('descripcion') }}" placeholder="Descripción">
+                                            <select class="form-control" name="medida_id" id="medida_id">
+                                                <option selected='true' disabled='disabled'>Seleccionar unidad de medida
+                                                </option>
+                                                @foreach ($medidas as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nombreMedida }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
+
 
                                     <div class="form-group has-feedback row">
                                         <label for="marca_id" class="col-12 control-label">Marca:</label>
                                         <div class="col-12">
-                                            <select class="form-control" name="marca_id" id="marca_id"
-                                                value="{{ old('marca_id') }}">
+                                            <select class="form-control" name="marca_id" id="marca_id">
                                                 <option selected='true' disabled='disabled'>Seleccionar marca</option>
                                                 @foreach ($marcas as $item)
                                                     <option value="{{ $item->id }}">{{ $item->nombre }}</option>
@@ -70,12 +74,22 @@
 
 
                                     <div class="form-group has-feedback row">
+                                        <label for="descripcion" class="col-12 control-label">Descripción del
+                                            producto:</label>
+                                        <div class="col-12">
+                                            <input id="descripcion" type="text" class="form-control" name="descripcion"
+                                                placeholder="Descripción">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group has-feedback row">
                                         <label for="observacion" class="col-12 control-label">Observacion:</label>
                                         <div class="col-12">
                                             <input id="observacion" type="text" class="form-control" name="observacion"
-                                                value="{{ old('observacion') }}" placeholder="Observacion">
+                                                placeholder="Observacion">
                                         </div>
                                     </div>
+
 
 
 
@@ -88,35 +102,36 @@
                                         <label for="cod_producto" class="col-12 control-label">Codigo producto:</label>
                                         <div class="col-12">
                                             <input id="cod_producto" type="text" class="form-control" name="cod_producto"
-                                                value="{{ old('cod_producto') }}" placeholder="Codigo producto" readonly>
-
+                                                placeholder="Codigo producto" readonly>
                                         </div>
                                     </div>
 
-                                    <div class="form-group has-feedback row">
-                                        <label for="medida_id" class="col-12 control-label">Unidad de Medida:</label>
-                                        <div class="col-12">
-                                            <select class="form-control" name="medida_id" id="medida_id"
-                                                value="{{ old('medida_id') }}">
-                                                <option selected='true' disabled='disabled'>Seleccionar unidad de medida
-                                                </option>
-                                                @foreach ($medidas as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nombreMedida }}</option>
-                                                @endforeach
-                                            </select>
+                                    <div class="form-group">
+                                        <label for="cod_producto" class="col-12 control-label">Tipo de alimento:</label>
+                                        <div class="col-12 form-control">
+                                            <div
+                                                class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                <input type="hidden" name="perecedero" value="0">
+                                                <input type="checkbox" class="custom-control-input" id="check"
+                                                    name="perecedero" value="1">
+                                                <label class="custom-control-label" for="check">Perecedero</label>
+                                            </div>
                                         </div>
                                     </div>
+
+
+
 
                                     <div class="form-group has-feedback row">
                                         <label for="imagen" class="col-12 control-label">Seleccionar imagen</label>
                                         <div class="col-12">
-                                            <input id="imagen" class="img-fluid" name="imagen" type="file"
+                                            <input id="imagen" class="form-control" name="imagen" type="file"
                                                 accept="image/png, image/jpg, image/jpeg">
                                         </div>
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <img id="imagenSeleccionada" style="max-height: 100px">
+                                        <img id="imagenSeleccionada" style="max-height: 150px">
                                     </div>
 
                                 </div>
@@ -164,20 +179,52 @@
     <script>
         $(document).ready(function(e) {
             $('#rubro_id').select2({
+                width: 'resolve',
                 language: {
-
                     noResults: function() {
-
                         return "No hay resultado";
                     },
                     searching: function() {
-
                         return "Buscando..";
                     }
                 }
             });
         });
         $("#rubro_id").select2()
+    </script>
+
+    <script>
+        $(document).ready(function(e) {
+            $('#marca_id').select2({
+                width: 'resolve',
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        });
+        $("#marca_id").select2()
+    </script>
+
+    <script>
+        $(document).ready(function(e) {
+            $('#medida_id').select2({
+                width: 'resolve',
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        });
+        $("#medida_id").select2()
     </script>
 
     <script>
@@ -191,6 +238,20 @@
             });
         });
     </script>
+
+    {{-- <script>
+        $("#perecedero").on('change', function() {
+            if ($(this).is(':checked')) {
+                $(this).attr('value', '1');
+                var check = $(this).val();
+                console.log(check);
+            } else {
+                $(this).attr('value', '0');
+                var check = $(this).val();
+                console.log(check);
+            }
+        });
+    </script> --}}
 
 @endsection
 

@@ -27,7 +27,6 @@ class DetalleCompraRequest extends FormRequest
             'producto_id'=>'required',
             'cantidadIngreso'=>'required',
             'precioUnidad'=>'required',
-            'fechaVenc'=>'required',
             
         ];
     }
@@ -37,7 +36,6 @@ class DetalleCompraRequest extends FormRequest
             'producto_id.*'=>'Campo requerido',
             'cantidadIngreso.*'=>'Campo requerido, tipo entero, maximo 10000',
             'precioUnidad.*'=>'Campo requerido, minimo 0.01, máximo 10,000',
-            'fechaVenc.*'=>'Campo requerido',
             
         ];
     }

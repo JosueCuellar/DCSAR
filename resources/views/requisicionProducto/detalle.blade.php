@@ -127,8 +127,8 @@
 
                                         </td>
                                         <td>{{ $item->producto->medida->nombreMedida }}</td>
-                                        <td>{{ $item->precioPromedio }}</td>
-                                        <td>{{ $item->total }}</td>
+                                        <td>${{ $item->precioPromedio }}</td>
+                                        <td>${{ $item->total }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -139,7 +139,7 @@
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col">Total</th>
-                                    <th scope="col">{{ $totalFinal }}</th>
+                                    <th scope="col">${{ $totalFinal }}</th>
                                 </tr>
                             </tfoot>
                         </table>

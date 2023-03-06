@@ -14,8 +14,6 @@ use App\Http\Controllers\RecepcionCompraController;
 use App\Http\Controllers\RequisicionProductoController;
 use App\Http\Controllers\RubroController;
 use App\Http\Controllers\UnidadOrganizativaController;
-use App\Models\DetalleCompra;
-use App\Models\RecepcionCompra;
 use Illuminate\Support\Facades\Route;
 
 /*

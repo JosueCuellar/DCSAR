@@ -24,15 +24,15 @@ class RubroRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigoPresupuestario'=>'required|max:100',
-            'descripcionRubro'=>'required|max:100',
+            'codigoPresupuestario'=>'required|max:255',
+            'descripcionRubro'=>'required|max:255',
         ];
     }
     public function messages()
     {
         return [
-            'codigoPresupuestario.*'=>'Ingrese un codigo, de no mas de 100 caracteres',
-            'descripcionRubro.*'=>'Ingrese una descripcion, de no mas de 100 caracteres',
+            'codigoPresupuestario.*'=>'Ingrese un codigo, de no mas de 255 caracteres',
+            'descripcionRubro.*'=>'Ingrese una descripcion, de no mas de 255 caracteres',
 
         ];
     }

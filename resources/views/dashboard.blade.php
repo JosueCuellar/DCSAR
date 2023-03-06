@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
-            {{-- <h5 class="text-bold">Cantidad de solicitudes</h5>
+            <h5 class="text-bold">Cantidad de solicitudes</h5>
             <div class="row p-2">
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow">
@@ -45,11 +45,11 @@
                     </div>
 
                 </div>
-            </div> --}}
+            </div>
 
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
-                {{-- <div class="col-lg-4 col-6">
+                <div class="col-lg-4 col-6">
                     <div class="text-white small-box" style="background-color: #003f5c">
                         <div class="inner">
                             <h5>Requisición productos</h5>
@@ -96,7 +96,7 @@
                         <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div> --}}
+                </div>
 
                 <div class="col-lg-4 col-6">
                     <div class="text-white small-box" style="background-color: #003f5c">

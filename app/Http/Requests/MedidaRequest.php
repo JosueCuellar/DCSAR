@@ -24,13 +24,13 @@ class MedidaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombreMedida'=>'required|max:100',
+            'nombreMedida'=>'required|max:255',
         ];
     }
     public function messages()
     {
         return [
-            'nombreMedida.*'=>'Ingrese un nombre, de no mas de 100 caracteres',
+            'nombreMedida.*'=>'Ingrese un nombre, de no mas de 255 caracteres',
         ];
     }
 }

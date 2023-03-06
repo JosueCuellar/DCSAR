@@ -33,8 +33,7 @@
                                         <label for="nombreComercial" class="col-12 control-label">Nombre comercial:</label>
                                         <div class="col-12">
                                             <input id="nombreComercial" type="text" class="form-control"
-                                                name="nombreComercial"
-                                                value="{{ old('nombreComercial', $proveedor->nombreComercial) }}"
+                                                name="nombreComercial" value="{{ $proveedor->nombreComercial }}"
                                                 placeholder="Nombre comercial del proveedor">
                                         </div>
                                     </div>
@@ -43,8 +42,7 @@
                                         <label for="direccion" class="col-12 control-label">Dirección:</label>
                                         <div class="col-12">
                                             <input id="direccion" type="text" class="form-control" name="direccion"
-                                                value="{{ old('direccion', $proveedor->direccion) }}"
-                                                placeholder="Dirección del proveedor">
+                                                value="{{ $proveedor->direccion }}" placeholder="Dirección del proveedor">
                                         </div>
                                     </div>
 
@@ -59,7 +57,7 @@
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
                                                     data-mask="" inputmode="text" id="telefono1" name="telefono1"
-                                                    value="{{ old('telefono1', $proveedor->telefono1) }}"
+                                                    value="{{ $proveedor->telefono1 }}"
                                                     placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
@@ -72,7 +70,7 @@
                                         <label for="razonSocial" class="col-12 control-label">Razón social:</label>
                                         <div class="col-12">
                                             <input id="razonSocial" type="text" class="form-control" name="razonSocial"
-                                                value="{{ old('razonSocial', $proveedor->razonSocial) }}"
+                                                value="{{ $proveedor->razonSocial }}"
                                                 placeholder="Razón social del proveedor">
                                         </div>
                                     </div>
@@ -81,7 +79,7 @@
                                         <label for="fax" class="col-12 control-label">FAX:</label>
                                         <div class="col-12">
                                             <input id="fax" type="text" maxlength="10" class="form-control"
-                                                name="fax" value="{{ old('fax', $proveedor->fax) }}"
+                                                name="fax" value="{{ $proveedor->fax }}"
                                                 placeholder="FAX del proveedor">
                                         </div>
                                     </div>
@@ -96,7 +94,7 @@
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
                                                     data-mask="" inputmode="text" id="telefono2" name="telefono2"
-                                                    value="{{ old('telefono2', $proveedor->telefono2) }}"
+                                                    value="{{ $proveedor->telefono2 }}"
                                                     placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
@@ -123,7 +121,7 @@
         </div>
     </div>
 @section('js')
-<script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 
     <script>
         $(function() { //Money Euro

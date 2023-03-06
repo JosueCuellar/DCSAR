@@ -24,24 +24,24 @@ class ProveedorRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombreComercial'=>'required|max:100',
-            'razonSocial' => 'required|max:250',
-            'direccion' => 'required|max:150',
+            'nombreComercial'=>'required|max:255',
+            'razonSocial' => 'required|max:255',
+            'direccion' => 'required|max:255',
             'fax' => 'required|max:150',
             'telefono1' => 'required|max:15',
-            'telefono2' => 'required|max:15',
+            'telefono2' => 'max:15',
 
         ];
     }
     public function messages()
     {
         return [
-            'nombreComercial.*'=>'Ingrese un nombre comercial, de no mas de 100 caracteres',
-            'razonSocial.*'=>'Ingrese una razon social, de no mas de 100 caracteres',
-            'direccion.*'=>'Ingrese una direccion, de no mas de 100 caracteres',
-            'fax.*'=>'Ingrese un fax, de no mas de 100 caracteres',
-            'telefono1.*'=>'Ingrese un teléfono, de no mas de 100 caracteres',
-            'telefono2.*'=>'Ingrese un télefono opc, de no mas de 100 caracteres',
+            'nombreComercial.*'=>'Ingrese un nombre comercial, de no más de 255 caracteres',
+            'razonSocial.*'=>'Ingrese una razon social, de no más de 255 caracteres',
+            'direccion.*'=>'Ingrese una direccion, de no más de 255 caracteres',
+            'fax.*'=>'Ingrese un fax, de no mas de 150 caracteres',
+            'telefono1.*'=>'Ingrese un teléfono, con el formato que se indica',
+            'telefono2.*'=>'Ingrese un télefono opcional, con el formato que se indica',
         ];
     }
 }

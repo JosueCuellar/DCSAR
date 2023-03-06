@@ -82,7 +82,7 @@
                 <nav class="mt-1">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview"
                         role="menu" data-accordion="false">
-                        {{-- <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
+                        <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <ion-icon name="document-attach-outline" class="nav-icon"></ion-icon>
@@ -109,8 +109,17 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li>
                         <br>
+                        <li class="nav-header text-light">REVISAR SOLICITUDES</li>
+                        <li class="nav-item">
+                            <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
+                                <ion-icon name="folder-open-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Solicitudes recibidas
+                                </p>
+                            </a>
+                        </li><br>
                         <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
@@ -160,19 +169,6 @@
                                 </p>
                             </a>
                         </li><br>
-
-                        {{-- <li class="nav-header text-light">REVISAR SOLICITUDES</li>
-                        <li class="nav-item">
-                            <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
-                                <ion-icon name="folder-open-outline" class="nav-icon"></ion-icon>
-                                <p>
-                                    Solicitudes recibidas
-                                </p>
-                            </a>
-                        </li><br> --}}
-
-
-
 
 
                         <li class="nav-header text-light">CATALOGOS </li>

@@ -32,7 +32,7 @@
                                     <div class="form-group has-feedback row">
                                         <label for="nombre" class="col-12 control-label">Nombre de marca:</label>
                                         <div class="col-12">
-                                            <input value="{{ old('nombre', $marca->nombre) }}" id="nombre" type="text"
+                                            <input value="{{ $marca->nombre }}" id="nombre" type="text"
                                                 class="form-control" name="nombre" placeholder="Nombre de la categoría"
                                                 required>
                                         </div>

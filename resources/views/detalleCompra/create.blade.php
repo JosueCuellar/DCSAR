@@ -46,19 +46,10 @@
                                                 <select class="form-control" name="producto_id" id="producto_id">
                                                     <option selected disabled='disabled'>Seleccionar producto</option>
                                                     @foreach ($productos as $item)
-                                                        @if (old('producto_id') == $item->id)
-                                                            <option value="{{ $item->id }}" selected>
-                                                                {{ $item->cod_producto.'-'.$item->descripcion .''.$item->medida->nombreMedida}}
-
-                                                            </option>
-                                                        @else
-                                                            <option value="{{ $item->id }}">
-                                                                {{ $item->cod_producto}}||
-                                                                {{$item->descripcion}}||
-                                                                Marca:  {{$item->marca->nombre}}||
-                                                                Medida: {{$item->medida->nombreMedida}}
-                                                            </option>
-                                                        @endif
+                                                        <option value="{{ $item->id }}">
+                                                            {{ $item->cod_producto . "\nDecripcion: " . $item->descripcion . "\nMarca:" . $item->marca->nombre }}
+                                                            Medida:{{ $item->medida->nombreMedida }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                                 @error('producto_id')
@@ -159,7 +150,7 @@
                                                 <td>{{ $itemDet->fechaVenc }}</td>
                                                 <td>${{ $itemDet->precioUnidad }}</td>
                                                 <td>${{ $itemDet->total }}</td>
-                                               
+
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -170,9 +161,9 @@
                                             <th scope="col"></th>
                                             <th scope="col"></th>
                                             <th scope="col">Total</th>
-                                            <th scope="col">${{$totalFinal}}</th>
+                                            <th scope="col">${{ $totalFinal }}</th>
                                         </tr>
-                                    </tfoot >
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -239,7 +230,7 @@
         </div>
     </div>
 
-    @section('js')
+@section('js')
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
@@ -284,6 +275,45 @@
             })
         </script>
     @endif
+
+    <script>
+        $(document).ready(function(e) {
+            $('#producto_id').select2({
+                width: 'resolve',
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        });
+        $("#producto_id").select2()
+    </script>
+
+    <script>
+        const select = document.getElementById('producto_id');
+        const input = document.getElementById('fechaVenc');
+        var objetos = {!! json_encode($productos) !!};
+        $('#producto_id').on('change', function(e) {
+            const objeto_encontrado = objetos.find(objeto => objeto.id === parseInt($(this).val()));
+            console.log(objeto_encontrado["perecedero"]);
+            if (objeto_encontrado["perecedero"] === 1) {
+                input.disabled = false;
+            } else {
+                input.disabled = true;
+                document.getElementById("fechaVenc").value = "yyyy-MM-dd";
+
+            }
+            if (objeto_encontrado) {
+                console.log(JSON.stringify(objeto_encontrado));
+            } else {
+                console.log(`No se encontró ningún objeto con ID ${$(this).val()}`);
+            }
+        });
+    </script>
 @endsection
 
 @section('js_datatable')
@@ -297,7 +327,7 @@
             dictFileTooBig: "El archivo es muy grande. Tamaño máximo: 4MiB.",
             dictRemoveFile: "Eliminar",
             dictCancelUpload: "Cancelar carga",
-            acceptedFiles: "application/pdf,.doc,.docx,.xls,.xlsx,.csv,.tsv,.ppt,.pptx,.pages,.odt,.rtf",
+            // acceptedFiles: "application/pdf,.doc,.docx,.xls,.xlsx,.csv,.tsv,.ppt,.pptx,.pages,.odt,.rtf",
             init: function() {
                 this.on("removedfile", function(file) {
                     // send an AJAX request to delete the file from the server

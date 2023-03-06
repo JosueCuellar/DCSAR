@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('cantidadIngreso');
             $table->decimal('precioUnidad', $precision = 12, $scale = 2);
             $table->decimal('total', $precision = 12, $scale = 2);
-            $table->string('fechaVenc',10);
+            $table->string('fechaVenc',10)->nullable();
             $table->timestamps();
         });
     }

@@ -37,6 +37,7 @@ class ProductoController extends Controller
     public function store(ProductoRequest $request)
     {
         try {
+            
             $imagen = $request->file('imagen');
             $rutaGuardarImagen = 'imagen/';
             $imagenProducto = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
@@ -45,7 +46,8 @@ class ProductoController extends Controller
             $producto = new Producto();
             $producto->cod_producto = $request->cod_producto;
             $producto->descripcion = $request->descripcion;
-            $producto->observacion = $request->observacion;
+            $producto->observacion = $request->oservacion;
+            $producto->perecedero = $request->perecedero;
             $producto->imagen = $imagenProducto;
             $producto->marca_id = $request->marca_id;
             $producto->medida_id = $request->medida_id;
