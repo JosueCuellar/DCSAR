@@ -19,6 +19,24 @@ class DocumentoXCompraController extends Controller
         return response()->file($pathToFile);
     }
 
+    public function documentoBar(RecepcionCompra $recepcionCompra)
+    {
+        // retrieve data from session
+        $currentStep = "2.Subir documentos del ingreso"; //Paso actual
+        $labelBar = ["1.Recepcion de compra", "2.Subir documentos del ingreso", "3.Ingreso de productos"]; // Array con los números de los pasos
+
+        return view('recepcionCompra.documento', compact('currentStep', 'labelBar','recepcionCompra'));
+    }
+
+    public function documentoBarPost(RecepcionCompra $recepcionCompra)
+    {
+        $recepcionID = DocumentoXCompra::where('id', $recepcionCompra);
+        return redirect()->route('recepcionCompra.detalle', $recepcionCompra);
+    }
+
+
+
+
     public function upload(Request $request, RecepcionCompra $recepcionCompra)
     {
         // $recepcion = RecepcionCompra::where('id', $recepcionCompra->id)->get();

@@ -25,14 +25,16 @@ class DetalleCompraController extends Controller
     public function create(RecepcionCompra $recepcionCompra)
     {
         try {
-            $totalFinal = 0;
+            $currentStep = "3.Ingreso de productos"; //Paso actual
+            $labelBar = ["1.Recepcion de compra", "2.Subir documentos del ingreso", "3.Ingreso de productos"]; // Array con los números de los pasos
+                $totalFinal = 0;
             $detalleCompra = DetalleCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
             $productos = Producto::all();
             foreach($detalleCompra as $item){
                 $totalFinal += $item->total;
             }
             $documentos  = DocumentoXCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
-            return view('detalleCompra.create', compact('recepcionCompra', 'detalleCompra', 'productos', 'documentos', 'totalFinal'));
+            return view('detalleCompra.create', compact('recepcionCompra', 'detalleCompra', 'productos', 'documentos', 'totalFinal','labelBar', 'currentStep'));
         } catch (\Exception $e) {
             $e->getMessage();
         }

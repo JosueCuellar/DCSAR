@@ -127,8 +127,6 @@
         </script>
     @endif
 @endsection
-
-
 @section('js_datatable')
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {

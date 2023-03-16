@@ -1,0 +1,49 @@
+.step-progress {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.step-progress li {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+    color: #000000;
+}
+
+.step-progress li:before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 5px solid #ccc;
+    background-color: #fff;
+    display: block;
+    margin: 0 auto 10px;
+    line-height: 28px;
+}
+
+.step-progress li.active:before {
+    border-color: #002e34;
+}
+
+.step-progress li:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: #90ff17;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+
+.step-progress li.active ~ li:after {
+    background-color: #e0eff1;
+}
+
+.step-progress li:first-child:after {
+    content: none;
+}

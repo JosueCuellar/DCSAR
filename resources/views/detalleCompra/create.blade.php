@@ -1,12 +1,12 @@
-@extends('admin.layouts.index')
+@extends('bar.layouts.bar')
 @section('title', 'Detalle de Compra')
 @section('header')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
-    <div class="col-md-12">
+    {{-- <div class="col-md-12">
         <h2 class="text-center">RECEPCIÓN DEL INGRESO DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
-    </div>
+    </div> --}}
     <div class="row">
         <div class="col-md-12 d-grid gap-2 d-md-flex">
             <div class="m-1">
@@ -16,6 +16,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('content')
     <div class="content">
@@ -231,6 +232,7 @@
     </div>
 
 @section('js')
+
     @if (session('status'))
         <script>
             $(document).Toasts('create', {

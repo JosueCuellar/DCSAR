@@ -150,7 +150,8 @@ Route::controller(RecepcionCompraController::class)->group(function () {
 });
 
 Route::controller(DocumentoXCompraController::class)->group(function () {
-  // Route::get('expediente/{id}/download', [ExpedienteController::class, 'download'])->name('expediente.download');
+  Route::get('documento/{recepcionCompra}', 'documentoBar')->name('recepcionCompra.documento'); 
+  Route::post('documentoPost/{recepcionCompra}', 'documentoBarPost')->name('recepcionCompra.documentoPost'); //2
   Route::get('leerDocumento/{documento}', 'leerDocumento')->name('leer.documento');
   Route::post('upload/{recepcionCompra}', 'upload')->name('upload.documento');
   Route::post('delete/{recepcionCompra}', 'delete')->name('delete.documento');

@@ -12,16 +12,33 @@ use App\Models\RecepcionCompra;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class RecepcionCompraController extends Controller
 {
     //
+        //En general, este código es responsable de llenar 
+        //una vista con datos de dos tablas de base de datos y algunos 
+        //metadatos de pasos, que se usarán para guiar al usuario a través de un proceso de tres pasos.
     public function index()
     {
-        $recepcionCompras = RecepcionCompra::all();
-        $proveedores = Proveedor::all();
-        return view('recepcionCompra.create', compact('recepcionCompras', 'proveedores'));
+        try {
+            // Retrieve data from the database
+            $proveedores = Proveedor::all();
+    
+            // Define the current step and step labels
+            $currentStep = "1.Recepcion de compra";
+            $labelBar = ["1.Recepcion de compra", "2.Subir documentos del ingreso", "3.Ingreso de productos"];
+    
+            // Render the view with the retrieved data and labels
+            return view('recepcionCompra.create', compact('proveedores', 'currentStep', 'labelBar'));
+        } catch (\Exception $e) {
+            // Log the error and return an error page or message
+            Log::error('Error creating Recepcion de compra: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            abort(500, 'Error creating Recepcion de compra.');
+        }
     }
+
 
 
     public function store(RecepcionCompraRequest $request)
@@ -32,11 +49,9 @@ class RecepcionCompraController extends Controller
             $recepcionCompra->estado = false;
             $recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
             $recepcionCompra->nPresupuestario = $request->nPresupuestario;
-            // $recepcionCompra->nCompromiso = $request->nCompromiso;
-            $recepcionCompra->actaRecepcion = $request->actaRecepcion;
             $recepcionCompra->codigoFactura = $request->codigoFactura;
             $recepcionCompra->save();
-            return redirect()->route('recepcionCompra.detalle', $recepcionCompra);
+            return redirect()->route('recepcionCompra.documento', $recepcionCompra);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Algo salio mal!');
         }
