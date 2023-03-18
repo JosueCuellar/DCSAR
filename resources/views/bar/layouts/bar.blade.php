@@ -55,7 +55,7 @@
 
 
 
-    <nav class="main-header navbar" style="background-color: #f4f6f9">
+    <nav class="main-header navbar navbar-expand" style="background-color: #f4f6f9">
         <!-- Left navbar links -->
         <ul class="bar col-12">
             @foreach ($labelBar as $step)

@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-@section('title', 'Detalle de Compra')
+@section('title', 'Detalle de Ingreso')
 @section('header')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />

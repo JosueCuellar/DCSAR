@@ -62,7 +62,10 @@
                     </a>
                 </li>
             </ul>
+
         </nav>
+
+
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -253,12 +256,11 @@
             </div>
         </aside>
 
-        @yield('bar')
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-          
-            
+        <div class="content-wrapper">          
+            @yield('bar')
+
             <div class="content-header">
                 @yield('header')
             </div>

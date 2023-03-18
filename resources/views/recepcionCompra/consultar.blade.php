@@ -1,5 +1,5 @@
 @extends('admin.layouts.index')
-@section('title', 'Recepción Compra')
+@section('title', 'Recepción Ingreso')
 @section('header')
     <div class="col-md-12">
         <h2>Ingresos de productos realizadas</h2>

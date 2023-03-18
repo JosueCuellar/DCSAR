@@ -1,9 +1,13 @@
 @extends('bar.layouts.bar')
 @section('title', 'Documentos')
+
+@section('header')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+@endsection
+
 @section('content')
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
-<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <div class="content">
         <div class="row">
             <div class="col-md-12">
@@ -11,32 +15,21 @@
                     <form action="{{ route('recepcionCompra.documentoPost', $recepcionCompra) }}" method="POST">
                         @csrf
                         @method('POST')
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Subir archivos</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body form-group">
+                        <div class="card-header">
+                            <button type="submit" class="btn btn-success" value="Guardar" name="action">
+                                Siguiente paso
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
                                     <form action=""></form>
                                     <form method="POST" action="{{ route('upload.documento', $recepcionCompra->id) }}"
                                         class="dropzone" id="my-dropzone">
                                         @csrf
                                     </form>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-12">
-                                                <button type="submit" class="btn btn-warning  text-left"><i class="fa fa-check"></i>
-                                                Siguiente</button>                                                
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-            
                         </div>
                     </form>
 
@@ -45,6 +38,7 @@
         </div>
     </div>
 @endsection
+
 @section('js_datatable')
     <script>
         Dropzone.options.myDropzone = {
@@ -75,28 +69,4 @@
         Dropzone.discover();
     </script>
 
-@endsection
-
-@section('js')
-    {{-- <script>
-        const beforeUnloadListener = (event) => {
-            event.preventDefault();
-            return event.returnValue = "¿Está seguro de que desea salir de la página?";
-        };
-
-
-        const nameInput = document.querySelector("#codigoFactura");
-
-        nameInput.addEventListener("input", (event) => {
-            if (event.target.value !== "") {
-                addEventListener("beforeunload", beforeUnloadListener, {
-                    capture: true
-                });
-            } else {
-                removeEventListener("beforeunload", beforeUnloadListener, {
-                    capture: true
-                });
-            }
-        });
-    </script> --}}
 @endsection
