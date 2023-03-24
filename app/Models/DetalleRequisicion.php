@@ -17,8 +17,14 @@ class DetalleRequisicion extends Model
     {
         return $this->belongsTo(Producto::class);
     }
+    // public function requisicionProducto()
+    // {
+    //     return $this->belongsTo(RequisicionProducto::class);
+    // }
     public function requisicionProducto()
     {
-        return $this->belongsTo(RequisicionProducto::class);
+        return $this->belongsTo('App\Models\RequisicionProducto', 'requisicion_id');
     }
+    
+
 }

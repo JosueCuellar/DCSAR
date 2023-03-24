@@ -17,11 +17,13 @@ class DashboardController extends Controller
 
         $requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)->get();
         $nEnviadas = count($requisicionesEnviadas);
-        $requisicionesAprobadas = RequisicionProducto::where('estado_id',3)->get();
+        $requisicionesAprobadas = RequisicionProducto::where('estado_id',2)->get();
         $nAprobadas = count($requisicionesAprobadas);
-        $requisicionesRechazadas = RequisicionProducto::where('estado_id',4)->get();
+        $requisicionesRechazadas = RequisicionProducto::where('estado_id',3)->get();
         $nRechazadas = count($requisicionesRechazadas);
+        $requisicionesRecibidas = RequisicionProducto::where('estado_id',4)->get();
+        $nRecibidas = count($requisicionesRecibidas);
 
-        return view('dashboard', compact('n', 'existe','nEnviadas','nAprobadas','nRechazadas'));
+        return view('dashboard', compact('n', 'existe','nEnviadas','nAprobadas','nRechazadas', 'nRecibidas'));
     }
 }

@@ -23,19 +23,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         //Estados
+
+
         DB::table('estados')->insert([
             'codigoEstado' => 'SE',
             'descripcionEstado' => 'Una requisición ha sido enviada',
             'nombreEstado' => 'Solicitud Enviada',
         ]);
-
-
-        DB::table('estados')->insert([
-            'codigoEstado' => 'SSC',
-            'descripcionEstado' => 'Una requisición sin completar',
-            'nombreEstado' => 'Solicitud SIN COMPLETAR',
-        ]);
-
 
         DB::table('estados')->insert([
             'codigoEstado' => 'SA',
@@ -53,6 +47,12 @@ class DatabaseSeeder extends Seeder
             'codigoEstado' => 'SEN',
             'descripcionEstado' => 'Una requisición ha sido entregada',
             'nombreEstado' => 'Solicitud Entregada',
+        ]);
+
+        DB::table('estados')->insert([
+            'codigoEstado' => 'NA',
+            'descripcionEstado' => 'No terminada',
+            'nombreEstado' => 'NA',
         ]);
 
         //Medidas

@@ -20,8 +20,9 @@
                                         <tr>
                                             <th scope="col">Codigo producto</th>
                                             <th scope="col">Descripción producto</th>
-                                            <th scope="col">Observacion</th>
-                                            <th scope="col">Cantidad disponible</th>
+                                            <th scope="col">Stock real</th>
+                                            <th scope="col">Stock actual(Stock real - Cantidad reservada)</th>
+                                            <th scope="col">Cantidad reservada</th>                                
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -29,8 +30,10 @@
                                             <tr>
                                                 <th scope="row">{{ $item->cod_producto }}</th>
                                                 <td>{{ $item->descripcion }}</td>
-                                                <td>{{ $item->observacion }}</td>
                                                 <td>{{ $item->stock }}</td>
+                                                <td>{{ $item->stock-$item->stock1 }}</td>
+                                                <td>{{ $item->stock1 }}</td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -154,7 +154,7 @@
 
                         <li class="nav-header text-light">SOLICITUDES A ENTREGAR</li>
                         <li class="nav-item">
-                            <a href="{{ asset('entregaSolicitud') }}" class="nav-link active">
+                            <a href="{{ asset('requisicionProducto/entregaSolicitud') }}" class="nav-link active">
                                 <ion-icon name="receipt-outline" class="nav-icon"></ion-icon>
                                 <p>
                                     Bandeja de solicitudes

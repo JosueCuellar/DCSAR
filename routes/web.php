@@ -8,6 +8,7 @@ use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\MedidaController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RecepcionCompraController;
@@ -120,7 +121,12 @@ Route::get('producto/destroy/{producto}', [ProductoController::class, 'destroy']
 Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index');
 Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado');
 Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar');
-Route::get('entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega');
+Route::get('requisicionProducto/entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega');
+Route::get('requisicionProducto/recibida', [RequisicionProductoController::class, 'requisicionRecibida'])->name('requisicionProducto.recibida');
+
+//Metodo para poner el estado de entregada 
+Route::put('requisicionProducto/entregada/{requisicionProducto}', [RequisicionProductoController::class, 'requisicionEntregada'])->name('requisicionProducto.entregada');
+
 Route::post('requisicionProducto', [RequisicionProductoController::class, 'store'])->name('requisicionProducto.store');
 Route::put('requisicionProducto/completar/{requisicionProducto}', [RequisicionProductoController::class, 'update'])->name('requisicionProducto.pagar');
 Route::put('requisicionProducto/aceptar/{requisicionProducto}', [RequisicionProductoController::class, 'aceptar'])->name('requisicionProducto.aceptarRequi');
@@ -175,3 +181,7 @@ Route::controller(DetalleCompraController::class)->group(function () {
 
 Route::get('inventario', [InventarioController::class,'index'])->name('inventario.index');
 
+//---------------------------PDFs------------------------------------------------------
+
+Route::get('requisicionProducto/pdf/comprobante/{requisicionProducto}', [PDFController::class,'comprobanteRequiProductoPDF'])->name('pdf.requisicionProducto');
+Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [PDFController::class,'aprobarRequiProductoPDF'])->name('pdf.aprobarRequisicionProducto');

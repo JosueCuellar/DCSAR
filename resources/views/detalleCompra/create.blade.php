@@ -348,22 +348,6 @@
         });
     </script>
 
-    {{-- <script>
-        $(document).ready(function() {
-            $('#dataTable7').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                },
-                "autoWidth": false,
-                "responsive": true,
-                "columnDefs": [{
-                    "responsivePriority": 10001,
-                    "targets": 1
-                }]
-            });
-        });
-    </script> --}}
-
 
 @endsection
 @endsection

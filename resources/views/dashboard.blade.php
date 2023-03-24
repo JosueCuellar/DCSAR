@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <h5 class="text-bold">Cantidad de solicitudes</h5>
             <div class="row p-2">
-                <div class="col-md-4 col-sm-6 col-12">
+                <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box shadow">
                         <span class="info-box-icon text-white" style="background-color: #003f5c"><i
                                 class="far fa-envelope"></i></span>
@@ -18,7 +18,7 @@
 
                 </div>
 
-                <div class="col-md-4 col-sm-6 col-12">
+                <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box shadow">
                         <span class="info-box-icon text-white" style="background-color: #3e8e41">
                             <ion-icon name="checkmark-done-sharp" class="text-white"></ion-icon>
@@ -32,7 +32,7 @@
 
                 </div>
 
-                <div class="col-md-4 col-sm-6 col-12">
+                <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box shadow">
                         <span class="info-box-icon text-white" style="background-color: #e63946">
                             <ion-icon name="alert-circle-sharp" class="text-white"></ion-icon>
@@ -45,11 +45,25 @@
                     </div>
 
                 </div>
+
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box shadow">
+                        <span class="info-box-icon text-white" style="background-color: #dd8b26">
+                            <ion-icon name="documents-sharp" class="text-white"></ion-icon>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Recibidas</span>
+                            <span class="info-box-number">{{ $nRecibidas}}</span>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
 
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="text-white small-box" style="background-color: #003f5c">
                         <div class="inner">
                             <h5>Requisición productos</h5>
@@ -65,7 +79,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
 
                     <div class="text-white small-box" style="background-color: #3e8e41">
                         <div class="inner">
@@ -82,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="text-white small-box" style="background-color: #e63946 ">
                         <div class="inner">
                             <h5>Inventario</h5>
@@ -98,7 +112,23 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
+                    <div class="text-white small-box" style="background-color: #dd8b26 ">
+                        <div class="inner">
+                            <h5>Requisiciones Realizadas</h5>
+                            <p>Historial de requisiciones recibidas</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </i>
+                        </div>
+                        <a href="{{ asset('requisicionProducto/recibida') }}" class="small-box-footer">Ver <i
+                                class="fas fa-external-link-square-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
                     <div class="text-white small-box" style="background-color: #003f5c">
                         <div class="inner">
                             <h5>Recepción de ingresos</h5>
@@ -114,7 +144,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
 
                     <div class="text-white small-box" style="background-color: #3e8e41">
                         <div class="inner">
@@ -131,7 +161,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="text-white small-box" style="background-color: #e63946 ">
                         <div class="inner">
                             <h5>Consultar ingresos</h5>
@@ -147,11 +177,27 @@
                     </div>
                 </div>
 
+                <div class="col-lg-3 col-6">
+                    <div class="text-white small-box" style="background-color: #dd8b26  ">
+                        <div class="inner">
+                            <h5>Historial requisiciones</h5>
+                            <p>Requisiciones entregadas</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag">
+                                <ion-icon name="file-tray-full-sharp"></ion-icon>
+                            </i>
+                        </div>
+                        <a href="{{ asset('recepcionCompra/consultar') }}" class="small-box-footer">Ver <i
+                                class="fas fa-external-link-square-alt"></i></a>
+                    </div>
+                </div>
+
             </div>
 {{-- 
             <h5 class="text-bold">Proceso de requisiciones</h5>
             <div class="row p-2">
-                <div class="col-lg-12">
+                <div class="col-lg-32">
                     <div class="card card-dark card-outline">
                         <ul class="list-group">
                             <li class="list-group-item "><b class="text-info">Enviada:</b> Indica que la solicitud ha

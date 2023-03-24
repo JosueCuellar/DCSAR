@@ -17,7 +17,7 @@ class RequisicionProducto extends Model
     ];
     public function productos()
     {
-        return $this->belongsToMany(Producto::class,'detalle_requisicions');
+        return $this->belongsToMany(Producto::class, 'detalle_requisicions');
     }
 
     public function estado()
@@ -25,9 +25,20 @@ class RequisicionProducto extends Model
         return $this->belongsTo(Estado::class);
     }
 
-    public function scopeFechaRequisicion($query, $fecha_requisicion){
-        if($fecha_requisicion){
-            return $query->where('fecha_requisicion',$fecha_requisicion);
+    public function scopeFechaRequisicion($query, $fecha_requisicion)
+    {
+        if ($fecha_requisicion) {
+            return $query->where('fecha_requisicion', $fecha_requisicion);
         }
+    }
+
+    public function detallesRequisicion()
+    {
+        return $this->hasMany(DetalleRequisicion::class, 'requisicion_id');
+    }
+
+    public function detalleRequisicions()
+    {
+        return $this->hasMany('App\Models\DetalleRequisicion', 'requisicion_id');
     }
 }

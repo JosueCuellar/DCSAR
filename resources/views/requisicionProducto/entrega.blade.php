@@ -18,7 +18,7 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Fecha</th>
-                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Numero correlativo</th>
                                             <th scope="col">Estado</th>
                                             <th scope="col">Opciones</th>
                                         </tr>
@@ -27,26 +27,30 @@
                                         @foreach ($requisicionesAprobadas as $item)
                                             <tr>
                                                 <td scope="row">{{ $item->fecha_requisicion }}</td>
-                                                <td>{{ $item->descripcion }}</td>
-                                                <td><span class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
+                                                <td scope="row">{{ $item->nCorrelativo }}</td>
+                                                <td><span
+                                                        class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
                                                 <td>
-                                                    <div class="margin">
-                                                        <div class="btn-group">
-                                                            <button
-                                                                onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
-                                                                type="button" id="myButton"
-                                                                class="btn btn-info">Detalles</button>
-                                                        </div>
+                                                    <div>
+                                                        <button
+                                                            onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
+                                                            type="button" class="btn btn-primary"><i class="fa fa-eye"></i>
+                                                            Detalles</button>
 
-                                                        {{-- <div class="btn-group">
-                                                            <button type="submit" data-toggle="modal"
-                                                                data-target="#modalObservacionAceptar"
-                                                                data-aceptar="{{ $item->id }}"
-                                                                class="btn bg-gradient-warning">Confirmar entrega</button>
-                                                        </div> --}}
+                                                        <button
+                                                            onclick="location.href = '{{ asset('/requisicionProducto/pdf/aprobar/') }}/{{ $item->id }}';"
+                                                            type="button" class="btn btn-success"><i
+                                                                class="fa fa-download"></i> Autorizacion</button>
+                                                        <button
+                                                            onclick="location.href = '{{ asset('/requisicionProducto/pdf/comprobante/') }}/{{ $item->id }}';"
+                                                            type="button" class="btn btn-secondary"><i
+                                                                class="fa fa-download"></i> Comprobante</button>
 
-
+                                                        <button type="submit" data-toggle="modal"
+                                                            data-target="#modalConfirmar" data-aceptar="{{ $item->id }}"
+                                                            class="btn btn-dark"><i class="fa fa-check"></i> Confirmar
+                                                            entrega</button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -61,65 +65,30 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalObservacionAceptar" style="display: none;" aria-hidden="true">
-        <form method="POST" class="form-horizontal" action="">
-            @csrf
-            @method('put')
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+    <div class="modal fade" id="modalConfirmar" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" class="form-horizontal" action="">
+                    @csrf
+                    @method('put')
                     <div class="modal-header">
-                        <h5 class="modal-title">Ingresa una observacion de la requisición por aceptar</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro confirmar la entrega?</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group row">
-                            <label for="observacion" class="col-sm-2 col-form-label">Observacion</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" id="observacion" name="observacion" rows="3" placeholder="Ingresa una observacion"></textarea>
-                            </div>
-                        </div>
+                        Asegurate de haber entregado los productos de la requisicion antes de confirmar la entrega
                     </div>
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <a class="btn btn-success" onclick="$(this).closest('form').submit();">Guardar</a>
+                        <a class="btn btn-dark" onclick="$(this).closest('form').submit();">Confirmar</a>
                     </div>
-                </div>
-
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
-    <div class="modal fade" id="modalObservacionDenegar" style="display: none;" aria-hidden="true">
-        <form method="POST" class="form-horizontal" action="">
-            @csrf
-            @method('put')
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Ingresa una observacion de la requisición por rechazar</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <label for="observacion" class="col-sm-2 col-form-label">Observacion</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" id="observacion" name="observacion" rows="3" placeholder="Ingresa una observacion"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Guardar</a>
-                    </div>
-                </div>
-
-            </div>
-        </form>
-    </div>
 @section('js_datatable')
 
     <script>
@@ -144,26 +113,14 @@
     </script>
 
     <script>
-        $('#modalObservacionAceptar').on('show.bs.modal', function(event) {
+        $('#modalConfirmar').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var aceptar_id = button.data('aceptar')
 
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', '{{ asset('/requisicionProducto/aceptar/') }}' + '/' +
+            modal.find('form').attr('action', '{{ asset('/requisicionProducto/entregada/') }}' + '/' +
                 aceptar_id);
-        })
-    </script>
-
-    <script>
-        $('#modalObservacionDenegar').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
-
-            var modal = $(this)
-            // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', '{{ asset('/requisicionProducto/denegar/') }}' + '/' +
-                categoria_id);
         })
     </script>
 

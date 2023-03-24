@@ -43,14 +43,14 @@
                                                             <button type="submit" data-toggle="modal"
                                                                 data-target="#modalObservacionAceptar"
                                                                 data-aceptar="{{ $item->id }}"
-                                                                class="btn bg-gradient-success">Aceptar</button>
+                                                                class="btn bg-success">Aceptar</button>
                                                         </div>
 
                                                         <div class="btn-group">
                                                             <button type="submit" data-toggle="modal"
                                                                 data-target="#modalObservacionDenegar"
                                                                 data-categoriaid="{{ $item->id }}"
-                                                                class="btn bg-gradient-danger">Rechazar</button>
+                                                                class="btn bg-danger">Rechazar</button>
                                                         </div>
 
                                                     </div>

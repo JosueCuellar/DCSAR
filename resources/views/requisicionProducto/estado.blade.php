@@ -100,9 +100,14 @@
                                                         <td>
                                                             <a
                                                                 href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
-                                                                <ion-icon name="eye-outline" class="fa-lg text-success">
+                                                                <ion-icon name="eye-outline" class="fa-lg text-success"></ion-icon>
                                                             </a>
+                                                            <a
+                                                            href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
+                                                            <ion-icon name="document-text-outline"  class="fa-lg text-secondary"></ion-icon>
+                                                        </a>
                                                         </td>
+                                                        
                                                     </tr>
                                                 @endforeach
                                             </tbody>

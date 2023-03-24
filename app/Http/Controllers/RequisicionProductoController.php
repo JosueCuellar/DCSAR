@@ -16,7 +16,7 @@ class RequisicionProductoController extends Controller
         try {
             $fecha_requisicion = $request->get('fecha_requisicion');
             $requisiciones = RequisicionProducto::where('estado_id', 1)->fechaRequisicion($fecha_requisicion)->get();
-            $requisicionesSinCompletar = RequisicionProducto::where('estado_id', 2)->get();
+            $requisicionesSinCompletar = RequisicionProducto::where('estado_id', 5)->get();
             foreach ($requisicionesSinCompletar as $item) {
                 $item->delete();
             }
@@ -30,9 +30,9 @@ class RequisicionProductoController extends Controller
     {
         $requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)->get();
         $nEnviadas = count($requisicionesEnviadas);
-        $requisicionesAprobadas = RequisicionProducto::where('estado_id', 3)->get();
+        $requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)->get();
         $nAprobadas = count($requisicionesAprobadas);
-        $requisicionesRechazadas = RequisicionProducto::where('estado_id', 4)->get();
+        $requisicionesRechazadas = RequisicionProducto::where('estado_id', 3)->get();
         $nRechazadas = count($requisicionesRechazadas);
 
         return view('requisicionProducto.estado', compact('requisicionesEnviadas', 'requisicionesAprobadas', 'requisicionesRechazadas', 'nEnviadas', 'nAprobadas', 'nRechazadas'));
@@ -46,8 +46,14 @@ class RequisicionProductoController extends Controller
 
     public function entrega()
     {
-        $requisicionesAprobadas = RequisicionProducto::where('estado_id', 3)->get();
+        $requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)->get();
         return view('requisicionProducto.entrega', compact('requisicionesAprobadas'));
+    }
+
+    public function requisicionRecibida()
+    {
+        $requisicionRecibidas = RequisicionProducto::where('estado_id', 4)->get();
+        return view('requisicionProducto.requiRealizada', compact('requisicionRecibidas'));
     }
 
     public function store(Request $request)
@@ -55,7 +61,7 @@ class RequisicionProductoController extends Controller
         $requisicionProducto = new RequisicionProducto();
         $date =  new DateTime();
         $requisicionProducto->fecha_requisicion = $date->format('Y-m-d H:i:s');
-        $requisicionProducto->estado_id = 2;
+        $requisicionProducto->estado_id = 5;
         $requisicionProducto->save();
         return redirect()->route('requisicionProducto.detalle', $requisicionProducto);
     }
@@ -69,9 +75,18 @@ class RequisicionProductoController extends Controller
         return  redirect()->route('requisicionProducto.index')->with('status', 'Registro correcto');
     }
 
+
+    public function requisicionEntregada(RequisicionProducto $requisicionProducto)
+    {
+        $requisicionProducto->estado_id =  4;
+        $requisicionProducto->save();
+        return  redirect()->route('requisicionProducto.entrega')->with('status', 'Registro correcto');
+    }
+    
+
     public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
     {
-        $requisicionProducto->estado_id =  3;
+        $requisicionProducto->estado_id =  2;
         $nR = 1;
         $date = new Carbon();
         $n = DB::select("SELECT COUNT(id) AS nRequi FROM requisicion_productos WHERE nCorrelativo IS NOT NULL;");
@@ -89,7 +104,7 @@ class RequisicionProductoController extends Controller
 
     public function denegar(Request $request, RequisicionProducto $requisicionProducto)
     {
-        $requisicionProducto->estado_id =  4;
+        $requisicionProducto->estado_id =  3;
         $requisicionProducto->observacion = $request->observacion;
         $requisicionProducto->save();
         return  redirect()->route('requisicionProducto.revisar');
