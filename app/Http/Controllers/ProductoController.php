@@ -46,7 +46,7 @@ class ProductoController extends Controller
             $producto = new Producto();
             $producto->cod_producto = $request->cod_producto;
             $producto->descripcion = $request->descripcion;
-            $producto->observacion = $request->oservacion;
+            $producto->observacion = $request->observacion;
             $producto->perecedero = $request->perecedero;
             $producto->imagen = $imagenProducto;
             $producto->marca_id = $request->marca_id;
@@ -56,7 +56,7 @@ class ProductoController extends Controller
             //Se redirige al listado de todos los registros
             return redirect()->route('producto.index')->with('status', 'Registro correcto');
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return redirect()->back()->with('msg', 'Error no se puede registrar');
         }
     }
 
@@ -67,14 +67,15 @@ class ProductoController extends Controller
             $marcas = Marca::all();
             $medidas = Medida::all();
             $rubros = Rubro::all();
-            return view('producto.edit', compact('producto', 'marcas', 'medidas', 'rubros'));
+            $productos = Producto::all();
+            return view('producto.edit', compact('producto', 'productos', 'marcas', 'medidas', 'rubros'));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
     //Función que actualiza un registro
-    public function update(ProductoRequest $request, Producto $producto)
+    public function update(Request $request, Producto $producto)
     {
         try {
             $prod = $request->all();
@@ -108,7 +109,7 @@ class ProductoController extends Controller
                 return redirect()->back()->with('msg', 'No existe la imagen!');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('msg', 'El registro pertenece a otro registro padre, no se puede eliminar');
+            return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza');
         }
 
     }

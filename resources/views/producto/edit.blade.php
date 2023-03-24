@@ -30,7 +30,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    
+
                                     <div class="form-group has-feedback row">
                                         <label for="rubro_id" class="col-12 control-label">Rubro:</label>
                                         <div class="col-12">
@@ -39,7 +39,7 @@
                                                 </option>
                                                 @foreach ($rubros as $item)
                                                     <option value="{{ $item->id }}"
-                                                        @if ($producto->rubro_id == $item->id) {{ 'selected' }} @endif>
+                                                        @if ($producto->rubro_id == $item->id) {{ 'selected disabled' }} @endif>
                                                         {{ $item->descripcionRubro }}</option>
                                                 @endforeach
                                             </select>
@@ -60,7 +60,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                 
+
                                     <div class="form-group has-feedback row">
                                         <label for="marca_id" class="col-12 control-label">Marca:</label>
                                         <div class="col-12">
@@ -76,7 +76,8 @@
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="descripcion" class="col-12 control-label">Descripción del producto:</label>
+                                        <label for="descripcion" class="col-12 control-label">Descripción del
+                                            producto:</label>
                                         <div class="col-12">
                                             <input id="descripcion" type="text" class="form-control" name="descripcion"
                                                 value="{{ $producto->descripcion }}" placeholder="Descripción">
@@ -91,9 +92,9 @@
                                         </div>
                                     </div>
 
-                                   
 
-                                    
+
+
 
                                 </div>
 
@@ -109,25 +110,25 @@
                                     </div>
 
 
-                                    
+{{-- 
                                     <div class="form-group">
                                         <label for="cod_producto" class="col-12 control-label">Tipo de alimento:</label>
                                         <div class="col-12 form-control">
                                             <div
                                                 class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                @if ($producto->perecedero == 1)
+
+
                                                 <input type="hidden" name="perecedero" value="0">
-                                                <input type="checkbox" class="custom-control-input" id="check"
-                                                    name="perecedero" value="{{$producto->perecedero}}">
-                                                <label class="custom-control-label" for="check">Perecedero</label>
-                                                @endif
-                                                
+                                                <input type="checkbox" class="custom-control-input" id="perecedero"
+                                                    name="perecedero" value="1"
+                                                    @if ($producto->perecedero) checked @endif>
+                                                <label class="custom-control-label" for="perecedero">Perecedero</label>
                                             </div>
                                         </div>
                                     </div>
 
+ --}}
 
-                                   
                                     <div class="form-group has-feedback row">
                                         <label for="imagen" class="col-12 control-label">Seleccionar imagen</label>
                                         <div class="col-12">
@@ -162,6 +163,25 @@
         </div>
     </div>
 @section('js_imagen')
+
+
+    <script>
+        const select = document.getElementById('rubro_id');
+        const input = document.getElementById('cod_producto');
+        var datos = {!! json_encode($rubros) !!};
+
+        var datosProductos = {!! json_encode($productos) !!};
+        $('#rubro_id').on('change', function(e) {
+            var num = 0;
+            datosProductos.forEach(element => {
+                if (element.rubro_id == select.value) {
+                    num = num + 1;
+
+                }
+            });
+            input.value = datos[select.value - 1].codigoPresupuestario + '-' + (num + 1);
+        });
+    </script>
 
     <script>
         $(document).ready(function(e) {
@@ -225,6 +245,20 @@
             });
         });
     </script>
+
+    {{-- <script>
+        $("#perecedero").on('change', function() {
+            if ($(this).is(':checked')) {
+                $(this).attr('value', '1');
+                var check = $(this).val();
+                console.log(check);
+            } else {
+                $(this).attr('value', '0');
+                var check = $(this).val();
+                console.log(check);
+            }
+        });
+    </script> --}}
 
 @endsection
 @endsection

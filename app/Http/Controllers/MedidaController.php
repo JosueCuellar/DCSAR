@@ -26,10 +26,10 @@ class MedidaController extends Controller
                $medida->nombreMedida = $request->nombreMedida;
                $medida->save();
                //Se redirige al listado de todos los registros
-               return redirect()->route('medida.index');
-           }catch(\Exception $e){
-               return $e->getMessage();
-           }
+               return redirect()->route('medida.index')->with('status', 'Registro correcto');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'Error no se puede registrar');
+        }
        }
    
        //Función que permite la edición de un registro almacenado
@@ -49,16 +49,22 @@ class MedidaController extends Controller
                 $medida->nombreMedida = $request->nombreMedida;
                 $medida->save();            
                //Se redirige al listado de todos los registros
-               return redirect()->route('medida.index');
-           }catch(\Exception $e){
-               return $e->getMessage();
-           }
+               return redirect()->route('medida.index')->with('status', 'Registro correcto');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'Error no se puede actualizar');
+        }
        }
    
        //Función que elimina un registro
        public function destroy(Medida $medida)
        {
-           $medida->delete();
-           return redirect()->route('medida.index'); 
+        try {
+            $medida->delete();
+            return redirect()->route('medida.index')->with('delete', 'Registro eliminado'); 
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza');
+        }
+
+
        }
 }

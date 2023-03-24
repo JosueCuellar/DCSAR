@@ -21,24 +21,25 @@ class MarcaController extends Controller
     //Se hace uso de la clase Request para los mensajes de validación
     public function store(MarcaRequest $request)
     {
-        try{
+        try {
             //Se crea y almacena un nuevo objeto
             $marca = new Marca();
             $marca->nombre = $request->nombre;
             $marca->save();
+
             //Se redirige al listado de todos los registros
-            return redirect()->route('marca.index');
-        }catch(\Exception $e){
-            return $e->getMessage();
+            return redirect()->route('marca.index')->with('status', 'Registro correcto');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'Error no se puede registrar');
         }
     }
 
     //Función que permite la edición de un registro almacenado
     public function edit(Marca $marca)
     {
-        try{
+        try {
             return view('marca.edit', compact('marca'));
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
@@ -46,21 +47,25 @@ class MarcaController extends Controller
     //Función que actualiza un registro
     public function update(MarcaRequest $request, Marca $marca)
     {
-        try{
-            
+        try {
+
             $marca->nombre =  $request->nombre;
             $marca->save();
             //Se redirige al listado de todos los registros
-            return redirect()->route('marca.index');
-        }catch(\Exception $e){
-            return $e->getMessage();
+            return redirect()->route('marca.index')->with('status', 'Registro correcto');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'Error no se puede actualizar');
         }
     }
 
     //Función que elimina un registro
     public function destroy(Marca $marca)
     {
-        $marca->delete();
-        return redirect()->route('marca.index'); 
+        try {
+            $marca->delete();
+            return redirect()->route('marca.index')->with('delete', 'Registro eliminado');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza');
+        }
     }
 }

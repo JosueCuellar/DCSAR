@@ -37,8 +37,8 @@
                                                             class="badge text-white" style="background-color: orange">{{ $item->estado->nombreEstado }}</span>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                            <ion-icon name="create-outline" class="fa-lg text-primary">
+                                                        <a href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
+                                                            <ion-icon name="eye-outline" class="fa-lg text-success">
                                                             </ion-icon>
                                                         </a>
 

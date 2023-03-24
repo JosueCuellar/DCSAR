@@ -188,7 +188,7 @@
                                 <ion-icon name="file-tray-full-sharp"></ion-icon>
                             </i>
                         </div>
-                        <a href="{{ asset('recepcionCompra/consultar') }}" class="small-box-footer">Ver <i
+                        <a href="{{ asset('requisicionProducto/recibida') }}" class="small-box-footer">Ver <i
                                 class="fas fa-external-link-square-alt"></i></a>
                     </div>
                 </div>

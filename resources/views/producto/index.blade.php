@@ -5,13 +5,6 @@
         <h2>Lista de productos</h2>
     </div>
 
-    @if (\Session::has('msg'))
-        <div class="alert alert-danger" role="alert">
-            <ul>
-                <li>{!! \Session::get('msg') !!}</li>
-            </ul>
-        </div>
-    @endif
     <div class="row p-3">
         <div class="col-md-12 d-grid gap-2 d-md-flex">
             <form action="{{ route('producto.create') }}" method="GET">

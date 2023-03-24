@@ -112,6 +112,17 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ asset('requisicionProducto/recibida') }}" class="nav-link active">
+                                <ion-icon name="pencil-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Requisiciones realizadas
+                                </p>
+                            </a>
+                        </li>
+
+
                         <br>
                         <li class="nav-header text-light">REVISAR SOLICITUDES</li>
                         <li class="nav-item">
@@ -258,7 +269,7 @@
 
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">          
+        <div class="content-wrapper">
             @yield('bar')
 
             <div class="content-header">

@@ -31,9 +31,9 @@ class ProveedorController extends Controller
             $proveedor->telefono2 = $request->telefono2;
             $proveedor->save();
             //Se redirige al listado de todos los registros
-            return redirect()->route('proveedor.index');
-        }catch(\Exception $e){
-            return $e->getMessage();
+            return redirect()->route('proveedor.index')->with('status', 'Registro correcto');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'Error no se puede registrar');
         }
     }
 
@@ -60,16 +60,23 @@ class ProveedorController extends Controller
             $proveedor->telefono2 = $request->telefono2;
             $proveedor->save();            
             //Se redirige al listado de todos los registros
-            return redirect()->route('proveedor.index');
-        }catch(\Exception $e){
-            return $e->getMessage();
+            return redirect()->route('proveedor.index')->with('status', 'Registro correcto');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'Error no se puede actualizar');
         }
     }
 
     //Función que elimina un registro
     public function destroy(Proveedor $proveedor)
     {
-        $proveedor->delete();
-        return redirect()->route('proveedor.index'); 
+
+        try {
+            $proveedor->delete();
+            return redirect()->route('proveedor.index')->with('delete', 'Registro eliminado'); 
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza');
+        }
+
+
     }
 }

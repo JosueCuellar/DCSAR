@@ -59,13 +59,17 @@
 
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback row">
-                                        <label for="fechaIngreso" class="col-12 control-label">Fecha del ingreso:</label>
+                                        <label for="fechaVenc" class="col-12 control-label">Fecha del ingreso:</label>
                                         <div class="col-12">
-                                            <input id='fechaIngreso' type='date' value="{{ date('d/m/Y') }}"
-                                                class='form-control' name='fechaIngreso' placeholder='Fecha'>
+                                            <input id='fecha' value="{{ old('fecha') }}" type='date'
+                                                min="{{ date('Y-m-d') }}" class='form-control' name='fecha'
+                                                placeholder='Fecha de vencimiento'>
                                         </div>
-                                    </div>
 
+                                        @error('fecha')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>                                
 
                                 </div>
                             </div>

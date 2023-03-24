@@ -37,10 +37,10 @@ class RubroController extends Controller
                $rubro->descripcionRubro = $request->descripcionRubro;
                $rubro->save();
                //Se redirige al listado de todos los registros
-               return redirect()->route('rubro.index');
-           }catch(\Exception $e){
-               return $e->getMessage();
-           }
+               return redirect()->route('rubro.index')->with('status', 'Registro correcto');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('msg', 'Error no se puede registrar');
+            }
        }
    
        //Función que permite la edición de un registro almacenado
@@ -62,16 +62,21 @@ class RubroController extends Controller
                 $rubro->descripcionRubro = $request->descripcionRubro;
                 $rubro->save();            
                //Se redirige al listado de todos los registros
-               return redirect()->route('rubro.index');
-           }catch(\Exception $e){
-               return $e->getMessage();
-           }
+               return redirect()->route('rubro.index')->with('status', 'Registro correcto');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('msg', 'Error no se puede actualizar');
+            }
        }
    
        //Función que elimina un registro
        public function destroy(Rubro $rubro)
        {
-           $rubro->delete();
-           return redirect()->route('rubro.index'); 
+          
+           try {
+            $rubro->delete();
+            return redirect()->route('rubro.index')->with('delete', 'Registro eliminado'); 
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar');
+        }
        }
 }

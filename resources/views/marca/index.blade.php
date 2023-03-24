@@ -4,6 +4,7 @@
     <div class="col-md-12">
         <h2>Lista de marcas</h2>
     </div>
+
     <div class="row p-3">
         <div class="col-md-12 d-grid gap-2 d-md-flex">
             <form action="{{ route('marca.create') }}" method="GET">
@@ -101,5 +102,69 @@
         });
     </script>
 @endsection
+
+@endsection
+@section('js')
+
+    @if (session('msg'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Error',
+                position: 'topRight',
+                body: '{{ session('msg') }}',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-exclamation-triangle ',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Marca agregado',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha actualizado la tabla',
+                class: 'bg-success',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Marca eliminado',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 
 @endsection

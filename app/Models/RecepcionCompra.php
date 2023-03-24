@@ -9,7 +9,7 @@ class RecepcionCompra extends Model
 {
     use HasFactory;
     protected $fillable = [
-        // 'fechaIngreso',
+        'fecha_ingreso',
         'proveedor_id',
         'nOrdenCompra',
         'nPresupuestario',

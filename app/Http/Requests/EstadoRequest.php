@@ -24,17 +24,17 @@ class EstadoRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigoEstado'=>'required|max:100',
-            'nombreEstado'=>'required|max:100',
-            'descripcionEstado'=>'required|max:100',
+            'codigoEstado'=>'required|max:20',
+            'nombreEstado'=>'required|max:150',
+            'descripcionEstado'=>'required|max:150',
         ];
     }
     public function messages()
     {
         return [
-            'codigoEstado.*'=>'Ingrese un codigo, de no mas de 100 caracteres',
-            'nombreEstado.*'=>'Ingrese un nombre, de no mas de 100 caracteres',
-            'descripcionEstado.*'=>'Ingrese una descripcion, de no mas de 100 caracteres',
+            'codigoEstado.*'=>'Ingrese un codigo, de no mas de 20 caracteres',
+            'nombreEstado.*'=>'Ingrese un nombre, de no mas de 150 caracteres',
+            'descripcionEstado.*'=>'Ingrese una descripcion, de no mas de 150 caracteres',
 
         ];
     }

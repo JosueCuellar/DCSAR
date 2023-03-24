@@ -46,6 +46,7 @@ class RecepcionCompraController extends Controller
         try {
             $recepcionCompra = new RecepcionCompra();
             $recepcionCompra->proveedor_id = $request->proveedor_id;
+            $recepcionCompra->fecha_ingreso = $request->fecha;
             $recepcionCompra->estado = false;
             $recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
             $recepcionCompra->nPresupuestario = $request->nPresupuestario;

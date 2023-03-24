@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('recepcion_compras', function (Blueprint $table) {
             $table->id();
+            $table->string('fecha_ingreso',10)->nullable();
             $table->unsignedBigInteger('proveedor_id');
             $table->foreign('proveedor_id')->references('id')->on('proveedors');
             $table->string('nOrdenCompra',50);

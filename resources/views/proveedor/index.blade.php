@@ -93,11 +93,11 @@
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
+            var proveedor_id = button.data('delete')
 
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', 'proveedor/destroy/' + categoria_id);
+            modal.find('form').attr('action', 'proveedor/destroy/' + proveedor_id);
         })
     </script>
     <script>
@@ -117,5 +117,69 @@
         });
     </script>
 @endsection
+
+@endsection
+@section('js')
+
+    @if (session('msg'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Error',
+                position: 'topRight',
+                body: '{{ session('msg') }}',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-exclamation-triangle ',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Proveedor agregado',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha actualizado la tabla',
+                class: 'bg-success',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Proveedor eliminado',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 
 @endsection
