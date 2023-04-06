@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetalleRequisicion;
+use App\Models\Lote;
+use App\Models\ProductoBodega;
 use App\Models\RequisicionProducto;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Termwind\Components\BreakLine;
 
 class RequisicionProductoController extends Controller
 {
@@ -53,6 +57,7 @@ class RequisicionProductoController extends Controller
     public function requisicionRecibida()
     {
         $requisicionRecibidas = RequisicionProducto::where('estado_id', 4)->get();
+
         return view('requisicionProducto.requiRealizada', compact('requisicionRecibidas'));
     }
 
@@ -78,11 +83,84 @@ class RequisicionProductoController extends Controller
 
     public function requisicionEntregada(RequisicionProducto $requisicionProducto)
     {
-        $requisicionProducto->estado_id =  4;
-        $requisicionProducto->save();
-        return  redirect()->route('requisicionProducto.entrega')->with('status', 'Registro correcto');
+        try {
+            $requisicionProducto->estado_id =  4;
+            $detallesRequi = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
+            foreach ($detallesRequi as $detalle) {
+                $producto_id = $detalle->producto_id;
+                $this->reset($detalle->id);
+                $detalle->save();
+
+
+                // Se realiza la salida de cada lote dependiendo la cantidad de productos que se requieran
+                $lotes = Lote::where('producto_id', $producto_id)->where('cantidadDisponible', '>', 0)->orderBy('id', 'asc')->get();
+                foreach ($lotes as $lote) {
+                    $deta = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();
+                    $cantidadDescontar = $deta->cantidadEntregada; //50
+                    if ($cantidadDescontar > 0) {
+                        if ($lote->cantidadDisponible < $cantidadDescontar) { //50
+                            $deta->cantidadEntregada -= $lote->cantidadDisponible; //-10 hay 40
+                            $deta->save();
+                            $lote->cantidadDisponible = 0;
+                        } else {
+                            $diferencia = $lote->cantidadDisponible - $deta->cantidadEntregada; // 50 - 1
+                            $deta->cantidadEntregada = 0; //-10 hay 40
+                            $deta->save();
+                            $lote->cantidadDisponible = $diferencia;
+                        }
+                        // Explicit save operation
+                        $lote->save();
+                    }
+
+                    if ($cantidadDescontar === 0) {
+                        break;
+                    }
+                    
+                }
+
+                $this->reset($detalle->id);
+
+
+                $bodegas = ProductoBodega::where('producto_id', $producto_id)->where('cantidadDisponible', '>', 0)->orderBy('id', 'asc')->get();
+                foreach ($bodegas as $bodega) {
+                    $detaBodega = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();                    
+                    $cantDesc = $detaBodega->cantidadEntregada;
+                    if ($cantDesc > 0) {
+                        if ($bodega->cantidadDisponible < $cantDesc) { //50
+                            $detaBodega->cantidadEntregada -= $bodega->cantidadDisponible; //-10 hay 40
+                            $detaBodega->save();
+                            $bodega->cantidadDisponible = 0;
+                        } else {
+                            $dif = $bodega->cantidadDisponible - $detaBodega->cantidadEntregada; // 50 - 1
+                            $detaBodega->cantidadEntregada = 0; //-10 hay 40
+                            $detaBodega->save();
+                            $bodega->cantidadDisponible = $dif;
+                            $bodega->save();
+
+                        }
+                        // Explicit save operation
+                        $bodega->save();
+                    } 
+                    if ($cantDesc === 0) {
+                        break;
+                    }
+                }
+            }
+
+            $requisicionProducto->save();
+            return  redirect()->route('requisicionProducto.entrega')->with('status', 'Registro correcto');
+        } catch (\Exception $e) {
+            return  redirect()->route('requisicionProducto.entrega')->with('msg', 'Error' . $e->getMessage());
+        }
     }
+
     
+    public function reset($id)
+    {
+        $registro = DetalleRequisicion::find($id);
+        $registro->cantidadEntregada += $registro->cantidad ;
+        $registro->save();
+    }
 
     public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
     {

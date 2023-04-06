@@ -7,6 +7,7 @@ use App\Models\DetalleCompra;
 use App\Models\DetalleRequisicion;
 use App\Models\DocumentoXCompra;
 use App\Models\Producto;
+use App\Models\ProductoBodega;
 use App\Models\Proveedor;
 use App\Models\RecepcionCompra;
 use DateTime;
@@ -70,13 +71,29 @@ class RecepcionCompraController extends Controller
                 $productoA = Producto::where('id', $producto_id)->first();
                 $productoA->costoPromedio = $cProm;
                 $productoA->save();
+
+                //Crear los registros de los productos en la bodega
+                $bodega_id = 1;
+                $cantidadAlmacenar = $detalle->cantidadIngreso;
+                $productoExistente = ProductoBodega::where('producto_id', $producto_id)->where('bodega_id', $bodega_id)->first();
+                if ($productoExistente) {
+                    $productoExistente->cantidadDisponible += $cantidadAlmacenar;
+                    $productoExistente->save();
+                } else {
+                    ProductoBodega::create([
+                        'producto_id' => $producto_id,
+                        'bodega_id' => $bodega_id,
+                        'cantidadDisponible' => $cantidadAlmacenar
+                    ]);
+                }
             }
             $recepcionCompra->save();
             return redirect()->route('recepcionCompra.consultar')->with('status', 'Registro correcto');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Algo salio mal!');
+            return back()->with('error', 'Algo salio mal!');
         }
     }
+
 
     public function consultar()
     {

@@ -35,7 +35,8 @@
                                                         <label for="producto_id" class="col-12 control-label">Seleccionar
                                                             producto:</label>
                                                         <div class="col-12">
-                                                            <select class="form-control" name="producto_id" id="producto_id">
+                                                            <select class="form-control" name="producto_id"
+                                                                id="producto_id">
                                                                 <option selected disabled='disabled'>Seleccionar producto
                                                                 </option>
                                                                 @foreach ($productos as $item)
@@ -89,28 +90,51 @@
                                             </div>
 
                                             <div class="row">
+                                                
+                                            {{-- <div class="col-12">
+                                                <div class="form-group has-feedback row">
+                                                    <label for="nombreBodega" class="col-12 control-label">Bodega:</label>
+                                                    <div class="col-12">
+                                                        <select class="form-control" name="nombreBodega" id="nombreBodega">
+                                                            <option selected disabled='disabled'>Seleccionar bodega
+                                                            </option>
+                                                            @foreach ($bodegas as $item)
+                                                                <option value="{{ $item->id }}">
+                                                                    {{ $item->nombreBodega }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('nombreBodega')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
                                                 <div class="col-12">
                                                     <div class="form-group has-feedback row">
                                                         <label for="fechaVenc" class="col-12 control-label">Fecha de
                                                             vencimiento:</label>
                                                         <div class="col-12">
-                                                            <input id='fechaVenc' value="{{ old('fechaVenc') }}" type='date'
-                                                                min="{{ date('Y-m-d') }}" class='form-control' name='fechaVenc'
+                                                            <input id='fechaVenc' value="{{ old('fechaVenc') }}"
+                                                                type='date' min="{{ date('Y-m-d') }}"
+                                                                class='form-control' name='fechaVenc'
                                                                 placeholder='Fecha de vencimiento'>
                                                         </div>
-    
+
                                                         @error('fechaVenc')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
-                                                </div>                                               
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="card-footer">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-block btn-dark btn-sm" value="Guardar">
+                                                    <button type="submit" class="btn btn-block btn-dark btn-sm"
+                                                        value="Guardar">
                                                         Agregar producto
                                                     </button>
                                                 </div>
@@ -123,7 +147,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered" id="dataTable7" width="100%"
+                                            <table class="table table-sm table-bordered" id="dataTable7" width="100%"
                                                 cellspacing="0">
                                                 <thead class="thead-dark">
                                                     <tr>
@@ -302,6 +326,23 @@
             });
         });
         $("#producto_id").select2()
+    </script>
+
+    <script>
+        $(document).ready(function(e) {
+            $('#nombreBodega').select2({
+                width: 'resolve',
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        });
+        $("#nombreBodega").select2()
     </script>
 
     <script>

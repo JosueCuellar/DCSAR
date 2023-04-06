@@ -6,15 +6,18 @@ use App\Http\Controllers\DetalleRequisicionController;
 use App\Http\Controllers\DocumentoXCompraController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\LoteController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\MedidaController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\ProductoBodegaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RecepcionCompraController;
 use App\Http\Controllers\RequisicionProductoController;
 use App\Http\Controllers\RubroController;
 use App\Http\Controllers\UnidadOrganizativaController;
+use App\Models\ProductoBodega;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -185,3 +188,17 @@ Route::get('inventario', [InventarioController::class,'index'])->name('inventari
 
 Route::get('requisicionProducto/pdf/comprobante/{requisicionProducto}', [PDFController::class,'comprobanteRequiProductoPDF'])->name('pdf.requisicionProducto');
 Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [PDFController::class,'aprobarRequiProductoPDF'])->name('pdf.aprobarRequisicionProducto');
+
+
+
+
+//--------------------------Salida de lotes------------------------------------------------------
+Route::get('lote/{requisicionProducto}', [LoteController::class, 'index'])->name('lote.index');
+Route::post('lote/despacho/{requisicionProducto}/{lote}', [LoteController::class, 'store'])->name('lote.store');
+
+
+//--------------------------Salida de lotes------------------------------------------------------
+Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'])->name('productoBodega.index');
+Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2');
+
+Route::post('productoBodega/{productoBodega}/', [ProductoBodegaController::class, 'store'])->name('productoBodega.store');

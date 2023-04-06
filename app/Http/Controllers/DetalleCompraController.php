@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DetalleCompraRequest;
+use App\Models\Bodega;
 use App\Models\DetalleCompra;
 use App\Models\DetalleRequisicion;
 use App\Models\DocumentoXCompra;
+use App\Models\Lote;
 use App\Models\Producto;
 use App\Models\RecepcionCompra;
 use GuzzleHttp\Psr7\Response;
@@ -19,12 +21,15 @@ class DetalleCompraController extends Controller
     {
         $detalleCompra = DetalleCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
         $productos = Producto::all();
-        return view('detalleCompra.index', compact('detalleCompra', 'productos'));
+        $bodegas = Bodega::all();
+        return view('detalleCompra.index', compact('detalleCompra', 'productos', 'bodegas'));
     }
 
     public function create(RecepcionCompra $recepcionCompra)
     {
         try {
+            $bodegas = Bodega::all();
+
             $currentStep = "3.Ingreso de productos"; //Paso actual
             $labelBar = ["1.Recepcion de compra", "2.Subir documentos del ingreso", "3.Ingreso de productos"]; // Array con los números de los pasos
                 $totalFinal = 0;
@@ -34,7 +39,7 @@ class DetalleCompraController extends Controller
                 $totalFinal += $item->total;
             }
             $documentos  = DocumentoXCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
-            return view('detalleCompra.create', compact('recepcionCompra', 'detalleCompra', 'productos', 'documentos', 'totalFinal','labelBar', 'currentStep'));
+            return view('detalleCompra.create', compact('recepcionCompra', 'detalleCompra', 'productos', 'bodegas', 'documentos', 'totalFinal','labelBar', 'currentStep'));
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -43,26 +48,29 @@ class DetalleCompraController extends Controller
     public function store(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra)
     {
             $total = ($request->cantidadIngreso) * ($request->precioUnidad);
-            // $producto_id = $request->producto_id;
         try {
+            $deta = DetalleCompra::all();
+            $n = count($deta)+1;
             $detalleCompra =  new DetalleCompra();
             $detalleCompra->producto_id = $request->producto_id;
             $detalleCompra->recepcionCompra_id = $recepcionCompra->id;
             $detalleCompra->cantidadIngreso = $request->cantidadIngreso;
             $detalleCompra->precioUnidad = $request->precioUnidad;
             $detalleCompra->total = $total;
-            $detalleCompra->fechaVenc = $request->fechaVenc;
             $detalleCompra->save();
 
-            // $cProm = $this->costoPromedio($producto_id);
-            // $productoA = Producto::where('id', $producto_id)->first();
-            // $productoA->costoPromedio = $cProm;
-            // $productoA->save();
-            
+
+            $lote = new Lote();
+            $lote->detalleCompra_id = $detalleCompra->id;
+            $lote->producto_id = $request->producto_id;
+            $lote->fechaVencimiento = $request->fechaVenc;
+            $lote->cantidadDisponible = $request->cantidadIngreso;
+
+            $lote->save();
+
             return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
         } catch (\Exception $e) {
             return $e->getMessage();
-            // return response()->json(array($productoA, $cProm));   
         }
     }
 
@@ -84,7 +92,6 @@ class DetalleCompraController extends Controller
             $detalleCompra->cantidadIngreso = $request->cantidadIngreso;
             $detalleCompra->precioUnidad = $request->precioUnidad;
             $detalleCompra->total = $total;
-            $detalleCompra->fechaVenc = $request->fechaVenc;
             $detalleCompra->update();
 
             // $cProm = $this->costoPromedio($producto_id);

@@ -62,7 +62,7 @@
                                         <label for="fechaVenc" class="col-12 control-label">Fecha del ingreso:</label>
                                         <div class="col-12">
                                             <input id='fecha' value="{{ old('fecha') }}" type='date'
-                                                min="{{ date('Y-m-d') }}" class='form-control' name='fecha'
+                                                class='form-control' name='fecha'
                                                 placeholder='Fecha de vencimiento'>
                                         </div>
 

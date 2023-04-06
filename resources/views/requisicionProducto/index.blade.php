@@ -20,7 +20,7 @@
             <div class="card-body">
                 <h4>Solicitudes enviadas</h4>
                 <div class="table-responsive">
-                    <table class="table table-bordered text-center table-striped" id="dataTable11" width="100%"
+                    <table class="table table-sm text-center table-striped" id="dataTable11" width="100%"
                         cellspacing="0">
                         <thead class="thead-dark">
                             <tr>

@@ -2,7 +2,7 @@
 @section('title', 'Recepción Ingreso')
 @section('header')
     <div class="col-md-12">
-        <h2>Ingresos de productos realizadas</h2>
+        <h2>Registros del ingreso de productos</h2>
     </div>
 @endsection
 @section('content')
@@ -31,7 +31,7 @@
                                 {{-- Completas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
-                                    <table class="table table-striped table-bordered text-center" id="dataTable11"
+                                    <table class="table table-sm table-striped text-center" id="dataTable11"
                                         width="100%" cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>

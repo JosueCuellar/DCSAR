@@ -28,7 +28,7 @@
                 <div class="col-sm-6">
                     <h4 class="text-center">Ingresa los productos a pedir</h4>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover text-center table-striped" id="dataTable13"
+                        <table class="table table-sm  table-hover text-center table-striped" id="dataTable13"
                             width="100%" cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
@@ -37,6 +37,7 @@
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Imagen</th>
                                     <th scope="col">Medida</th>
+                                    <th scope="col">Disponible</th>
                                     <th scope="col">Opciones</th>
                                 </tr>
                             </thead>
@@ -44,7 +45,7 @@
                             <tbody>
                                 @foreach ($productos as $item)
                                     <tr>
-                                        <td>{{ $item->rubro->descripcionRubro }}</td>
+                                        <td>{{ $item->rubro }}</td>
                                         {{-- <td>{{ $item->cod_producto }}</td> --}}
                                         <td>{{ $item->descripcion }}</td>
                                         <td>
@@ -54,12 +55,14 @@
                                                 <div class="filtr-item col-sm-2">
                                                     <a href="/imagen/{{ $item->imagen }}" data-toggle="lightbox">
                                                         <img src="/imagen/{{ $item->imagen }}" class="img-fluid"
-                                                            style="width:40px;max-width:100px">
+                                                            style="width:30px;max-width:40px">
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $item->medida->nombreMedida }}</td>
+                                        <td>{{ $item->nombreMedida }}</td>
+                                        <td>{{ $item->stock-$item->stock1 }}</td>
+
                                         <td>
                                             {{-- <form
                                                 action="{{ route('detalleRequisicion.store', ['requisicionProducto' => $requisicionProducto->id, 'producto' => $item->id]) }}"
@@ -68,7 +71,7 @@
 
                                             <button type="submit" data-toggle="modal" data-target="#exampleModalCenter"
                                                 data-requi="{{ $requisicionProducto->id }}"
-                                                data-producto="{{ $item->id }}" class="btn btn-success">Agregar</button>
+                                                data-producto="{{ $item->id }}" class="btn btn-sm btn-success">Agregar</button>
 
                                         </td>
                                     </tr>
@@ -80,7 +83,7 @@
                 <div class="col-sm-6">
                     <h4 class="text-center">Productos en la solicitados</h4>
                     <div class="table-responsive">
-                        <table class="table table-bordered text-center table-striped" id="dataTable14" width="100%"
+                        <table class="table table-sm text-center table-striped" id="dataTable14" width="100%"
                             cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>

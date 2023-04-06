@@ -17,19 +17,32 @@ class DetalleRequisicionController extends Controller
     {
         $totalFinal = 0.0;
 
+        $productos = DB::select(
+            "SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
+            dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
+            COALESCE(rp.cantidad_aprobada, 0) AS stock1,
+            m.nombreMedida as nombreMedida, r.descripcionRubro as rubro
+            FROM productos p
+            JOIN medidas m ON p.medida_id = m.id
+            JOIN rubros r ON p.rubro_id = r.id
+            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
+            FROM detalle_compras
+            GROUP BY producto_id) dc ON p.id = dc.producto_id
+            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
+            SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_rechazada
+            FROM detalle_requisicions dr
+            JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
+            WHERE rp.estado_id IN (1, 2, 4, 5)
+            GROUP BY producto_id) rp ON p.id = rp.producto_id;"
+        );
+
+
         $detalle_requisicion = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
         foreach ($detalle_requisicion as $item) {
             $totalFinal += $item->total;
         }
-        $cod_producto = $request->get('cod_producto');
-        if ($cod_producto) {
-            $productos = Producto::where('cod_producto', 'LIKE', "%$cod_producto%")->get();
-            return view('requisicionProducto.detalle', compact('detalle_requisicion', 'productos', 'requisicionProducto', 'totalFinal'));
-        } else {
-            $productos = Producto::all();
-            return view('requisicionProducto.detalle', compact('detalle_requisicion', 'productos', 'requisicionProducto', 'totalFinal'));
-        }
-        $productos = Producto::all();
+
+        return view('requisicionProducto.detalle', compact('detalle_requisicion', 'productos', 'requisicionProducto', 'totalFinal'));
     }
 
     public function detalle(RequisicionProducto $requisicionProducto, Request $request)
@@ -63,23 +76,23 @@ class DetalleRequisicionController extends Controller
             LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
             FROM detalle_compras
             GROUP BY producto_id) dc ON p.id = dc.producto_id 
-            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
+            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
             SUM(CASE WHEN estado_id = 4 THEN cantidad ELSE 0 END) AS cantidad_rechazada
             FROM detalle_requisicions dr
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-            WHERE rp.estado_id IN (1, 2, 4)
+            WHERE rp.estado_id IN (1, 2, 4, 5)
             GROUP BY producto_id) rp ON p.id = rp.producto_id
             WHERE p.id = ?
             ", [$codigo]);
 
             $valorCantidadMinima = 0;
-            foreach($productos as $p){
-            $valorCantidadMinima = $p->stock;
+            foreach ($productos as $p) {
+                $valorCantidadMinima = $p->stock-$p->stock1;
             };
 
-            if($request->cantidadAdd > $valorCantidadMinima){
-                return redirect()->back()->with('msg', 'Error, el numero supera a la cantida en stock! Unicamente hay '. $valorCantidadMinima. ' disponibles');
-            }else{
+            if ($request->cantidadAdd > $valorCantidadMinima) {
+                return redirect()->back()->with('msg', 'Error, el numero supera a la cantida en stock! Unicamente hay ' . $valorCantidadMinima . ' disponibles');
+            } else {
 
                 $precioPromedio = 0;
                 $existe =  DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto->id)->get();
@@ -90,11 +103,13 @@ class DetalleRequisicionController extends Controller
                     $detalle_requisicion = DetalleRequisicion::find($existe[0]->id);
                     $detalle_requisicion->precioPromedio = $productoA->costoPromedio;
                     $detalle_requisicion->cantidad = ($detalle_requisicion->cantidad) + $request->cantidadAdd;
+                    $detalle_requisicion->cantidadEntregada = 0;
                     $detalle_requisicion->total = ($detalle_requisicion->cantidad) * $precioPromedio;
                     $detalle_requisicion->save();
                 } else {
                     $detalle_requisicion =  new DetalleRequisicion();
                     $detalle_requisicion->cantidad = $request->cantidadAdd;
+                    $detalle_requisicion->cantidadEntregada = 0;
                     $detalle_requisicion->precioPromedio = $productoA->costoPromedio;
                     $detalle_requisicion->total = ($detalle_requisicion->cantidad) * $precioPromedio;
                     $detalle_requisicion->requisicion_id = $requisicionProducto->id;
@@ -103,10 +118,8 @@ class DetalleRequisicionController extends Controller
                 }
                 return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('status', 'Se ha agregado correctamente!');
             }
-
-
         } catch (\Exception $e) {
-            return redirect()->back()->with('msg', 'Error, debe de agregar un numero valido!');
+            return redirect()->back()->with('msg', 'Error, debe de agregar un numero valido!'.$e->getMessage());
             // return response()->json(array($productoA));   
         }
     }

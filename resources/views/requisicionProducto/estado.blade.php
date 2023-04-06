@@ -35,7 +35,7 @@
                                 {{-- Enviadas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
-                                    <table class="table table-striped table-bordered text-center" id="dataTable11" width="100%"
+                                    <table class="table table-sm table-striped text-center" id="dataTable11" width="100%"
                                         cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>
@@ -74,7 +74,7 @@
                                 {{-- Aceptadas --}}
                                 <div class="tab-pane fade" id="aceptadas" role="tabpanel" aria-labelledby="aceptadas-tab">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered text-center" id="dataTable12" width="100%"
+                                        <table class="table table-sm table-striped text-center" id="dataTable12" width="100%"
                                             cellspacing="0">
                                             <thead class="thead-dark">
                                                 <tr>
@@ -118,7 +118,7 @@
                                 {{-- Denegadas --}}
                                 <div class="tab-pane fade" id="denegadas" role="tabpanel" aria-labelledby="denegadas-tab">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered text-center" id="dataTable13" width="100%"
+                                        <table class="table table-sm table-striped text-center" id="dataTable13" width="100%"
                                             cellspacing="0">
                                             <thead class="thead-dark">
                                                 <tr>

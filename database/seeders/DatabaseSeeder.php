@@ -69,5 +69,17 @@ class DatabaseSeeder extends Seeder
             'nombreMedida' => 'Paquetes',
         ]);
 
+
+        //Bodegas
+        DB::table('bodegas')->insert([
+            'nombreBodega' => 'Bodega principal',
+            'ubicacion' => 'Nivel 1',
+        ]);
+
+        DB::table('bodegas')->insert([
+            'nombreBodega' => 'Bodega secundaria',
+            'ubicacion' => 'Nivel 1',
+        ]);
+
     }
 }

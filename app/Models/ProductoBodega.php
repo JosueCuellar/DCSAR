@@ -5,27 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetalleCompra extends Model
+class ProductoBodega extends Model
 {
     use HasFactory;
     protected $fillable = [
         'producto_id',
-        'recepcionCompra_id',
-        'cantidadIngreso',
-        'precioUnidad',
-        'fechaVenc', 
+        'bodega_id',
+        'cantidadDisponible', 
     ];
-    public function recepcionCompra()
-    {
-        return $this->belongsTo(RecepcionCompra::class);
-    }
+
     public function producto()
     {
         return $this->belongsTo(Producto::class);
     }
-    public function lote()
+
+    public function bodega()
     {
-        return $this->hasOne(Lote::class);
+        return $this->belongsTo(Bodega::class);
     }
 
 }

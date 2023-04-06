@@ -19,7 +19,7 @@
                                 {{-- Enviadas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
-                                    <table class="table table-striped table-bordered text-center" id="dataTable11" width="100%"
+                                    <table class="table table-sm table-striped text-center" id="dataTable11" width="100%"
                                         cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>

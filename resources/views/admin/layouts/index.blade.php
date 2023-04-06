@@ -89,7 +89,7 @@
                             <a href="#" class="nav-link active">
                                 <ion-icon name="document-attach-outline" class="nav-icon"></ion-icon>
                                 <p>
-                                    Realizar requisición
+                                    Realizar Requisición
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -97,7 +97,7 @@
                                 <li class="nav-item menu-is-opening menu-open">
                                     <a href="{{ asset('requisicionProducto') }}" class="nav-link bg-dark">
                                         <ion-icon name="list-outline" class="nav-icon"></ion-icon>
-                                        <p>Agregar requisición</p>
+                                        <p>Agregar Requisición</p>
                                     </a>
                                 </li>
                             </ul>
@@ -106,7 +106,7 @@
                                     <a href="{{ asset('requisicionProducto/estado') }}" class="nav-link dark">
                                         <ion-icon name="hourglass-outline" class="nav-icon"></ion-icon>
                                         <p>
-                                            Estado de requisición
+                                            Estado de Requisición
                                         </p>
                                     </a>
                                 </li>
@@ -117,7 +117,7 @@
                             <a href="{{ asset('requisicionProducto/recibida') }}" class="nav-link active">
                                 <ion-icon name="pencil-outline" class="nav-icon"></ion-icon>
                                 <p>
-                                    Requisiciones realizadas
+                                    Requisiciones Realizadas
                                 </p>
                             </a>
                         </li>
@@ -129,7 +129,7 @@
                             <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
                                 <ion-icon name="folder-open-outline" class="nav-icon"></ion-icon>
                                 <p>
-                                    Solicitudes recibidas
+                                    Solicitudes Recibidas
                                 </p>
                             </a>
                         </li><br>
@@ -138,7 +138,7 @@
                             <a href="#" class="nav-link active">
                                 <ion-icon name="clipboard-outline" class="nav-icon"></ion-icon>
                                 <p>
-                                    Ingreso productos
+                                    Ingreso Productos
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -146,7 +146,7 @@
                                 <li class="nav-item menu-is-opening menu-open">
                                     <a href="{{ asset('recepcionCompra') }}" class="nav-link bg-dark">
                                         <ion-icon name="cash-outline" class="nav-icon"></ion-icon>
-                                        <p>Registrar ingreso</p>
+                                        <p>Registrar Ingreso</p>
                                     </a>
                                 </li>
                             </ul>
@@ -154,9 +154,9 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item menu-is-opening menu-open">
                                     <a href="{{ asset('recepcionCompra/consultar') }}" class="nav-link dark">
-                                        <ion-icon name="file-tray-stacked-outline" class="nav-icon"></ion-icon>
+                                        <ion-icon name="grid-stacked-outline" class="nav-icon"></ion-icon>
                                         <p>
-                                            Ingresos realizados
+                                            Ingresos Realizados
                                         </p>
                                     </a>
                                 </li>
@@ -168,7 +168,7 @@
                             <a href="{{ asset('requisicionProducto/entregaSolicitud') }}" class="nav-link active">
                                 <ion-icon name="receipt-outline" class="nav-icon"></ion-icon>
                                 <p>
-                                    Bandeja de solicitudes
+                                    Bandeja de Solicitudes
                                 </p>
                             </a>
                         </li><br>
@@ -182,6 +182,25 @@
                                 </p>
                             </a>
                         </li><br>
+
+                        <li class="nav-header text-light">PRODUCTOS BODEGA</li>
+                        <li class="nav-item">
+                            <a href="{{ asset('productoBodega/principal/') }}" class="nav-link active">
+                                <ion-icon name="grid-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Bodega Principal
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ asset('productoBodega/secundaria/') }}" class="nav-link active">
+                                <ion-icon name="grid-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Bodega Secundaria
+                                </p>
+                            </a>
+                        </li>
 
 
                         <li class="nav-header text-light">CATALOGOS </li>
@@ -214,7 +233,7 @@
                                     <a href="{{ asset('medida') }}" class="nav-link">
                                         <ion-icon name="resize-outline" class="nav-icon"></ion-icon>
                                         <p>
-                                            Unidad de medida
+                                            Unidad de Medida
                                         </p>
                                     </a>
                                 </li>
@@ -267,12 +286,17 @@
             </div>
         </aside>
 
-
+        <style>
+            .table-extra-sm td,
+            .table-extra-sm th {
+                padding: 0.1rem;
+            }
+        </style>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('bar')
 
-            <div class="content-header">
+            <div class="p-1">
                 @yield('header')
             </div>
 
