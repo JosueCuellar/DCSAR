@@ -30,10 +30,10 @@
                                         <tr>
                                             <th scope="row">{{ $item->producto->cod_producto }}</th>
                                             <th scope="row">{{ $item->producto->descripcion }}</th>
-                                            <td>{{ $item->bodega->nombreBodega }}</td>
-                                            <td>{{ $item->cantidadDisponible }}</td>
+                                            <td>{{ $item->bodega->nombre_bodega }}</td>
+                                            <td>{{ $item->cantidad_disponible }}</td>
                                             <td>
-                                                @if ($item->cantidadDisponible > 0)
+                                                @if ($item->cantidad_disponible > 0)
                                                     <button type="submit" data-toggle="modal"
                                                         data-target="#exampleModalCenter" data-bodega="{{ $item->id }}"
                                                         class="btn btn-sm btn-primary">Mover productos</button>

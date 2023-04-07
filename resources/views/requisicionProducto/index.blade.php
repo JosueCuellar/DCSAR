@@ -33,7 +33,7 @@
                             @foreach ($requisiciones as $item)
                                 <tr>
                                     <td scope="row">{{ $item->fecha_requisicion }}</td>
-                                    <td><span class="badge badge-info">{{ $item->estado->nombreEstado }}</span></td>
+                                    <td><span class="badge badge-info">{{ $item->estado->nombre_estado }}</span></td>
                                     <td>
                                         <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
                                             <ion-icon src="/ionicons.designerpack/create-outline.svg"

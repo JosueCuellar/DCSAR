@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('nPresupuestario',50);
             // $table->string('nCompromiso',50);
             $table->boolean('estado');
-            $table->string('codigoFactura',50);
+            $table->string('codigo_factura',50);
             $table->timestamps();
         });
     }

@@ -93,20 +93,20 @@ class RequisicionProductoController extends Controller
 
 
                 // Se realiza la salida de cada lote dependiendo la cantidad de productos que se requieran
-                $lotes = Lote::where('producto_id', $producto_id)->where('cantidadDisponible', '>', 0)->orderBy('id', 'asc')->get();
+                $lotes = Lote::where('producto_id', $producto_id)->where('cantidad_disponible', '>', 0)->orderBy('id', 'asc')->get();
                 foreach ($lotes as $lote) {
                     $deta = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();
-                    $cantidadDescontar = $deta->cantidadEntregada; //50
+                    $cantidadDescontar = $deta->cantidad_entregada; //50
                     if ($cantidadDescontar > 0) {
-                        if ($lote->cantidadDisponible < $cantidadDescontar) { //50
-                            $deta->cantidadEntregada -= $lote->cantidadDisponible; //-10 hay 40
+                        if ($lote->cantidad_disponible < $cantidadDescontar) { //50
+                            $deta->cantidad_entregada -= $lote->cantidad_disponible; //-10 hay 40
                             $deta->save();
-                            $lote->cantidadDisponible = 0;
+                            $lote->cantidad_disponible = 0;
                         } else {
-                            $diferencia = $lote->cantidadDisponible - $deta->cantidadEntregada; // 50 - 1
-                            $deta->cantidadEntregada = 0; //-10 hay 40
+                            $diferencia = $lote->cantidad_disponible - $deta->cantidad_entregada; // 50 - 1
+                            $deta->cantidad_entregada = 0; //-10 hay 40
                             $deta->save();
-                            $lote->cantidadDisponible = $diferencia;
+                            $lote->cantidad_disponible = $diferencia;
                         }
                         // Explicit save operation
                         $lote->save();
@@ -121,20 +121,20 @@ class RequisicionProductoController extends Controller
                 $this->reset($detalle->id);
 
 
-                $bodegas = ProductoBodega::where('producto_id', $producto_id)->where('cantidadDisponible', '>', 0)->orderBy('id', 'asc')->get();
+                $bodegas = ProductoBodega::where('producto_id', $producto_id)->where('cantidad_disponible', '>', 0)->orderBy('id', 'asc')->get();
                 foreach ($bodegas as $bodega) {
                     $detaBodega = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();                    
-                    $cantDesc = $detaBodega->cantidadEntregada;
+                    $cantDesc = $detaBodega->cantidad_entregada;
                     if ($cantDesc > 0) {
-                        if ($bodega->cantidadDisponible < $cantDesc) { //50
-                            $detaBodega->cantidadEntregada -= $bodega->cantidadDisponible; //-10 hay 40
+                        if ($bodega->cantidad_disponible < $cantDesc) { //50
+                            $detaBodega->cantidad_entregada -= $bodega->cantidad_disponible; //-10 hay 40
                             $detaBodega->save();
-                            $bodega->cantidadDisponible = 0;
+                            $bodega->cantidad_disponible = 0;
                         } else {
-                            $dif = $bodega->cantidadDisponible - $detaBodega->cantidadEntregada; // 50 - 1
-                            $detaBodega->cantidadEntregada = 0; //-10 hay 40
+                            $dif = $bodega->cantidad_disponible - $detaBodega->cantidad_entregada; // 50 - 1
+                            $detaBodega->cantidad_entregada = 0; //-10 hay 40
                             $detaBodega->save();
-                            $bodega->cantidadDisponible = $dif;
+                            $bodega->cantidad_disponible = $dif;
                             $bodega->save();
 
                         }
@@ -158,7 +158,7 @@ class RequisicionProductoController extends Controller
     public function reset($id)
     {
         $registro = DetalleRequisicion::find($id);
-        $registro->cantidadEntregada += $registro->cantidad ;
+        $registro->cantidad_entregada += $registro->cantidad ;
         $registro->save();
     }
 

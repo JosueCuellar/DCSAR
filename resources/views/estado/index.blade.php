@@ -33,9 +33,9 @@
                         @foreach ($estados as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->codigoEstado }}</td>
-                                <td>{{ $item->nombreEstado }}</td>
-                                <td>{{ $item->descripcionEstado }}</td>
+                                <td>{{ $item->codigo_estado }}</td>
+                                <td>{{ $item->nombre_estado }}</td>
+                                <td>{{ $item->descripcion_estado }}</td>
                                 <td>
                                     <a href="{{ route('estado.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>

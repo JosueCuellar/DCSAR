@@ -29,20 +29,20 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
-                                        <label for="codigoPresupuestario" class="col-12 control-label">Codigo
+                                        <label for="codigo_presupuestario" class="col-12 control-label">Codigo
                                             presupuestario:</label>
                                         <div class="col-12">
                                             <input id="n" type="text" class="form-control"
-                                                name="codigoPresupuestario" 
+                                                name="codigo_presupuestario" 
                                                 placeholder="Codigo presupuestario">
                                         </div>
                                     </div>                
                                     <div class="form-group has-feedback row">
-                                        <label for="descripcionRubro" class="col-12 control-label">Descripción de
+                                        <label for="descripcion_rubro" class="col-12 control-label">Descripción de
                                             rubro:</label>
                                         <div class="col-12">
-                                            <input id="descripcionRubro" type="text" class="form-control"
-                                                name="descripcionRubro" 
+                                            <input id="descripcion_rubro" type="text" class="form-control"
+                                                name="descripcion_rubro" 
                                                 placeholder="Descripción de rubro">
                                         </div>
                                     </div>

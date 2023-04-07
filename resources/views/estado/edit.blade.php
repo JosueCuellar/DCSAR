@@ -30,28 +30,28 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
-                                        <label for="codigoEstado" class="col-12 control-label">Codigo de estado:</label>
+                                        <label for="codigo_estado" class="col-12 control-label">Codigo de estado:</label>
                                         <div class="col-12">
-                                            <input value="{{ old('codigoEstado', $estado->codigoEstado) }}" id="codigoEstado"
-                                                type="text" class="form-control" name="codigoEstado"
+                                            <input value="{{ old('codigo_estado', $estado->codigo_estado) }}" id="codigo_estado"
+                                                type="text" class="form-control" name="codigo_estado"
                                                 placeholder="Codigo de estado" required>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
-                                        <label for="nombreEstado" class="col-12 control-label">Nombre estado:</label>
+                                        <label for="nombre_estado" class="col-12 control-label">Nombre estado:</label>
                                         <div class="col-12">
-                                            <input value="{{ old('nombreEstado', $estado->nombreEstado) }}" id="nombreEstado"
-                                                type="text" class="form-control" name="nombreEstado"
+                                            <input value="{{ old('nombre_estado', $estado->nombre_estado) }}" id="nombre_estado"
+                                                type="text" class="form-control" name="nombre_estado"
                                                 placeholder="Nombre de estado" required>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
-                                        <label for="descripcionEstado" class="col-12 control-label">Descripción de
+                                        <label for="descripcion_estado" class="col-12 control-label">Descripción de
                                             estado:</label>
                                         <div class="col-12">
-                                            <input value="{{ old('descripcionEstado', $estado->descripcionEstado) }}"
-                                                id="descripcionEstado" type="text" class="form-control"
-                                                name="descripcionEstado" placeholder="Descripción de estado" required>
+                                            <input value="{{ old('descripcion_estado', $estado->descripcion_estado) }}"
+                                                id="descripcion_estado" type="text" class="form-control"
+                                                name="descripcion_estado" placeholder="Descripción de estado" required>
                                         </div>
                                     </div>
                                 </div>

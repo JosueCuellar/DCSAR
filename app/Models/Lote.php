@@ -10,10 +10,10 @@ class Lote extends Model
     use HasFactory;
     protected $fillable = [
         'producto_id',
-        'detalleCompra_id',
-        'fechaVencimiento',
+        'detalle_compra_id',
+        'fecha_vencimiento',
         'bodega_id',
-        'cantidadDisponible', 
+        'cantidad_disponible', 
     ];
 
     public function producto()

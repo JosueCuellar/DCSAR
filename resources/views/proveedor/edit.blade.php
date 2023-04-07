@@ -30,25 +30,25 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback row">
-                                        <label for="nombreComercial" class="col-12 control-label">Nombre comercial:</label>
+                                        <label for="nombre_comercial" class="col-12 control-label">Nombre comercial:</label>
                                         <div class="col-12">
-                                            <input id="nombreComercial" type="text" class="form-control"
-                                                name="nombreComercial" value="{{ $proveedor->nombreComercial }}"
+                                            <input id="nombre_comercial" type="text" class="form-control"
+                                                name="nombre_comercial" value="{{ $proveedor->nombre_comercial }}"
                                                 placeholder="Nombre comercial del proveedor">
                                         </div>
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="direccion" class="col-12 control-label">Dirección:</label>
+                                        <label for="direccion_proveedor" class="col-12 control-label">Dirección:</label>
                                         <div class="col-12">
-                                            <input id="direccion" type="text" class="form-control" name="direccion"
-                                                value="{{ $proveedor->direccion }}" placeholder="Dirección del proveedor">
+                                            <input id="direccion_proveedor" type="text" class="form-control" name="direccion_proveedor"
+                                                value="{{ $proveedor->direccion_proveedor }}" placeholder="Dirección del proveedor">
                                         </div>
                                     </div>
 
 
                                     <div class="form-group has-feedback row">
-                                        <label for="telefono1" class="col-12 control-label">Teléfono:</label>
+                                        <label for="telefono1_proveedor" class="col-12 control-label">Teléfono:</label>
                                         <div class="col-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -56,8 +56,8 @@
                                                 </div>
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
-                                                    data-mask="" inputmode="text" id="telefono1" name="telefono1"
-                                                    value="{{ $proveedor->telefono1 }}"
+                                                    data-mask="" inputmode="text" id="telefono1_proveedor" name="telefono1_proveedor"
+                                                    value="{{ $proveedor->telefono1_proveedor }}"
                                                     placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
@@ -67,10 +67,10 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback row">
-                                        <label for="razonSocial" class="col-12 control-label">Razón social:</label>
+                                        <label for="razon_social" class="col-12 control-label">Razón social:</label>
                                         <div class="col-12">
-                                            <input id="razonSocial" type="text" class="form-control" name="razonSocial"
-                                                value="{{ $proveedor->razonSocial }}"
+                                            <input id="razon_social" type="text" class="form-control" name="razon_social"
+                                                value="{{ $proveedor->razon_social }}"
                                                 placeholder="Razón social del proveedor">
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="telefono2" class="col-12 control-label">Teléfono Opcional:</label>
+                                        <label for="telefono2_proveedor" class="col-12 control-label">Teléfono Opcional:</label>
                                         <div class="col-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -93,8 +93,8 @@
                                                 </div>
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
-                                                    data-mask="" inputmode="text" id="telefono2" name="telefono2"
-                                                    value="{{ $proveedor->telefono2 }}"
+                                                    data-mask="" inputmode="text" id="telefono2_proveedor" name="telefono2_proveedor"
+                                                    value="{{ $proveedor->telefono2_proveedor }}"
                                                     placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>

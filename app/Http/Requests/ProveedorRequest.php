@@ -24,24 +24,24 @@ class ProveedorRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombreComercial'=>'required|max:255',
-            'razonSocial' => 'required|max:255',
-            'direccion' => 'required|max:255',
+            'nombre_comercial'=>'required|max:255',
+            'razon_social' => 'required|max:255',
+            'direccion_proveedor' => 'required|max:255',
             'fax' => 'required|max:150',
-            'telefono1' => 'required|max:15',
-            'telefono2' => 'max:15',
+            'telefono1_proveedor' => 'required|max:15',
+            'telefono2_proveedor' => 'max:15',
 
         ];
     }
     public function messages()
     {
         return [
-            'nombreComercial.*'=>'Ingrese un nombre comercial, de no más de 255 caracteres',
-            'razonSocial.*'=>'Ingrese una razon social, de no más de 255 caracteres',
-            'direccion.*'=>'Ingrese una direccion, de no más de 255 caracteres',
+            'nombre_comercial.*'=>'Ingrese un nombre comercial, de no más de 255 caracteres',
+            'razon_social.*'=>'Ingrese una razon social, de no más de 255 caracteres',
+            'direccion_proveedor.*'=>'Ingrese una direccion_proveedor, de no más de 255 caracteres',
             'fax.*'=>'Ingrese un fax, de no mas de 150 caracteres',
-            'telefono1.*'=>'Ingrese un teléfono, con el formato que se indica',
-            'telefono2.*'=>'Ingrese un télefono opcional, con el formato que se indica',
+            'telefono1_proveedor.*'=>'Ingrese un teléfono, con el formato que se indica',
+            'telefono2_proveedor.*'=>'Ingrese un télefono opcional, con el formato que se indica',
         ];
     }
 }

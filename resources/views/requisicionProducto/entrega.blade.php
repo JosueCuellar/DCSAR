@@ -29,7 +29,7 @@
                                                 <td scope="row">{{ $item->fecha_requisicion }}</td>
                                                 <td scope="row">{{ $item->nCorrelativo }}</td>
                                                 <td><span
-                                                        class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
+                                                        class="badge badge-success">{{ $item->estado->nombre_estado }}</span>
                                                 </td>
                                                 <td>
                                                     <div>

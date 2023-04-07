@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('medidas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreMedida',255);
+            $table->string('nombre_medida',255);
             $table->timestamps();
         });
     }

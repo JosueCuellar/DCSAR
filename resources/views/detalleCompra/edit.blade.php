@@ -51,29 +51,29 @@
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="cantidadIngreso" class="col-12 control-label">Cantidad
+                                        <label for="cantidad_ingreso" class="col-12 control-label">Cantidad
                                             ingresada:</label>
                                         <div class="col-12">
-                                            <input id='cantidadIngreso' type='number'
-                                                value="{{ old('cantidadIngreso', $detalleCompra->cantidadIngreso) }}"
-                                                min='1' class='form-control' name='cantidadIngreso'
+                                            <input id='cantidad_ingreso' type='number'
+                                                value="{{ old('cantidad_ingreso', $detalleCompra->cantidad_ingreso) }}"
+                                                min='1' class='form-control' name='cantidad_ingreso'
                                                 placeholder='Cantidad ingresada'>
                                         </div>
-                                        @error('cantidadIngreso')
+                                        @error('cantidad_ingreso')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="precioUnidad" class="col-12 control-label">Precio de unidad:</label>
+                                        <label for="precio_unidad" class="col-12 control-label">Precio de unidad:</label>
                                         <div class="col-12">
-                                            <input id='precioUnidad' type='number' min='0.01'
-                                                value="{{ old('precioUnidad', $detalleCompra->precioUnidad) }}"
-                                                step='0.01' class='form-control' name='precioUnidad'
+                                            <input id='precio_unidad' type='number' min='0.01'
+                                                value="{{ old('precio_unidad', $detalleCompra->precio_unidad) }}"
+                                                step='0.01' class='form-control' name='precio_unidad'
                                                 placeholder='Precio unitario'>
                                         </div>
 
-                                        @error('precioUnidad')
+                                        @error('precio_unidad')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

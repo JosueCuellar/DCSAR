@@ -26,58 +26,58 @@ class DatabaseSeeder extends Seeder
 
 
         DB::table('estados')->insert([
-            'codigoEstado' => 'SE',
-            'descripcionEstado' => 'Una requisición ha sido enviada',
-            'nombreEstado' => 'Solicitud Enviada',
+            'codigo_estado' => 'SE',
+            'descripcion_estado' => 'Una requisición ha sido enviada',
+            'nombre_estado' => 'Solicitud Enviada',
         ]);
 
         DB::table('estados')->insert([
-            'codigoEstado' => 'SA',
-            'descripcionEstado' => 'Una requisición ha sido aprobada',
-            'nombreEstado' => 'Solicitud Aprobada',
+            'codigo_estado' => 'SA',
+            'descripcion_estado' => 'Una requisición ha sido aprobada',
+            'nombre_estado' => 'Solicitud Aprobada',
         ]);
 
         DB::table('estados')->insert([
-            'codigoEstado' => 'SR',
-            'descripcionEstado' => 'Una requisición ha sido rechazada',
-            'nombreEstado' => 'Solicitud Rechazada',
+            'codigo_estado' => 'SR',
+            'descripcion_estado' => 'Una requisición ha sido rechazada',
+            'nombre_estado' => 'Solicitud Rechazada',
         ]);
 
         DB::table('estados')->insert([
-            'codigoEstado' => 'SEN',
-            'descripcionEstado' => 'Una requisición ha sido entregada',
-            'nombreEstado' => 'Solicitud Entregada',
+            'codigo_estado' => 'SEN',
+            'descripcion_estado' => 'Una requisición ha sido entregada',
+            'nombre_estado' => 'Solicitud Entregada',
         ]);
 
         DB::table('estados')->insert([
-            'codigoEstado' => 'NA',
-            'descripcionEstado' => 'No terminada',
-            'nombreEstado' => 'NA',
+            'codigo_estado' => 'NA',
+            'descripcion_estado' => 'No terminada',
+            'nombre_estado' => 'NA',
         ]);
 
         //Medidas
         DB::table('medidas')->insert([
-            'nombreMedida' => 'Kilos(kg)',
+            'nombre_medida' => 'Kilos(kg)',
         ]);
         DB::table('medidas')->insert([
-            'nombreMedida' => 'Cajas',
+            'nombre_medida' => 'Cajas',
         ]);
         DB::table('medidas')->insert([
-            'nombreMedida' => 'Rollos',
+            'nombre_medida' => 'Rollos',
         ]);
         DB::table('medidas')->insert([
-            'nombreMedida' => 'Paquetes',
+            'nombre_medida' => 'Paquetes',
         ]);
 
 
         //Bodegas
         DB::table('bodegas')->insert([
-            'nombreBodega' => 'Bodega principal',
+            'nombre_bodega' => 'Bodega principal',
             'ubicacion' => 'Nivel 1',
         ]);
 
         DB::table('bodegas')->insert([
-            'nombreBodega' => 'Bodega secundaria',
+            'nombre_bodega' => 'Bodega secundaria',
             'ubicacion' => 'Nivel 1',
         ]);
 

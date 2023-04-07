@@ -60,7 +60,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $item->nombreMedida }}</td>
+                                        <td>{{ $item->nombre_medida }}</td>
                                         <td>{{ $item->stock-$item->stock1 }}</td>
 
                                         <td>
@@ -129,8 +129,8 @@
                                             </form>
 
                                         </td>
-                                        <td>{{ $item->producto->medida->nombreMedida }}</td>
-                                        <td>${{ $item->precioPromedio }}</td>
+                                        <td>{{ $item->producto->medida->nombre_medida }}</td>
+                                        <td>${{ $item->precio_promedio }}</td>
                                         <td>${{ $item->total }}</td>
                                     </tr>
                                 @endforeach

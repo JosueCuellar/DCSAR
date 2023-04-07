@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('lotes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('detalleCompra_id')->unsigned();
+            $table->unsignedBigInteger('detalle_compra_id')->unsigned();
             $table->unsignedBigInteger('producto_id')->unsigned();
             // $table->unsignedBigInteger('bodega_id')->unsigned();
-            $table->string('fechaVencimiento',10)->nullable();
-            $table->integer('cantidadDisponible');
+            $table->string('fecha_vencimiento',10)->nullable();
+            $table->integer('cantidad_disponible');
             // $table->foreign('bodega_id')->references('id')->on('bodegas');
             $table->foreign('producto_id')->references('id')->on('productos');
-            $table->foreign('detalleCompra_id')->references('id')->on('detalle_compras')->onDelete('cascade');
+            $table->foreign('detalle_compra_id')->references('id')->on('detalle_compras')->onDelete('cascade');
             $table->timestamps();
         });
     }

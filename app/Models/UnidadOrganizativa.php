@@ -9,8 +9,8 @@ class UnidadOrganizativa extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombreUnidad',
-        'descripcionUnidad'
+        'nombre_unidad_medida',
+        'descripcion_unidad_medida'
     ];
 
 }

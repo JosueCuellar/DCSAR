@@ -37,7 +37,7 @@
                     <tbody>
                         @foreach ($productos as $item)
                             <tr>
-                                <td>{{ $item->rubro->descripcionRubro }}</td>
+                                <td>{{ $item->rubro->descripcion_rubro }}</td>
                                 <td>{{ $item->cod_producto }}</td>
                                 <td>{{ $item->descripcion }}</td>
                                 @if ($item->perecedero == 1)
@@ -57,7 +57,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $item->marca->nombre }}</td>
-                                <td>{{ $item->medida->nombreMedida }}</td>
+                                <td>{{ $item->medida->nombre_medida }}</td>
                                 <td>{{ $item->observacion }}</td>
                                 <td>
                                     <a href="{{ route('producto.edit', $item->id) }}">

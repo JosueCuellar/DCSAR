@@ -172,7 +172,7 @@
                             <p
                                 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
                                 <span
-                                    style="font-size:12px;color:black;">{{ $item->producto->medida->nombreMedida }}</span>
+                                    style="font-size:12px;color:black;">{{ $item->producto->medida->nombre_medida }}</span>
                             </p>
                         </td>
 
@@ -187,7 +187,7 @@
                             style="width: 58.5pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
                                 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
-                                <span style="font-size:12px;color:black;">${{ $item->producto->costoPromedio }}</span>
+                                <span style="font-size:12px;color:black;">${{ $item->producto->costo_promedio }}</span>
                             </p>
                         </td>
 

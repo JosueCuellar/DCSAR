@@ -9,7 +9,7 @@ class DocumentoXCompra extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombreDocumento',
-        'recepcionCompra_id'
+        'nombre_documento',
+        'recepcion_compra_id'
     ];
 }

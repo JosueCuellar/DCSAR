@@ -10,9 +10,9 @@ class DetalleCompra extends Model
     use HasFactory;
     protected $fillable = [
         'producto_id',
-        'recepcionCompra_id',
-        'cantidadIngreso',
-        'precioUnidad',
+        'recepcion_compra_id',
+        'cantidad_ingreso',
+        'precio_unidad',
         'fechaVenc', 
     ];
     public function recepcionCompra()

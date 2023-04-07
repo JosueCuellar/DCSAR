@@ -57,9 +57,9 @@
                                                 <th scope="row">{{ $n = $n + 1 }}</th>
                                                 <td>{{ $item->producto->cod_producto }}</td>
                                                 <td>{{ $item->cantidad }}</td>
-                                                <td>{{ $item->producto->medida->nombreMedida }}</td>
+                                                <td>{{ $item->producto->medida->nombre_medida }}</td>
                                                 <td>{{ $item->producto->descripcion }}</td>
-                                                <td>${{ $item->producto->costoPromedio }}</td>
+                                                <td>${{ $item->producto->costo_promedio }}</td>
                                                 <td>${{ $item->total }}</td>
                                             </tr>
                                         @endforeach

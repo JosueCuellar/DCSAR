@@ -9,6 +9,6 @@ class Medida extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombreMedida'
+        'nombre_medida'
     ];
 }

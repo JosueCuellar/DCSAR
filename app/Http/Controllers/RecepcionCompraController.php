@@ -51,7 +51,7 @@ class RecepcionCompraController extends Controller
             $recepcionCompra->estado = false;
             $recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
             $recepcionCompra->nPresupuestario = $request->nPresupuestario;
-            $recepcionCompra->codigoFactura = $request->codigoFactura;
+            $recepcionCompra->codigo_factura = $request->codigo_factura;
             $recepcionCompra->save();
             return redirect()->route('recepcionCompra.documento', $recepcionCompra);
         } catch (\Exception $e) {
@@ -64,26 +64,26 @@ class RecepcionCompraController extends Controller
     {
         try {
             $recepcionCompra->estado = true;
-            $detallesCompra = DetalleCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
+            $detallesCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
             foreach ($detallesCompra as $detalle) {
                 $producto_id = $detalle->producto_id;
-                $cProm = $this->costoPromedio($producto_id);
+                $cProm = $this->costoPromedioCalculo($producto_id);
                 $productoA = Producto::where('id', $producto_id)->first();
-                $productoA->costoPromedio = $cProm;
+                $productoA->costo_promedio = $cProm;
                 $productoA->save();
 
                 //Crear los registros de los productos en la bodega
                 $bodega_id = 1;
-                $cantidadAlmacenar = $detalle->cantidadIngreso;
+                $cantidadAlmacenar = $detalle->cantidad_ingreso;
                 $productoExistente = ProductoBodega::where('producto_id', $producto_id)->where('bodega_id', $bodega_id)->first();
                 if ($productoExistente) {
-                    $productoExistente->cantidadDisponible += $cantidadAlmacenar;
+                    $productoExistente->cantidad_disponible += $cantidadAlmacenar;
                     $productoExistente->save();
                 } else {
                     ProductoBodega::create([
                         'producto_id' => $producto_id,
                         'bodega_id' => $bodega_id,
-                        'cantidadDisponible' => $cantidadAlmacenar
+                        'cantidad_disponible' => $cantidadAlmacenar
                     ]);
                 }
             }
@@ -108,11 +108,11 @@ class RecepcionCompraController extends Controller
     public function revisar(RecepcionCompra $recepcionCompra)
     {
         $totalFinal = 0.0;
-        $detalleCompra = DetalleCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
+        $detalleCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
         foreach ($detalleCompra as $item) {
             $totalFinal += $item->total;
         }
-        $documentos  = DocumentoXCompra::where('recepcionCompra_id', $recepcionCompra->id)->get();
+        $documentos  = DocumentoXCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
         return view('recepcionCompra.revisar', compact('documentos', 'detalleCompra', 'recepcionCompra', 'totalFinal'));
     }
 
@@ -130,27 +130,27 @@ class RecepcionCompraController extends Controller
         }
     }
 
-    // Esta es una función de PHP llamada costoPromedio que calcula el costo promedio de un producto dado. Toma un parámetro llamado producto, que representa el producto que se está consultando.
-    // Dentro de la función, cuatro variables se inicializan como cero, a saber, $existencias, $saldoTotal, $costoPromedio y $sumaCompras.
+    // Esta es una función de PHP llamada costoPromedioCalculo que calcula el costo promedio de un producto dado. Toma un parámetro llamado producto, que representa el producto que se está consultando.
+    // Dentro de la función, cuatro variables se inicializan como cero, a saber, $existencias, $saldoTotal, $costo_promedio y $sumaCompras.
     // La función recupera todos los registros de detalle de DetalleCompra que tienen la identificación del producto que coincide con el parámetro pasado usando la función where() y los asigna a $detalleCompras. Luego, un ciclo foreach calcula la cantidad total comprada y el costo total de las compras.
     // De igual manera, la función recupera todos los registros de detalle de DetalleRequisicion que tiene referencia al id del producto y cuyo RequisicionProducto correspondiente tiene un estado_id de 4 usando la función whereHas() y lo asigna a $detalleRequisicion. Un ciclo if verifica si $detalleRequisicion se evalúa como un valor no vacío y, si es verdadero, un ciclo foreach calcula la cantidad total de solicitudes realizadas y resume sus costos respectivos.
     // Luego, la función calcula el saldo de cierre del inventario restando el costo de las solicitudes del costo de las compras, que se asigna a $saldoTotal.
     // Luego, la cantidad de existencias restantes se calcula restando la cantidad total solicitada de la cantidad total comprada, que se asigna a $existencias.
-    // Finalmente, el costo promedio por unidad se calcula dividiendo $saldoTotal por $existencias, que se asigna a $costoPromedio y luego se devuelve como resultado de la función.
-    // El resultado de esta función es un único número flotante que representa el costo promedio por unidad del producto especificado asignado a $costoPromedio.
+    // Finalmente, el costo promedio por unidad se calcula dividiendo $saldoTotal por $existencias, que se asigna a $costo_promedio y luego se devuelve como resultado de la función.
+    // El resultado de esta función es un único número flotante que representa el costo promedio por unidad del producto especificado asignado a $costo_promedio.
 
-    public function costoPromedio($producto)
+    public function costoPromedioCalculo($producto)
     {
         $existencias = 0;
         $saldoTotal = 0;
-        $costoPromedio = 0;
+        $costoPromedioVar = 0;
         $sumaCompras = 0;
         $sumaRequi = 0;
         $cantidadCompra = 0;
         $cantidadRequi = 0;
         $detalleCompras = DetalleCompra::where('producto_id', $producto)->get();
         foreach ($detalleCompras as $itemCompra) {
-            $cantidadCompra += $itemCompra->cantidadIngreso;
+            $cantidadCompra += $itemCompra->cantidad_ingreso;
             $sumaCompras += $itemCompra->total;
         }
         $detalleRequisicion = DetalleRequisicion::whereHas('requisicionProducto', function ($query) {
@@ -166,7 +166,7 @@ class RecepcionCompraController extends Controller
 
         $saldoTotal = $sumaCompras - $sumaRequi;
         $existencias = $cantidadCompra - $cantidadRequi;
-        $costoPromedio = $saldoTotal / $existencias;
-        return $costoPromedio;
+        $costoPromedioVar = $saldoTotal / $existencias;
+        return $costoPromedioVar;
     }
 }

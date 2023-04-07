@@ -34,7 +34,7 @@
                                                     <td scope="row">{{ $item->fecha_requisicion }}</td>
                                                     <td scope="row">{{ $item->nCorrelativo }}</td>
                                                     <td><span
-                                                            class="badge text-white" style="background-color: orange">{{ $item->estado->nombreEstado }}</span>
+                                                            class="badge text-white" style="background-color: orange">{{ $item->estado->nombre_estado }}</span>
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">

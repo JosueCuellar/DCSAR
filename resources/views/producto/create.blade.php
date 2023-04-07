@@ -38,7 +38,7 @@
                                                 </option>
                                                 @foreach ($rubros as $item)
                                                     <option value="{{ $item->id }}">
-                                                        {{ $item->codigoPresupuestario . ' ' . $item->descripcionRubro }}
+                                                        {{ $item->codigo_presupuestario . ' ' . $item->descripcion_rubro }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -53,7 +53,7 @@
                                                 <option selected='true' disabled='disabled'>Seleccionar unidad de medida
                                                 </option>
                                                 @foreach ($medidas as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nombreMedida }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->nombre_medida }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -172,7 +172,7 @@
                     num = num + 1;
                 }
             });
-            input.value = datos[select.value - 1].codigoPresupuestario + '-' + (num + 1);
+            input.value = datos[select.value - 1].codigo_presupuestario + '-' + (num + 1);
         });
     </script>
 

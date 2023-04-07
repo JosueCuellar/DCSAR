@@ -63,21 +63,21 @@ class ProductoBodegaController extends Controller
                 $bodegaSecundaria = new ProductoBodega([
                     'producto_id' => $producto,
                     'bodega_id' => $var,
-                    'cantidadDisponible' => 0
+                    'cantidad_disponible' => 0
                 ]);
                 $bodegaSecundaria->save();
             }
     
             // Check if there is enough available quantity in primary warehouse
-            if ($cantidad > $productoBodega->cantidadDisponible) {
+            if ($cantidad > $productoBodega->cantidad_disponible) {
                 return redirect()->back()->with('msg', 'Error, no hay suficiente cantidad disponible en la bodega');
             }
     
             // Move quantity from primary to secondary warehouse
-            $productoBodega->cantidadDisponible -= $cantidad;
+            $productoBodega->cantidad_disponible -= $cantidad;
             $productoBodega->save();
     
-            $bodegaSecundaria->cantidadDisponible += $cantidad;
+            $bodegaSecundaria->cantidad_disponible += $cantidad;
             $bodegaSecundaria->save();
     
             // Redirect with success message

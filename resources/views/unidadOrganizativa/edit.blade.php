@@ -28,15 +28,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback row">
-                                <label for="nombreUnidad" class="col-12 control-label">Nombre unidad:</label>
+                                <label for="nombre_unidad_medida" class="col-12 control-label">Nombre unidad:</label>
                                 <div class="col-12">
-                                    <input value="{{old('nombreUnidad',$unidadOrganizativa->nombreUnidad)}}" id="nombreUnidad" type="text" class="form-control" name="nombreUnidad" placeholder="Nombre de unidad" required>
+                                    <input value="{{old('nombre_unidad_medida',$unidadOrganizativa->nombre_unidad_medida)}}" id="nombre_unidad_medida" type="text" class="form-control" name="nombre_unidad_medida" placeholder="Nombre de unidad" required>
                                 </div>
                             </div>
                             <div class="form-group has-feedback row">
-                                <label for="descripcionUnidad" class="col-12 control-label">Decripción de unidad:</label>
+                                <label for="descripcion_unidad_medida" class="col-12 control-label">Decripción de unidad:</label>
                                 <div class="col-12">
-                                    <input value="{{old('descripcionUnidad',$unidadOrganizativa->descripcionUnidad)}}" id="descripcionUnidad" type="text" class="form-control" name="descripcionUnidad" placeholder="Decripción de unidad" required>
+                                    <input value="{{old('descripcion_unidad_medida',$unidadOrganizativa->descripcion_unidad_medida)}}" id="descripcion_unidad_medida" type="text" class="form-control" name="descripcion_unidad_medida" placeholder="Decripción de unidad" required>
                                 </div>
                             </div>
                         </div>

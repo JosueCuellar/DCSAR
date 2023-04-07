@@ -9,7 +9,7 @@ class Bodega extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombreBodega',
+        'nombre_bodega',
         'ubicacion'
     ];
 }

@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('proveedors', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreComercial',255);
-            $table->string('razonSocial',255);
-            $table->string('direccion',255);
+            $table->string('nombre_comercial',255);
+            $table->string('razon_social',255);
+            $table->string('direccion_proveedor',255);
             $table->string('fax',150);
-            $table->string('telefono1',15);
-            $table->string('telefono2',15)->nullable();
+            $table->string('telefono1_proveedor',15);
+            $table->string('telefono2_proveedor',15)->nullable();
             $table->timestamps();
         });
     }

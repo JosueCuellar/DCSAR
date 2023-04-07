@@ -17,7 +17,7 @@ class Producto extends Model
         'marca_id',
         'medida_id',
         'rubro_id',
-        'costoPromedio'
+        'costo_promedio'
         // 'estado_id'
     ];
 

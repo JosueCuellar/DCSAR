@@ -48,8 +48,8 @@
                                                 <td scope="row">{{ $item->created_at }}</td>
                                                 <td>{{ $item->nOrdenCompra }}</td>
                                                 <td>{{ $item->nPresupuestario }}</td>
-                                                <td>{{ $item->codigoFactura }}</td>
-                                                <td>{{ $item->proveedor->nombreComercial }}</td>
+                                                <td>{{ $item->codigo_factura }}</td>
+                                                <td>{{ $item->proveedor->nombre_comercial }}</td>
 
                                                 <td>
                                                     <a href="{{ route('recepcionCompra.revisar', $item->id) }}">

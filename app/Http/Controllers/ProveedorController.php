@@ -23,12 +23,12 @@ class ProveedorController extends Controller
         try{
             //Se crea y almacena un nuevo objeto
             $proveedor = new Proveedor();
-            $proveedor->nombreComercial = $request->nombreComercial;
-            $proveedor->razonSocial = $request->razonSocial;
-            $proveedor->direccion = $request->direccion;
+            $proveedor->nombre_comercial = $request->nombre_comercial;
+            $proveedor->razon_social = $request->razon_social;
+            $proveedor->direccion_proveedor = $request->direccion_proveedor;
             $proveedor->fax = $request->fax;
-            $proveedor->telefono1 = $request->telefono1;
-            $proveedor->telefono2 = $request->telefono2;
+            $proveedor->telefono1_proveedor = $request->telefono1_proveedor;
+            $proveedor->telefono2_proveedor = $request->telefono2_proveedor;
             $proveedor->save();
             //Se redirige al listado de todos los registros
             return redirect()->route('proveedor.index')->with('status', 'Registro correcto');
@@ -52,12 +52,12 @@ class ProveedorController extends Controller
     {
         try{
             
-            $proveedor->nombreComercial = $request->nombreComercial;
-            $proveedor->razonSocial = $request->razonSocial;
-            $proveedor->direccion = $request->direccion;
+            $proveedor->nombre_comercial = $request->nombre_comercial;
+            $proveedor->razon_social = $request->razon_social;
+            $proveedor->direccion_proveedor = $request->direccion_proveedor;
             $proveedor->fax = $request->fax;
-            $proveedor->telefono1 = $request->telefono1;
-            $proveedor->telefono2 = $request->telefono2;
+            $proveedor->telefono1_proveedor = $request->telefono1_proveedor;
+            $proveedor->telefono2_proveedor = $request->telefono2_proveedor;
             $proveedor->save();            
             //Se redirige al listado de todos los registros
             return redirect()->route('proveedor.index')->with('status', 'Registro correcto');

@@ -32,8 +32,8 @@
                         @foreach ($rubros as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->codigoPresupuestario }}</td>
-                                <td>{{ $item->descripcionRubro }}</td>
+                                <td>{{ $item->codigo_presupuestario }}</td>
+                                <td>{{ $item->descripcion_rubro }}</td>
                                 <td>
                                     <a href="{{ route('rubro.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>

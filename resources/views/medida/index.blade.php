@@ -31,7 +31,7 @@
                         @foreach ($medidas as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->nombreMedida }}</td>
+                                <td>{{ $item->nombre_medida }}</td>
                                 <td>
                                     <a href="{{ route('medida.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>

@@ -29,7 +29,7 @@
                             <div class="form-group has-feedback row">
                                 <label for="nombre" class="col-12 control-label">Nombre de unidad de medida:</label>
                                 <div class="col-12">
-                                <input id="nombreMedida" type="text" class="form-control"  name="nombreMedida" 
+                                <input id="nombre_medida" type="text" class="form-control"  name="nombre_medida" 
                                  placeholder="Nombre de la unidad de medida" >
                                 </div>
                             </div>

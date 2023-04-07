@@ -40,7 +40,7 @@
                                                 @foreach ($rubros as $item)
                                                     <option value="{{ $item->id }}"
                                                         @if ($producto->rubro_id == $item->id) {{ 'selected disabled' }} @endif>
-                                                        {{ $item->descripcionRubro }}</option>
+                                                        {{ $item->descripcion_rubro }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -55,7 +55,7 @@
                                                 @foreach ($medidas as $item)
                                                     <option value="{{ $item->id }}"
                                                         @if ($producto->medida_id == $item->id) {{ 'selected' }} @endif>
-                                                        {{ $item->nombreMedida }}</option>
+                                                        {{ $item->nombre_medida }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -179,7 +179,7 @@
 
                 }
             });
-            input.value = datos[select.value - 1].codigoPresupuestario + '-' + (num + 1);
+            input.value = datos[select.value - 1].codigo_presupuestario + '-' + (num + 1);
         });
     </script>
 

@@ -28,15 +28,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback row">
-                                <label for="codigoPresupuestario" class="col-12 control-label">Codigo Presupuestario:</label>
+                                <label for="codigo_presupuestario" class="col-12 control-label">Codigo Presupuestario:</label>
                                 <div class="col-12">
-                                    <input value="{{ $rubro->codigoPresupuestario }}" id="codigoPresupuestario" type="text" class="form-control" name="codigoPresupuestario" placeholder="Codigo Presupuestario" required>
+                                    <input value="{{ $rubro->codigo_presupuestario }}" id="codigo_presupuestario" type="text" class="form-control" name="codigo_presupuestario" placeholder="Codigo Presupuestario" required>
                                 </div>
                             </div>                    
                             <div class="form-group has-feedback row">
-                                <label for="descripcionRubro" class="col-12 control-label">Descripción:</label>
+                                <label for="descripcion_rubro" class="col-12 control-label">Descripción:</label>
                                 <div class="col-12">
-                                    <input value="{{ $rubro->descripcionRubro }}" id="descripcionRubro" type="text" class="form-control" name="descripcionRubro" placeholder="Descripción" required>
+                                    <input value="{{ $rubro->descripcion_rubro }}" id="descripcion_rubro" type="text" class="form-control" name="descripcion_rubro" placeholder="Descripción" required>
                                 </div>
                             </div>
                         </div>

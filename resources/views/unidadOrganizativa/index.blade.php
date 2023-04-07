@@ -31,8 +31,8 @@
                         @foreach ($unidades as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->nombreUnidad }}</td>
-                                <td>{{ $item->descripcionUnidad }}</td>
+                                <td>{{ $item->nombre_unidad_medida }}</td>
+                                <td>{{ $item->descripcion_unidad_medida }}</td>
                                 <td>
                                     <a href="{{ route('unidadOrganizativa.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>

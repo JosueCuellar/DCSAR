@@ -37,12 +37,12 @@
                         @foreach ($proveedores as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->nombreComercial }}</td>
-                                <td>{{ $item->razonSocial }}</td>
-                                <td>{{ $item->direccion }}</td>
+                                <td>{{ $item->nombre_comercial }}</td>
+                                <td>{{ $item->razon_social }}</td>
+                                <td>{{ $item->direccion_proveedor }}</td>
                                 <td>{{ $item->fax }}</td>
-                                <td>{{ $item->telefono1 }}</td>
-                                <td>{{ $item->telefono2 }}</td>
+                                <td>{{ $item->telefono1_proveedor }}</td>
+                                <td>{{ $item->telefono2_proveedor }}</td>
 
                                 <td>
                                     <a href="{{ route('proveedor.edit', $item->id) }}">

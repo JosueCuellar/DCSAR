@@ -23,7 +23,7 @@ class MedidaController extends Controller
            try{
                //Se crea y almacena un nuevo objeto
                $medida = new Medida();
-               $medida->nombreMedida = $request->nombreMedida;
+               $medida->nombre_medida = $request->nombre_medida;
                $medida->save();
                //Se redirige al listado de todos los registros
                return redirect()->route('medida.index')->with('status', 'Registro correcto');
@@ -46,7 +46,7 @@ class MedidaController extends Controller
        public function update(MedidaRequest $request, Medida $medida)
        {
            try{
-                $medida->nombreMedida = $request->nombreMedida;
+                $medida->nombre_medida = $request->nombre_medida;
                 $medida->save();            
                //Se redirige al listado de todos los registros
                return redirect()->route('medida.index')->with('status', 'Registro correcto');

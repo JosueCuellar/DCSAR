@@ -14,7 +14,7 @@ class RecepcionCompra extends Model
         'nOrdenCompra',
         'nPresupuestario',
         'estado',
-        'codigoFactura'
+        'codigo_factura'
     ];
 
     public function producto()

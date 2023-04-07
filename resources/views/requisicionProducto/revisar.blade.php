@@ -28,7 +28,7 @@
                                             <tr>
                                                 <td scope="row">{{ $item->fecha_requisicion }}</td>
                                                 <td>{{ $item->descripcion }}</td>
-                                                <td><span class="badge badge-info">{{ $item->estado->nombreEstado }}</span>
+                                                <td><span class="badge badge-info">{{ $item->estado->nombre_estado }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="margin">

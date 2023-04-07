@@ -18,11 +18,11 @@ return new class extends Migration
         Schema::create('detalle_compras', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('producto_id');
-            $table->unsignedBigInteger('recepcionCompra_id');
+            $table->unsignedBigInteger('recepcion_compra_id');
             $table->foreign('producto_id')->references('id')->on('productos');
-            $table->foreign('recepcionCompra_id')->references('id')->on('recepcion_compras')->onDelete('cascade');
-            $table->integer('cantidadIngreso');
-            $table->decimal('precioUnidad', $precision = 12, $scale = 2);
+            $table->foreign('recepcion_compra_id')->references('id')->on('recepcion_compras')->onDelete('cascade');
+            $table->integer('cantidad_ingreso');
+            $table->decimal('precio_unidad', $precision = 12, $scale = 2);
             $table->decimal('total', $precision = 12, $scale = 2);
             $table->timestamps();
         });

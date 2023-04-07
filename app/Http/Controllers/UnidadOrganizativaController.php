@@ -23,8 +23,8 @@ class UnidadOrganizativaController extends Controller
            try{
                //Se crea y almacena un nuevo objeto
                $unidad = new UnidadOrganizativa();
-               $unidad->nombreUnidad = $request->nombreUnidad;
-               $unidad->descripcionUnidad = $request->descripcionUnidad;
+               $unidad->nombre_unidad_medida = $request->nombre_unidad_medida;
+               $unidad->descripcion_unidad_medida = $request->descripcion_unidad_medida;
                $unidad->save();
                //Se redirige al listado de todos los registros
                return redirect()->route('unidadOrganizativa.index');
@@ -47,8 +47,8 @@ class UnidadOrganizativaController extends Controller
        public function update(UnidadOrganizativaRequest $request, UnidadOrganizativa $unidadOrganizativa)
        {
            try{
-                $unidadOrganizativa->nombreUnidad = $request->nombreUnidad;
-                $unidadOrganizativa->descripcionUnidad = $request->descripcionUnidad;
+                $unidadOrganizativa->nombre_unidad_medida = $request->nombre_unidad_medida;
+                $unidadOrganizativa->descripcion_unidad_medida = $request->descripcion_unidad_medida;
                 $unidadOrganizativa->save();          
                //Se redirige al listado de todos los registros
                return redirect()->route('unidadOrganizativa.index');

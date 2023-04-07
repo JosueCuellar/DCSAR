@@ -50,7 +50,7 @@
                                                     <td scope="row">{{ $item->fecha_requisicion }}</td>
                                                     <td>{{ $item->descripcion }}</td>
                                                     <td><span
-                                                            class="badge badge-info">{{ $item->estado->nombreEstado }}</span>
+                                                            class="badge badge-info">{{ $item->estado->nombre_estado }}</span>
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
@@ -95,7 +95,7 @@
                                                         <td>{{ $item->observacion }}</td>
 
                                                         <td><span
-                                                                class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
+                                                                class="badge badge-success">{{ $item->estado->nombre_estado }}</span>
                                                         </td>
                                                         <td>
                                                             <a
@@ -137,7 +137,7 @@
                                                         <td>{{ $item->observacion }}</td>
 
                                                         <td><span
-                                                                class="badge badge-danger">{{ $item->estado->nombreEstado }}</span>
+                                                                class="badge badge-danger">{{ $item->estado->nombre_estado }}</span>
                                                         </td>
                                                         <td>
                                                             <a
