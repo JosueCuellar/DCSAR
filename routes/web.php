@@ -17,7 +17,9 @@ use App\Http\Controllers\RecepcionCompraController;
 use App\Http\Controllers\RequisicionProductoController;
 use App\Http\Controllers\RubroController;
 use App\Http\Controllers\UnidadOrganizativaController;
+use App\Http\Controllers\UserController;
 use App\Models\ProductoBodega;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +35,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::get('admin', [DashboardController::class, 'indexAdmin'])->name('dashboardAdmin');
 
 
 //----------------------------Estado------------------------
@@ -193,8 +196,8 @@ Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [PDFControll
 
 
 //--------------------------Salida de lotes------------------------------------------------------
-Route::get('lote/{requisicionProducto}', [LoteController::class, 'index'])->name('lote.index');
-Route::post('lote/despacho/{requisicionProducto}/{lote}', [LoteController::class, 'store'])->name('lote.store');
+// Route::get('lote/{requisicionProducto}', [LoteController::class, 'index'])->name('lote.index');
+// Route::post('lote/despacho/{requisicionProducto}/{lote}', [LoteController::class, 'store'])->name('lote.store');
 
 
 //--------------------------Salida de lotes------------------------------------------------------
@@ -202,3 +205,20 @@ Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'
 Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2');
 
 Route::post('productoBodega/{productoBodega}/', [ProductoBodegaController::class, 'store'])->name('productoBodega.store');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//----------------------------Usuarios------------------------
+//listar
+Route::get('usuario', [UserController::class, 'index'])->name('usuario.index');
+//crear
+Route::get('usuario/crear', [UserController::class, 'create'])->name('usuario.create');
+Route::post('usuario/store', [UserController::class, 'store'])->name('usuario.store');
+//actualizar
+Route::get('usuario/edit/{usuario}', [UserController::class, 'edit'])->name('usuario.edit');
+Route::put('usuario/update/{usuario}', [UserController::class, 'update'])->name('usuario.update');
+//eliminar
+Route::get('usuario/destroy/{usuario}', [UserController::class, 'destroy'])->name('usuario.destroy');

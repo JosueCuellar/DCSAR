@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $existe = false;
@@ -25,5 +31,11 @@ class DashboardController extends Controller
         $nRecibidas = count($requisicionesRecibidas);
 
         return view('dashboard', compact('n', 'existe','nEnviadas','nAprobadas','nRechazadas', 'nRecibidas'));
+    }
+
+    public function indexAdmin()
+    {
+
+        return view('administrador.dashboard');
     }
 }

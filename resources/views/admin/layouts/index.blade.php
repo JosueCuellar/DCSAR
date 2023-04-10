@@ -53,14 +53,32 @@
 
             <!-- Right navbar links -->
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                <li class="nav-item"> <img src="{{ asset('fondo/logo22.png') }}" class="img-fluid"
-                        style="max-width: 40px" alt="Responsive image"></li>
-
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                        <i class="fas fa-th-large"></i>
+               
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" class="nav-link dropdown-toggle"> {{ Auth::user()->name }}
                     </a>
+
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
+                        style="left: 0px; right: inherit;">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            Salir
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>  
+                        </li>
+                    </ul>
                 </li>
+
+                <li class="nav-item"> <img src="{{ asset('fondo/logo22.png') }}" class="img-fluid"
+                    style="max-width: 40px" alt="Responsive image"></li>
+
+
             </ul>
 
         </nav>
@@ -272,17 +290,15 @@
                             </ul>
                         </li><br>
 
-
-
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
             <div class="sidebar-custom">
-                <a href="#" class="btn btn-link">
+                <a href="{{ asset('admin') }}" class="btn btn-link">
                     <ion-icon name="settings-outline" class="fa-2x bg-dark"></ion-icon>
                 </a>
-                <a href="#" class="btn btn-secondary hide-on-collapse pos-right">///</a>
+                {{-- <a href="#" class="btn btn-secondary hide-on-collapse pos-right">///</a> --}}
             </div>
         </aside>
 
@@ -333,11 +349,11 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
-    <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
-    </script> --}}
+    </script>
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
