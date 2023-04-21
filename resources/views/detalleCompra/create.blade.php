@@ -41,7 +41,7 @@
                                                                 </option>
                                                                 @foreach ($productos as $item)
                                                                     <option value="{{ $item->id }}">
-                                                                        {{ $item->codProducto . "\nDecripcion: " . $item->descripcion . "\nMarca:" . $item->marca->nombre }}
+                                                                        {{ $item->codProducto . "\nDescripcion: " . $item->descripcion . "\nMarca:" . $item->marca->nombre }}
                                                                         Medida:{{ $item->medida->nombreMedida }}
                                                                     </option>
                                                                 @endforeach
