@@ -8,8 +8,6 @@
     </div>
 @endsection
 @section('content')
-
-    </script>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -38,7 +36,7 @@
                                                 </option>
                                                 @foreach ($rubros as $item)
                                                     <option value="{{ $item->id }}">
-                                                        {{ $item->codigo_presupuestario . ' ' . $item->descripcion_rubro }}
+                                                        {{ $item->codigoPresupuestario . ' ' . $item->descripRubro }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -53,7 +51,7 @@
                                                 <option selected='true' disabled='disabled'>Seleccionar unidad de medida
                                                 </option>
                                                 @foreach ($medidas as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nombre_medida }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->nombreMedida }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -99,15 +97,15 @@
                                 <div class="col-sm-6">
 
                                     <div class="form-group has-feedback row">
-                                        <label for="cod_producto" class="col-12 control-label">Codigo producto:</label>
+                                        <label for="codProducto" class="col-12 control-label">Codigo producto:</label>
                                         <div class="col-12">
-                                            <input id="cod_producto" type="text" class="form-control" name="cod_producto"
+                                            <input id="codProducto" type="text" class="form-control" name="codProducto"
                                                 placeholder="Codigo producto" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="cod_producto" class="col-12 control-label">Tipo de alimento:</label>
+                                        <label for="codProducto" class="col-12 control-label">Tipo de alimento:</label>
                                         <div class="col-12 form-control">
                                             <div
                                                 class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
@@ -131,7 +129,7 @@
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <img id="imagenSeleccionada" style="max-height: 150px">
+                                        <img id="imagenSeleccionada" style="max-height: 150px;max-width: 150px;">
                                     </div>
 
                                 </div>
@@ -155,13 +153,14 @@
             </div>
         </div>
     </div>
+@endsection
 
 @section('js_imagen')
 
 
     <script>
         const select = document.getElementById('rubro_id');
-        const input = document.getElementById('cod_producto');
+        const input = document.getElementById('codProducto');
         var datos = {!! json_encode($rubros) !!};
 
         var datosProductos = {!! json_encode($productos) !!};
@@ -172,7 +171,7 @@
                     num = num + 1;
                 }
             });
-            input.value = datos[select.value - 1].codigo_presupuestario + '-' + (num + 1);
+            input.value = datos[select.value - 1].codigoPresupuestario + '-' + (num + 1);
         });
     </script>
 
@@ -255,5 +254,3 @@
 
 @endsection
 
-
-@endsection

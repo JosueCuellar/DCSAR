@@ -9,12 +9,12 @@ class RecepcionCompra extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'fecha_ingreso',
+        'fechaIngreso',
         'proveedor_id',
         'nOrdenCompra',
         'nPresupuestario',
         'estado',
-        'codigo_factura'
+        'codigoFactura'
     ];
 
     public function producto()

@@ -26,9 +26,9 @@
                                     <tbody>
                                         @foreach ($requisicionesEnviadas as $item)
                                             <tr>
-                                                <td scope="row">{{ $item->fecha_requisicion }}</td>
+                                                <td scope="row">{{ $item->fechaRequisicion }}</td>
                                                 <td>{{ $item->descripcion }}</td>
-                                                <td><span class="badge badge-info">{{ $item->estado->nombre_estado }}</span>
+                                                <td><span class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="margin">
@@ -36,21 +36,21 @@
                                                             <button
                                                                 onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
                                                                 type="button" id="myButton"
-                                                                class="btn btn-info">Ver</button>
+                                                                class="btn btn-sm btn-primary">Ver</button>
                                                         </div>
 
                                                         <div class="btn-group">
                                                             <button type="submit" data-toggle="modal"
                                                                 data-target="#modalObservacionAceptar"
                                                                 data-aceptar="{{ $item->id }}"
-                                                                class="btn bg-success">Aceptar</button>
+                                                                class="btn btn-sm bg-success">Aceptar</button>
                                                         </div>
 
                                                         <div class="btn-group">
                                                             <button type="submit" data-toggle="modal"
                                                                 data-target="#modalObservacionDenegar"
                                                                 data-categoriaid="{{ $item->id }}"
-                                                                class="btn bg-danger">Rechazar</button>
+                                                                class="btn btn-sm bg-danger">Rechazar</button>
                                                         </div>
 
                                                     </div>
@@ -126,6 +126,7 @@
             </div>
         </form>
     </div>
+@endsection
 @section('js_datatable')
 
     <script>
@@ -176,4 +177,3 @@
 
 @endsection
 
-@endsection

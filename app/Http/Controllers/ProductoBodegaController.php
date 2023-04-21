@@ -19,7 +19,7 @@ class ProductoBodegaController extends Controller
 
         try {
             $bodegaPrincipal = 1;
-            $productos_bodegas = ProductoBodega::where('bodega_id', $bodegaPrincipal)->get();
+            $productos_bodegas = ProductoBodega::all();
             return view('productoBodega.bodegaPrincipal', compact('productos_bodegas'));
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -31,7 +31,7 @@ class ProductoBodegaController extends Controller
         try {
             $bodegaSecundaria = 2;
             $productos_bodegas = ProductoBodega::where('bodega_id', $bodegaSecundaria)->get();
-            return view('productoBodega.bodegaSecundaria', compact('productos_bodegas'));
+            return view('productoBodega.bodegaPrincipal', compact('productos_bodegas'));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -63,28 +63,28 @@ class ProductoBodegaController extends Controller
                 $bodegaSecundaria = new ProductoBodega([
                     'producto_id' => $producto,
                     'bodega_id' => $var,
-                    'cantidad_disponible' => 0
+                    'cantidadDisponible' => 0
                 ]);
                 $bodegaSecundaria->save();
             }
     
             // Check if there is enough available quantity in primary warehouse
-            if ($cantidad > $productoBodega->cantidad_disponible) {
+            if ($cantidad > $productoBodega->cantidadDisponible) {
                 return redirect()->back()->with('msg', 'Error, no hay suficiente cantidad disponible en la bodega');
             }
     
             // Move quantity from primary to secondary warehouse
-            $productoBodega->cantidad_disponible -= $cantidad;
+            $productoBodega->cantidadDisponible -= $cantidad;
             $productoBodega->save();
     
-            $bodegaSecundaria->cantidad_disponible += $cantidad;
+            $bodegaSecundaria->cantidadDisponible += $cantidad;
             $bodegaSecundaria->save();
     
             // Redirect with success message
             if ($bodega == 1) {
                 return redirect()->route('productoBodega.index')->with('status', 'Se ha agregado correctamente!');
             } else {
-                return redirect()->route('productoBodega.index2')->with('status', 'Se ha agregado correctamente!');
+                return redirect()->route('productoBodega.index')->with('status', 'Se ha agregado correctamente!');
             }
         } catch (\Exception $e) {
             // Handle exception

@@ -44,7 +44,7 @@ class ProductoController extends Controller
             $imagen->move($rutaGuardarImagen, $imagenProducto);
             //Se crea y almacena un nuevo objeto
             $producto = new Producto();
-            $producto->cod_producto = $request->cod_producto;
+            $producto->codProducto = $request->codProducto;
             $producto->descripcion = $request->descripcion;
             $producto->observacion = $request->observacion;
             $producto->perecedero = $request->perecedero;

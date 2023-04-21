@@ -31,7 +31,7 @@
                             <div class="form-group has-feedback row">
                                 <label for="nombre" class="col-12 control-label">Nombre de unidad de medida:</label>
                                 <div class="col-12">
-                                    <input value="{{$medida->nombre_medida}}" id="nombre_medida" type="text" class="form-control" name="nombre_medida" placeholder="Nombre de la medida" required>
+                                    <input value="{{$medida->nombreMedida}}" id="nombreMedida" type="text" class="form-control" name="nombreMedida" placeholder="Nombre de la medida" required>
                                 </div>
                             </div>
                         </div>

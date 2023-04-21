@@ -35,9 +35,9 @@
                                             <tr>
                                                 {{-- <th scope="row">{{ $n = $n + 1 }}</th> --}}
                                                 <td>{{ $item->producto->descripcion }}</td>
-                                                <td>{{ $item->bodega->nombre_bodega }}</td>
-                                                <td>{{ $item->cantidad_disponible }}</td>
-                                                <td>{{ $item->fecha_vencimiento }}</td>
+                                                <td>{{ $item->bodega->nombreBodega }}</td>
+                                                <td>{{ $item->cantidadDisponible }}</td>
+                                                <td>{{ $item->fechaVencimiento }}</td>
                                                 <td>
                                                     <button type="submit" data-toggle="modal"
                                                         data-target="#exampleModalCenter"
@@ -73,7 +73,7 @@
                                         @foreach ($detalle_requisicion as $item)
                                         @php
                                             $var1 = $item->cantidad;
-                                            $var2 = $item->cantidad_entregada;
+                                            $var2 = $item->cantidadEntregada;
                                         @endphp
                                             @if ($var1 != $var2)
                                                 <tr >
@@ -88,9 +88,9 @@
                                                         </a>
                                                     </th>
                                                     <td>{{ $item->producto->descripcion }}</td>
-                                                    <td>{{ $item->producto->medida->nombre_medida }}</td>
+                                                    <td>{{ $item->producto->medida->nombreMedida }}</td>
                                                     <td>{{ $item->cantidad }}</td>
-                                                    <td>{{ $item->cantidad_entregada }}</td>
+                                                    <td>{{ $item->cantidadEntregada }}</td>
 
                                                 </tr>
                                             @else
@@ -106,9 +106,9 @@
                                                         </a>
                                                     </th>
                                                     <td>{{ $item->producto->descripcion }}</td>
-                                                    <td>{{ $item->producto->medida->nombre_medida }}</td>
+                                                    <td>{{ $item->producto->medida->nombreMedida }}</td>
                                                     <td>{{ $item->cantidad }}</td>
-                                                    <td>{{ $item->cantidad_entregada }}</td>
+                                                    <td>{{ $item->cantidadEntregada }}</td>
 
                                                 </tr>
                                             @endif
@@ -151,8 +151,8 @@
                                         <label for="cantidad" class="col-12 control-label">Cantidad de
                                             productos:</label>
                                         <div class="col-12">
-                                            <input id="cantidad_entregada" type="number" class="form-control"
-                                                name="cantidad_entregada" value="">
+                                            <input id="cantidadEntregada" type="number" class="form-control"
+                                                name="cantidadEntregada" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -231,26 +231,6 @@
             });
         });
     </script>
-
-    <script>
-        $(function() {
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox({
-                    alwaysShowClose: true
-                });
-            });
-
-            $('.filter-container').filterizr({
-                gutterPixels: 3
-            });
-            $('.btn[data-filter]').on('click', function() {
-                $('.btn[data-filter]').removeClass('active');
-                $(this).addClass('active');
-            });
-        })
-    </script>
-
 
 @endsection
 

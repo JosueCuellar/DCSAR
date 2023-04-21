@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MedidaRequest extends FormRequest
+class RequisicionProductoUpdateRequest extends FormRequest
 {
-    /**
+ /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -24,13 +24,17 @@ class MedidaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombreMedida'=>'required|max:255',
+            'fechaRequisicion'=>'required',
+            'descripcion'=>'required|max:512',
         ];
     }
     public function messages()
     {
         return [
-            'nombreMedida.*'=>'Ingrese un nombre, de no mas de 255 caracteres',
+            'descripcion.*'=>'Ingrese una descripcion, de no mas de 512 caracteres',
+            'fechaRequisicion.*'=>'La fecha no puede estar vacia',
+
+
         ];
     }
 }

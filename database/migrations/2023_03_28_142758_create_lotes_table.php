@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('detalle_compra_id')->unsigned();
             $table->unsignedBigInteger('producto_id')->unsigned();
             // $table->unsignedBigInteger('bodega_id')->unsigned();
-            $table->string('fecha_vencimiento',10)->nullable();
-            $table->integer('cantidad_disponible');
+            $table->string('fechaVencimiento',10)->nullable();
+            $table->integer('cantidadDisponible');
             // $table->foreign('bodega_id')->references('id')->on('bodegas');
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->foreign('detalle_compra_id')->references('id')->on('detalle_compras')->onDelete('cascade');

@@ -26,7 +26,7 @@ class ProductoRequest extends FormRequest
     {
         return [
 
-            'cod_producto'=>'required',
+            'codProducto'=>'required',
             'descripcion'=>'required|max:255',
             'perecedero'=>'required|boolean',
             'observacion'=>'max:255',
@@ -40,7 +40,7 @@ class ProductoRequest extends FormRequest
     public function messages()
     {
         return [
-            'cod_producto.*'=>'Ingrese codigo de producto',
+            'codProducto.*'=>'Ingrese codigo de producto',
             'descripcion.*'=>'Ingrese una descripcion, maximo 255 caracteres',
             'observacion.*'=>'Ingrese una observacion, maximo 255 caracteres',
             'imagen.*'=>'Ingrese una imagen (Formato: PNG, JPG, JPEG)',

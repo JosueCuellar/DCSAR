@@ -4,14 +4,12 @@
     <div class="col-md-12">
         <h2>Lista de unidades de medida</h2>
     </div>
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('medida.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nueva unidad de medida</button>
-            </form>
-        </div>
+    <div class="col-md-12 d-grid gap-2 d-md-flex">
+        <form action="{{ route('medida.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nueva unidad de medida</button>
+        </form>
     </div>
 @endsection
 
@@ -31,14 +29,13 @@
                         @foreach ($medidas as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->nombre_medida }}</td>
+                                <td>{{ $item->nombreMedida }}</td>
                                 <td>
                                     <a href="{{ route('medida.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
                                     </a>
-                                    <a href="{{ route('medida.destroy', $item) }}"
-                                        data-toggle="modal" data-target="#deleteModal"
-                                        data-delete="{{ $item->id }}">
+                                    <a href="{{ route('medida.destroy', $item) }}" data-toggle="modal"
+                                        data-target="#deleteModal" data-delete="{{ $item->id }}">
                                         <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                     </a>
                                 </td>
@@ -75,7 +72,7 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
-
+@endsection
 @section('js_datatable')
 
     <script>
@@ -97,16 +94,14 @@
                 "autoWidth": false,
                 "responsive": true,
                 "columnDefs": [{
-                        "responsivePriority": 10001,
-                        "targets": 1
-                    }
-                ]
+                    "responsivePriority": 10001,
+                    "targets": 1
+                }]
             });
         });
     </script>
 @endsection
 
-@endsection
 @section('js')
 
     @if (session('msg'))

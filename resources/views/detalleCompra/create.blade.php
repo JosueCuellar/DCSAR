@@ -41,8 +41,8 @@
                                                                 </option>
                                                                 @foreach ($productos as $item)
                                                                     <option value="{{ $item->id }}">
-                                                                        {{ $item->cod_producto . "\nDecripcion: " . $item->descripcion . "\nMarca:" . $item->marca->nombre }}
-                                                                        Medida:{{ $item->medida->nombre_medida }}
+                                                                        {{ $item->codProducto . "\nDecripcion: " . $item->descripcion . "\nMarca:" . $item->marca->nombre }}
+                                                                        Medida:{{ $item->medida->nombreMedida }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -57,15 +57,15 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <div class="form-group has-feedback row">
-                                                        <label for="cantidad_ingreso" class="col-12 control-label">Cantidad
+                                                        <label for="cantidadIngreso" class="col-12 control-label">Cantidad
                                                             ingresada:</label>
                                                         <div class="col-12">
-                                                            <input id='cantidad_ingreso' type='number'
-                                                                value="{{ old('cantidad_ingreso') }}" min='1'
-                                                                class='form-control' name='cantidad_ingreso'
+                                                            <input id='cantidadIngreso' type='number'
+                                                                value="{{ old('cantidadIngreso') }}" min='1'
+                                                                class='form-control' name='cantidadIngreso'
                                                                 placeholder='Cantidad ingresada'>
                                                         </div>
-                                                        @error('cantidad_ingreso')
+                                                        @error('cantidadIngreso')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -73,16 +73,16 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="form-group has-feedback row">
-                                                        <label for="precio_unidad" class="col-12 control-label">Precio de
+                                                        <label for="precioUnidad" class="col-12 control-label">Precio de
                                                             unidad:</label>
                                                         <div class="col-12">
-                                                            <input id='precio_unidad' type='number' min='0.01'
-                                                                value="{{ old('precio_unidad') }}" step='0.01'
-                                                                class='form-control' name='precio_unidad'
+                                                            <input id='precioUnidad' type='number' min='0.01'
+                                                                value="{{ old('precioUnidad') }}" step='0.01'
+                                                                class='form-control' name='precioUnidad'
                                                                 placeholder='Precio unitario'>
                                                         </div>
 
-                                                        @error('precio_unidad')
+                                                        @error('precioUnidad')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -93,18 +93,18 @@
                                                 
                                             {{-- <div class="col-12">
                                                 <div class="form-group has-feedback row">
-                                                    <label for="nombre_bodega" class="col-12 control-label">Bodega:</label>
+                                                    <label for="nombreBodega" class="col-12 control-label">Bodega:</label>
                                                     <div class="col-12">
-                                                        <select class="form-control" name="nombre_bodega" id="nombre_bodega">
+                                                        <select class="form-control" name="nombreBodega" id="nombreBodega">
                                                             <option selected disabled='disabled'>Seleccionar bodega
                                                             </option>
                                                             @foreach ($bodegas as $item)
                                                                 <option value="{{ $item->id }}">
-                                                                    {{ $item->nombre_bodega }}
+                                                                    {{ $item->nombreBodega }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        @error('nombre_bodega')
+                                                        @error('nombreBodega')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -181,15 +181,15 @@
                                                             </td>
                                                             <th scope="row">{{ $itemDet->producto->descripcion }}
                                                             </th>
-                                                            <td>{{ $itemDet->cantidad_ingreso }}</td>
-                                                            @if (is_null($itemDet->lote->fecha_vencimiento))
+                                                            <td>{{ $itemDet->cantidadIngreso }}</td>
+                                                            @if (is_null($itemDet->lote->fechaVencimiento))
                                                             <td>------------------------------</td>
 
                                                             @else
-                                                            <td>{{ $itemDet->lote->fecha_vencimiento }}</td>
+                                                            <td>{{ $itemDet->lote->fechaVencimiento }}</td>
 
                                                             @endif
-                                                            <td>${{ $itemDet->precio_unidad }}</td>
+                                                            <td>${{ $itemDet->precioUnidad }}</td>
                                                             <td>${{ $itemDet->total }}</td>
 
                                                         </tr>
@@ -269,7 +269,30 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js_datatable')
+    <script>
+        $('#deleteModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var ingreso_id = button.data('ingresoid')
+            var detalle_id = button.data('detalleid')
 
+            var modal = $(this)
+            modal.find('form').attr('action', '/detalleCompra/detalle/destroy/' + ingreso_id + '/' + detalle_id);
+        });
+    </script>
+
+    <script>
+        $('#modalFinalizar').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var recepcion_id = button.data('detalle')
+            var modal = $(this)
+            modal.find('form').attr('action', '{{ asset('/recepcionCompra/completar/') }}' + '/' + recepcion_id);
+        });
+    </script>
+
+
+@endsection
 @section('js')
 
     @if (session('status'))
@@ -336,7 +359,7 @@
 
     <script>
         $(document).ready(function(e) {
-            $('#nombre_bodega').select2({
+            $('#nombreBodega').select2({
                 width: 'resolve',
                 language: {
                     noResults: function() {
@@ -348,7 +371,7 @@
                 }
             });
         });
-        $("#nombre_bodega").select2()
+        $("#nombreBodega").select2()
     </script>
 
     <script>
@@ -372,29 +395,4 @@
             }
         });
     </script>
-@endsection
-
-@section('js_datatable')
-    <script>
-        $('#deleteModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var ingreso_id = button.data('ingresoid')
-            var detalle_id = button.data('detalleid')
-
-            var modal = $(this)
-            modal.find('form').attr('action', '/detalleCompra/detalle/destroy/' + ingreso_id + '/' + detalle_id);
-        });
-    </script>
-
-    <script>
-        $('#modalFinalizar').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var recepcion_id = button.data('detalle')
-            var modal = $(this)
-            modal.find('form').attr('action', '{{ asset('/recepcionCompra/completar/') }}' + '/' + recepcion_id);
-        });
-    </script>
-
-
-@endsection
 @endsection

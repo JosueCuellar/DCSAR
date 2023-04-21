@@ -28,7 +28,7 @@ class RecepcionCompraRequest extends FormRequest
             'nOrdenCompra' => 'required|max:50',
             'nPresupuestario' => 'required|max:50',
             // 'nCompromiso' => 'required|max:250',
-            'codigo_factura' => 'required|max:50',
+            'codigoFactura' => 'required|max:50',
 
         ];
     }
@@ -38,7 +38,7 @@ class RecepcionCompraRequest extends FormRequest
             'proveedor_id.*'=>'Debe de ingresar un proveedor',
             'nOrdenCompra.*'=>'Ingrese un numero de orden de compra, de no mas de 50 caracteres',
             'nPresupuestario.*'=>'Ingrese un numero presupuestario, de no mas de 50 caracteres',
-            'codigo_factura.*'=>'Ingrese codigo de factura, de no mas de 50 caracteres',
+            'codigoFactura.*'=>'Ingrese codigo de factura, de no mas de 50 caracteres',
         ];
     }
 }

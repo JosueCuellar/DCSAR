@@ -1,47 +1,48 @@
-@extends('admin.layouts.index')
-@section('title', 'Rubro')
+@extends('administrador.layouts.app')
+@section('title', 'Roles')
 @section('header')
     <div class="col-md-12">
-        <h2>Lista de rubros</h2>
+        <h2>Lista de roles</h2>
     </div>
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('rubro.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nuevo rubro</button>
-            </form>
-        </div>
+
+    <div class="col-md-12 d-grid gap-2 d-md-flex">
+        <form action="{{ route('usuario.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true" disabled><i
+                    class="fa fa-plus"></i> Nuevo Rol</button>
+        </form>
     </div>
 @endsection
 @section('content')
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-sm table-striped text-center" id="dataTable6" width="100%"
-                    cellspacing="0">
+                <table class="table table-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Codigo Presupuestario</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Opciones</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col"></th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($rubros as $item)
+                        @foreach ($roles as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->codigoPresupuestario }}</td>
-                                <td>{{ $item->descripRubro }}</td>
+                                <td>{{ $item->name }}</td>
                                 <td>
-                                    <a href="{{ route('rubro.edit', $item->id) }}">
+                                    {{-- <a href="{{ route('usuario.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
-                                    </a>
-                                    <a href="{{ route('rubro.destroy', $item) }}" data-toggle="modal"
+                                    </a> --}}
+                                    {{-- <a href="{{ route('usuario.destroy', $item) }}" data-toggle="modal"
                                         data-target="#deleteModal" data-delete="{{ $item->id }}">
                                         <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
+                                    </a> --}}
+                                    <a href="{{ route('roles.assign-permissions', $item->id) }}" class="">
+                                        <ion-icon name="create-outline" class="fa-lg text-dark"></ion-icon>
                                     </a>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -54,20 +55,17 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro de que quieres eliminar esto?
-                            </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro de que quieres eliminar esto?</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este registro
-                        </div>
+                        <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este registro</div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                             <form method="POST" action="">
                                 @method('GET')
                                 @csrf
-                                <!--{{-- <input type="hidden" id="user_id" name="user_id" value=""> --}}-->
                                 <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Borrar</a>
                             </form>
                         </div>
@@ -87,7 +85,7 @@
 
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', 'rubro/destroy/' + delete_id);
+            modal.find('form').attr('action', 'usuario/destroy/' + delete_id);
         })
     </script>
     <script>
@@ -106,7 +104,6 @@
         });
     </script>
 @endsection
-
 @section('js')
 
     @if (session('msg'))
@@ -128,7 +125,7 @@
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
-                title: 'Rubro agregado',
+                title: 'usuario agregado',
                 position: 'topRight',
                 body: '{{ session('status') }} se ha actualizado la tabla',
                 class: 'bg-success',
@@ -144,7 +141,7 @@
         <script>
             $(document).Toasts('create', {
                 position: 'topRight',
-                title: 'Rubro eliminado',
+                title: 'usuario eliminado',
                 body: '{{ session('delete') }}, se ha actualizado la tabla',
                 class: 'bg-danger',
                 autohide: true,

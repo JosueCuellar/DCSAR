@@ -57,10 +57,10 @@ class LoteController extends Controller
         $detalleRequi = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id);
         $producto = $lote->producto_id;
         $d= $detalleRequi->where('producto_id', $producto)->first();
-        $d->cantidad_entregada += $request-> cantidad_entregada;
+        $d->cantidadEntregada += $request-> cantidadEntregada;
         $d->save();
 
-        $lote->cantidad_disponible -= $request->cantidad_entregada;
+        $lote->cantidadDisponible -= $request->cantidadEntregada;
         $lote->save();
         return redirect()->route('lote.index', $requisicionProducto)->with('status', 'Se ha agregado correctamente!');
 

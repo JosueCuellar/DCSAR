@@ -1,4 +1,4 @@
-@extends('admin.layouts.index')
+@extends('administrador.layouts.app')
 @section('title', 'Unidad Organizativa')
 @section('header')
     <div class="container">
@@ -29,18 +29,18 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
-                                        <label for="nombre_unidad_medida" class="col-12 control-label">Nombre de unidad:</label>
+                                        <label for="nombreUnidadOrganizativa" class="col-12 control-label">Nombre de unidad:</label>
                                         <div class="col-12">
-                                            <input id="nombre_unidad_medida" type="text" class="form-control" name="nombre_unidad_medida"
-                                                value="{{ old('nombre_unidad_medida') }}" placeholder="Nombre de unidad">
+                                            <input id="nombreUnidadOrganizativa" type="text" class="form-control" name="nombreUnidadOrganizativa"
+                                                value="{{ old('nombreUnidadOrganizativa') }}" placeholder="Nombre de unidad">
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
-                                        <label for="descripcion_unidad_medida" class="col-12 control-label">Decripción de
+                                        <label for="descripUnidadOrganizativa" class="col-12 control-label">Decripción de
                                             unidad:</label>
                                         <div class="col-12">
-                                            <input id="descripcion_unidad_medida" type="text" class="form-control"
-                                                name="descripcion_unidad_medida" value="{{ old('descripcion_unidad_medida') }}"
+                                            <input id="descripUnidadOrganizativa" type="text" class="form-control"
+                                                name="descripUnidadOrganizativa" value="{{ old('descripUnidadOrganizativa') }}"
                                                 placeholder="Decripción de unidad">
                                         </div>
                                     </div>

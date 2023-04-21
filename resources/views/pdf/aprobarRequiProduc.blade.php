@@ -51,7 +51,7 @@
                         <p
                             style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
                             <strong><span
-                                    style="font-size:12px;color:black;">{{ $requisicionProducto->fecha_requisicion }}</span></strong>
+                                    style="font-size:12px;color:black;">{{ $requisicionProducto->fechaRequisicion }}</span></strong>
                         </p>
                     </td>
                 </tr>
@@ -155,7 +155,7 @@
                             style="width: 50.8pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
                                 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
-                                <span style="font-size:12px;color:black;">{{ $item->producto->cod_producto }}</span>
+                                <span style="font-size:12px;color:black;">{{ $item->producto->codProducto }}</span>
                             </p>
                         </td>
                         <td
@@ -170,7 +170,7 @@
                             <p
                                 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
                                 <span
-                                    style="font-size:12px;color:black;">{{ $item->producto->medida->nombre_medida }}</span>
+                                    style="font-size:12px;color:black;">{{ $item->producto->medida->nombreMedida }}</span>
                             </p>
                         </td>
 
@@ -185,7 +185,7 @@
                             style="width: 58.5pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
                                 style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
-                                <span style="font-size:12px;color:black;">${{ $item->producto->costo_promedio }}</span>
+                                <span style="font-size:12px;color:black;">${{ $item->producto->costoPromedio }}</span>
                             </p>
                         </td>
 

@@ -4,16 +4,13 @@
     <div class="col-md-12">
         <h2>Lista de proveedores</h2>
     </div>
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('proveedor.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nuevo proveedor</button>
-            </form>
-        </div>
+    <div class="col-md-12 d-grid gap-2 d-md-flex">
+        <form action="{{ route('proveedor.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nuevo proveedor</button>
+        </form>
     </div>
-
 @endsection
 
 @section('content')
@@ -37,20 +34,19 @@
                         @foreach ($proveedores as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->nombre_comercial }}</td>
-                                <td>{{ $item->razon_social }}</td>
-                                <td>{{ $item->direccion_proveedor }}</td>
+                                <td>{{ $item->nombreComercial }}</td>
+                                <td>{{ $item->razonSocial }}</td>
+                                <td>{{ $item->direccionProveedor }}</td>
                                 <td>{{ $item->fax }}</td>
-                                <td>{{ $item->telefono1_proveedor }}</td>
-                                <td>{{ $item->telefono2_proveedor }}</td>
+                                <td>{{ $item->telefonoProveedor1 }}</td>
+                                <td>{{ $item->telefonoProveedor2 }}</td>
 
                                 <td>
                                     <a href="{{ route('proveedor.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
                                     </a>
-                                    <a href="{{ route('proveedor.destroy', $item) }}"
-                                        data-toggle="modal" data-target="#deleteModal"
-                                        data-delete="{{ $item->id }}">
+                                    <a href="{{ route('proveedor.destroy', $item) }}" data-toggle="modal"
+                                        data-target="#deleteModal" data-delete="{{ $item->id }}">
                                         <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                     </a>
                                 </td>
@@ -87,6 +83,7 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
+@endsection
 
 @section('js_datatable')
 
@@ -109,16 +106,14 @@
                 "autoWidth": false,
                 "responsive": true,
                 "columnDefs": [{
-                        "responsivePriority": 10001,
-                        "targets": 1
-                    }
-                ]
+                    "responsivePriority": 10001,
+                    "targets": 1
+                }]
             });
         });
     </script>
 @endsection
 
-@endsection
 @section('js')
 
     @if (session('msg'))

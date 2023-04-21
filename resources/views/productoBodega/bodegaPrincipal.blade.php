@@ -1,10 +1,8 @@
 @extends('admin.layouts.index')
 @section('title', 'Bodega principal')
 @section('header')
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center">Bodega principal</h2>
-        </div>
+    <div class="col-12">
+        <h2 class="text-center">Bodega productos</h2>
     </div>
 @endsection
 @section('content')
@@ -20,7 +18,7 @@
                                     <tr>
                                         <th scope="col">Codigo producto</th>
                                         <th scope="col">Descripción producto</th>
-                                        <th scope="col">Nombre bodega</th>
+                                        <th scope="col">Ubicacion bodega</th>
                                         <th scope="col">Cantidad disponible</th>
                                         <th scope="col"></th>
                                     </tr>
@@ -28,12 +26,12 @@
                                 <tbody>
                                     @foreach ($productos_bodegas as $item)
                                         <tr>
-                                            <th scope="row">{{ $item->producto->cod_producto }}</th>
+                                            <th scope="row">{{ $item->producto->codProducto }}</th>
                                             <th scope="row">{{ $item->producto->descripcion }}</th>
-                                            <td>{{ $item->bodega->nombre_bodega }}</td>
-                                            <td>{{ $item->cantidad_disponible }}</td>
+                                            <td>{{ $item->bodega->nombreBodega }}</td>
+                                            <td>{{ $item->cantidadDisponible }}</td>
                                             <td>
-                                                @if ($item->cantidad_disponible > 0)
+                                                @if ($item->cantidadDisponible > 0)
                                                     <button type="submit" data-toggle="modal"
                                                         data-target="#exampleModalCenter" data-bodega="{{ $item->id }}"
                                                         class="btn btn-sm btn-primary">Mover productos</button>
@@ -76,8 +74,8 @@
                                             <label for="cantidad" class="col-12 control-label">Cantidad de
                                                 productos:</label>
                                             <div class="col-12">
-                                                <input id="cantidadProducto" type="number" min="1" class="form-control"
-                                                    name="cantidadProducto" value="">
+                                                <input id="cantidadProducto" type="number" min="1"
+                                                    class="form-control" name="cantidadProducto" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -94,6 +92,42 @@
         </div>
 
     </div>
+@endsection
+
+@section('js_datatable')
+
+    <script>
+        $('#exampleModalCenter').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var bodega = button.data('bodega')
+            var modal = $(this)
+            modal.find('form').attr('action', '{{ asset('productoBodega/') }}' + '/' +
+                bodega);
+        })
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable25').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                "autoWidth": false,
+                "responsive": true,
+                "columnDefs": [{
+                        "responsivePriority": 10001,
+                        "targets": 1
+                    },
+                    {
+                        "responsivePriority": 10002,
+                        'targets': 2
+                    }
+                ]
+            });
+        });
+    </script>
+
+@endsection
 
 @section('js')
 
@@ -143,39 +177,4 @@
         </script>
     @endif
 
-@endsection
-@section('js_datatable')
-
-    <script>
-        $('#exampleModalCenter').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var bodega = button.data('bodega')
-            var modal = $(this)
-            modal.find('form').attr('action', '{{ asset('productoBodega/') }}' + '/' +
-                bodega);
-        })
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#dataTable25').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                },
-                "autoWidth": false,
-                "responsive": true,
-                "columnDefs": [{
-                        "responsivePriority": 10001,
-                        "targets": 1
-                    },
-                    {
-                        "responsivePriority": 10002,
-                        'targets': 2
-                    }
-                ]
-            });
-        });
-    </script>
-
-@endsection
 @endsection

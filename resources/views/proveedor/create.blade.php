@@ -29,24 +29,24 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback row">
-                                        <label for="nombre_comercial" class="col-12 control-label">Nombre comercial:</label>
+                                        <label for="nombreComercial" class="col-12 control-label">Nombre comercial:</label>
                                         <div class="col-12">
-                                            <input id="nombre_comercial" type="text" class="form-control"
-                                                name="nombre_comercial" placeholder="Nombre comercial del proveedor">
+                                            <input id="nombreComercial" type="text" class="form-control"
+                                                name="nombreComercial" placeholder="Nombre comercial del proveedor">
                                         </div>
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="direccion_proveedor" class="col-12 control-label">Dirección:</label>
+                                        <label for="direccionProveedor" class="col-12 control-label">Dirección:</label>
                                         <div class="col-12">
-                                            <input id="direccion_proveedor" type="text" class="form-control" name="direccion_proveedor"
-                                                placeholder="Dirección del proveedor">
+                                            <input id="direccionProveedor" type="text" class="form-control"
+                                                name="direccionProveedor" placeholder="Dirección del proveedor">
                                         </div>
                                     </div>
 
 
                                     <div class="form-group has-feedback row">
-                                        <label for="telefono1_proveedor" class="col-12 control-label">Teléfono:</label>
+                                        <label for="telefonoProveedor1" class="col-12 control-label">Teléfono:</label>
                                         <div class="col-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -54,8 +54,8 @@
                                                 </div>
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
-                                                    data-mask="" inputmode="text" id="telefono1_proveedor" name="telefono1_proveedor"
-                                                    placeholder="Teléfono del proveedor">
+                                                    data-mask="" inputmode="text" id="telefonoProveedor1"
+                                                    name="telefonoProveedor1" placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
                                     </div>
@@ -64,9 +64,9 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback row">
-                                        <label for="razon_social" class="col-12 control-label">Razón social:</label>
+                                        <label for="razonSocial" class="col-12 control-label">Razón social:</label>
                                         <div class="col-12">
-                                            <input id="razon_social" type="text" class="form-control" name="razon_social"
+                                            <input id="razonSocial" type="text" class="form-control" name="razonSocial"
                                                 placeholder="Razón social del proveedor">
                                         </div>
                                     </div>
@@ -80,7 +80,8 @@
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="telefono2_proveedor" class="col-12 control-label">Teléfono Opcional:</label>
+                                        <label for="telefonoProveedor2" class="col-12 control-label">Teléfono
+                                            Opcional:</label>
                                         <div class="col-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -88,8 +89,8 @@
                                                 </div>
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
-                                                    data-mask="" inputmode="text" id="telefono2_proveedor" name="telefono2_proveedor"
-                                                    placeholder="Teléfono del proveedor">
+                                                    data-mask="" inputmode="text" id="telefonoProveedor2"
+                                                    name="telefonoProveedor2" placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
                                     </div>
@@ -115,6 +116,8 @@
         </div>
     </div>
 
+@endsection
+
 @section('js')
     <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 
@@ -123,6 +126,4 @@
             $('[data-mask]').inputmask();
         })
     </script>
-@endsection
-
 @endsection

@@ -15,16 +15,21 @@
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="enviadas-tab" data-toggle="pill" href="#enviadas"
-                                        role="tab" aria-controls="enviadas" aria-selected="true"><h6>Enviadas <span class="badge badge-info">{{$nEnviadas}}</span></h6>
+                                        role="tab" aria-controls="enviadas" aria-selected="true">
+                                        <h6>Enviadas <span class="badge badge-primary">{{ $nEnviadas }}</span></h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="aceptadas-tab" data-toggle="pill" href="#aceptadas"
-                                        role="tab" aria-controls="aceptadas" aria-selected="false"><h6>Aprobadas <span class="badge badge-success">{{$nAprobadas}}</span></h6></a>
+                                        role="tab" aria-controls="aceptadas" aria-selected="false">
+                                        <h6>Aprobadas <span class="badge badge-success">{{ $nAprobadas }}</span></h6>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="denegadas-tab" data-toggle="pill" href="#denegadas"
-                                        role="tab" aria-controls="denegadas" aria-selected="false"><h6>Denegadas <span class="badge badge-danger">{{$nRechazadas}}</span></h6></a>
+                                        role="tab" aria-controls="denegadas" aria-selected="false">
+                                        <h6>Denegadas <span class="badge badge-danger">{{ $nRechazadas }}</span></h6>
+                                    </a>
                                 </li>
 
                             </ul>
@@ -47,24 +52,24 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($requisicionesEnviadas as $item)
-                                                    <td scope="row">{{ $item->fecha_requisicion }}</td>
-                                                    <td>{{ $item->descripcion }}</td>
-                                                    <td><span
-                                                            class="badge badge-info">{{ $item->estado->nombre_estado }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                            <ion-icon name="create-outline" class="fa-lg text-primary">
-                                                            </ion-icon>
-                                                        </a>
+                                                <td scope="row">{{ $item->fechaRequisicion }}</td>
+                                                <td>{{ $item->descripcion }}</td>
+                                                <td><span
+                                                        class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
+                                                        <ion-icon name="create-outline" class="fa-lg text-primary">
+                                                        </ion-icon>
+                                                    </a>
 
-                                                        <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                            data-toggle="modal" data-target="#deleteModal"
-                                                            data-categoriaid="{{ $item->id }}">
-                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                            </ion-icon>
-                                                        </a>
-                                                    </td>
+                                                    <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                        data-toggle="modal" data-target="#deleteModal"
+                                                        data-categoriaid="{{ $item->id }}">
+                                                        <ion-icon name="trash-outline" class="fa-lg text-danger">
+                                                        </ion-icon>
+                                                    </a>
+                                                </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -74,8 +79,8 @@
                                 {{-- Aceptadas --}}
                                 <div class="tab-pane fade" id="aceptadas" role="tabpanel" aria-labelledby="aceptadas-tab">
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-striped text-center" id="dataTable12" width="100%"
-                                            cellspacing="0">
+                                        <table class="table table-sm table-striped text-center" id="dataTable12"
+                                            width="100%" cellspacing="0">
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th scope="col">Número correlativo</th>
@@ -90,24 +95,26 @@
                                                 @foreach ($requisicionesAprobadas as $item)
                                                     <tr>
                                                         <th scope="row">{{ $item->nCorrelativo }}</th>
-                                                        <td>{{ $item->fecha_requisicion }}</td>
+                                                        <td>{{ $item->fechaRequisicion }}</td>
                                                         <td>{{ $item->descripcion }}</td>
                                                         <td>{{ $item->observacion }}</td>
 
                                                         <td><span
-                                                                class="badge badge-success">{{ $item->estado->nombre_estado }}</span>
+                                                                class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
                                                         </td>
                                                         <td>
                                                             <a
                                                                 href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
-                                                                <ion-icon name="eye-outline" class="fa-lg text-success"></ion-icon>
+                                                                <ion-icon name="eye-outline" class="fa-lg text-success">
+                                                                </ion-icon>
                                                             </a>
                                                             <a
-                                                            href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
-                                                            <ion-icon name="document-text-outline"  class="fa-lg text-secondary"></ion-icon>
-                                                        </a>
+                                                                href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
+                                                                <ion-icon name="document-text-outline"
+                                                                    class="fa-lg text-secondary"></ion-icon>
+                                                            </a>
                                                         </td>
-                                                        
+
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -118,8 +125,8 @@
                                 {{-- Denegadas --}}
                                 <div class="tab-pane fade" id="denegadas" role="tabpanel" aria-labelledby="denegadas-tab">
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-striped text-center" id="dataTable13" width="100%"
-                                            cellspacing="0">
+                                        <table class="table table-sm table-striped text-center" id="dataTable13"
+                                            width="100%" cellspacing="0">
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th scope="col">Fecha</th>
@@ -132,12 +139,12 @@
                                             <tbody>
                                                 @foreach ($requisicionesRechazadas as $item)
                                                     <tr>
-                                                        <td scope="row">{{ $item->fecha_requisicion }}</td>
+                                                        <td scope="row">{{ $item->fechaRequisicion }}</td>
                                                         <td>{{ $item->descripcion }}</td>
                                                         <td>{{ $item->observacion }}</td>
 
                                                         <td><span
-                                                                class="badge badge-danger">{{ $item->estado->nombre_estado }}</span>
+                                                                class="badge badge-danger">{{ $item->estado->nombreEstado }}</span>
                                                         </td>
                                                         <td>
                                                             <a
@@ -194,7 +201,7 @@
             </div>
         </div>
     </div>
-
+@endsection
 @section('js_datatable')
 
     <script>
@@ -217,7 +224,7 @@
                     api: true
                 }).columns.adjust();
             });
-            
+
             $('#dataTable11').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -250,11 +257,11 @@
                         'targets': 3
                     },
                     {
-                    "responsivePriority": 10002,
+                        "responsivePriority": 10002,
                         "targets": 4
                     },
                     {
-                    "responsivePriority": 10001,
+                        "responsivePriority": 10001,
                         "targets": 1
                     }
                 ]
@@ -283,5 +290,4 @@
         });
     </script>
 
-@endsection
 @endsection

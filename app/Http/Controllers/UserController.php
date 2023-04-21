@@ -6,12 +6,14 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     //
 
-    
+
 
     //Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
     public function index()
@@ -25,7 +27,6 @@ class UserController extends Controller
     {
         //    $estados = Estado::all();
         return view('administrador.usuario.create');
-
     }
 
     //Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
@@ -81,5 +82,25 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar');
         }
+    }
+
+
+
+    public function indexRoles()
+    {
+        $roles = User::all();
+        return view('administrador.roles.index', compact('roles'));
+    }
+
+    public function showAssignPermissionsForm(Role $role)
+    {
+        $permissions = Permission::all();
+        return view('administrador.roles.assign-permissions', compact('role', 'permissions'));
+    }
+
+    public function assignPermissions(Request $request, Role $role)
+    {
+        $role->syncPermissions($request->input('permissions'));
+        return redirect()->route('roles.index');
     }
 }

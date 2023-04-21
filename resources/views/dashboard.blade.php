@@ -53,7 +53,7 @@
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text">Recibidas</span>
-                            <span class="info-box-number">{{ $nRecibidas}}</span>
+                            <span class="info-box-number">{{ $nRecibidas }}</span>
                         </div>
 
                     </div>
@@ -63,138 +63,143 @@
 
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
-                <div class="col-lg-3 col-6">
-                    <div class="text-white small-box" style="background-color: #003f5c">
-                        <div class="inner">
-                            <h5>Requisición productos</h5>
-                            <p>Agregar una nueva solicitud</p>
+                @role('Super Administrador|Gerente Unidad Organizativa|Solicitante Unidad Organizativa|Gerente Encargado
+                    Almacen')
+                    <div class="col-lg-3 col-6">
+                        <div class="text-white small-box" style="background-color: #003f5c">
+                            <div class="inner">
+                                <h5>Requisición productos</h5>
+                                <p>Agregar una nueva solicitud</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="add-circle-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('requisicionProducto') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="add-circle-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('requisicionProducto') }}" class="small-box-footer">Ver <i
-                            class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-6">
 
-                    <div class="text-white small-box" style="background-color: #3e8e41">
-                        <div class="inner">
-                            <h5>Estado requisiciones</h5>
-                            <p>Requisiciones en proceso</p>
+                        <div class="text-white small-box" style="background-color: #3e8e41">
+                            <div class="inner">
+                                <h5>Estado requisiciones</h5>
+                                <p>Requisiciones en proceso</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="hourglass-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('requisicionProducto/estado') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="hourglass-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('requisicionProducto/estado') }}" class="small-box-footer">Ver <i
-                            class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-6">
-                    <div class="text-white small-box" style="background-color: #e63946 ">
-                        <div class="inner">
-                            <h5>Inventario</h5>
-                            <p>Cantidad en existencias</p>
+                    <div class="col-lg-3 col-6">
+                        <div class="text-white small-box" style="background-color: #e63946 ">
+                            <div class="inner">
+                                <h5>Inventario</h5>
+                                <p>Cantidad en existencias</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="cube-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="cube-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('inventario') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-6">
-                    <div class="text-white small-box" style="background-color: #dd8b26 ">
-                        <div class="inner">
-                            <h5>Requisiciones Realizadas</h5>
-                            <p>Historial de requisiciones recibidas</p>
+                    <div class="col-lg-3 col-6">
+                        <div class="text-white small-box" style="background-color: #dd8b26 ">
+                            <div class="inner">
+                                <h5>Requisiciones Realizadas</h5>
+                                <p>Historial de requisiciones recibidas</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="pencil-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('requisicionProducto/recibida') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="pencil-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('requisicionProducto/recibida') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
+                @endrole
 
-                <div class="col-lg-3 col-6">
-                    <div class="text-white small-box" style="background-color: #003f5c">
-                        <div class="inner">
-                            <h5>Recepción de ingresos</h5>
-                            <p>Agregar una entrada nueva de productos</p>
+                @role('Super Administrador|Gerente Encargado Almacen|Tecnico Encargado Almacen')
+                    <div class="col-lg-3 col-6">
+                        <div class="text-white small-box" style="background-color: #003f5c">
+                            <div class="inner">
+                                <h5>Recepción de ingresos</h5>
+                                <p>Agregar una entrada nueva de productos</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="push-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('recepcionCompra') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="push-sharp"></ion-icon>                            
-                            </i>
-                        </div>
-                        <a href="{{ asset('recepcionCompra') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-6">
 
-                    <div class="text-white small-box" style="background-color: #3e8e41">
-                        <div class="inner">
-                            <h5>Producto nuevo</h5>
-                            <p>Agregar un producto nuevo</p>
+                        <div class="text-white small-box" style="background-color: #3e8e41">
+                            <div class="inner">
+                                <h5>Producto nuevo</h5>
+                                <p>Agregar un producto nuevo</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="cafe-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('producto/crear') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="cafe-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('producto/crear') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-6">
-                    <div class="text-white small-box" style="background-color: #e63946 ">
-                        <div class="inner">
-                            <h5>Consultar ingresos</h5>
-                            <p>Ingresos registrados</p>
+                    <div class="col-lg-3 col-6">
+                        <div class="text-white small-box" style="background-color: #e63946 ">
+                            <div class="inner">
+                                <h5>Consultar ingresos</h5>
+                                <p>Ingresos registrados</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="archive-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('recepcionCompra/consultar') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="archive-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('recepcionCompra/consultar') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-6">
-                    <div class="text-white small-box" style="background-color: #dd8b26  ">
-                        <div class="inner">
-                            <h5>Historial requisiciones</h5>
-                            <p>Requisiciones entregadas</p>
+                    <div class="col-lg-3 col-6">
+                        <div class="text-white small-box" style="background-color: #dd8b26  ">
+                            <div class="inner">
+                                <h5>Historial requisiciones</h5>
+                                <p>Requisiciones entregadas</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag">
+                                    <ion-icon name="file-tray-full-sharp"></ion-icon>
+                                </i>
+                            </div>
+                            <a href="{{ asset('requisicionProducto/recibida') }}" class="small-box-footer">Ver <i
+                                    class="fas fa-external-link-square-alt"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag">
-                                <ion-icon name="file-tray-full-sharp"></ion-icon>
-                            </i>
-                        </div>
-                        <a href="{{ asset('requisicionProducto/recibida') }}" class="small-box-footer">Ver <i
-                                class="fas fa-external-link-square-alt"></i></a>
                     </div>
-                </div>
+                @endrole
 
             </div>
-{{-- 
+            {{-- 
             <h5 class="text-bold">Proceso de requisiciones</h5>
             <div class="row p-2">
                 <div class="col-lg-32">

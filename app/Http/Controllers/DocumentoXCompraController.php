@@ -15,7 +15,7 @@ class DocumentoXCompraController extends Controller
     public function leerDocumento($uuid)
     {
         $documento = DocumentoXCompra::where('id', $uuid)->firstOrFail();
-        $pathToFile = public_path('documentos/'.$documento->nombre_documento);
+        $pathToFile = public_path('documentos/'.$documento->nombreDocumento);
         return response()->file($pathToFile);
     }
 
@@ -46,7 +46,7 @@ class DocumentoXCompraController extends Controller
             $files = $request->file('file');
             foreach ($files as $file) {
                 $filename = $recepcionCompra->id . '-' . $file->getClientOriginalName();
-                $documentoNuevo->nombre_documento = $filename;
+                $documentoNuevo->nombreDocumento = $filename;
                 $documentoNuevo->recepcion_compra_id = $recepcionCompra->id;
                 $file->move($rutaGuardarDocumento, $filename);
                 $documentoNuevo->save();
@@ -64,7 +64,7 @@ class DocumentoXCompraController extends Controller
             $url = public_path('documentos/' . $recepcionCompra->id . '-' . $filename);;
             if (File::exists($url)) {
                 File::delete($url);
-                DocumentoXCompra::where('nombre_documento', $recepcionCompra->id . '-' . $filename)->delete();
+                DocumentoXCompra::where('nombreDocumento', $recepcionCompra->id . '-' . $filename)->delete();
                 return redirect()->back()->with('message', 'Exito!');
             } else {
                 return  $m = 'File does not exist.';

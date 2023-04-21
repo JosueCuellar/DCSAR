@@ -23,9 +23,9 @@ class EstadoController extends Controller
         try {
             //Se crea y almacena un nuevo objeto
             $estado = new Estado();
-            $estado->codigo_estado = $request->codigo_estado;
-            $estado->nombre_estado = $request->nombre_estado;
-            $estado->descripcion_estado = $request->descripcion_estado;
+            $estado->codigoEstado = $request->codigoEstado;
+            $estado->nombreEstado = $request->nombreEstado;
+            $estado->descripcionEstado = $request->descripcionEstado;
             $estado->save();
             //Se redirige al listado de todos los registros
             return redirect()->route('estado.index')->with('status', 'Registro correcto');
@@ -48,9 +48,9 @@ class EstadoController extends Controller
     public function update(EstadoRequest $request, Estado $estado)
     {
         try {
-            $estado->codigo_estado = $request->codigo_estado;
-            $estado->nombre_estado = $request->nombre_estado;
-            $estado->descripcion_estado = $request->descripcion_estado;
+            $estado->codigoEstado = $request->codigoEstado;
+            $estado->nombreEstado = $request->nombreEstado;
+            $estado->descripcionEstado = $request->descripcionEstado;
             $estado->save();
             //Se redirige al listado de todos los registros
             return redirect()->route('estado.index')->with('status', 'Registro correcto');

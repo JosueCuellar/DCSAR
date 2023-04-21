@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inventario extends Model
 {
     protected $fillable = [
-        'cod_producto',
+        'codProducto',
         'descripcion',
         'observacion',
         'stock'

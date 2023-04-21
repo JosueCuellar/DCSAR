@@ -11,9 +11,9 @@ class Lote extends Model
     protected $fillable = [
         'producto_id',
         'detalle_compra_id',
-        'fecha_vencimiento',
+        'fechaVencimiento',
         'bodega_id',
-        'cantidad_disponible', 
+        'cantidadDisponible', 
     ];
 
     public function producto()

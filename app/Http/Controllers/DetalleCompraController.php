@@ -47,15 +47,15 @@ class DetalleCompraController extends Controller
 
     public function store(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra)
     {
-            $total = ($request->cantidad_ingreso) * ($request->precio_unidad);
+            $total = ($request->cantidadIngreso) * ($request->precioUnidad);
         try {
             $deta = DetalleCompra::all();
             $n = count($deta)+1;
             $detalleCompra =  new DetalleCompra();
             $detalleCompra->producto_id = $request->producto_id;
             $detalleCompra->recepcion_compra_id = $recepcionCompra->id;
-            $detalleCompra->cantidad_ingreso = $request->cantidad_ingreso;
-            $detalleCompra->precio_unidad = $request->precio_unidad;
+            $detalleCompra->cantidadIngreso = $request->cantidadIngreso;
+            $detalleCompra->precioUnidad = $request->precioUnidad;
             $detalleCompra->total = $total;
             $detalleCompra->save();
 
@@ -63,8 +63,8 @@ class DetalleCompraController extends Controller
             $lote = new Lote();
             $lote->detalle_compra_id = $detalleCompra->id;
             $lote->producto_id = $request->producto_id;
-            $lote->fecha_vencimiento = $request->fechaVenc;
-            $lote->cantidad_disponible = $request->cantidad_ingreso;
+            $lote->fechaVencimiento = $request->fechaVenc;
+            $lote->cantidadDisponible = $request->cantidadIngreso;
 
             $lote->save();
 
@@ -83,14 +83,14 @@ class DetalleCompraController extends Controller
 
     public function update(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)
     {
-        $total = ($request->cantidad_ingreso) * ($request->precio_unidad);
+        $total = ($request->cantidadIngreso) * ($request->precioUnidad);
         // $producto_id = $request->producto_id;
         try {
             //Se guardan los nuevos datos del detalle del ingreso
             $detalleCompra->recepcion_compra_id = $recepcionCompra->id;
             $detalleCompra->producto_id = $request->producto_id;
-            $detalleCompra->cantidad_ingreso = $request->cantidad_ingreso;
-            $detalleCompra->precio_unidad = $request->precio_unidad;
+            $detalleCompra->cantidadIngreso = $request->cantidadIngreso;
+            $detalleCompra->precioUnidad = $request->precioUnidad;
             $detalleCompra->total = $total;
             $detalleCompra->update();
 

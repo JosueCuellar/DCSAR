@@ -13,14 +13,15 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">Numero Correlativo: <label>{{ $requisicionProducto->nCorrelativo }}</label>
+                                <div class="col-6">Numero Correlativo:
+                                    <label>{{ $requisicionProducto->nCorrelativo }}</label>
                                 </div>
                             </div><br>
                             <div class="row">
                                 <div class="col-6">Unidad Organizativa: <label>Unidad de Logistica</label>
                                 </div>
                                 <div class="col-6">Fecha de solicitud:
-                                    <label>{{ $requisicionProducto->fecha_requisicion }}</label>
+                                    <label>{{ $requisicionProducto->fechaRequisicion }}</label>
                                 </div>
                             </div>
                             <br>
@@ -34,8 +35,8 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped text-center" id="dataTable12"
-                                    width="100%" cellspacing="0">
+                                <table class="table table-sm table-striped text-center" id="dataTable12" width="100%"
+                                    cellspacing="0">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">N</th>
@@ -55,11 +56,11 @@
                                         @foreach ($detalle_requisicion as $item)
                                             <tr>
                                                 <th scope="row">{{ $n = $n + 1 }}</th>
-                                                <td>{{ $item->producto->cod_producto }}</td>
+                                                <td>{{ $item->producto->codProducto }}</td>
                                                 <td>{{ $item->cantidad }}</td>
-                                                <td>{{ $item->producto->medida->nombre_medida }}</td>
+                                                <td>{{ $item->producto->medida->nombreMedida }}</td>
                                                 <td>{{ $item->producto->descripcion }}</td>
-                                                <td>${{ $item->producto->costo_promedio }}</td>
+                                                <td>${{ $item->producto->costoPromedio }}</td>
                                                 <td>${{ $item->total }}</td>
                                             </tr>
                                         @endforeach
@@ -81,14 +82,14 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             <h5>Observaciones</h6>
-                          </div>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">Fecha de solicitud:
                                     <label>{{ $requisicionProducto->observacion }}</label>
                                 </div>
                             </div>
-                            <br>                    
+                            <br>
                         </div>
                     </div>
                 </div>
@@ -98,7 +99,7 @@
 
         </div>
     </div>
-
+@endsection
 @section('js_datatable')
     <script>
         $(document).ready(function() {
@@ -123,27 +124,5 @@
             });
         });
     </script>
-
-    <script>
-        $(function() {
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox({
-                    alwaysShowClose: true
-                });
-            });
-
-            $('.filter-container').filterizr({
-                gutterPixels: 3
-            });
-            $('.btn[data-filter]').on('click', function() {
-                $('.btn[data-filter]').removeClass('active');
-                $(this).addClass('active');
-            });
-        })
-    </script>
-
-
-@endsection
 
 @endsection

@@ -1,17 +1,15 @@
 @extends('admin.layouts.index')
 @section('title', 'Requisición producto')
 @section('header')
-    <div class="col-md-12">
+    <div class="col-12">
         <h2>Requisiciones de productos</h2>
     </div>
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('requisicionProducto.store') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Crear una requisición</button>
-            </form>
-        </div>
+    <div class="col-12">
+        <form action="{{ route('requisicionProducto.store') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true">
+                <i class="fa fa-plus"></i> Crear una requisición</button>
+        </form>
     </div>
 @endsection
 @section('content')
@@ -20,11 +18,12 @@
             <div class="card-body">
                 <h4>Solicitudes enviadas</h4>
                 <div class="table-responsive">
-                    <table class="table table-sm text-center table-striped" id="dataTable11" width="100%"
+                    <table class="table table-sm text-center table-striped table-bordered" id="dataTable11" width="100%"
                         cellspacing="0">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Fecha de realización</th>
+                                <th scope="col">Descripción</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Opciones</th>
                             </tr>
@@ -32,17 +31,19 @@
                         <tbody>
                             @foreach ($requisiciones as $item)
                                 <tr>
-                                    <td scope="row">{{ $item->fecha_requisicion }}</td>
-                                    <td><span class="badge badge-info">{{ $item->estado->nombre_estado }}</span></td>
+                                    <td scope="row">{{ $item->fechaRequisicion }}</td>
+                                    <td>{{ $item->descripcion }}</td>
+                                    <td><span class="badge badge-primary">{{ $item->estado->nombreEstado }}</span></td>
                                     <td>
                                         <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                            <ion-icon src="/ionicons.designerpack/create-outline.svg"
-                                                class="fa-lg text-primary"></ion-icon>
+                                            <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
+                                        </a>
+                                        <a href="{{ route('requisicionProducto.edit', $item->id) }}">
+                                            <ion-icon name="create-outline" class="fa-lg text-success"></ion-icon>
                                         </a>
                                         <a href="{{ route('requisicionProducto.destroy', $item) }}" data-toggle="modal"
                                             data-target="#deleteModal" data-delete="{{ $item->id }}">
-                                            <ion-icon src="/ionicons.designerpack/trash-sharp.svg"
-                                                class="fa-lg text-danger"></ion-icon>
+                                            <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                         </a>
                                     </td>
                                 </tr>
@@ -80,52 +81,6 @@
             </div>
         </div>
     </div>
-
-@section('js')
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Solicitud enviada',
-                position: 'topRight',
-                body: '{{ session('status') }} se ha enviado la solicitud para su revisión',
-                class: 'bg-info',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'Solicitud eliminada',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-solid fa-xmark',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
 @endsection
 @section('js_datatable')
     <script>
@@ -160,5 +115,66 @@
     </script>
 
 @endsection
+@section('js')
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Solicitud enviada',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha enviado la solicitud para su revisión',
+                class: 'bg-info',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 
+
+    @if (session('actualizado'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Registro actualizado',
+                position: 'topRight',
+                body: '{{ session('actualizado') }} se ha actualizado el registro',
+                class: 'bg-success',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Solicitud eliminada',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 @endsection

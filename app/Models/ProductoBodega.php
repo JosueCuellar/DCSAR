@@ -11,7 +11,7 @@ class ProductoBodega extends Model
     protected $fillable = [
         'producto_id',
         'bodega_id',
-        'cantidad_disponible', 
+        'cantidadDisponible', 
     ];
 
     public function producto()

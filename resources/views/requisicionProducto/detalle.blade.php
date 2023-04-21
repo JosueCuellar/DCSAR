@@ -1,24 +1,18 @@
 @extends('admin.layouts.index')
 @section('title', 'Requisición producto')
 @section('header')
-    <div class="col-md-12">
+    <div class="col-12">
         <h2 class="text-center">REQUISICIÓN DE MATERIALES Y SUMINISTROS DE OFICINA</h2>
-        <x-errores class="mb-4"/>
+        <x-errores class="mb-4" />
     </div>
-    <div class="row">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <div class="m-1">
-                <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
-                    data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning  text-left"><i
-                        class="fa fa-check"></i> Finalizar
-                    Requisición</button>
-            </div>
-            <div class="m-1">
-                <button type="submit" data-toggle="modal" data-target="#modalDetalle"
-                    data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-info  text-left"><i
-                        class="fa fa-eye"></i> Detalles Requisición</button>
-            </div>
-        </div>
+    <div class="m-1">
+        <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
+            data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning  text-left"><i class="fa fa-check"></i>
+            Finalizar
+            Requisición</button>
+        <button type="submit" data-toggle="modal" data-target="#modalDetalle"
+            data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-info  text-left"><i class="fa fa-eye"></i>
+            Detalles Requisición</button>
     </div>
 @endsection
 @section('content')
@@ -28,8 +22,8 @@
                 <div class="col-sm-6">
                     <h4 class="text-center">Ingresa los productos a pedir</h4>
                     <div class="table-responsive">
-                        <table class="table table-sm  table-hover text-center table-striped" id="dataTable13"
-                            width="100%" cellspacing="0">
+                        <table class="table table-sm text-center table-striped" id="dataTable13" width="100%"
+                            cellspacing="0">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Rubro</th>
@@ -46,7 +40,7 @@
                                 @foreach ($productos as $item)
                                     <tr>
                                         <td>{{ $item->rubro }}</td>
-                                        {{-- <td>{{ $item->cod_producto }}</td> --}}
+                                        {{-- <td>{{ $item->codProducto }}</td> --}}
                                         <td>{{ $item->descripcion }}</td>
                                         <td>
                                             {{-- <img src="/imagen/{{ $item->imagen }}" class="img-fluid mb-2"
@@ -60,18 +54,22 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $item->nombre_medida }}</td>
-                                        <td>{{ $item->stock-$item->stock1 }}</td>
+                                        <td>{{ $item->nombreMedida }}</td>
+                                        <td>{{ $item->stock - $item->stock1 }}</td>
 
                                         <td>
-                                            {{-- <form
-                                                action="{{ route('detalleRequisicion.store', ['requisicionProducto' => $requisicionProducto->id, 'producto' => $item->id]) }}"
-                                                method="POST">
-                                                @csrf --}}
+                                            @if ($item->stock - $item->stock1 > 0)
+                                                <button type="submit" data-toggle="modal" data-target="#exampleModalCenter"
+                                                    data-requi="{{ $requisicionProducto->id }}"
+                                                    data-producto="{{ $item->id }}"
+                                                    class="btn btn-sm btn-success">Agregar</button>
+                                            @else
+                                                <button type="submit" data-toggle="modal" data-target="#exampleModalCenter"
+                                                    data-requi="{{ $requisicionProducto->id }}"
+                                                    data-producto="{{ $item->id }}" class="btn btn-sm btn-success"
+                                                    disabled>Agregar</button>
+                                            @endif
 
-                                            <button type="submit" data-toggle="modal" data-target="#exampleModalCenter"
-                                                data-requi="{{ $requisicionProducto->id }}"
-                                                data-producto="{{ $item->id }}" class="btn btn-sm btn-success">Agregar</button>
 
                                         </td>
                                     </tr>
@@ -129,8 +127,8 @@
                                             </form>
 
                                         </td>
-                                        <td>{{ $item->producto->medida->nombre_medida }}</td>
-                                        <td>${{ $item->precio_promedio }}</td>
+                                        <td>{{ $item->producto->medida->nombreMedida }}</td>
+                                        <td>${{ $item->precioPromedio }}</td>
                                         <td>${{ $item->total }}</td>
                                     </tr>
                                 @endforeach
@@ -194,12 +192,12 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-6">Fecha de solicitud:
-                                <label>{{ $requisicionProducto->fecha_requisicion }}</label>
+                                <label>{{ $requisicionProducto->fechaRequisicion }}</label>
                             </div>
-                        <br>
+                            <br>
                             <div class="col-6">Unidad Organizativa: <label>Unidad de Logistica</label>
                             </div>
-                        <br>
+                            <br>
                         </div>
                         <div class="row">
                             <div class="col-6">Descripción:
@@ -281,59 +279,9 @@
                 </form>
             </div>
         </div>
-
-
     </div>
-
-@section('js')
-
-    @if (session('msg'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Error',
-                position: 'topRight',
-                body: '{{ session('msg') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Producto agregado',
-                position: 'topRight',
-                body: '{{ session('status') }} se ha actualizado la tabla',
-                class: 'bg-success',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'Producto eliminado',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
 @endsection
+
 @section('js_datatable')
 
     <script>
@@ -412,25 +360,55 @@
     </script>
 
 
-    <script>
-        $(function() {
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox({
-                    alwaysShowClose: true
-                });
-            });
-
-            $('.filter-container').filterizr({
-                gutterPixels: 3
-            });
-            $('.btn[data-filter]').on('click', function() {
-                $('.btn[data-filter]').removeClass('active');
-                $(this).addClass('active');
-            });
-        })
-    </script>
-
 
 @endsection
+
+@section('js')
+
+    @if (session('msg'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Error',
+                position: 'topRight',
+                body: '{{ session('msg') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-exclamation-triangle',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Producto agregado',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha actualizado la tabla',
+                class: 'bg-success',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Producto eliminado',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
 @endsection

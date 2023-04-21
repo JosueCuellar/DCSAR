@@ -93,6 +93,33 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ asset('roles') }}" class="nav-link active">
+                                <ion-icon name="person-add-outline" class="nav-icon"></ion-icon>                                
+                                <p>
+                                    Roles
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ asset('estado') }}" class="nav-link active">
+                                <ion-icon name="options-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Estado
+                                </p>
+                            </a>
+                        </li>
+                        @can('CRUD unidad organizativa')
+                        <li class="nav-item">
+                            <a href="{{ asset('unidadOrganizativa') }}" class="nav-link active">
+                                <ion-icon name="people-circle-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Unidad Organizativa
+                                </p>
+                            </a>
+                        </li>                        
+                        @endcan
+                        
 
                 </nav>
                 <!-- /.sidebar-menu -->

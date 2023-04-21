@@ -9,7 +9,7 @@ class RequisicionProducto extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'fecha_requisicion',
+        'fechaRequisicion',
         'nCorrelativo',
         'estado_id',
         'descripcion',
@@ -25,10 +25,10 @@ class RequisicionProducto extends Model
         return $this->belongsTo(Estado::class);
     }
 
-    public function scopeFechaRequisicion($query, $fecha_requisicion)
+    public function scopeFechaRequisicion($query, $fechaRequisicion)
     {
-        if ($fecha_requisicion) {
-            return $query->where('fecha_requisicion', $fecha_requisicion);
+        if ($fechaRequisicion) {
+            return $query->where('fechaRequisicion', $fechaRequisicion);
         }
     }
 

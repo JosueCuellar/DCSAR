@@ -1,17 +1,15 @@
-@extends('admin.layouts.index')
+@extends('administrador.layouts.app')
 @section('title', 'Estado')
 @section('header')
     <div class="col-md-12">
         <h2>Lista de estados</h2>
     </div>
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('estado.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nuevo estado</button>
-            </form>
-        </div>
+    <div class="col-md-12 d-grid gap-2 d-md-flex">
+        <form action="{{ route('estado.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nuevo estado</button>
+        </form>
     </div>
 @endsection
 @section('content')
@@ -33,9 +31,9 @@
                         @foreach ($estados as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->codigo_estado }}</td>
-                                <td>{{ $item->nombre_estado }}</td>
-                                <td>{{ $item->descripcion_estado }}</td>
+                                <td>{{ $item->codigoEstado }}</td>
+                                <td>{{ $item->nombreEstado }}</td>
+                                <td>{{ $item->descripcionEstado }}</td>
                                 <td>
                                     <a href="{{ route('estado.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
@@ -79,7 +77,7 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
-
+@endsection
 @section('js_datatable')
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
@@ -106,8 +104,6 @@
             });
         });
     </script>
-@endsection
-
 @endsection
 
 @section('js')

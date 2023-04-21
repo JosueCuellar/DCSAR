@@ -5,14 +5,12 @@
         <h2>Lista de productos</h2>
     </div>
 
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('producto.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nuevo producto</button>
-            </form>
-        </div>
+    <div class="col-md-12">
+        <form action="{{ route('producto.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nuevo producto</button>
+        </form>
     </div>
 @endsection
 @section('content')
@@ -37,14 +35,13 @@
                     <tbody>
                         @foreach ($productos as $item)
                             <tr>
-                                <td>{{ $item->rubro->descripcion_rubro }}</td>
-                                <td>{{ $item->cod_producto }}</td>
+                                <td>{{ $item->rubro->descripRubro }}</td>
+                                <td>{{ $item->codProducto }}</td>
                                 <td>{{ $item->descripcion }}</td>
                                 @if ($item->perecedero == 1)
                                     <td><span class="badge bg-success">Perecedero</span> </td>
                                 @else
-                                <td><span class="badge bg-danger">No Perecedero</span> </td>
-
+                                    <td><span class="badge bg-danger">No Perecedero</span> </td>
                                 @endif
                                 <td>
                                     <div class="filter-container row">
@@ -57,7 +54,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $item->marca->nombre }}</td>
-                                <td>{{ $item->medida->nombre_medida }}</td>
+                                <td>{{ $item->medida->nombreMedida }}</td>
                                 <td>{{ $item->observacion }}</td>
                                 <td>
                                     <a href="{{ route('producto.edit', $item->id) }}">
@@ -102,7 +99,7 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
-
+@endsection
 @section('js_datatable')
 
     <script>
@@ -134,17 +131,6 @@
 @endsection
 
 @section('js')
-
-    <script>
-        $(function() {
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox({
-                    alwaysShowClose: true
-                });
-            });
-        })
-    </script>
 
     @if (session('msg'))
         <script>
@@ -206,6 +192,4 @@
             })
         </script>
     @endif
-@endsection
-
 @endsection

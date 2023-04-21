@@ -14,11 +14,11 @@ class InventarioController extends Controller
     {
 
         $inventarios = DB::select(
-            "SELECT p.cod_producto, p.descripcion,
-            dc.cantidad_ingreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
+            "SELECT p.codProducto, p.descripcion,
+            dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
             COALESCE(rp.cantidad_aprobada, 0) AS stock1
             FROM productos p
-            LEFT JOIN (SELECT producto_id, SUM(cantidad_ingreso) AS cantidad_ingreso
+            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
             FROM detalle_compras
             GROUP BY producto_id) dc ON p.id = dc.producto_id
             LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
@@ -32,13 +32,13 @@ class InventarioController extends Controller
 
             $productos = DB::select(
                 "SELECT p.id, p.descripcion, p.imagen,
-        dc.cantidad_ingreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
+        dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
         COALESCE(rp.cantidad_aprobada, 0) AS stock1,
-        m.nombre_medida, r.descripcion_rubro
+        m.nombreMedida, r.descripRubro
     FROM productos p
     JOIN medidas m ON p.medida_id = m.id
     JOIN rubros r ON p.rubro_id = r.id
-    LEFT JOIN (SELECT producto_id, SUM(cantidad_ingreso) AS cantidad_ingreso
+    LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
         FROM detalle_compras
         GROUP BY producto_id) dc ON p.id = dc.producto_id
     LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
@@ -58,7 +58,7 @@ class InventarioController extends Controller
     {
         try {
             $inventario = new Inventario();
-            $inventario->cod_producto = $request->cod_producto;
+            $inventario->codProducto = $request->codProducto;
             $inventario->descripcion = $request->descripcion;
             $inventario->observacion = $request->observacion;
             $inventario->stock = $request->stock;

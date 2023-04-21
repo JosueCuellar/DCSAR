@@ -33,8 +33,8 @@ class RubroController extends Controller
            try{
                //Se crea y almacena un nuevo objeto
                $rubro = new Rubro();
-               $rubro->codigo_presupuestario = $request->codigo_presupuestario;
-               $rubro->descripcion_rubro = $request->descripcion_rubro;
+               $rubro->codigoPresupuestario = $request->codigoPresupuestario;
+               $rubro->descripRubro = $request->descripRubro;
                $rubro->save();
                //Se redirige al listado de todos los registros
                return redirect()->route('rubro.index')->with('status', 'Registro correcto');
@@ -58,8 +58,8 @@ class RubroController extends Controller
        public function update(RubroRequest $request, Rubro $rubro)
        {
            try{
-                $rubro->codigo_presupuestario = $request->codigo_presupuestario;
-                $rubro->descripcion_rubro = $request->descripcion_rubro;
+                $rubro->codigoPresupuestario = $request->codigoPresupuestario;
+                $rubro->descripRubro = $request->descripRubro;
                 $rubro->save();            
                //Se redirige al listado de todos los registros
                return redirect()->route('rubro.index')->with('status', 'Registro correcto');

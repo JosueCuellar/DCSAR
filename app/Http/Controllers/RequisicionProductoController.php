@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequisicionProductoUpdateRequest;
 use App\Models\DetalleRequisicion;
 use App\Models\Lote;
 use App\Models\ProductoBodega;
@@ -18,8 +19,8 @@ class RequisicionProductoController extends Controller
     public function index(Request $request)
     {
         try {
-            $fecha_requisicion = $request->get('fecha_requisicion');
-            $requisiciones = RequisicionProducto::where('estado_id', 1)->fechaRequisicion($fecha_requisicion)->get();
+            $fechaRequisicion = $request->get('fechaRequisicion');
+            $requisiciones = RequisicionProducto::where('estado_id', 1)->fechaRequisicion($fechaRequisicion)->get();
             $requisicionesSinCompletar = RequisicionProducto::where('estado_id', 5)->get();
             foreach ($requisicionesSinCompletar as $item) {
                 $item->delete();
@@ -65,14 +66,37 @@ class RequisicionProductoController extends Controller
     {
         $requisicionProducto = new RequisicionProducto();
         $date =  new DateTime();
-        $requisicionProducto->fecha_requisicion = $date->format('Y-m-d H:i:s');
+        $requisicionProducto->fechaRequisicion = $date->format('Y-m-d H:i:s');
         $requisicionProducto->estado_id = 5;
         $requisicionProducto->save();
         return redirect()->route('requisicionProducto.detalle', $requisicionProducto);
     }
 
+    //Función que permite la edición de un registro almacenado
+    public function edit(RequisicionProducto $requisicionProducto)
+    {
+        try {
+            return view('requisicionProducto.edit', compact('requisicionProducto'));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 
-    public function update(Request $request, RequisicionProducto $requisicionProducto)
+    //Función que actualiza un registro
+    public function update(RequisicionProductoUpdateRequest $request, RequisicionProducto $requisicionProducto)
+    {
+        try {
+            $requisicionProducto->fechaRequisicion = $request->fechaRequisicion;
+            $requisicionProducto->descripcion = $request->descripcion;
+            $requisicionProducto->save();
+            //Se redirige al listado de todos los registros
+            return redirect()->route('requisicionProducto.index')->with('actualizado', 'Registro correcto');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('msg', 'Error no se puede actualizar');
+        }
+    }
+
+    public function completar(Request $request, RequisicionProducto $requisicionProducto)
     {
         $requisicionProducto->estado_id =  1;
         $requisicionProducto->descripcion = $request->descripcion;
@@ -93,20 +117,20 @@ class RequisicionProductoController extends Controller
 
 
                 // Se realiza la salida de cada lote dependiendo la cantidad de productos que se requieran
-                $lotes = Lote::where('producto_id', $producto_id)->where('cantidad_disponible', '>', 0)->orderBy('id', 'asc')->get();
+                $lotes = Lote::where('producto_id', $producto_id)->where('cantidadDisponible', '>', 0)->orderBy('id', 'asc')->get();
                 foreach ($lotes as $lote) {
                     $deta = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();
-                    $cantidadDescontar = $deta->cantidad_entregada; //50
+                    $cantidadDescontar = $deta->cantidadEntregada; //50
                     if ($cantidadDescontar > 0) {
-                        if ($lote->cantidad_disponible < $cantidadDescontar) { //50
-                            $deta->cantidad_entregada -= $lote->cantidad_disponible; //-10 hay 40
+                        if ($lote->cantidadDisponible < $cantidadDescontar) { //50
+                            $deta->cantidadEntregada -= $lote->cantidadDisponible; //-10 hay 40
                             $deta->save();
-                            $lote->cantidad_disponible = 0;
+                            $lote->cantidadDisponible = 0;
                         } else {
-                            $diferencia = $lote->cantidad_disponible - $deta->cantidad_entregada; // 50 - 1
-                            $deta->cantidad_entregada = 0; //-10 hay 40
+                            $diferencia = $lote->cantidadDisponible - $deta->cantidadEntregada; // 50 - 1
+                            $deta->cantidadEntregada = 0; //-10 hay 40
                             $deta->save();
-                            $lote->cantidad_disponible = $diferencia;
+                            $lote->cantidadDisponible = $diferencia;
                         }
                         // Explicit save operation
                         $lote->save();
@@ -115,32 +139,30 @@ class RequisicionProductoController extends Controller
                     if ($cantidadDescontar === 0) {
                         break;
                     }
-                    
                 }
 
                 $this->reset($detalle->id);
 
 
-                $bodegas = ProductoBodega::where('producto_id', $producto_id)->where('cantidad_disponible', '>', 0)->orderBy('id', 'asc')->get();
+                $bodegas = ProductoBodega::where('producto_id', $producto_id)->where('cantidadDisponible', '>', 0)->orderBy('id', 'asc')->get();
                 foreach ($bodegas as $bodega) {
-                    $detaBodega = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();                    
-                    $cantDesc = $detaBodega->cantidad_entregada;
+                    $detaBodega = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();
+                    $cantDesc = $detaBodega->cantidadEntregada;
                     if ($cantDesc > 0) {
-                        if ($bodega->cantidad_disponible < $cantDesc) { //50
-                            $detaBodega->cantidad_entregada -= $bodega->cantidad_disponible; //-10 hay 40
+                        if ($bodega->cantidadDisponible < $cantDesc) { //50
+                            $detaBodega->cantidadEntregada -= $bodega->cantidadDisponible; //-10 hay 40
                             $detaBodega->save();
-                            $bodega->cantidad_disponible = 0;
+                            $bodega->cantidadDisponible = 0;
                         } else {
-                            $dif = $bodega->cantidad_disponible - $detaBodega->cantidad_entregada; // 50 - 1
-                            $detaBodega->cantidad_entregada = 0; //-10 hay 40
+                            $dif = $bodega->cantidadDisponible - $detaBodega->cantidadEntregada; // 50 - 1
+                            $detaBodega->cantidadEntregada = 0; //-10 hay 40
                             $detaBodega->save();
-                            $bodega->cantidad_disponible = $dif;
+                            $bodega->cantidadDisponible = $dif;
                             $bodega->save();
-
                         }
                         // Explicit save operation
                         $bodega->save();
-                    } 
+                    }
                     if ($cantDesc === 0) {
                         break;
                     }
@@ -154,11 +176,11 @@ class RequisicionProductoController extends Controller
         }
     }
 
-    
+
     public function reset($id)
     {
         $registro = DetalleRequisicion::find($id);
-        $registro->cantidad_entregada += $registro->cantidad ;
+        $registro->cantidadEntregada += $registro->cantidad;
         $registro->save();
     }
 

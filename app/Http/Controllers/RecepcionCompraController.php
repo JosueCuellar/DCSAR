@@ -47,11 +47,11 @@ class RecepcionCompraController extends Controller
         try {
             $recepcionCompra = new RecepcionCompra();
             $recepcionCompra->proveedor_id = $request->proveedor_id;
-            $recepcionCompra->fecha_ingreso = $request->fecha;
+            $recepcionCompra->fechaIngreso = $request->fecha;
             $recepcionCompra->estado = false;
             $recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
             $recepcionCompra->nPresupuestario = $request->nPresupuestario;
-            $recepcionCompra->codigo_factura = $request->codigo_factura;
+            $recepcionCompra->codigoFactura = $request->codigoFactura;
             $recepcionCompra->save();
             return redirect()->route('recepcionCompra.documento', $recepcionCompra);
         } catch (\Exception $e) {
@@ -69,21 +69,21 @@ class RecepcionCompraController extends Controller
                 $producto_id = $detalle->producto_id;
                 $cProm = $this->costoPromedioCalculo($producto_id);
                 $productoA = Producto::where('id', $producto_id)->first();
-                $productoA->costo_promedio = $cProm;
+                $productoA->costoPromedio = $cProm;
                 $productoA->save();
 
                 //Crear los registros de los productos en la bodega
                 $bodega_id = 1;
-                $cantidadAlmacenar = $detalle->cantidad_ingreso;
+                $cantidadAlmacenar = $detalle->cantidadIngreso;
                 $productoExistente = ProductoBodega::where('producto_id', $producto_id)->where('bodega_id', $bodega_id)->first();
                 if ($productoExistente) {
-                    $productoExistente->cantidad_disponible += $cantidadAlmacenar;
+                    $productoExistente->cantidadDisponible += $cantidadAlmacenar;
                     $productoExistente->save();
                 } else {
                     ProductoBodega::create([
                         'producto_id' => $producto_id,
                         'bodega_id' => $bodega_id,
-                        'cantidad_disponible' => $cantidadAlmacenar
+                        'cantidadDisponible' => $cantidadAlmacenar
                     ]);
                 }
             }
@@ -131,13 +131,13 @@ class RecepcionCompraController extends Controller
     }
 
     // Esta es una función de PHP llamada costoPromedioCalculo que calcula el costo promedio de un producto dado. Toma un parámetro llamado producto, que representa el producto que se está consultando.
-    // Dentro de la función, cuatro variables se inicializan como cero, a saber, $existencias, $saldoTotal, $costo_promedio y $sumaCompras.
+    // Dentro de la función, cuatro variables se inicializan como cero, a saber, $existencias, $saldoTotal, $costoPromedio y $sumaCompras.
     // La función recupera todos los registros de detalle de DetalleCompra que tienen la identificación del producto que coincide con el parámetro pasado usando la función where() y los asigna a $detalleCompras. Luego, un ciclo foreach calcula la cantidad total comprada y el costo total de las compras.
     // De igual manera, la función recupera todos los registros de detalle de DetalleRequisicion que tiene referencia al id del producto y cuyo RequisicionProducto correspondiente tiene un estado_id de 4 usando la función whereHas() y lo asigna a $detalleRequisicion. Un ciclo if verifica si $detalleRequisicion se evalúa como un valor no vacío y, si es verdadero, un ciclo foreach calcula la cantidad total de solicitudes realizadas y resume sus costos respectivos.
     // Luego, la función calcula el saldo de cierre del inventario restando el costo de las solicitudes del costo de las compras, que se asigna a $saldoTotal.
     // Luego, la cantidad de existencias restantes se calcula restando la cantidad total solicitada de la cantidad total comprada, que se asigna a $existencias.
-    // Finalmente, el costo promedio por unidad se calcula dividiendo $saldoTotal por $existencias, que se asigna a $costo_promedio y luego se devuelve como resultado de la función.
-    // El resultado de esta función es un único número flotante que representa el costo promedio por unidad del producto especificado asignado a $costo_promedio.
+    // Finalmente, el costo promedio por unidad se calcula dividiendo $saldoTotal por $existencias, que se asigna a $costoPromedio y luego se devuelve como resultado de la función.
+    // El resultado de esta función es un único número flotante que representa el costo promedio por unidad del producto especificado asignado a $costoPromedio.
 
     public function costoPromedioCalculo($producto)
     {
@@ -150,7 +150,7 @@ class RecepcionCompraController extends Controller
         $cantidadRequi = 0;
         $detalleCompras = DetalleCompra::where('producto_id', $producto)->get();
         foreach ($detalleCompras as $itemCompra) {
-            $cantidadCompra += $itemCompra->cantidad_ingreso;
+            $cantidadCompra += $itemCompra->cantidadIngreso;
             $sumaCompras += $itemCompra->total;
         }
         $detalleRequisicion = DetalleRequisicion::whereHas('requisicionProducto', function ($query) {

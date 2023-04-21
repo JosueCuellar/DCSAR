@@ -33,14 +33,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Dashboard, esta ruta contiene la vista dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('admin', [DashboardController::class, 'indexAdmin'])->name('dashboardAdmin');
+
+//Esta ruta contiene la vista de el panel de administracion
+Route::get('admin', [DashboardController::class, 'indexAdmin'])->name('dashboardAdmin')->middleware('can:Ver panel admin');
+
 
 
 //----------------------------Estado------------------------
 //listar
-Route::get('estado', [EstadoController::class, 'index'])->name('estado.index');
+Route::get('estado', [EstadoController::class, 'index'])->name('estado.index')->middleware('can:CRUD estado');
 //crear
 Route::view('estado/crear', 'estado.create')->name('estado.create');
 Route::post('estado/store', [EstadoController::class, 'store'])->name('estado.store');
@@ -52,7 +56,7 @@ Route::get('estado/destroy/{estado}', [EstadoController::class, 'destroy'])->nam
 
 //----------------------------Marca------------------------
 //listar
-Route::get('marca', [MarcaController::class, 'index'])->name('marca.index');
+Route::get('marca', [MarcaController::class, 'index'])->name('marca.index')->middleware('can:CRUD marca');
 //crear
 Route::view('marca/crear', 'marca.create')->name('marca.create');
 Route::post('marca/store', [MarcaController::class, 'store'])->name('marca.store');
@@ -64,7 +68,7 @@ Route::get('marca/destroy/{marca}', [MarcaController::class, 'destroy'])->name('
 
 //----------------------------Proveedor------------------------
 //listar
-Route::get('proveedor', [ProveedorController::class, 'index'])->name('proveedor.index');
+Route::get('proveedor', [ProveedorController::class, 'index'])->name('proveedor.index')->middleware('can:CRUD proveedor');;
 //crear
 Route::view('proveedor/crear', 'proveedor.create')->name('proveedor.create');
 Route::post('proveedor/store', [ProveedorController::class, 'store'])->name('proveedor.store');
@@ -76,7 +80,7 @@ Route::get('proveedor/destroy/{proveedor}', [ProveedorController::class, 'destro
 
 //----------------------------Medida------------------------
 //listar
-Route::get('medida', [MedidaController::class, 'index'])->name('medida.index');
+Route::get('medida', [MedidaController::class, 'index'])->name('medida.index')->middleware('can:CRUD medida');
 //crear
 Route::view('medida/crear', 'medida.create')->name('medida.create');
 Route::post('medida/store', [MedidaController::class, 'store'])->name('medida.store');
@@ -88,7 +92,7 @@ Route::get('medida/destroy/{medida}', [MedidaController::class, 'destroy'])->nam
 
 //----------------------------UnidadOrganizativa------------------------
 //listar
-Route::get('unidadOrganizativa', [UnidadOrganizativaController::class, 'index'])->name('unidadOrganizativa.index');
+Route::get('unidadOrganizativa', [UnidadOrganizativaController::class, 'index'])->name('unidadOrganizativa.index')->middleware('can:CRUD unidad organizativa');;
 //crear
 Route::view('unidadOrganizativa/crear', 'unidadOrganizativa.create')->name('unidadOrganizativa.create');
 Route::post('unidadOrganizativa/store', [UnidadOrganizativaController::class, 'store'])->name('unidadOrganizativa.store');
@@ -100,7 +104,7 @@ Route::get('unidadOrganizativa/destroy/{unidadOrganizativa}', [UnidadOrganizativ
 
 //----------------------------Rubro------------------------
 //listar
-Route::get('rubro', [RubroController::class, 'index'])->name('rubro.index');
+Route::get('rubro', [RubroController::class, 'index'])->name('rubro.index')->middleware('can:CRUD rubro');
 //crear
 Route::get('rubro/crear', [RubroController::class, 'create'])->name('rubro.create');
 Route::post('rubro/store', [RubroController::class, 'store'])->name('rubro.store');
@@ -112,7 +116,7 @@ Route::get('rubro/destroy/{rubro}', [RubroController::class, 'destroy'])->name('
 
 //----------------------------Producto------------------------
 //listar
-Route::get('producto', [ProductoController::class, 'index'])->name('producto.index');
+Route::get('producto', [ProductoController::class, 'index'])->name('producto.index')->middleware('can:CRUD producto');
 //crear
 Route::get('producto/crear', [ProductoController::class, 'create'])->name('producto.create');
 Route::post('producto/store', [ProductoController::class, 'store'])->name('producto.store');
@@ -124,17 +128,20 @@ Route::get('producto/destroy/{producto}', [ProductoController::class, 'destroy']
 
 
 //---------------------------RequisicionProducto------------------------------------------------------
-Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index');
-Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado');
-Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar');
-Route::get('requisicionProducto/entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega');
-Route::get('requisicionProducto/recibida', [RequisicionProductoController::class, 'requisicionRecibida'])->name('requisicionProducto.recibida');
+// Ruta que contiene la vista 
+Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index')->middleware('can:Crear solicitud requisicion');
+Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado')->middleware('can:Ver estados de solicitudes');
+Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar')->middleware('can:Revision de solicitudes');
+Route::get('requisicionProducto/entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega')->middleware('can:Bandeja solicitud a entregar');
+Route::get('requisicionProducto/recibida', [RequisicionProductoController::class, 'requisicionRecibida'])->name('requisicionProducto.recibida')->middleware('can:Ver solicitudes realizadas');
 
 //Metodo para poner el estado de entregada 
 Route::put('requisicionProducto/entregada/{requisicionProducto}', [RequisicionProductoController::class, 'requisicionEntregada'])->name('requisicionProducto.entregada');
 
 Route::post('requisicionProducto', [RequisicionProductoController::class, 'store'])->name('requisicionProducto.store');
-Route::put('requisicionProducto/completar/{requisicionProducto}', [RequisicionProductoController::class, 'update'])->name('requisicionProducto.pagar');
+Route::get('requisicionProducto/edit/{requisicionProducto}', [RequisicionProductoController::class, 'edit'])->name('requisicionProducto.edit');
+Route::put('requisicionProducto/update/{requisicionProducto}', [RequisicionProductoController::class, 'update'])->name('requisicionProducto.update');
+Route::put('requisicionProducto/completar/{requisicionProducto}', [RequisicionProductoController::class, 'completar'])->name('requisicionProducto.completar');
 Route::put('requisicionProducto/aceptar/{requisicionProducto}', [RequisicionProductoController::class, 'aceptar'])->name('requisicionProducto.aceptarRequi');
 Route::put('requisicionProducto/denegar/{requisicionProducto}', [RequisicionProductoController::class, 'denegar'])->name('requisicionProducto.denegarRequi');
 Route::get('requisicionProducto/destroy/{requisicionProducto}', [RequisicionProductoController::class, 'destroy'])->name('requisicionProducto.destroy');
@@ -152,10 +159,10 @@ Route::get('requisicionProducto/detalle/{requisicionProducto}/eliminar/{detalleR
 //---------------------------RecepcionCompra------------------------------------------------------
 Route::controller(RecepcionCompraController::class)->group(function () {
   //Ingresar compras de productos
-  Route::get('recepcionCompra', 'index')->name('recepcionCompra.index');
+  Route::get('recepcionCompra', 'index')->name('recepcionCompra.index')->middleware('can:Crear ingreso de productos');
   Route::post('recepcionCompra/store', 'store')->name('recepcionCompra.store');
   Route::put('recepcionCompra/completar/{recepcionCompra}','update')->name('recepcionCompra.completar');
-  Route::get('recepcionCompra/consultar', 'consultar')->name('recepcionCompra.consultar');
+  Route::get('recepcionCompra/consultar', 'consultar')->name('recepcionCompra.consultar')->middleware('can:Consultar ingreso de productos');
   Route::get('recepcionCompra/destroy/{recepcionCompra}',  'destroy')->name('recepcionCompra.destroy');
   Route::get('recepcionCompra/revisar/{recepcionCompra}', 'revisar')->name('recepcionCompra.revisar');
 
@@ -185,7 +192,7 @@ Route::controller(DetalleCompraController::class)->group(function () {
 
 //---------------------------Inventario------------------------------------------------------
 
-Route::get('inventario', [InventarioController::class,'index'])->name('inventario.index');
+Route::get('inventario', [InventarioController::class,'index'])->name('inventario.index')->middleware('can:Ver inventario');
 
 //---------------------------PDFs------------------------------------------------------
 
@@ -201,8 +208,8 @@ Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [PDFControll
 
 
 //--------------------------Salida de lotes------------------------------------------------------
-Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'])->name('productoBodega.index');
-Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2');
+Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'])->name('productoBodega.index')->middleware('can:Ver bodega principal');
+Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2')->middleware('can:Ver bodega secundaria');
 
 Route::post('productoBodega/{productoBodega}/', [ProductoBodegaController::class, 'store'])->name('productoBodega.store');
 
@@ -222,3 +229,10 @@ Route::get('usuario/edit/{usuario}', [UserController::class, 'edit'])->name('usu
 Route::put('usuario/update/{usuario}', [UserController::class, 'update'])->name('usuario.update');
 //eliminar
 Route::get('usuario/destroy/{usuario}', [UserController::class, 'destroy'])->name('usuario.destroy');
+
+
+
+Route::get('roles', [UserController::class, 'indexRoles'])->name('roles.index');
+Route::get('/roles/{role}/assign-permissions', [UserController::class, 'showAssignPermissionsForm'])->name('roles.assign-permissions');
+Route::post('/roles/{role}/assign-permissions', [UserController::class, 'assignPermissions'])->name('roles.assign-permissions');
+

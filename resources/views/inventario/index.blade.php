@@ -1,12 +1,10 @@
 @extends('admin.layouts.index')
 @section('title', 'Inventario')
 @section('header')
-    <div class="row">
         <div class="col-12">
             <h2>Inventario</h2>
         </div>
-    </div>
-@endsection
+@endsection 
 @section('content')
         <div class="content">
             <div class="container-fluid">
@@ -28,7 +26,7 @@
                                     <tbody>
                                         @foreach ($inventarios as $item)
                                             <tr>
-                                                <th scope="row">{{ $item->cod_producto }}</th>
+                                                <th scope="row">{{ $item->codProducto }}</th>
                                                 <td>{{ $item->descripcion }}</td>
                                                 <td>{{ $item->stock }}</td>
                                                 <td>{{ $item->stock-$item->stock1 }}</td>
@@ -45,6 +43,7 @@
                 </div>
             </div>
         </div>
+@endsection
 @section('js_datatable')
 
     <script>
@@ -69,4 +68,4 @@
     </script>
 
 @endsection
-@endsection
+

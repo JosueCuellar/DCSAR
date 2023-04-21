@@ -25,8 +25,8 @@ class DetalleCompraRequest extends FormRequest
     {
         return [
             'producto_id'=>'required',
-            'cantidad_ingreso'=>'required',
-            'precio_unidad'=>'required',
+            'cantidadIngreso'=>'required',
+            'precioUnidad'=>'required',
 
             
         ];
@@ -35,8 +35,8 @@ class DetalleCompraRequest extends FormRequest
     {
         return [
             'producto_id.*'=>'Campo requerido',
-            'cantidad_ingreso.*'=>'Campo requerido, tipo entero, maximo 10000',
-            'precio_unidad.*'=>'Campo requerido, minimo 0.01, máximo 10,000',
+            'cantidadIngreso.*'=>'Campo requerido, tipo entero, maximo 10000',
+            'precioUnidad.*'=>'Campo requerido, minimo 0.01, máximo 10,000',
 
             
         ];

@@ -9,9 +9,9 @@ class Rubro extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'codigo_presupuestario',
+        'codigoPresupuestario',
         // 'estado_id',
-        'descripcion_rubro'
+        'descripRubro'
     ];
 
     // public function estado(){

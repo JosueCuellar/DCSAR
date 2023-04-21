@@ -11,8 +11,8 @@ class DetalleCompra extends Model
     protected $fillable = [
         'producto_id',
         'recepcion_compra_id',
-        'cantidad_ingreso',
-        'precio_unidad',
+        'cantidadIngreso',
+        'precioUnidad',
         'fechaVenc', 
     ];
     public function recepcionCompra()

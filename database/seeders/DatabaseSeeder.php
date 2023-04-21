@@ -23,61 +23,63 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         //Estados
-
+        $this->call(PermisoSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
 
         DB::table('estados')->insert([
-            'codigo_estado' => 'SE',
-            'descripcion_estado' => 'Una requisición ha sido enviada',
-            'nombre_estado' => 'Solicitud Enviada',
+            'codigoEstado' => 'SE',
+            'descripcionEstado' => 'Una requisición ha sido enviada',
+            'nombreEstado' => 'Solicitud Enviada',
         ]);
 
         DB::table('estados')->insert([
-            'codigo_estado' => 'SA',
-            'descripcion_estado' => 'Una requisición ha sido aprobada',
-            'nombre_estado' => 'Solicitud Aprobada',
+            'codigoEstado' => 'SA',
+            'descripcionEstado' => 'Una requisición ha sido aprobada',
+            'nombreEstado' => 'Solicitud Aprobada',
         ]);
 
         DB::table('estados')->insert([
-            'codigo_estado' => 'SR',
-            'descripcion_estado' => 'Una requisición ha sido rechazada',
-            'nombre_estado' => 'Solicitud Rechazada',
+            'codigoEstado' => 'SR',
+            'descripcionEstado' => 'Una requisición ha sido rechazada',
+            'nombreEstado' => 'Solicitud Rechazada',
         ]);
 
         DB::table('estados')->insert([
-            'codigo_estado' => 'SEN',
-            'descripcion_estado' => 'Una requisición ha sido entregada',
-            'nombre_estado' => 'Solicitud Entregada',
+            'codigoEstado' => 'SEN',
+            'descripcionEstado' => 'Una requisición ha sido entregada',
+            'nombreEstado' => 'Solicitud Entregada',
         ]);
 
         DB::table('estados')->insert([
-            'codigo_estado' => 'NA',
-            'descripcion_estado' => 'No terminada',
-            'nombre_estado' => 'NA',
+            'codigoEstado' => 'NA',
+            'descripcionEstado' => 'No terminada',
+            'nombreEstado' => 'NA',
         ]);
 
         //Medidas
         DB::table('medidas')->insert([
-            'nombre_medida' => 'Kilos(kg)',
+            'nombreMedida' => 'Kilos(kg)',
         ]);
         DB::table('medidas')->insert([
-            'nombre_medida' => 'Cajas',
+            'nombreMedida' => 'Cajas',
         ]);
         DB::table('medidas')->insert([
-            'nombre_medida' => 'Rollos',
+            'nombreMedida' => 'Rollos',
         ]);
         DB::table('medidas')->insert([
-            'nombre_medida' => 'Paquetes',
+            'nombreMedida' => 'Paquetes',
         ]);
 
 
         //Bodegas
         DB::table('bodegas')->insert([
-            'nombre_bodega' => 'Bodega principal',
+            'nombreBodega' => 'Bodega principal',
             'ubicacion' => 'Nivel 1',
         ]);
 
         DB::table('bodegas')->insert([
-            'nombre_bodega' => 'Bodega secundaria',
+            'nombreBodega' => 'Bodega secundaria',
             'ubicacion' => 'Nivel 1',
         ]);
 

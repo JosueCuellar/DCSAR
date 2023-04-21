@@ -9,12 +9,12 @@ class Proveedor extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombre_comercial',
-        'razon_social',
-        'direccion_proveedor',
+        'nombreComercial',
+        'razonSocial',
+        'direccionProveedor',
         'fax',
-        'telefono1_proveedor',
-        'telefono2_proveedor'
+        'telefonoProveedor1',
+        'telefonoProveedor2'
     ];
 
 }

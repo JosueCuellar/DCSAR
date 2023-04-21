@@ -41,7 +41,7 @@
                                                 @foreach ($productos as $item)
                                                     <option value="{{ $item->id }}"
                                                         @if ($detalleCompra->producto_id == $item->id) {{ 'selected' }} @endif>
-                                                        {{ $item->cod_producto }}</option>
+                                                        {{ $item->codProducto }}</option>
                                                 @endforeach
                                             </select>
                                             @error('producto_id')
@@ -51,29 +51,29 @@
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="cantidad_ingreso" class="col-12 control-label">Cantidad
+                                        <label for="cantidadIngreso" class="col-12 control-label">Cantidad
                                             ingresada:</label>
                                         <div class="col-12">
-                                            <input id='cantidad_ingreso' type='number'
-                                                value="{{ old('cantidad_ingreso', $detalleCompra->cantidad_ingreso) }}"
-                                                min='1' class='form-control' name='cantidad_ingreso'
+                                            <input id='cantidadIngreso' type='number'
+                                                value="{{ old('cantidadIngreso', $detalleCompra->cantidadIngreso) }}"
+                                                min='1' class='form-control' name='cantidadIngreso'
                                                 placeholder='Cantidad ingresada'>
                                         </div>
-                                        @error('cantidad_ingreso')
+                                        @error('cantidadIngreso')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="form-group has-feedback row">
-                                        <label for="precio_unidad" class="col-12 control-label">Precio de unidad:</label>
+                                        <label for="precioUnidad" class="col-12 control-label">Precio de unidad:</label>
                                         <div class="col-12">
-                                            <input id='precio_unidad' type='number' min='0.01'
-                                                value="{{ old('precio_unidad', $detalleCompra->precio_unidad) }}"
-                                                step='0.01' class='form-control' name='precio_unidad'
+                                            <input id='precioUnidad' type='number' min='0.01'
+                                                value="{{ old('precioUnidad', $detalleCompra->precioUnidad) }}"
+                                                step='0.01' class='form-control' name='precioUnidad'
                                                 placeholder='Precio unitario'>
                                         </div>
 
-                                        @error('precio_unidad')
+                                        @error('precioUnidad')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

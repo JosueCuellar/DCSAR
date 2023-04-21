@@ -31,8 +31,8 @@
                                 {{-- Completas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
-                                    <table class="table table-sm table-striped text-center" id="dataTable11"
-                                        width="100%" cellspacing="0">
+                                    <table class="table table-sm table-striped text-center" id="dataTable11" width="100%"
+                                        cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th scope="col">Fecha realización</th>
@@ -48,8 +48,8 @@
                                                 <td scope="row">{{ $item->created_at }}</td>
                                                 <td>{{ $item->nOrdenCompra }}</td>
                                                 <td>{{ $item->nPresupuestario }}</td>
-                                                <td>{{ $item->codigo_factura }}</td>
-                                                <td>{{ $item->proveedor->nombre_comercial }}</td>
+                                                <td>{{ $item->codigoFactura }}</td>
+                                                <td>{{ $item->proveedor->nombreComercial }}</td>
 
                                                 <td>
                                                     <a href="{{ route('recepcionCompra.revisar', $item->id) }}">
@@ -109,52 +109,6 @@
             </div>
         </div>
     </div>
-
-@section('js')
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Registro de ingreso correcto',
-                position: 'topRight',
-                body: '{{ session('status') }}',
-                class: 'bg-info',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'Registro de ingreso eliminada',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-solid fa-xmark',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
 @endsection
 
 @section('js_datatable')
@@ -224,4 +178,50 @@
     </script>
 
 @endsection
+
+@section('js')
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Registro de ingreso correcto',
+                position: 'topRight',
+                body: '{{ session('status') }}',
+                class: 'bg-info',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Registro de ingreso eliminada',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-solid fa-xmark',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 @endsection

@@ -26,10 +26,10 @@
                                     <tbody>
                                         @foreach ($requisicionesAprobadas as $item)
                                             <tr>
-                                                <td scope="row">{{ $item->fecha_requisicion }}</td>
+                                                <td scope="row">{{ $item->fechaRequisicion }}</td>
                                                 <td scope="row">{{ $item->nCorrelativo }}</td>
                                                 <td><span
-                                                        class="badge badge-success">{{ $item->estado->nombre_estado }}</span>
+                                                        class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
                                                 <td>
                                                     <div>
@@ -173,7 +173,5 @@
         })
     </script>
 
-
-@endsection
 
 @endsection

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('unidad_organizativas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_unidad_medida',50);
-            $table->string('descripcion_unidad_medida',100);
+            $table->string('nombreUnidadOrganizativa',50);
+            $table->string('descripUnidadOrganizativa',100);
             $table->timestamps();
         });
     }

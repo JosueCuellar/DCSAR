@@ -22,7 +22,7 @@
                                             <select class="proveedor form-control" name="proveedor_id" id="proveedor_id">
                                                 <option selected='true' disabled='disabled'>Seleccionar proveedor</option>
                                                 @foreach ($proveedores as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nombre_comercial }}
+                                                    <option value="{{ $item->id }}">{{ $item->nombreComercial }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -48,10 +48,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
-                                        <label for="codigo_factura" class="col-12 control-label">Codigo Factura:</label>
+                                        <label for="codigoFactura" class="col-12 control-label">Codigo Factura:</label>
                                         <div class="col-12">
-                                            <input id="codigo_factura" type="text" class="form-control"
-                                                name="codigo_factura" placeholder="Codigo Factura">
+                                            <input id="codigoFactura" type="text" class="form-control"
+                                                name="codigoFactura" placeholder="Codigo Factura">
                                         </div>
                                     </div>
 

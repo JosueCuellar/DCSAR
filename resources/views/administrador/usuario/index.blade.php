@@ -1,32 +1,31 @@
 @extends('administrador.layouts.app')
 @section('title', 'Usuarios')
 @section('header')
-    <div class="col-md-12">
+    <div class="col-12">
         <h2>Lista de usuarios</h2>
     </div>
 
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('usuario.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nuevo usuario</button>
-            </form>
-        </div>
+    <div class="col-12">
+        <form action="{{ route('usuario.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nuevo usuario</button>
+        </form>
     </div>
 @endsection
 @section('content')
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-striped text-center" id="dataTable6" width="100%"
-                    cellspacing="0">
+                <table class="table table-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Opciones</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col"></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +34,14 @@
                                 <th scope="row">{{ $item->id }}</th>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
+                                <td>@php
+                                    $roles = $item->getRoleNames();
+                                @endphp
+
+                                    @foreach ($roles as $role)
+                                        {{ $role }}
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a href="{{ route('usuario.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
@@ -75,6 +82,7 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
+@endsection
 
 @section('js_datatable')
 
@@ -105,7 +113,7 @@
     </script>
 @endsection
 
-@endsection
+
 @section('js')
 
     @if (session('msg'))

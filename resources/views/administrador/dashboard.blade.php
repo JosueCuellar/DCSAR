@@ -9,6 +9,6 @@
 @endsection
 @section('content')
     <div class="container">
-
+        <h1>Bienvenido Administrador</h1>
     </div>
 @endsection

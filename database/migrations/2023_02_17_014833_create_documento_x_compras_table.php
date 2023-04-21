@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('documento_x_compras', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_documento');
+            $table->string('nombreDocumento');
             $table->unsignedBigInteger('recepcion_compra_id');
             $table->foreign('recepcion_compra_id')->references('id')->on('recepcion_compras')->cascadeOnDelete();
             $table->timestamps();

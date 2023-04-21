@@ -1,4 +1,4 @@
-@extends('admin.layouts.index')
+@extends('administrador.layouts.app')
 @section('title', 'Unidad Organizativa')
 @section('header')
     <div class="col-md-12">
@@ -18,7 +18,8 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-bordered table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-sm table-bordered table-striped text-center" id="dataTable6" width="100%"
+                    cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -31,8 +32,8 @@
                         @foreach ($unidades as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->nombre_unidad_medida }}</td>
-                                <td>{{ $item->descripcion_unidad_medida }}</td>
+                                <td>{{ $item->nombreUnidadOrganizativa }}</td>
+                                <td>{{ $item->descripUnidadOrganizativa }}</td>
                                 <td>
                                     <a href="{{ route('unidadOrganizativa.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
@@ -76,7 +77,7 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
-
+@endsection
 @section('js_datatable')
 
     <script>
@@ -104,6 +105,4 @@
             });
         });
     </script>
-@endsection
-
 @endsection

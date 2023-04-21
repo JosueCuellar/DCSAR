@@ -5,22 +5,19 @@
         <h2>Lista de marcas</h2>
     </div>
 
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('marca.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nueva marca</button>
-            </form>
-        </div>
+    <div class="col-md-12 d-grid gap-2 d-md-flex">
+        <form action="{{ route('marca.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nueva marca</button>
+        </form>
     </div>
 @endsection
 @section('content')
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-striped text-center" id="dataTable6" width="100%"
-                    cellspacing="0">
+                <table class="table table-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -73,7 +70,7 @@
         </div>
         <div class="card-footer small text-muted"></div>
     </div>
-
+@endsection
 @section('js_datatable')
 
     <script>
@@ -103,7 +100,6 @@
     </script>
 @endsection
 
-@endsection
 @section('js')
 
     @if (session('msg'))
