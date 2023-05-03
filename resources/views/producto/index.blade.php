@@ -33,40 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($productos as $item)
-                            <tr>
-                                <td>{{ $item->rubro->descripRubro }}</td>
-                                <td>{{ $item->codProducto }}</td>
-                                <td>{{ $item->descripcion }}</td>
-                                @if ($item->perecedero == 1)
-                                    <td><span class="badge bg-success">Perecedero</span> </td>
-                                @else
-                                    <td><span class="badge bg-danger">No Perecedero</span> </td>
-                                @endif
-                                <td>
-                                    <div class="filter-container row">
-                                        <div class="filtr-item col-sm-2">
-                                            <a href="/imagen/{{ $item->imagen }}" data-toggle="lightbox">
-                                                <img src="/imagen/{{ $item->imagen }}" class="img-fluid"
-                                                    style="width:40px;max-width:100px">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{ $item->marca->nombre }}</td>
-                                <td>{{ $item->medida->nombreMedida }}</td>
-                                <td>{{ $item->observacion }}</td>
-                                <td>
-                                    <a href="{{ route('producto.edit', $item->id) }}">
-                                        <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
-                                    </a>
-                                    <a href="{{ route('producto.destroy', $item) }}" data-toggle="modal"
-                                        data-target="#deleteModal" data-delete="{{ $item->id }}">
-                                        <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -113,17 +80,89 @@
 
         })
     </script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable6').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                // processing: true, 
+                serverSide: true,
+                ajax: '{{ route('producto.datos') }}',
+                columns: [{
+                        data: 'rubro_id',
+                        name: 'rubro_id'
+                    },
+                    {
+                        data: 'codProducto',
+                        name: 'codProducto'
+                    },
+                    {
+                        data: 'descripcion',
+                        name: 'descripcion'
+                    },
+                    {
+                        data: 'perecedero',
+                        name: 'perecedero',
+                        render: function(data, type, row) {
+                            if (data == 1) {
+                                return '<td><span class="badge bg-success">Perecedero</span></td>';
+                            } else {
+                                return '<td><span class="badge bg-danger">No Perecedero</span></td>';
+                            }
+                        }
+                    },
+                    {
+                        data: 'imagen',
+                        name: 'imagen',
+                        render: function(data, type, row) {
+                            return '<div class="filter-container row">' +
+                                '<div class="filtr-item col-sm-2">' +
+                                '<a href="/imagen/' + data + '" data-toggle="lightbox">' +
+                                '<img src="/imagen/' + data +
+                                '" class="img-fluid" style="width:40px;max-width:100px">' +
+                                '</a>' +
+                                '</div>' +
+                                '</div>';
+                        }
+
+                    },
+
+                    {
+                        data: 'marca_id',
+                        name: 'marca_id'
+                    },
+                    {
+                        data: 'medida_id',
+                        name: 'medida_id'
+                    },
+                    {
+                        data: 'observacion',
+                        name: 'observacion'
+                    },
+                    {
+                        data: 'id',
+                        name: 'actions',
+                        render: function(data, type, row) {
+                            return '<td>' +
+                                '<a href="/producto/edit/' + data + '">' +
+                                '<ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>' +
+                                '</a>' +
+                                '<a href="/producto/destroy/' + data +
+                                '" data-toggle="modal" data-target="#deleteModal" data-delete="' +
+                                data + '">' +
+                                '<ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>' +
+                                '</a>' +
+                                '</td>';
+                        }
+                    }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
-                "autoWidth": false,
-                "responsive": true,
-                "columnDefs": [{
-                    "responsivePriority": 10001,
-                    "targets": 1
+                autoWidth: false,
+                responsive: true,
+                columnDefs: [{
+                    responsivePriority: 10001,
+                    targets: 1
                 }]
             });
         });

@@ -85,7 +85,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">Fecha de solicitud:
+                                <div class="col-6">
                                     <label>{{ $requisicionProducto->observacion }}</label>
                                 </div>
                             </div>

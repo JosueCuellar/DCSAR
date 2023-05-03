@@ -5,6 +5,7 @@
         <h2>Requisiciones a entregar</h2>
     </div>
 @endsection
+
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -89,8 +90,8 @@
         </div>
     </div>
 
-
-    @section('js')
+@endsection
+@section('js')
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
@@ -136,6 +137,7 @@
         </script>
     @endif
 @endsection
+
 
 
 @section('js_datatable')

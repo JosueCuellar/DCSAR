@@ -45,7 +45,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($recepcionesCompletas as $item)
-                                                <td scope="row">{{ $item->created_at }}</td>
+                                                <td scope="row">{{ $item->fechaIngreso }}</td>
                                                 <td>{{ $item->nOrdenCompra }}</td>
                                                 <td>{{ $item->nPresupuestario }}</td>
                                                 <td>{{ $item->codigoFactura }}</td>

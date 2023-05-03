@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PDF</title>
 </head>
-<body>
+
+<body style="font-family:'Calibri',sans-serif;">
     <header name="page-header">
         <!-- Header del PDF -->
-        <p style='margin:1px;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span
-                    style="font-size:22px;">UNIDAD ALMACEN<br>&nbsp;</span></strong><strong><span
-                    style="font-size:17px; opacity: 70%">COMPROBANTE DE SALIDA DE BIENES O
-                    SUMINISTROS</span></strong></p>
+        <img src="{{ asset('fondo/logonew.png') }}" style="max-width: 105px;float: left;">
+
+        <div style="max-width:110px;float: right;">
+            <img src="{{ asset('fondo/logopdf.png') }}" style="max-width: 58px;">
+
+        </div>
+       
+        <p style="margin:2px;text-align:center;"><strong><span
+            style="font-size:20px;">UNIDAD ALMACEN<br>&nbsp;</strong><strong><span
+            style="font-size:15px; opacity: 70%">COMPROBANTE DE SALIDA DE BIENES O SUMINISTROS</strong></p>
+
     </header>
     <br>
-                    <!----------------------------------- Requisicion de producto --------------------------------------------------------------------->
+    <!----------------------------------- Requisicion de producto --------------------------------------------------------------------->
 
     <section>
-                    <!----------------------------------- Header de la requisicion --------------------------------------------------------------------->
+        <!----------------------------------- Header de la requisicion --------------------------------------------------------------------->
 
         <table style="border: none;width:463.25pt;border-collapse:collapse;">
             <tbody>
@@ -25,14 +34,14 @@
                     <td
                         style="width:112.25pt;border-top:1.0pt;border-left:1.0pt;border-bottom:2.25pt;border-right:1.5pt;padding:0in 5.4pt 0in 5.4pt;height:  16.5pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <strong><span style="font-size:12px;color:black;">Numero de envio:</span></strong>
                         </p>
                     </td>
                     <td
                         style="width:44.6pt;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:right;">
                             <strong><span
                                     style="font-size:12px;color:black;">{{ $requisicionProducto->nCorrelativo }}</span></strong>
                         </p>
@@ -44,14 +53,14 @@
                     <td
                         style="width:75pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                             <strong><span style="font-size:12px;color:black;">Fecha / Licitacion:</span></strong>
                         </p>
                     </td>
                     <td
                         style="width:1.5in;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                             <strong><span
                                     style="font-size:12px;color:black;">{{ $requisicionProducto->fechaRequisicion }}</span></strong>
                         </p>
@@ -61,14 +70,14 @@
                     <td
                         style="width:112.25pt;border-top:0.0pt;border-left:0.0pt;border-bottom:2.0pt;border-right:0.0pt;border-color:windowtext;border-style:solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <strong><span style="font-size:12px;color:black;">CLIENTE:</span></strong>
                         </p>
                     </td>
                     <td colspan="4"
                         style="width:351.0pt;border-top:0.0pt;border-left:0.0pt;border-bottom:2.0pt;border-right:0.0pt;border-color:windowtext;border-style:  solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                             <strong><u><span style="font-size:12px;color:black;">Unidad Organizativa</span></u></strong>
                         </p>
                     </td>
@@ -77,12 +86,12 @@
         </table>
 
         <p
-            style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>
+            style="margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;">
             <span style="font-size:12px;line-height:107%;">&nbsp;</span>
         </p>
-                    <!----------------------------------- Header de la tabla de los detalles --------------------------------------------------------------------->
+        <!----------------------------------- Header de la tabla de los detalles --------------------------------------------------------------------->
 
-        <table style="width:462.2pt;border-collapse:collapse;border:none;">
+        <table style="border-collapse:collapse;border:none;">
             <tbody>
 
                 <thead>
@@ -90,35 +99,35 @@
                         <td
                             style="width:10.95pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-color: windowtext;border-image: initial;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><em><span style="font-size:12px;color:black;">N</span></em></strong>
                             </p>
                         </td>
                         <td
                             style="width: 50.8pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-left: none;border-bottom: 1.5pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><em><span style="font-size:12px;color:black;">Cod. Art</span></em></strong>
                             </p>
                         </td>
                         <td
                             style="width: 25.5pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-left: none;border-bottom: 1.5pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><em><span style="font-size:12px;color:black;">Cant.</span></em></strong>
                             </p>
                         </td>
                         <td
                             style="width: 75pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-left: none;border-bottom: 1.5pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><em><span style="font-size:12px;color:black;">U. Medida</span></em></strong>
                             </p>
                         </td>
                         <td
                             style="width: 195pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-left: none;border-bottom: 1.5pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><em><span
                                             style="font-size:12px;color:black;">Descripci&oacute;n</span></em></strong>
                             </p>
@@ -126,14 +135,14 @@
                         <td
                             style="width: 58.5pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-left: none;border-bottom: 1.5pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><em><span style="font-size:12px;color:black;">P. Unitario</span></em></strong>
                             </p>
                         </td>
                         <td
                             style="width: 52.95pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-left: none;border-bottom: 1.5pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><em><span style="font-size:12px;color:black;">Sub Total</span></em></strong>
                             </p>
                         </td>
@@ -147,55 +156,55 @@
                 @foreach ($detalle_requisicion as $item)
                     <tr>
                         <td
-                            style="width: 10.95pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
+                            style="border-width: 1pt 1pt 1.5pt;border-style: solid;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <strong><span style="font-size:12px;color:black;">{{ $n = $n + 1 }}</span></strong>
                             </p>
                         </td>
                         <td
-                            style="width: 50.8pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
+                            style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <span style="font-size:12px;color:black;">{{ $item->producto->codProducto }}</span>
                             </p>
                         </td>
                         <td
-                            style="width: 25.5pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
+                            style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <span style="font-size:12px;color:black;">{{ $item->cantidad }}</span>
                             </p>
                         </td>
                         <td
-                            style="width: 75pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
+                            style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <span
                                     style="font-size:12px;color:black;">{{ $item->producto->medida->nombreMedida }}</span>
                             </p>
                         </td>
 
                         <td
-                            style="width: 195pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
+                            style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <span style="font-size:12px;color:black;">{{ $item->producto->descripcion }}</span>
                             </p>
                         </td>
                         <td
-                            style="width: 58.5pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
+                            style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <span style="font-size:12px;color:black;">${{ $item->producto->costoPromedio }}</span>
                             </p>
                         </td>
 
 
                         <td
-                            style="width: 52.95pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
+                            style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
-                                style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                                style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                                 <span style="font-size:12px;color:black;">${{ $item->total }}</span>
                             </p>
                         </td>
@@ -213,16 +222,16 @@
 
                 <tr>
                     <td colspan="6"
-                        style="width: 409.25pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
+                        style="border-width: 1pt 1pt 1.5pt;border-style: solid;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <em><span style="font-size:12px;color:black;">Total</span></em>
                         </p>
                     </td>
                     <td
-                        style="width: 52.95pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
+                        style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                             <strong><em><span
                                         style="font-size:12px;color:black;">${{ $totalFinal }}</span></em></strong>
                         </p>
@@ -232,8 +241,8 @@
         </table><br>
 
     </section>
-    <section>
-                            <!----------------------------------- Descripcion y Obervaciones --------------------------------------------------------------------->
+    {{-- <section>
+        <!----------------------------------- Descripcion y Obervaciones --------------------------------------------------------------------->
 
         <table style="width:463.5pt;border-collapse:collapse;border:none;">
             <tbody>
@@ -242,7 +251,7 @@
                     <td
                         style="width: 463.5pt;border: 1pt solid windowtext;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <span style="font-size:13px;color:black;"><b>Descripci&oacute;n:</b></span>
                         </p>
                     </td>
@@ -264,7 +273,7 @@
                     <td
                         style="width: 463.5pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <span style="font-size:13px;color:black;"><b>Observaci&oacute;n:</b></span>
                         </p>
                     </td>
@@ -280,7 +289,12 @@
         </table>
 
 
-                            <!----------------------------------- Firma --------------------------------------------------------------------->
+
+    </section> --}}
+
+
+    <!----------------------------------- Firma --------------------------------------------------------------------->
+    <div id="footer">
 
         <table style="width:463.5pt;border-collapse:collapse;border:none;">
             <tbody>
@@ -292,28 +306,28 @@
                 <tr>
                     <td style="width:75pt;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <strong><span style="font-size:13px;color:black;">Nombre quien entrega:</span></strong>
                         </p>
                     </td>
                     <td
-                    style="width:75pt;border-top:0.0pt;border-left:0.0pt;border-bottom:1.0pt;border-right:0.0pt;border-color:windowtext;border-style:solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
-                    <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                        style="width:75pt;border-top:0.0pt;border-left:0.0pt;border-bottom:1.0pt;border-right:0.0pt;border-color:windowtext;border-style:solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
+                        <p
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <span style="font-size:13px;color:black;">____________________________</span>
                         </p>
                     </td>
                     <td style="width:.15in;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;"><br></td>
                     <td style="width:75pt;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <strong><span style="font-size:13px;color:black;">Nombre quien recibe:</span></strong>
                         </p>
                     </td>
                     <td
-                    style="width:75pt;border-top:0.0pt;border-left:0.0pt;border-bottom:1.0pt;border-right:0.0pt;border-color:windowtext;border-style:solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
+                        style="width:75pt;border-top:0.0pt;border-left:0.0pt;border-bottom:1.0pt;border-right:0.0pt;border-color:windowtext;border-style:solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <span style="font-size:13px;color:black;">____________________________</span>
                         </p>
                     </td>
@@ -324,39 +338,35 @@
                 <tr>
                     <td style="width:75pt;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <strong><span style="font-size:13px;color:black;">Firma</span></strong>
                         </p>
                     </td>
                     <td
                         style="width:75pt;border:none;border-bottom:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <span style="font-size:13px;color:black;">____________________________</span>
                         </p>
                     </td>
                     <td style="width:.15in;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;"><br></td>
                     <td style="width:75pt;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <strong><span style="font-size:13px;color:black;">Firma</span></strong>
                         </p>
                     </td>
                     <td
                         style="width:75pt;border:none;border-bottom:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;">
                         <p
-                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'>
+                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
                             <span style="font-size:13px;color:black;">____________________________</span>
                         </p>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-    </section>
-    <br>
-
-
+    </div>
 </body>
 
 </html>

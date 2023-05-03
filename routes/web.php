@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductoBodegaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RecepcionCompraController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RequisicionProductoController;
 use App\Http\Controllers\RubroController;
 use App\Http\Controllers\UnidadOrganizativaController;
@@ -117,6 +118,8 @@ Route::get('rubro/destroy/{rubro}', [RubroController::class, 'destroy'])->name('
 //----------------------------Producto------------------------
 //listar
 Route::get('producto', [ProductoController::class, 'index'])->name('producto.index')->middleware('can:CRUD producto');
+Route::get('productoDatos', [ProductoController::class, 'datosProducto'])->name('producto.datos')->middleware('can:CRUD producto');
+
 //crear
 Route::get('producto/crear', [ProductoController::class, 'create'])->name('producto.create');
 Route::post('producto/store', [ProductoController::class, 'store'])->name('producto.store');
@@ -194,11 +197,6 @@ Route::controller(DetalleCompraController::class)->group(function () {
 
 Route::get('inventario', [InventarioController::class,'index'])->name('inventario.index')->middleware('can:Ver inventario');
 
-//---------------------------PDFs------------------------------------------------------
-
-Route::get('requisicionProducto/pdf/comprobante/{requisicionProducto}', [PDFController::class,'comprobanteRequiProductoPDF'])->name('pdf.requisicionProducto');
-Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [PDFController::class,'aprobarRequiProductoPDF'])->name('pdf.aprobarRequisicionProducto');
-
 
 
 
@@ -235,4 +233,25 @@ Route::get('usuario/destroy/{usuario}', [UserController::class, 'destroy'])->nam
 Route::get('roles', [UserController::class, 'indexRoles'])->name('roles.index');
 Route::get('/roles/{role}/assign-permissions', [UserController::class, 'showAssignPermissionsForm'])->name('roles.assign-permissions');
 Route::post('/roles/{role}/assign-permissions', [UserController::class, 'assignPermissions'])->name('roles.assign-permissions');
+
+//----------------------------Reportes------------------------
+
+//Reportes mensuales
+//Pantalla de inicio
+Route::get('reporte', [ReporteController::class, 'index'])->name('reporte.index');
+
+//Total ingreso mensual
+Route::get('reporte/totalIngresoMes', [ReporteController::class, 'totalIngresoMes'])->name('reporte.totalIngresoMes');
+Route::post('reporte/totalIngresoMesPost', [ReporteController::class, 'totalIngresoMesPost'])->name('reporte.totalIngresoMesPost');
+
+//Total salida mensual
+Route::get('reporte/totalSalidaMes', [ReporteController::class, 'totalSalidaMes'])->name('reporte.totalSalidaMes');
+Route::post('reporte/totalSalidaMesPost', [ReporteController::class, 'totalSalidaMesPost'])->name('reporte.totalSalidaMesPost');
+
+
+
+//---------------------------PDFs------------------------------------------------------
+
+Route::get('requisicionProducto/pdf/comprobante/{requisicionProducto}', [ReporteController::class,'comprobanteRequiProductoPDF'])->name('pdf.requisicionProducto');
+Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [ReporteController::class,'aprobarRequiProductoPDF'])->name('pdf.aprobarRequisicionProducto');
 

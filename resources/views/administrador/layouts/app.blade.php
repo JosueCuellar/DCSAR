@@ -53,14 +53,27 @@
 
             <!-- Right navbar links -->
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+
+                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                    <ion-icon name="person-circle-sharp" class="nav-icon"></ion-icon>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                    <ion-icon name="power-sharp" class="nav-icon"></ion-icon>
+                    Salir
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+
                 <li class="nav-item"> <img src="{{ asset('fondo/logo22.png') }}" class="img-fluid"
                         style="max-width: 40px" alt="Responsive image"></li>
 
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                        <i class="fas fa-th-large"></i>
-                    </a>
-                </li>
+
             </ul>
 
         </nav>

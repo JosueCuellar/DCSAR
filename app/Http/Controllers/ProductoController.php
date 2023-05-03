@@ -9,19 +9,31 @@ use App\Models\Medida;
 use App\Models\Producto;
 use App\Models\Rubro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\DataTables;
+
 
 class ProductoController extends Controller
 {
     //
     //Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
     public function index()
-    {
-        $productos = Producto::all();
-        return view('producto.index', compact('productos'));
+    {        
+        return view('producto.index');
     }
-
+    
+    public function datosProducto()
+    {
+        $productos = DB::table('productos')
+        ->join('marcas', 'productos.marca_id', '=', 'marcas.id')
+        ->join('rubros', 'productos.rubro_id', '=', 'rubros.id')
+        ->join('medidas', 'productos.medida_id', '=', 'medidas.id')
+        ->select('productos.*', 'marcas.nombre as marca_id', 'rubros.descripRubro as rubro_id', 'medidas.nombreMedida as medida_id')
+        ->get();
+        return DataTables::of($productos)->make(true);
+    }
     //Envia un arreglo de estados
     public function create()
     {
