@@ -9,6 +9,7 @@ use App\Models\Producto;
 use App\Models\RequisicionProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class DetalleRequisicionController extends Controller
 {
@@ -16,10 +17,21 @@ class DetalleRequisicionController extends Controller
     public function index(RequisicionProducto $requisicionProducto, Request $request)
     {
         $totalFinal = 0.0;
+        $detalle_requisicion = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
+        foreach ($detalle_requisicion as $item) {
+            $totalFinal += $item->total;
+        }
 
+        return view('requisicionProducto.detalle', compact('detalle_requisicion', 'requisicionProducto', 'totalFinal'));
+    }
+
+
+
+    public function datosDetalleProducto()
+    {
         $productos = DB::select(
             "SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
-            dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
+            COALESCE(dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0),0) AS stock,
             COALESCE(rp.cantidad_aprobada, 0) AS stock1,
             m.nombreMedida as nombreMedida, r.descripRubro as rubro
             FROM productos p
@@ -35,15 +47,9 @@ class DetalleRequisicionController extends Controller
             WHERE rp.estado_id IN (1, 2, 4, 5)
             GROUP BY producto_id) rp ON p.id = rp.producto_id;"
         );
-
-
-        $detalle_requisicion = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
-        foreach ($detalle_requisicion as $item) {
-            $totalFinal += $item->total;
-        }
-
-        return view('requisicionProducto.detalle', compact('detalle_requisicion', 'productos', 'requisicionProducto', 'totalFinal'));
+        return DataTables::of($productos)->make(true);
     }
+
 
     public function detalle(RequisicionProducto $requisicionProducto, Request $request)
     {

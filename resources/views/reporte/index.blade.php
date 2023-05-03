@@ -144,7 +144,7 @@
 
     {{-- Reporte total ingresos --}}
     <div class="modal fade" id="modalTotalIngresos" style="display: none;" aria-hidden="true">
-        <form method="POST" class="form-horizontal" action="">
+        <form method="POST" class="form-horizontal" action="" target="_blank">
             @csrf
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -174,7 +174,7 @@
 
     {{-- Reporte total salidas --}}
     <div class="modal fade" id="modalTotalSalidas" style="display: none;" aria-hidden="true">
-        <form method="POST" class="form-horizontal" action="">
+        <form method="POST" class="form-horizontal" action="" target="_blank">
             @csrf
             <div class="modal-dialog">
                 <div class="modal-content">

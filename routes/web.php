@@ -152,6 +152,8 @@ Route::get('requisicionProducto/destroy/{requisicionProducto}', [RequisicionProd
 
 //---------------------------Detalle requisición------------------------------------------------------
 Route::get('requisicionProducto/detalle/{requisicionProducto}', [DetalleRequisicionController::class, 'index'])->name('requisicionProducto.detalle');
+Route::get('datosDetalleProducto', [DetalleRequisicionController::class, 'datosDetalleProducto'])->name('requisicionProducto.datos');
+
 Route::get('requisicionProducto/detalleRevision/{requisicionProducto}', [DetalleRequisicionController::class, 'detalle'])->name('requisicionProducto.detalleRevision');
 Route::post('requisicionProducto/detalle/{requisicionProducto}/{producto}', [DetalleRequisicionController::class, 'store'])->name('detalleRequisicion.store');
 Route::put('requisicionProducto/detalle/{requisicionProducto}/{detalleRequisicion}', [DetalleRequisicionController::class, 'update'])->name('detalleRequisicion.update');
@@ -196,6 +198,7 @@ Route::controller(DetalleCompraController::class)->group(function () {
 //---------------------------Inventario------------------------------------------------------
 
 Route::get('inventario', [InventarioController::class,'index'])->name('inventario.index')->middleware('can:Ver inventario');
+Route::get('inventarioDatos', [InventarioController::class, 'datosInventario'])->name('inventario.datos')->middleware('can:Ver inventario');
 
 
 

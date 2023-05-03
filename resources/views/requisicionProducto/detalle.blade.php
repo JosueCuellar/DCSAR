@@ -27,7 +27,6 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Rubro</th>
-                                    {{-- <th scope="col">Producto</th> --}}
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Imagen</th>
                                     <th scope="col">Medida</th>
@@ -37,14 +36,11 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($productos as $item)
+                                {{-- @foreach ($productos as $item)
                                     <tr>
                                         <td>{{ $item->rubro }}</td>
-                                        {{-- <td>{{ $item->codProducto }}</td> --}}
                                         <td>{{ $item->descripcion }}</td>
                                         <td>
-                                            {{-- <img src="/imagen/{{ $item->imagen }}" class="img-fluid mb-2"
-                                            style="width:100%;max-width:300px"> --}}
                                             <div class="filter-container row">
                                                 <div class="filtr-item col-sm-2">
                                                     <a href="/imagen/{{ $item->imagen }}" data-toggle="lightbox">
@@ -73,7 +69,7 @@
 
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -320,25 +316,6 @@
 
     <script>
         $(document).ready(function() {
-            $('#dataTable13').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                },
-
-                "autoWidth": false,
-                "responsive": true,
-                "columnDefs": [{
-                        "responsivePriority": 10003,
-                        "targets": 2
-                    },
-                    {
-                        "responsivePriority": 10002,
-                        'targets': 3
-                    }
-                ]
-
-            });
-
             $('#dataTable14').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -359,7 +336,79 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            var requisicionProductoId = "{{ $requisicionProducto->id }}";
+            $('#dataTable13').DataTable({
+                // processing: true, 
+                serverSide: true,
+                ajax: '{{ route('requisicionProducto.datos') }}',
+                columns: [{
+                        data: 'rubro',
+                        name: 'rubro'
+                    },
+                    {
+                        data: 'descripcion',
+                        name: 'descripcion'
+                    },
+                    {
+                        data: 'imagen',
+                        name: 'imagen',
+                        render: function(data, type, row) {
+                            return '<div class="filter-container row">' +
+                                '<div class="filtr-item col-sm-2">' +
+                                '<a href="/imagen/' + data + '" data-toggle="lightbox">' +
+                                '<img src="/imagen/' + data +
+                                '" class="img-fluid" style="width:40px;max-width:100px">' +
+                                '</a>' +
+                                '</div>' +
+                                '</div>';
+                        }
 
+                    },
+                    {
+                        data: 'nombreMedida',
+                        name: 'nombreMedida'
+                    },
+                    {
+                        data: null,
+                        name: 'total',
+                        render: function(data, type, row) {
+                            return Number(row.stock) - Number(row.stock1);
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function(data, type, row) {
+                            if (row.stock - row.stock1 > 0) {
+                                return '<button type="submit" data-toggle="modal" data-target="#exampleModalCenter" data-requi="' +
+                                requisicionProductoId + '" data-producto="' + row.id +
+                                    '" class="btn btn-sm btn-success">Agregar</button>';
+                            } else {
+                                return '<button type="submit" data-toggle="modal" data-target="#exampleModalCenter" data-requi="' +
+                                requisicionProductoId + '" data-producto="' + row.id +
+                                    '" class="btn btn-sm btn-success" disabled>Agregar</button>';
+                            }
+                        }
+                    }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                autoWidth: false,
+                responsive: true,
+                columnDefs: [{
+                        "responsivePriority": 10003,
+                        "targets": 2
+                    },
+                    {
+                        "responsivePriority": 10002,
+                        'targets': 3
+                    }
+                ]
+            });
+        });
+    </script>
 
 @endsection
 
