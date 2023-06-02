@@ -49,10 +49,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -90,12 +88,17 @@
                 </form>
             </div>
         </div>
-
     </div>
 @endsection
-
 @section('js_datatable')
-
+<script>
+	document.getElementById('cantidadProducto').addEventListener('input', function(e) {
+			if (e.target.value.includes('.')) {
+					e.target.value = e.target.value.replace('.', '');
+			}
+			e.target.value = e.target.value.replace(/\./g, '');
+	});
+</script>
     <script>
         $('#exampleModalCenter').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
@@ -105,7 +108,6 @@
                 bodega);
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('#dataTable25').DataTable({
@@ -125,12 +127,23 @@
                 ]
             });
         });
+
+        // Save the search value in localStorage
+        $('#dataTable25').on('search.dt', function() {
+            localStorage.setItem('searchBodega', $('.dataTables_filter input').val());
+        });
+
+        // Get the search value from localStorage and set it as the search value
+        $(document).ready(function() {
+            var search = localStorage.getItem('searchBodega');
+            if (search) {
+                $('.dataTables_filter input').val(search);
+                $('#dataTable25').DataTable().search(search).draw();
+            }
+        });
     </script>
-
 @endsection
-
 @section('js')
-
     @if (session('msg'))
         <script>
             $(document).Toasts('create', {
@@ -145,8 +158,6 @@
             })
         </script>
     @endif
-
-
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
@@ -161,7 +172,6 @@
             })
         </script>
     @endif
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -176,5 +186,4 @@
             })
         </script>
     @endif
-
 @endsection

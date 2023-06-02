@@ -15,7 +15,6 @@
                         </div>
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
-
                                 {{-- Enviadas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
@@ -31,37 +30,33 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($requisicionRecibidas as $item)
-                                                    <td scope="row">{{ $item->fechaRequisicion }}</td>
-                                                    <td scope="row">{{ $item->nCorrelativo }}</td>
-                                                    <td><span
-                                                            class="badge text-white" style="background-color: orange">{{ $item->estado->nombreEstado }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
-                                                            <ion-icon name="eye-outline" class="fa-lg text-success">
-                                                            </ion-icon>
-                                                        </a>
-
-                                                        {{-- <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                <td scope="row">{{ $item->fechaRequisicion }}</td>
+                                                <td scope="row">{{ $item->nCorrelativo }}</td>
+                                                <td><span class="badge text-white"
+                                                        style="background-color: orange">{{ $item->estado->nombreEstado }}</span>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
+                                                        <ion-icon name="eye-outline" class="fa-lg text-success">
+                                                        </ion-icon>
+                                                    </a>
+                                                    {{-- <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                             data-toggle="modal" data-target="#deleteModal"
                                                             data-categoriaid="{{ $item->id }}">
                                                             <ion-icon name="trash-outline" class="fa-lg text-danger">
                                                             </ion-icon>
                                                         </a> --}}
-                                                    </td>
+                                                </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -91,19 +86,16 @@
     </div>
 @endsection
 @section('js_datatable')
-
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var categoria_id = button.data('categoriaid')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/requisicionProducto/destroy/') }}' + '/' +
                 categoria_id);
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
@@ -112,7 +104,6 @@
                     api: true
                 }).columns.adjust();
             });
-            
             $('#dataTable11').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -129,9 +120,6 @@
                     }
                 ]
             });
-
         });
     </script>
-
 @endsection
-

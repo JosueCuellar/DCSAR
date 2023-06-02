@@ -2,10 +2,26 @@
 @section('title', 'Detalle requisición')
 @section('header')
     <div class="col-md-12">
-        <h2 class="text-center">Revisión de solicitud</h2>
+        <div class="card-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="text-center">Revisión de solicitud</h2>
+                <div class="pull-right">
+                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
+                        data-toggle="tooltip" data-placement="left" title
+                        data-original-title="Regresar a lista de marcas">Regresar</a>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('content')
+    <style>
+        .row {
+            font-size: 16px;
+            line-height: 1.2;
+            padding: 4px;
+        }
+    </style>
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -13,10 +29,12 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">Numero Correlativo:
-                                    <label>{{ $requisicionProducto->nCorrelativo }}</label>
-                                </div>
-                            </div><br>
+                                @if (!empty($requisicionProducto->nCorrelativo))
+                                    <div class="col-6">Numero Correlativo:
+                                        <label>{{ $requisicionProducto->nCorrelativo }}</label>
+                                    </div>
+                                @endif
+                            </div>
                             <div class="row">
                                 <div class="col-6">Unidad Organizativa: <label>Unidad de Logistica</label>
                                 </div>
@@ -24,14 +42,13 @@
                                     <label>{{ $requisicionProducto->fechaRequisicion }}</label>
                                 </div>
                             </div>
-                            <br>
                             <div class="row">
                                 <div class="col-6">Descripcion: <label>{{ $requisicionProducto->descripcion }}</label>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -46,7 +63,6 @@
                                             <th scope="col">Descripcion</th>
                                             <th scope="col">Precio Unit</th>
                                             <th scope="col">Subtotal</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -78,25 +94,24 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h5>Observaciones</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label>{{ $requisicionProducto->observacion }}</label>
-                                </div>
+                    @if (!empty($requisicionProducto->observacion))
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5>Observaciones</h6>
                             </div>
-                            <br>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label>{{ $requisicionProducto->observacion }}</label>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
                         </div>
-                    </div>
+                    @endif
+
                 </div>
-
             </div>
-
-
         </div>
     </div>
 @endsection
@@ -124,5 +139,4 @@
             });
         });
     </script>
-
 @endsection

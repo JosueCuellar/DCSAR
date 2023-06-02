@@ -1,33 +1,25 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PDF</title>
 </head>
-
 <body style="font-family:'Calibri',sans-serif;">
     <header name="page-header">
         <!-- Header del PDF -->
         <img src="{{ asset('fondo/logonew.png') }}" style="max-width: 105px;float: left;">
-
         <div style="max-width:110px;float: right;">
             <img src="{{ asset('fondo/logopdf.png') }}" style="max-width: 58px;">
-
         </div>
-       
-        <p style="margin:2px;text-align:center;"><strong><span
-            style="font-size:20px;">UNIDAD ALMACEN<br>&nbsp;</strong><strong><span
-            style="font-size:15px; opacity: 70%">COMPROBANTE DE SALIDA DE BIENES O SUMINISTROS</strong></p>
-
+        <p style="margin:2px;text-align:center;"><strong><span style="font-size:20px;">UNIDAD
+                    ALMACEN<br>&nbsp;</strong><strong><span style="font-size:15px; opacity: 70%">COMPROBANTE DE SALIDA
+                    DE BIENES O SUMINISTROS</strong></p>
     </header>
     <br>
     <!----------------------------------- Requisicion de producto --------------------------------------------------------------------->
-
     <section>
         <!----------------------------------- Header de la requisicion --------------------------------------------------------------------->
-
         <table style="border: none;width:463.25pt;border-collapse:collapse;">
             <tbody>
                 <tr>
@@ -84,16 +76,12 @@
                 </tr>
             </tbody>
         </table>
-
-        <p
-            style="margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;">
+        <p style="margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;">
             <span style="font-size:12px;line-height:107%;">&nbsp;</span>
         </p>
         <!----------------------------------- Header de la tabla de los detalles --------------------------------------------------------------------->
-
         <table style="border-collapse:collapse;border:none;">
             <tbody>
-
                 <thead>
                     <tr>
                         <td
@@ -148,7 +136,6 @@
                         </td>
                     </tr>
                 </thead>
-
             <tbody>
                 @php
                     $n = 0;
@@ -184,7 +171,6 @@
                                     style="font-size:12px;color:black;">{{ $item->producto->medida->nombreMedida }}</span>
                             </p>
                         </td>
-
                         <td
                             style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
@@ -199,8 +185,6 @@
                                 <span style="font-size:12px;color:black;">${{ $item->producto->costoPromedio }}</span>
                             </p>
                         </td>
-
-
                         <td
                             style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
@@ -208,18 +192,10 @@
                                 <span style="font-size:12px;color:black;">${{ $item->total }}</span>
                             </p>
                         </td>
-
                     </tr>
                 @endforeach
-
-
-
             </tbody>
-
-
             <tfoot>
-
-
                 <tr>
                     <td colspan="6"
                         style="border-width: 1pt 1pt 1.5pt;border-style: solid;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
@@ -239,14 +215,11 @@
                 </tr>
             </tfoot>
         </table><br>
-
     </section>
     {{-- <section>
         <!----------------------------------- Descripcion y Obervaciones --------------------------------------------------------------------->
-
         <table style="width:463.5pt;border-collapse:collapse;border:none;">
             <tbody>
-
                 <tr>
                     <td
                         style="width: 463.5pt;border: 1pt solid windowtext;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
@@ -287,15 +260,9 @@
                 </tr>
             </tbody>
         </table>
-
-
-
     </section> --}}
-
-
     <!----------------------------------- Firma --------------------------------------------------------------------->
     <div id="footer">
-
         <table style="width:463.5pt;border-collapse:collapse;border:none;">
             <tbody>
                 <tr>
@@ -368,5 +335,4 @@
         </table>
     </div>
 </body>
-
 </html>

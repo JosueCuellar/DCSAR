@@ -27,7 +27,6 @@
                         </div>
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
-
                                 {{-- Completas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
@@ -36,8 +35,8 @@
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th scope="col">Fecha realización</th>
-                                                <th scope="col">Número de orden de compra</th>
-                                                <th scope="col">Número presupuestario</th>
+                                                <th scope="col">N orden de compra</th>
+                                                <th scope="col">N presupuestario</th>
                                                 <th scope="col">Código factura</th>
                                                 <th scope="col">Proveedor</th>
                                                 <th scope="col">Opciones</th>
@@ -50,38 +49,32 @@
                                                 <td>{{ $item->nPresupuestario }}</td>
                                                 <td>{{ $item->codigoFactura }}</td>
                                                 <td>{{ $item->proveedor->nombreComercial }}</td>
-
                                                 <td>
-                                                    <a href="{{ route('recepcionCompra.revisar', $item->id) }}">
-                                                        <ion-icon name="eye-outline" class="fa-lg text-success">
-                                                        </ion-icon>
-                                                    </a>
-
-                                                    <a href="{{ route('recepcionCompra.detalle', $item->id) }}">
-                                                        <ion-icon name="create-outline" class="fa-lg text-primary">
-                                                        </ion-icon>
-                                                    </a>
-
-                                                    <a href="{{ route('recepcionCompra.destroy', $item) }}"
-                                                        data-toggle="modal" data-target="#deleteModal"
-                                                        data-delete="{{ $item->id }}">
-                                                        <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                        </ion-icon>
-                                                    </a>
-                                                </td>
+																									<a href="{{ route('recepcionCompra.revisar', $item->id) }}" class="btn btn-sm btn-dark">
+																										<i class="fas fa-eye"></i> Ver detalles
+																									</a>
+																									<a href="{{ route('recepcionCompra.edit', $item->id) }}" class="btn btn-sm btn-success">
+																										<i class="fas fa-clipboard"></i> Editar Recepcion
+																									</a>
+																									<a href="{{ route('recepcionCompra.detalle', $item->id) }}" class="btn btn-sm btn-primary">
+																										<i class="fas fa-edit"></i> Editar Detalles
+																									</a>
+																									<a href="{{ route('recepcionCompra.destroy', $item) }}" data-toggle="modal" data-target="#deleteModal" data-delete="{{ $item->id }}" class="btn btn-sm btn-danger">
+																										<i class="fas fa-trash"></i> Eliminar
+																									</a>
+																								</td>
+																								
+																								
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -110,9 +103,7 @@
         </div>
     </div>
 @endsection
-
 @section('js_datatable')
-
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
@@ -122,7 +113,6 @@
                 delete_id);
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
@@ -131,7 +121,6 @@
                     api: true
                 }).columns.adjust();
             });
-
             $('#dataTable11').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -148,7 +137,6 @@
                     }
                 ]
             });
-
             $('#dataTable12').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -173,12 +161,9 @@
                     }
                 ]
             });
-
         });
     </script>
-
 @endsection
-
 @section('js')
     @if (session('status'))
         <script>
@@ -194,7 +179,6 @@
             })
         </script>
     @endif
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -209,7 +193,6 @@
             })
         </script>
     @endif
-
     @if (session('error'))
         <script>
             $(document).Toasts('create', {

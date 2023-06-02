@@ -50,7 +50,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -74,8 +73,8 @@
                                             <label for="cantidad" class="col-12 control-label">Cantidad de
                                                 productos:</label>
                                             <div class="col-12">
-                                                <input id="cantidadProducto" type="number" min="1" class="form-control"
-                                                    name="cantidadProducto" value="">
+                                                <input id="cantidadProducto" type="number" min="1"
+                                                    class="form-control" name="cantidadProducto" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -91,10 +90,7 @@
             </div>
         </div>
     </div>
-
-
 @section('js')
-
     @if (session('msg'))
         <script>
             $(document).Toasts('create', {
@@ -109,8 +105,6 @@
             })
         </script>
     @endif
-
-
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
@@ -125,7 +119,6 @@
             })
         </script>
     @endif
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -140,11 +133,8 @@
             })
         </script>
     @endif
-
 @endsection
-
 @section('js_datatable')
-
     <script>
         $('#exampleModalCenter').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
@@ -154,7 +144,6 @@
                 bodega);
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('#dataTable25').DataTable({
@@ -175,6 +164,5 @@
             });
         });
     </script>
-
 @endsection
 @endsection

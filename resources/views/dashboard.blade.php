@@ -13,11 +13,8 @@
                             <span class="info-box-text">Enviadas</span>
                             <span class="info-box-number">{{ $nEnviadas }}</span>
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box shadow">
                         <span class="info-box-icon text-white" style="background-color: #3e8e41">
@@ -27,11 +24,8 @@
                             <span class="info-box-text">Aprobadas</span>
                             <span class="info-box-number">{{ $nAprobadas }}</span>
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box shadow">
                         <span class="info-box-icon text-white" style="background-color: #e63946">
@@ -41,11 +35,8 @@
                             <span class="info-box-text">Rechazadas</span>
                             <span class="info-box-number">{{ $nRechazadas }}</span>
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box shadow">
                         <span class="info-box-icon text-white" style="background-color: #dd8b26">
@@ -55,15 +46,13 @@
                             <span class="info-box-text">Recibidas</span>
                             <span class="info-box-number">{{ $nRecibidas }}</span>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
-                @role('Super Administrador|Gerente Unidad Organizativa|Tecnico Encargado Almacen|Solicitante Unidad Organizativa|Gerente Encargado Almacen')
+                @role('Super Administrador|Gerente Unidad Organizativa|Tecnico Encargado Almacen|Solicitante Unidad
+                    Organizativa|Gerente Encargado Almacen')
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #003f5c">
                             <div class="inner">
@@ -79,9 +68,7 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-6">
-
                         <div class="text-white small-box" style="background-color: #3e8e41">
                             <div class="inner">
                                 <h5>Estado requisiciones</h5>
@@ -96,7 +83,6 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #e63946 ">
                             <div class="inner">
@@ -112,7 +98,6 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #dd8b26 ">
                             <div class="inner">
@@ -129,7 +114,6 @@
                         </div>
                     </div>
                 @endrole
-
                 @role('Super Administrador|Gerente Encargado Almacen|Tecnico Encargado Almacen')
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #003f5c">
@@ -146,9 +130,7 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-6">
-
                         <div class="text-white small-box" style="background-color: #3e8e41">
                             <div class="inner">
                                 <h5>Producto nuevo</h5>
@@ -163,7 +145,6 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #e63946 ">
                             <div class="inner">
@@ -179,7 +160,6 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #dd8b26  ">
                             <div class="inner">
@@ -196,7 +176,6 @@
                         </div>
                     </div>
                 @endrole
-
             </div>
             {{-- 
             <h5 class="text-bold">Proceso de requisiciones</h5>
@@ -213,13 +192,9 @@
                         </ul>
                     </div>
                 </div>
-
             </div> --}}
-
         </div>
     </div>
-
-
     {{-- @if ($existe)
         @section('js_datatable')
             <script>
@@ -233,5 +208,4 @@
             </script>
         @endsection
     @endif --}}
-
 @endsection

@@ -16,7 +16,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Editando usuario:
                             <div class="pull-right">
-                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
+                                <a href="{{ route('usuario.index') }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title
                                     data-original-title="Regresar a lista de usuarios">Regresar</a>
                             </div>

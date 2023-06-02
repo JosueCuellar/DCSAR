@@ -12,7 +12,6 @@
         </form>
     </div>
 @endsection
-
 @section('content')
     <div class="card mb-3">
         <div class="card-body">
@@ -40,7 +39,6 @@
                                 <td>{{ $item->fax }}</td>
                                 <td>{{ $item->telefonoProveedor1 }}</td>
                                 <td>{{ $item->telefonoProveedor2 }}</td>
-
                                 <td>
                                     <a href="{{ route('proveedor.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
@@ -84,14 +82,11 @@
         <div class="card-footer small text-muted"></div>
     </div>
 @endsection
-
 @section('js_datatable')
-
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var proveedor_id = button.data('delete')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', 'proveedor/destroy/' + proveedor_id);
@@ -113,9 +108,7 @@
         });
     </script>
 @endsection
-
 @section('js')
-
     @if (session('msg'))
         <script>
             $(document).Toasts('create', {
@@ -130,8 +123,6 @@
             })
         </script>
     @endif
-
-
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
@@ -146,7 +137,6 @@
             })
         </script>
     @endif
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -161,7 +151,6 @@
             })
         </script>
     @endif
-
     @if (session('error'))
         <script>
             $(document).Toasts('create', {
@@ -176,5 +165,4 @@
             })
         </script>
     @endif
-
 @endsection

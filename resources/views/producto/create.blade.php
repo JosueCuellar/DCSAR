@@ -16,7 +16,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Creando producto:
                             <div class="pull-right">
-                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
+                                <a href="{{ route('producto.index') }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title
                                     data-original-title="Regresar a lista de productos">Regresar</a>
                             </div>
@@ -35,15 +35,14 @@
                                                 <option selected='true' disabled='disabled'>Seleccionar rubro del producto
                                                 </option>
                                                 @foreach ($rubros as $item)
-                                                    <option value="{{ $item->id }}">
+                                                    <option value="{{ $item->id }}"
+                                                        data-codigo="{{ $item->codigoPresupuestario }}">
                                                         {{ $item->codigoPresupuestario . ' ' . $item->descripRubro }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-
-
                                     <div class="form-group has-feedback row">
                                         <label for="medida_id" class="col-12 control-label">Unidad de Medida:</label>
                                         <div class="col-12">
@@ -56,8 +55,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-
                                     <div class="form-group has-feedback row">
                                         <label for="marca_id" class="col-12 control-label">Marca:</label>
                                         <div class="col-12">
@@ -69,57 +66,48 @@
                                             </select>
                                         </div>
                                     </div>
-
-
                                     <div class="form-group has-feedback row">
                                         <label for="descripcion" class="col-12 control-label">Descripción del
                                             producto:</label>
                                         <div class="col-12">
                                             <input id="descripcion" type="text" class="form-control" name="descripcion"
-                                                placeholder="Descripción">
+                                                placeholder="Descripción" value="{{ old('descripcion') }}">
                                         </div>
                                     </div>
-
                                     <div class="form-group has-feedback row">
                                         <label for="observacion" class="col-12 control-label">Observacion:</label>
                                         <div class="col-12">
                                             <input id="observacion" type="text" class="form-control" name="observacion"
-                                                placeholder="Observacion">
+                                                placeholder="Observacion" value="{{ old('observacion') }}">
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
-
-
                                 <div class="col-sm-6">
-
                                     <div class="form-group has-feedback row">
                                         <label for="codProducto" class="col-12 control-label">Codigo producto:</label>
-                                        <div class="col-12">
-                                            <input id="codProducto" type="text" class="form-control" name="codProducto"
-                                                placeholder="Codigo producto" readonly>
+                                        <div class="row">
+                                            <div class="col-3"> <input id="codProductoPrefijo" type="text"
+                                                    class="form-control" name="codProductoPrefijo" readonly>
+                                            </div>
+                                            <div class="col-9"> <input id="codProducto" type="number" class="form-control"
+                                                    name="codProducto" placeholder="Numero del producto" required
+                                                    min="1" max="9999"></div>
+                                            <input id="codProductoCon" type="text" class="form-control"
+                                                name="codProductoCon" hidden>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label for="codProducto" class="col-12 control-label">Tipo de alimento:</label>
+                                        <label for="codProducto" class="col-12 control-label">Marca si el alimento es
+                                            perecedero:</label>
                                         <div class="col-12 form-control">
-                                            <div
-                                                class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                <input type="hidden" name="perecedero" value="0">
-                                                <input type="checkbox" class="custom-control-input" id="check"
+                                            <input type="hidden" name="perecedero" value="0">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="check"
                                                     name="perecedero" value="1">
-                                                <label class="custom-control-label" for="check">Perecedero</label>
+                                                <label class="form-check-label" for="check">Perecedero</label>
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
                                     <div class="form-group has-feedback row">
                                         <label for="imagen" class="col-12 control-label">Seleccionar imagen</label>
                                         <div class="col-12">
@@ -127,13 +115,10 @@
                                                 accept="image/png, image/jpg, image/jpeg">
                                         </div>
                                     </div>
-
                                     <div class="form-group has-feedback row">
                                         <img id="imagenSeleccionada" style="max-height: 150px;max-width: 150px;">
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="card-footer">
@@ -154,27 +139,34 @@
         </div>
     </div>
 @endsection
-
 @section('js_imagen')
-
-
     <script>
         const select = document.getElementById('rubro_id');
-        const input = document.getElementById('codProducto');
-        var datos = {!! json_encode($rubros) !!};
-
-        var datosProductos = {!! json_encode($productos) !!};
+        const input = document.getElementById('codProductoPrefijo');
+        document.getElementById("codProductoCon").value = codProductoCon;
         $('#rubro_id').on('change', function(e) {
-            var num = 0;
-            datosProductos.forEach(element => {
-                if (element.rubro_id == select.value) {
-                    num = num + 1;
-                }
-            });
-            input.value = datos[select.value - 1].codigoPresupuestario + '-' + (num + 1);
+            // Obtener el elemento option seleccionado
+            let selectedOption = select.options[select.selectedIndex];
+            // Obtener el valor del atributo data-codigo
+            let codigo = selectedOption.getAttribute('data-codigo');
+            // Asignar el valor al elemento input
+            input.value = codigo;
+        });
+        document.querySelector('button[name="action"]').addEventListener('click', function() {
+            var codProductoPrefijo = document.getElementById("codProductoPrefijo").value;
+            var codProducto = document.getElementById("codProducto").value;
+            var concatenatedValue = codProductoPrefijo + '-' + codProducto;
+            document.getElementById("codProductoCon").value = concatenatedValue;
         });
     </script>
-
+    <script>
+        document.getElementById('codProducto').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', '');
+            }
+            e.target.value = e.target.value.replace(/\./g, '');
+        });
+    </script>
     <script>
         $(document).ready(function(e) {
             $('#rubro_id').select2({
@@ -191,7 +183,6 @@
         });
         $("#rubro_id").select2()
     </script>
-
     <script>
         $(document).ready(function(e) {
             $('#marca_id').select2({
@@ -208,7 +199,6 @@
         });
         $("#marca_id").select2()
     </script>
-
     <script>
         $(document).ready(function(e) {
             $('#medida_id').select2({
@@ -225,7 +215,6 @@
         });
         $("#medida_id").select2()
     </script>
-
     <script>
         $(document).ready(function(e) {
             $('#imagen').change(function() {
@@ -237,20 +226,4 @@
             });
         });
     </script>
-
-    {{-- <script>
-        $("#perecedero").on('change', function() {
-            if ($(this).is(':checked')) {
-                $(this).attr('value', '1');
-                var check = $(this).val();
-                console.log(check);
-            } else {
-                $(this).attr('value', '0');
-                var check = $(this).val();
-                console.log(check);
-            }
-        });
-    </script> --}}
-
 @endsection
-

@@ -31,12 +31,10 @@
                                         <h6>Denegadas <span class="badge badge-danger">{{ $nRechazadas }}</span></h6>
                                     </a>
                                 </li>
-
                             </ul>
                         </div>
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
-
                                 {{-- Enviadas --}}
                                 <div class="tab-pane fade active show" id="enviadas" role="tabpanel"
                                     aria-labelledby="enviadas-tab">
@@ -62,7 +60,6 @@
                                                         <ion-icon name="create-outline" class="fa-lg text-primary">
                                                         </ion-icon>
                                                     </a>
-
                                                     <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                         data-toggle="modal" data-target="#deleteModal"
                                                         data-categoriaid="{{ $item->id }}">
@@ -75,7 +72,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                                 {{-- Aceptadas --}}
                                 <div class="tab-pane fade" id="aceptadas" role="tabpanel" aria-labelledby="aceptadas-tab">
                                     <div class="table-responsive">
@@ -98,7 +94,6 @@
                                                         <td>{{ $item->fechaRequisicion }}</td>
                                                         <td>{{ $item->descripcion }}</td>
                                                         <td>{{ $item->observacion }}</td>
-
                                                         <td><span
                                                                 class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
                                                         </td>
@@ -114,14 +109,12 @@
                                                                     class="fa-lg text-secondary"></ion-icon>
                                                             </a>
                                                         </td>
-
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-
                                 {{-- Denegadas --}}
                                 <div class="tab-pane fade" id="denegadas" role="tabpanel" aria-labelledby="denegadas-tab">
                                     <div class="table-responsive">
@@ -142,7 +135,6 @@
                                                         <td scope="row">{{ $item->fechaRequisicion }}</td>
                                                         <td>{{ $item->descripcion }}</td>
                                                         <td>{{ $item->observacion }}</td>
-
                                                         <td><span
                                                                 class="badge badge-danger">{{ $item->estado->nombreEstado }}</span>
                                                         </td>
@@ -158,7 +150,6 @@
                                                                 <ion-icon name="trash-outline" class="fa-lg text-danger">
                                                                 </ion-icon>
                                                             </a>
-
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -166,14 +157,11 @@
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -203,19 +191,16 @@
     </div>
 @endsection
 @section('js_datatable')
-
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var categoria_id = button.data('categoriaid')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/requisicionProducto/destroy/') }}' + '/' +
                 categoria_id);
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
@@ -224,7 +209,6 @@
                     api: true
                 }).columns.adjust();
             });
-
             $('#dataTable11').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -241,7 +225,6 @@
                     }
                 ]
             });
-
             $('#dataTable12').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -266,7 +249,6 @@
                     }
                 ]
             });
-
             $('#dataTable13').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -289,5 +271,4 @@
             });
         });
     </script>
-
 @endsection

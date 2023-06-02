@@ -16,8 +16,9 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Editando proveedor:
                             <div class="pull-right">
-                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
-                                    data-toggle="tooltip" data-placement="left" title
+                                <a href="{{ route('proveedor.index') }}"
+                                    class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
+                                    data-placement="left" title
                                     data-original-title="Regresar a lista de categorias">Regresar</a>
                             </div>
                         </div>
@@ -37,16 +38,14 @@
                                                 placeholder="Nombre comercial del proveedor">
                                         </div>
                                     </div>
-
                                     <div class="form-group has-feedback row">
                                         <label for="direccionProveedor" class="col-12 control-label">Dirección:</label>
                                         <div class="col-12">
-                                            <input id="direccionProveedor" type="text" class="form-control" name="direccionProveedor"
-                                                value="{{ $proveedor->direccionProveedor }}" placeholder="Dirección del proveedor">
+                                            <input id="direccionProveedor" type="text" class="form-control"
+                                                name="direccionProveedor" value="{{ $proveedor->direccionProveedor }}"
+                                                placeholder="Dirección del proveedor">
                                         </div>
                                     </div>
-
-
                                     <div class="form-group has-feedback row">
                                         <label for="telefonoProveedor1" class="col-12 control-label">Teléfono:</label>
                                         <div class="col-12">
@@ -56,15 +55,13 @@
                                                 </div>
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
-                                                    data-mask="" inputmode="text" id="telefonoProveedor1" name="telefonoProveedor1"
-                                                    value="{{ $proveedor->telefonoProveedor1 }}"
+                                                    data-mask="" inputmode="text" id="telefonoProveedor1"
+                                                    name="telefonoProveedor1" value="{{ $proveedor->telefonoProveedor1 }}"
                                                     placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback row">
                                         <label for="razonSocial" class="col-12 control-label">Razón social:</label>
@@ -74,18 +71,16 @@
                                                 placeholder="Razón social del proveedor">
                                         </div>
                                     </div>
-
                                     <div class="form-group has-feedback row">
                                         <label for="fax" class="col-12 control-label">FAX:</label>
                                         <div class="col-12">
-                                            <input id="fax" type="text" maxlength="10" class="form-control"
-                                                name="fax" value="{{ $proveedor->fax }}"
-                                                placeholder="FAX del proveedor">
+                                            <input id="fax" type="number" class="form-control" name="fax"
+                                                value="{{ $proveedor->fax }}" placeholder="FAX del proveedor">
                                         </div>
                                     </div>
-
                                     <div class="form-group has-feedback row">
-                                        <label for="telefonoProveedor2" class="col-12 control-label">Teléfono Opcional:</label>
+                                        <label for="telefonoProveedor2" class="col-12 control-label">Teléfono
+                                            Opcional:</label>
                                         <div class="col-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -93,8 +88,8 @@
                                                 </div>
                                                 <input type="text" class="form-control"
                                                     data-inputmask="&quot;mask&quot;: &quot;(999) 9999-9999&quot;"
-                                                    data-mask="" inputmode="text" id="telefonoProveedor2" name="telefonoProveedor2"
-                                                    value="{{ $proveedor->telefonoProveedor2 }}"
+                                                    data-mask="" inputmode="text" id="telefonoProveedor2"
+                                                    name="telefonoProveedor2" value="{{ $proveedor->telefonoProveedor2 }}"
                                                     placeholder="Teléfono del proveedor">
                                             </div>
                                         </div>
@@ -102,7 +97,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-12">
@@ -123,10 +117,15 @@
 @endsection
 @section('js')
     <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
-
     <script>
-        $(function() { //Money Euro
-            $('[data-mask]').inputmask();
-        })
+        document.getElementById('fax').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', '');
+            }
+            e.target.value = e.target.value.replace(/\./g, '');
+        });
+    </script>
+    <script>
+        Inputmask().mask(document.querySelectorAll('[data-inputmask]'));
     </script>
 @endsection

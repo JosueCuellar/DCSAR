@@ -23,9 +23,9 @@ class DetalleCompra extends Model
     {
         return $this->belongsTo(Producto::class);
     }
-    public function lote()
-    {
-        return $this->hasOne(Lote::class);
-    }
+    // public function lote()
+    // {
+    //     return $this->hasOne(Lote::class);
+    // }
 
 }

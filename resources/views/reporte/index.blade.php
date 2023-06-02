@@ -10,7 +10,6 @@
         <div class="container-fluid">
             <h5 class="font-italic">Reportes Cierre Mensuales</h5>
             <div class="row p-2">
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -23,7 +22,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -36,7 +34,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -50,10 +47,8 @@
                     </div>
                 </div>
             </div>
-
             <h5 class="font-italic">Reportes Generales</h5>
             <div class="row p-2">
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -66,7 +61,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -79,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -93,10 +86,8 @@
                     </div>
                 </div>
             </div>
-
             <h5 class="font-italic">Reportes Generales</h5>
             <div class="row p-2">
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -109,7 +100,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -122,7 +112,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-6">
                     <div class="card text-center shadow">
                         <div class="card-header">
@@ -136,12 +125,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-
     {{-- Reporte total ingresos --}}
     <div class="modal fade" id="modalTotalIngresos" style="display: none;" aria-hidden="true">
         <form method="POST" class="form-horizontal" action="" target="_blank">
@@ -167,11 +152,9 @@
                         <a class="btn btn-warning" onclick="$(this).closest('form').submit();">Generar reporte</a>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
-
     {{-- Reporte total salidas --}}
     <div class="modal fade" id="modalTotalSalidas" style="display: none;" aria-hidden="true">
         <form method="POST" class="form-horizontal" action="" target="_blank">
@@ -197,29 +180,21 @@
                         <a class="btn btn-warning" onclick="$(this).closest('form').submit();">Generar reporte</a>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
-
 @endsection
 @section('js_datatable')
-
-
     <script>
         $('#modalTotalIngresos').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var modal = $(this)
             modal.find('form').attr('action', '{{ asset('/reporte/totalIngresoMesPost/') }}');
         })
-
         $('#modalTotalSalidas').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var modal = $(this)
             modal.find('form').attr('action', '{{ asset('/reporte/totalSalidaMesPost/') }}');
         })
     </script>
-
-
-
 @endsection

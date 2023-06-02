@@ -28,7 +28,8 @@
                                             <tr>
                                                 <td scope="row">{{ $item->fechaRequisicion }}</td>
                                                 <td>{{ $item->descripcion }}</td>
-                                                <td><span class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
+                                                <td><span
+                                                        class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="margin">
@@ -38,21 +39,18 @@
                                                                 type="button" id="myButton"
                                                                 class="btn btn-sm btn-primary">Ver</button>
                                                         </div>
-
                                                         <div class="btn-group">
                                                             <button type="submit" data-toggle="modal"
                                                                 data-target="#modalObservacionAceptar"
                                                                 data-aceptar="{{ $item->id }}"
                                                                 class="btn btn-sm bg-success">Aceptar</button>
                                                         </div>
-
                                                         <div class="btn-group">
                                                             <button type="submit" data-toggle="modal"
                                                                 data-target="#modalObservacionDenegar"
                                                                 data-categoriaid="{{ $item->id }}"
                                                                 class="btn btn-sm bg-danger">Rechazar</button>
                                                         </div>
-
                                                     </div>
                                                 </td>
                                             </tr>
@@ -66,7 +64,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="modalObservacionAceptar" style="display: none;" aria-hidden="true">
         <form method="POST" class="form-horizontal" action="">
             @csrf
@@ -92,11 +89,9 @@
                         <a class="btn btn-success" onclick="$(this).closest('form').submit();">Guardar</a>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
-
     <div class="modal fade" id="modalObservacionDenegar" style="display: none;" aria-hidden="true">
         <form method="POST" class="form-horizontal" action="">
             @csrf
@@ -122,13 +117,11 @@
                         <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Guardar</a>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
 @endsection
 @section('js_datatable')
-
     <script>
         $(document).ready(function() {
             $('#dataTable11').DataTable({
@@ -149,31 +142,24 @@
             });
         });
     </script>
-
     <script>
         $('#modalObservacionAceptar').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var aceptar_id = button.data('aceptar')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/requisicionProducto/aceptar/') }}' + '/' +
                 aceptar_id);
         })
     </script>
-
     <script>
         $('#modalObservacionDenegar').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var categoria_id = button.data('categoriaid')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/requisicionProducto/denegar/') }}' + '/' +
                 categoria_id);
         })
     </script>
-
-
 @endsection
-

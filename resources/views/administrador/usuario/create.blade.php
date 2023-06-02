@@ -16,7 +16,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Creando usuario:
                             <div class="pull-right">
-                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
+                                <a href="{{ route('usuario.index') }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title
                                     data-original-title="Regresar a lista de categorias">Regresar</a>
                             </div>
@@ -32,7 +32,7 @@
                                         <label for="name" class="col-12 control-label">Nombre de usuario:</label>
                                         <div class="col-12">
                                             <input id="name" type="text" class="form-control" name="name"
-                                               placeholder="Nombre de usuario">
+                                                placeholder="Nombre de usuario">
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                         <label for="email" class="col-12 control-label">Email:</label>
                                         <div class="col-12">
                                             <input id="email" type="email" class="form-control" name="email"
-                                               placeholder="Email">
+                                                placeholder="Email">
                                         </div>
                                     </div>
                                 </div>
@@ -51,18 +51,18 @@
                                     <div class="form-group has-feedback row">
                                         <label for="password" class="col-12 control-label">Contraseña</label>
                                         <div class="col-12">
-                                            <input id="password" type="password" class="form-control" name="password"
-                                               >
+                                            <input id="password" type="password" class="form-control" name="password">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
-                                        <label for="password_confirmation" class="col-12 control-label">Confirmar contraseña:</label>
+                                        <label for="password_confirmation" class="col-12 control-label">Confirmar
+                                            contraseña:</label>
                                         <div class="col-12">
-                                            <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"
-                                              >
+                                            <input id="password_confirmation" type="password" class="form-control"
+                                                name="password_confirmation">
                                         </div>
                                     </div>
                                 </div>

@@ -1,53 +1,53 @@
 <?php
-
 namespace App\Http\Requests;
-
-use App\Rules\JfifNotAllowed;
 use Illuminate\Foundation\Http\FormRequest;
-
 class ProductoRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
-    {
-        return [
-
-            'codProducto'=>'required',
-            'descripcion'=>'required|max:255',
-            'perecedero'=>'required|boolean',
-            'observacion'=>'max:255',
-            'imagen' => ['required', new JfifNotAllowed],
-            'marca_id'=>'required',
-            'medida_id'=>'required',
-            'rubro_id'=>'required',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'codProducto.*'=>'Ingrese codigo de producto',
-            'descripcion.*'=>'Ingrese una descripcion, maximo 255 caracteres',
-            'observacion.*'=>'Ingrese una observacion, maximo 255 caracteres',
-            'imagen.*'=>'Ingrese una imagen (Formato: PNG, JPG, JPEG)',
-            'perecedero.*'=>'Ingrese el tipo de producto',
-            'marca_id.*'=>'Ingrese una marca',
-            'medida_id.*'=>'Ingrese una medida',
-            'rubro_id.*'=>'Ingrese un rubro',
-        ];
-    }
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @return bool
+	 */
+	public function authorize()
+	{
+		return true;
+	}
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function rules()
+	{
+		$rules = [
+			'codProductoCon' => 'required',
+			'descripcion' => 'required|max:255',
+			'perecedero' => 'required|boolean',
+			'observacion' => 'max:255',
+			'imagen' => ['mimes:png,jpg,jpeg|exclude_if:imagen,*.webp|exclude_if:imagen,*.jfif'],
+			'marca_id' => 'required',
+			'medida_id' => 'required',
+			'rubro_id' => 'required',
+		];
+		if ($this->isMethod('POST')) {
+			$rules['imagen'][] = 'required';
+		}
+		return $rules;
+	}
+	public function messages()
+	{
+		return [
+			'codProductoCon.required' => 'El código del producto es obligatorio.',
+			'descripcion.required' => 'La descripción es obligatoria.',
+			'descripcion.max' => 'La descripción no puede tener más de 255 caracteres.',
+			'perecedero.required' => 'El campo perecedero es obligatorio.',
+			'perecedero.boolean' => 'El campo perecedero debe ser verdadero o falso.',
+			'observacion.max' => 'La observación no puede tener más de 255 caracteres.',
+			'imagen.required' => 'La imagen es obligatoria.',
+			'imagen.mimes' => 'La imagen debe ser de tipo png, jpg o jpeg.',
+			'marca_id.required' => 'La marca es obligatoria.',
+			'medida_id.required' => 'La medida es obligatoria.',
+			'rubro_id.required' => 'El rubro es obligatorio.',
+		];
+	}
 }

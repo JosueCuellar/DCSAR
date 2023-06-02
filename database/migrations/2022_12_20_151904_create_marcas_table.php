@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('marcas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',255);
+            $table->string('nombre',25);
             $table->timestamps();
         });
     }

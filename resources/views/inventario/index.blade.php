@@ -29,13 +29,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 @endsection
 @section('js_datatable')
-
     <script>
         $(document).ready(function() {
             $('#dataTable25').DataTable({
@@ -83,5 +81,19 @@
             });
         });
     </script>
+    <script>
+        // Save the search value in localStorage
+        $('#dataTable25').on('search.dt', function() {
+            localStorage.setItem('search', $('.dataTables_filter input').val());
+        });
 
+        // Get the search value from localStorage and set it as the search value
+        $(document).ready(function() {
+            var search = localStorage.getItem('search');
+            if (search) {
+                $('.dataTables_filter input').val(search);
+                $('#dataTable25').DataTable().search(search).draw();
+            }
+        });
+    </script>
 @endsection

@@ -1,12 +1,10 @@
 @extends('bar.layouts.bar')
 @section('title', 'Documentos')
-
 @section('header')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
 @endsection
-
 @section('content')
     <div class="content">
         <div class="row">
@@ -32,19 +30,18 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
 @section('js_datatable')
     <script>
         Dropzone.options.myDropzone = {
             // Configuration options go here
             paramName: "file[]",
-            dictDefaultMessage: 'Agrega los documentos aquí',
+						acceptedFiles: "application/pdf",
+            dictDefaultMessage: 'Agrega los documentos aquí, solo permite documentos en formato PDF',
             maxFilesize: 4, // MB
             addRemoveLinks: true,
             dictFileTooBig: "El archivo es muy grande. Tamaño máximo: 4MiB.",
@@ -68,5 +65,4 @@
         };
         Dropzone.discover();
     </script>
-
 @endsection

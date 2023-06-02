@@ -21,16 +21,20 @@ class MarcaRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
-        return [
-            'nombre'=>'required|max:255',
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'nombre.*'=>'Ingrese un nombre, de no mas de 255 caracteres',
-        ];
-    }
+		public function rules()
+		{
+				return [
+						'nombre' => 'required|max:25|regex:/^[a-zA-Z\s]*$/',
+				];
+		}
+		
+		public function messages()
+		{
+				return [
+						'nombre.required' => 'Ingrese un nombre',
+						'nombre.max' => 'El nombre no debe tener más de 25 caracteres',
+						'nombre.regex' => 'El nombre solo debe contener letras y espacios',
+				];
+		}
+		
 }

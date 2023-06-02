@@ -1,39 +1,30 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PDF</title>
 </head>
-
 <body style="font-family:'Calibri',sans-serif;">
     <header name="page-header">
         <!-- Header del PDF -->
         <img src="{{ asset('fondo/logonew.png') }}" style="max-width: 105px;float: left;">
-
         <div style="max-width:110px;float: right;">
             <img src="{{ asset('fondo/logopdf.png') }}" style="max-width: 58px;">
-
         </div>
-
         <p style="margin:2px;text-align:center;">
             <strong><span style="font-size:20px;">UNIDAD ALMACEN<br>&nbsp;</strong>
             <strong><span style="font-size:15px; opacity: 70%">INFORME TOTAL INGRESOS</strong>
         </p>
-
         <p style="margin:2px;text-align:center;">
             <span style="font-size:17px;">MES: <strong><u> {{$mes}}  </u> </strong>
             <span style="font-size:17px;">PERIODO: <strong><u> {{$anio}} </u> </strong>
         </p>
-
     </header>
     <br>
     <!----------------------------------- Requisicion de producto --------------------------------------------------------------------->
-
     <section>
         <!----------------------------------- Header de la tabla de los detalles --------------------------------------------------------------------->
-
         <table style="border-collapse:collapse;border:none;">
             <tbody>
                 <thead>
@@ -45,7 +36,6 @@
                                 <strong><em><span style="font-size:12px;color:black;">Especifico</span></em></strong>
                             </p>
                         </td>
-
                         <td
                             style="width: 330pt;border-width: 1pt 1pt 1.5pt;border-style: solid;border-left: none;border-bottom: 1.5pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(201, 201, 201);padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
                             <p
@@ -63,9 +53,7 @@
                         </td>
                     </tr>
                 </thead>
-
             <tbody>
-
                 @foreach ($reporteTotalIngreso as $item)
                     <tr>
                         <td
@@ -76,8 +64,6 @@
                                         style="font-size:12px;color:black;">{{ $item->codigopresupuestario }}</span></strong>
                             </p>
                         </td>
-
-
                         <td
                             style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
@@ -85,8 +71,6 @@
                                 <span style="font-size:12px;color:black;">{{ $item->descriprubro }}</span>
                             </p>
                         </td>
-
-
                         <td
                             style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
@@ -94,18 +78,10 @@
                                 <span style="font-size:12px;color:black;">${{ $item->sumaTotal }}</span>
                             </p>
                         </td>
-
                     </tr>
                 @endforeach
-
-
-
             </tbody>
-
-
             <tfoot>
-
-
                 <tr>
                     <td colspan="2"
                         style="border-width: 1pt 1pt 1.5pt;border-style: solid;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 15.75pt;vertical-align: top;">
@@ -125,12 +101,9 @@
                 </tr>
             </tfoot>
         </table><br>
-
     </section>
-
     {{-- <!----------------------------------- Firma --------------------------------------------------------------------->
     <div id="footer">
-
         <table style="width:463.5pt;border-collapse:collapse;border:none;">
             <tbody>
                 <tr>
@@ -203,5 +176,4 @@
         </table>
     </div> --}}
 </body>
-
 </html>

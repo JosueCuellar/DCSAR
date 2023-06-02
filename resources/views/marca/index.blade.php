@@ -4,7 +4,6 @@
     <div class="col-md-12">
         <h2>Lista de marcas</h2>
     </div>
-
     <div class="col-md-12 d-grid gap-2 d-md-flex">
         <form action="{{ route('marca.create') }}" method="GET">
             @csrf
@@ -72,12 +71,10 @@
     </div>
 @endsection
 @section('js_datatable')
-
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var delete_id = button.data('delete')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', 'marca/destroy/' + delete_id);
@@ -99,9 +96,7 @@
         });
     </script>
 @endsection
-
 @section('js')
-
     @if (session('msg'))
         <script>
             $(document).Toasts('create', {
@@ -116,8 +111,6 @@
             })
         </script>
     @endif
-
-
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
@@ -132,7 +125,6 @@
             })
         </script>
     @endif
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -147,7 +139,6 @@
             })
         </script>
     @endif
-
     @if (session('error'))
         <script>
             $(document).Toasts('create', {
@@ -162,5 +153,4 @@
             })
         </script>
     @endif
-
 @endsection

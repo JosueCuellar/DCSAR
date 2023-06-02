@@ -8,7 +8,6 @@
         <h2>Detalles del ingreso de insumos</h2>
     </div>
 @endsection
-
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -64,7 +63,6 @@
                                                         <ion-icon name="create-outline" class="fa-lg text-primary">
                                                         </ion-icon>
                                                     </a>
-
                                                     <a href="{{ route('detalleCompra.destroy', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $itemDet]) }}"
                                                         data-toggle="modal" data-target="#deleteModal"
                                                         data-ingresoid="{{ $recepcionCompra->id }}"
@@ -109,7 +107,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="modalArchivos" style="display: none;" aria-hidden="true">
         <form method="POST" class="form-horizontal" action="">
             @csrf
@@ -134,7 +131,6 @@
                         <a class="btn btn-warning" onclick="$(this).closest('form').submit();">Guardar</a>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
@@ -167,7 +163,6 @@
         </div>
     </div>
 @endsection
-
 @section('js_datatable')
     <script>
         Dropzone.options.myDropzone = {
@@ -202,25 +197,20 @@
             var button = $(event.relatedTarget)
             var ingreso_id = button.data('ingresoid')
             var detalle_id = button.data('detalleid')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '/detalleCompra/detalle/destroy/' + ingreso_id + '/' + detalle_id);
         });
     </script>
-
     <script>
         $('#modalArchivos').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var recepcion_id = button.data('detalle')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/recepcionCompra/completar/') }}' + '/' + recepcion_id);
-
         });
     </script>
-
     <script>
         $(document).ready(function() {
             $('#dataTable7').DataTable({
@@ -239,6 +229,4 @@
             });
         });
     </script>
-
-
 @endsection

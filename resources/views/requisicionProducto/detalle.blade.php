@@ -10,6 +10,8 @@
             data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning  text-left"><i class="fa fa-check"></i>
             Finalizar
             Requisición</button>
+
+
         <button type="submit" data-toggle="modal" data-target="#modalDetalle"
             data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-info  text-left"><i class="fa fa-eye"></i>
             Detalles Requisición</button>
@@ -34,48 +36,13 @@
                                     <th scope="col">Opciones</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                {{-- @foreach ($productos as $item)
-                                    <tr>
-                                        <td>{{ $item->rubro }}</td>
-                                        <td>{{ $item->descripcion }}</td>
-                                        <td>
-                                            <div class="filter-container row">
-                                                <div class="filtr-item col-sm-2">
-                                                    <a href="/imagen/{{ $item->imagen }}" data-toggle="lightbox">
-                                                        <img src="/imagen/{{ $item->imagen }}" class="img-fluid"
-                                                            style="width:30px;max-width:40px">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>{{ $item->nombreMedida }}</td>
-                                        <td>{{ $item->stock - $item->stock1 }}</td>
-
-                                        <td>
-                                            @if ($item->stock - $item->stock1 > 0)
-                                                <button type="submit" data-toggle="modal" data-target="#exampleModalCenter"
-                                                    data-requi="{{ $requisicionProducto->id }}"
-                                                    data-producto="{{ $item->id }}"
-                                                    class="btn btn-sm btn-success">Agregar</button>
-                                            @else
-                                                <button type="submit" data-toggle="modal" data-target="#exampleModalCenter"
-                                                    data-requi="{{ $requisicionProducto->id }}"
-                                                    data-producto="{{ $item->id }}" class="btn btn-sm btn-success"
-                                                    disabled>Agregar</button>
-                                            @endif
-
-
-                                        </td>
-                                    </tr>
-                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <h4 class="text-center">Productos en la solicitados</h4>
+                    <h4 class="text-center">Productos solicitados</h4>
                     <div class="table-responsive">
                         <table class="table table-sm text-center table-striped" id="dataTable14" width="100%"
                             cellspacing="0">
@@ -113,15 +80,15 @@
                                                             <ion-icon name="save-outline"></ion-icon>
                                                         </button>
                                                     </div>
-                                                    <input type="number" value="{{ old('cantidad', $item->cantidad) }}"
-                                                        name="cantidad" class="form-control" placeholder="Cantidad"
-                                                        aria-label="Cantidad" aria-describedby="button-addon2">
+                                                    <input type="number" id="cantidad"
+                                                        value="{{ old('cantidad', $item->cantidad) }}" name="cantidad"
+                                                        class="form-control" placeholder="Cantidad" aria-label="Cantidad"
+                                                        aria-describedby="button-addon2">
                                                 </div>
                                                 @error('cantidad')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </form>
-
                                         </td>
                                         <td>{{ $item->producto->medida->nombreMedida }}</td>
                                         <td>${{ $item->precioPromedio }}</td>
@@ -144,9 +111,8 @@
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="modalDescripcion" style="display: none;" aria-hidden="true">
-            <form method="POST" class="form-horizontal" action="">
+            <form method="POST" class="form-horizontal" action="" id="descripcionModal">
                 @csrf
                 @method('put')
                 <div class="modal-dialog modal-lg">
@@ -162,20 +128,19 @@
                                 <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
-                                        placeholder="Ingresa una descripcion">{{ old('descripcion', $requisicionProducto->descripcion) }}</textarea>
+                                        placeholder="Ingresa una descripcion" required>{{ old('descripcion', $requisicionProducto->descripcion) }}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <a class="btn btn-warning" onclick="$(this).closest('form').submit();">Guardar</a>
+                            <a id="guardar" class="btn btn-warning"
+                                onclick="$(this).closest('form').submit();">Guardar</a>
                         </div>
                     </div>
-
                 </div>
             </form>
         </div>
-
         <div class="modal fade" id="modalDetalle" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -201,15 +166,12 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer justify-content-end">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
-
         </div>
-
         <!-- delete Modal-->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -237,7 +199,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -277,8 +238,27 @@
         </div>
     </div>
 @endsection
-
 @section('js_datatable')
+
+    <script>
+        document.getElementById('cantidadAdd').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', '');
+            }
+            e.target.value = e.target.value.replace(/\./g, '');
+        });
+    </script>
+
+    <script>
+        let initialValue = document.getElementById('cantidad').value;
+        console.log(initialValue)
+        document.getElementById('cantidad').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', initialValue);
+            }
+            e.target.value = e.target.value.replace(/\./g, initialValue);
+        });
+    </script>
 
     <script>
         $('#exampleModalCenter').on('show.bs.modal', function(event) {
@@ -291,7 +271,6 @@
                 requi + '/' + producto);
         })
     </script>
-
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
@@ -301,19 +280,16 @@
             modal.find('form').attr('action', '' + venta_id + '/eliminar/' + detalle_id);
         })
     </script>
-
     <script>
         $('#modalDescripcion').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var categoria_id = button.data('categoriaid')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/requisicionProducto/completar/') }}' + '/' +
                 categoria_id);
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('#dataTable14').DataTable({
@@ -331,11 +307,9 @@
                         'targets': 3
                     }
                 ]
-
             });
         });
     </script>
-
     <script>
         $(document).ready(function() {
             var requisicionProductoId = "{{ $requisicionProducto->id }}";
@@ -364,7 +338,6 @@
                                 '</div>' +
                                 '</div>';
                         }
-
                     },
                     {
                         data: 'nombreMedida',
@@ -382,11 +355,11 @@
                         "render": function(data, type, row) {
                             if (row.stock - row.stock1 > 0) {
                                 return '<button type="submit" data-toggle="modal" data-target="#exampleModalCenter" data-requi="' +
-                                requisicionProductoId + '" data-producto="' + row.id +
+                                    requisicionProductoId + '" data-producto="' + row.id +
                                     '" class="btn btn-sm btn-success">Agregar</button>';
                             } else {
                                 return '<button type="submit" data-toggle="modal" data-target="#exampleModalCenter" data-requi="' +
-                                requisicionProductoId + '" data-producto="' + row.id +
+                                    requisicionProductoId + '" data-producto="' + row.id +
                                     '" class="btn btn-sm btn-success" disabled>Agregar</button>';
                             }
                         }
@@ -409,11 +382,23 @@
             });
         });
     </script>
+    <script>
+        // Save the search value in localStorage
+        $('#dataTable13').on('search.dt', function() {
+            localStorage.setItem('searchRequi', $('.dataTables_filter input').val());
+        });
 
+        // Get the search value from localStorage and set it as the search value
+        $(document).ready(function() {
+            var search = localStorage.getItem('searchRequi');
+            if (search) {
+                $('.dataTables_filter input').val(search);
+                $('#dataTable13').DataTable().search(search).draw();
+            }
+        });
+    </script>
 @endsection
-
 @section('js')
-
     @if (session('msg'))
         <script>
             $(document).Toasts('create', {
@@ -428,8 +413,6 @@
             })
         </script>
     @endif
-
-
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
@@ -444,7 +427,6 @@
             })
         </script>
     @endif
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -459,5 +441,4 @@
             })
         </script>
     @endif
-
 @endsection

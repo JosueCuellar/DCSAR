@@ -35,15 +35,18 @@
                                     <td>{{ $item->descripcion }}</td>
                                     <td><span class="badge badge-primary">{{ $item->estado->nombreEstado }}</span></td>
                                     <td>
-                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                            <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
+                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i> Editar Detalles
                                         </a>
-                                        <a href="{{ route('requisicionProducto.edit', $item->id) }}">
-                                            <ion-icon name="create-outline" class="fa-lg text-success"></ion-icon>
+                                        <a href="{{ route('requisicionProducto.edit', $item->id) }}"
+                                            class="btn btn-success btn-sm">
+                                            <i class="fas fa-edit"></i> Editar Requisición
                                         </a>
                                         <a href="{{ route('requisicionProducto.destroy', $item) }}" data-toggle="modal"
-                                            data-target="#deleteModal" data-delete="{{ $item->id }}">
-                                            <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
+                                            data-target="#deleteModal" data-delete="{{ $item->id }}"
+                                            class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i> Eliminar
                                         </a>
                                     </td>
                                 </tr>
@@ -52,10 +55,8 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
-
     <!-- delete Modal-->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -92,7 +93,6 @@
                 delete_id);
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('#dataTable11').DataTable({
@@ -113,7 +113,6 @@
             });
         });
     </script>
-
 @endsection
 @section('js')
     @if (session('status'))
@@ -130,8 +129,6 @@
             })
         </script>
     @endif
-
-
     @if (session('actualizado'))
         <script>
             $(document).Toasts('create', {
@@ -146,8 +143,6 @@
             })
         </script>
     @endif
-
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -162,7 +157,6 @@
             })
         </script>
     @endif
-
     @if (session('error'))
         <script>
             $(document).Toasts('create', {

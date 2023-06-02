@@ -16,9 +16,9 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Creando marca:
                             <div class="pull-right">
-                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
+                                <a href="{{ route('marca.index') }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title
-                                    data-original-title="Regresar a lista de categorias">Regresar</a>
+                                    data-original-title="Regresar a la tabla marcas">Regresar</a>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                         <label for="nombre" class="col-12 control-label">Nombre de marca:</label>
                                         <div class="col-12">
                                             <input id="nombre" type="text" class="form-control" name="nombre"
-                                               placeholder="Nombre de la marca">
+                                                placeholder="Nombre de la marca" value="{{ old('nombre') }}">
                                         </div>
                                     </div>
                                 </div>

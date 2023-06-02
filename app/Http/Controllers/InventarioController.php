@@ -9,17 +9,17 @@ use Yajra\DataTables\Facades\DataTables;
 
 class InventarioController extends Controller
 {
-    //
+	//
 
-    public function index()
-    {
-        return view('inventario.index');
-    }
+	public function index()
+	{
+		return view('inventario.index');
+	}
 
-    public function datosInventario()
-    {
-        $inventarios = DB::select(
-            "SELECT p.codProducto, p.descripcion,
+	public function datosInventario()
+	{
+		$inventarios = DB::select(
+			"SELECT p.codProducto, p.descripcion,
             COALESCE(dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0),0) AS stock,
             COALESCE(rp.cantidad_aprobada, 0) AS stock1
             FROM productos p
@@ -32,8 +32,7 @@ class InventarioController extends Controller
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
             WHERE rp.estado_id IN (1, 2, 4)
             GROUP BY producto_id) rp ON p.id = rp.producto_id;"
-        );
-        return DataTables::of($inventarios)->make(true);
-    }
-
+		);
+		return DataTables::of($inventarios)->make(true);
+	}
 }

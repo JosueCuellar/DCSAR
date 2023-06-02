@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombreComercial',255);
             $table->string('razonSocial',255);
             $table->string('direccionProveedor',255);
-            $table->string('fax',150);
+            $table->string('fax',150)->nullable();
             $table->string('telefonoProveedor1',15);
             $table->string('telefonoProveedor2',15)->nullable();
             $table->timestamps();

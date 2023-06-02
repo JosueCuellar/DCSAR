@@ -9,20 +9,16 @@
     <!-- DataTables -->
     {{-- <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.min.css"
         integrity="sha512-xlddSVZtsRE3eIgHezgaKXDhUrdkIZGMeAFrvlpkK0k5Udv19fTPmZFdQapBJnKZyAQtlr3WXEM3Lf4tsrHvSA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" /> {{-- <link rel="stylesheet" href="{{ asset('vendor/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}"> --}}
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -30,16 +26,62 @@
     <link rel="stylesheet" href="{{ asset('vendor/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/dist/css/adminlte.min.css') }}">
-    <style>
-
-    </style>
-
-
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse layout-fixed m-0 p-0 layout-footer-fixed">
+    <style>
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 1);
+            /* Color blanco con opacidad del 50% */
+        }
 
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            border-top: 3px solid #3498db;
+            border-right: 3px solid #3498db;
+            border-bottom: 3px solid #3498db;
+            border-left: 3px solid #ccc;
+            width: 30px;
+            height: 30px;
+            margin-top: -15px;
+            margin-left: -15px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
     <div class="wrapper">
+        <div id="preloader">
+            <div class="loader"></div>
+        </div>
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-dark" style="background-color:#313945">
             <!-- Left navbar links -->
@@ -52,27 +94,22 @@
                     <a href="{{ asset('/') }}" class="nav-link">Inicio</a>
                 </li>
             </ul>
-
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item d-none d-sm-inline-block">
                     <h5 class="text-white-50"><b>Requisiciones y Almacén para la trazabilidad de
                             las solicitudes de bienes y/o insumos</b></h5>
                 </li>
             </ul>
-
-
-
-
             <!-- Right navbar links -->
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                 <a href="#" class="nav-link">
                     <ion-icon name="person-circle-sharp" class="nav-icon"></ion-icon>
                     {{ Auth::user()->name }}
                 </a>
-
                 <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+								document.getElementById('logout-form').submit();
+								localStorage.clear();">
                     <ion-icon name="power-sharp" class="nav-icon"></ion-icon>
                     Salir
                 </a>
@@ -83,22 +120,16 @@
                 <li class="nav-item"> <img src="{{ asset('fondo/logo22.png') }}" class="img-fluid"
                         style="max-width: 40px" alt="Responsive image"></li>
             </ul>
-
         </nav>
-
-
         <!-- /.navbar -->
-
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar main-sidebar-custom sidebar-dark-secondary elevation-4"
             style="background-color:#313945">
             <!-- Sidebar -->
-
             <a href="/" class="brand-link" style="background-color:#313945">
                 <img src="{{ asset('fondo/logoPNG.png') }}" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
                 <span class="brand-text font-weight-light">DCSAR</span>
             </a>
-
             <div class="sidebar">
                 <!-- Sidebar Menu -->
                 <nav class="mt-1">
@@ -115,8 +146,6 @@
                                 </a>
                             </li>
                         @endcan
-
-
                         @can('Ver estados de solicitudes')
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto/estado') }}" class="nav-link active">
@@ -127,8 +156,6 @@
                                 </a>
                             </li>
                         @endcan
-
-
                         @can('Ver solicitudes realizadas')
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto/recibida') }}" class="nav-link active">
@@ -139,7 +166,6 @@
                                 </a>
                             </li>
                         @endcan
-
                         @can('Revision de solicitudes')
                             <li class="nav-header text-light">REVISAR SOLICITUDES</li>
                             <li class="nav-item">
@@ -151,7 +177,6 @@
                                 </a>
                             </li>
                         @endcan
-
                         @can('Crear ingreso de productos')
                             <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
                             <li class="nav-item">
@@ -170,7 +195,6 @@
                                         </a>
                                     </li>
                                 </ul>
-
                                 @can('Consultar ingreso de productos')
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item menu-is-opening menu-open">
@@ -183,10 +207,8 @@
                                         </li>
                                     </ul>
                                 @endcan
-
                             </li>
                         @endcan
-
                         @can('Bandeja solicitud a entregar')
                             <li class="nav-header text-light">SOLICITUDES A ENTREGAR</li>
                             <li class="nav-item">
@@ -198,7 +220,6 @@
                                 </a>
                             </li>
                         @endcan
-
                         @can('Ver inventario')
                             <li class="nav-header text-light">INVENTARIO</li>
                             <li class="nav-item">
@@ -210,7 +231,6 @@
                                 </a>
                             </li>
                         @endcan
-
                         @can('Ver bodega principal')
                             <li class="nav-header text-light">PRODUCTOS BODEGA</li>
                             <li class="nav-item">
@@ -222,19 +242,17 @@
                                 </a>
                             </li>
                         @endcan
-
                         {{-- @can('Ver bodega principal') --}}
-                            <li class="nav-header text-light">REPORTES</li>
-                            <li class="nav-item">
-                                <a href="{{ asset('reporte') }}" class="nav-link active">
-                                    <ion-icon name="bar-chart-outline" class="nav-icon"></ion-icon>
-                                    <p>
-                                        Generar reportes
-                                    </p>
-                                </a>
-                            </li>
+                        <li class="nav-header text-light">REPORTES</li>
+                        <li class="nav-item">
+                            <a href="{{ asset('reporte') }}" class="nav-link active">
+                                <ion-icon name="bar-chart-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Generar reportes
+                                </p>
+                            </a>
+                        </li>
                         {{-- @endcan --}}
-
                         @can('Catalogo')
                             <li class="nav-header text-light">CATALOGOS </li>
                             <li class="nav-item">
@@ -296,27 +314,21 @@
                                             </a>
                                         </li>
                                     @endcan
-
                                 </ul>
                             </li>
                         @endcan
-
-
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
-
             <div class="sidebar-custom">
                 @can('Ver panel admin')
                     <a href="{{ asset('admin') }}" class="btn btn-link">
                         <ion-icon name="settings-outline" class="fa-2x bg-dark"></ion-icon>
                     </a>
                 @endcan
-
             </div>
         </aside>
-
         <style>
             .table-extra-sm td,
             .table-extra-sm th {
@@ -326,56 +338,40 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('bar')
-
             <div class="p-1">
                 @yield('header')
             </div>
-
             <!-- Main content -->
             @yield('content')
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
         <!-- Main Footer -->
         <footer class="text-center main-footer" style="background-color:#313945">
             <strong>GSI - Defensoria del Consumidor - 2023</strong>
         </footer>
-
     </div>
     <!-- ./wrapper -->
-
     <!-- REQUIRED SCRIPTS -->
-
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
     <!-- jQuery -->
     {{-- <script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <!-- Bootstrap -->
-
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('vendor/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
-
-
     <!-- Bootstrap core JavaScript-->
     {{-- <script src="{{ asset('vendor/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script> --}}
-
     <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>
-
     {{-- <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-
-
     <!-- Core plugin JavaScript-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
         integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ=="
@@ -387,14 +383,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.min.js"
         integrity="sha512-5AcaBUUUU/lxSEeEcruOIghqABnXF8TWqdIDXBZ2SNEtrTGvD408W/ShtKZf0JNjQUfOiRBJP+yHk6Ab2eFw3Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
-
     @yield('js_datatable')
     @yield('js_imagen')
     @yield('js')
-
 </body>
+<script>
+    $(window).on('load', function() {
+        $('#preloader').slideUp('850');
+    });
+</script>
 
 </html>

@@ -5,7 +5,6 @@
         <h2>Requisiciones a entregar</h2>
     </div>
 @endsection
-
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -38,7 +37,6 @@
                                                             onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
                                                             type="button" class="btn btn-primary"><i class="fa fa-eye"></i>
                                                             Detalles</button>
-
                                                         <button
                                                             onclick="location.href = '{{ asset('/requisicionProducto/pdf/aprobar/') }}/{{ $item->id }}';"
                                                             type="button" class="btn btn-success"><i
@@ -47,7 +45,6 @@
                                                             onclick="location.href = '{{ asset('/requisicionProducto/pdf/comprobante/') }}/{{ $item->id }}';"
                                                             type="button" class="btn btn-secondary"><i
                                                                 class="fa fa-download"></i> Comprobante</button>
-
                                                         <button type="submit" data-toggle="modal"
                                                             data-target="#modalConfirmar" data-aceptar="{{ $item->id }}"
                                                             class="btn btn-dark"><i class="fa fa-check"></i> Confirmar
@@ -65,7 +62,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="modalConfirmar" style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -89,7 +85,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 @section('js')
     @if (session('status'))
@@ -106,7 +101,6 @@
             })
         </script>
     @endif
-
     @if (session('delete'))
         <script>
             $(document).Toasts('create', {
@@ -121,7 +115,6 @@
             })
         </script>
     @endif
-
     @if (session('error'))
         <script>
             $(document).Toasts('create', {
@@ -137,11 +130,7 @@
         </script>
     @endif
 @endsection
-
-
-
 @section('js_datatable')
-
     <script>
         $(document).ready(function() {
             $('#dataTable11').DataTable({
@@ -162,18 +151,14 @@
             });
         });
     </script>
-
     <script>
         $('#modalConfirmar').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var aceptar_id = button.data('aceptar')
-
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/requisicionProducto/entregada/') }}' + '/' +
                 aceptar_id);
         })
     </script>
-
-
 @endsection

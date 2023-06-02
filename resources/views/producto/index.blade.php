@@ -86,6 +86,16 @@
             $('#dataTable6').DataTable({
                 // processing: true, 
                 serverSide: true,
+                drawCallback: function(settings) {
+                    this.api().table().body().querySelectorAll('[data-toggle="lightbox"]').forEach(
+                        el => {
+                            el.addEventListener('click', e => {
+                                e.preventDefault();
+                                const lightbox = new Lightbox(el);
+                                lightbox.show();
+                            });
+                        });
+                },
                 ajax: '{{ route('producto.datos') }}',
                 columns: [{
                         data: 'rubro_id',
@@ -159,12 +169,27 @@
                     url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
                 autoWidth: false,
+                processing: true,
                 responsive: true,
                 columnDefs: [{
                     responsivePriority: 10001,
                     targets: 1
                 }]
             });
+        });
+
+        // Save the search value in localStorage
+        $('#dataTable6').on('search.dt', function() {
+            localStorage.setItem('searchProducto', $('.dataTables_filter input').val());
+        });
+
+        // Get the search value from localStorage and set it as the search value
+        $(document).ready(function() {
+            var search = localStorage.getItem('searchProducto');
+            if (search) {
+                $('.dataTables_filter input').val(search);
+                $('#dataTable6').DataTable().search(search).draw();
+            }
         });
     </script>
 @endsection
