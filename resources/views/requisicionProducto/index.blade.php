@@ -18,13 +18,13 @@
             <div class="card-body">
                 <h4>Solicitudes enviadas</h4>
                 <div class="table-responsive">
-                    <table class="table table-sm text-center table-striped table-bordered" id="dataTable11" width="100%"
-                        cellspacing="0">
+                    <table class="table table-sm table-striped text-center" id="dataTable11" width="100%" cellspacing="0">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Fecha de realización</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Estado</th>
+                                <th scope="col">Realizada por</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -34,21 +34,33 @@
                                     <td scope="row">{{ $item->fechaRequisicion }}</td>
                                     <td>{{ $item->descripcion }}</td>
                                     <td><span class="badge badge-primary">{{ $item->estado->nombreEstado }}</span></td>
+                                    <td>{{ $item->user->name }}</td>
                                     <td>
-                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
-                                            class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i> Editar Detalles
-                                        </a>
-                                        <a href="{{ route('requisicionProducto.edit', $item->id) }}"
-                                            class="btn btn-success btn-sm">
-                                            <i class="fas fa-edit"></i> Editar Requisición
-                                        </a>
-                                        <a href="{{ route('requisicionProducto.destroy', $item) }}" data-toggle="modal"
-                                            data-target="#deleteModal" data-delete="{{ $item->id }}"
-                                            class="btn btn-danger btn-sm">
-                                            <i class="fas fa-trash"></i> Eliminar
-                                        </a>
+                                        <button
+                                            onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
+                                            type="button" id="myButton" class="btn btn-sm btn-dark">
+                                            <i class="fas fa-eye"></i> Ver detalles
+                                        </button>
+                                        @if ($item->user_id == Auth::id())
+                                            <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
+                                                class="btn btn-sm btn-primary ">
+                                                <i class="fas fa-edit"></i> Editar Detalles
+                                            </a>
+                                            <a href="{{ route('requisicionProducto.edit', $item->id) }}"
+                                                class="btn btn-success btn-sm">
+                                                <i class="fas fa-clipboard"></i> Editar Requisición
+                                            </a>
+                                        @endif
+
+                                        @role('Gerente Unidad Organizativa')
+                                            <a href="{{ route('requisicionProducto.destroy', $item) }}" data-toggle="modal"
+                                                data-target="#deleteModal" data-delete="{{ $item->id }}"
+                                                class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        @endrole
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

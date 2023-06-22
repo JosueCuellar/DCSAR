@@ -31,20 +31,20 @@ class DetalleRequisicionController extends Controller
 	{
 		$productos = DB::select(
 			"SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
-            COALESCE(dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0),0) AS stock,
-            COALESCE(rp.cantidad_aprobada, 0) AS stock1,
+            COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
+            COALESCE(rp.cantidad_aprobada_pendiente, 0) AS stockReservado,
             m.nombreMedida as nombreMedida, r.descripRubro as rubro
             FROM productos p
             JOIN medidas m ON p.medida_id = m.id
             JOIN rubros r ON p.rubro_id = r.id
-            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
+            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
             FROM detalle_compras
             GROUP BY producto_id) dc ON p.id = dc.producto_id
-            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
-            SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_rechazada
+            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
+            SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
             FROM detalle_requisicions dr
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-            WHERE rp.estado_id IN (1, 2, 4, 5)
+            WHERE rp.estado_id IN (1, 2, 3, 4, 5)
             GROUP BY producto_id) rp ON p.id = rp.producto_id;"
 		);
 		return DataTables::of($productos)->make(true);
@@ -75,25 +75,28 @@ class DetalleRequisicionController extends Controller
 			$producto_id = $producto->id;
 			$codigo = $producto->id;;
 			$productos = DB::select("
-            SELECT p.codProducto, p.descripcion,
-            dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
-            COALESCE(rp.cantidad_aprobada, 0) AS stock1
-            FROM productos p
-            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
-            FROM detalle_compras
-            GROUP BY producto_id) dc ON p.id = dc.producto_id 
-            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
-            SUM(CASE WHEN estado_id = 4 THEN cantidad ELSE 0 END) AS cantidad_rechazada
-            FROM detalle_requisicions dr
-            JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-            WHERE rp.estado_id IN (1, 2, 4, 5)
-            GROUP BY producto_id) rp ON p.id = rp.producto_id
+			SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
+					COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
+					COALESCE(rp.cantidad_aprobada_pendiente, 0) AS stockReservado,
+					m.nombreMedida as nombreMedida, r.descripRubro as rubro
+					FROM productos p
+					JOIN medidas m ON p.medida_id = m.id
+					JOIN rubros r ON p.rubro_id = r.id
+					LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
+					FROM detalle_compras
+					GROUP BY producto_id) dc ON p.id = dc.producto_id
+					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
+					SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
+					FROM detalle_requisicions dr
+					JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
+					WHERE rp.estado_id IN (1, 2, 3, 4, 5)
+					GROUP BY producto_id) rp ON p.id = rp.producto_id
             WHERE p.id = ?
             ", [$codigo]);
 
 			$valorCantidadMinima = 0;
 			foreach ($productos as $p) {
-				$valorCantidadMinima = $p->stock - $p->stock1;
+				$valorCantidadMinima = $p->stockReal - $p->stockReservado;
 			};
 
 			if ($request->cantidadAdd > $valorCantidadMinima) {
@@ -140,36 +143,39 @@ class DetalleRequisicionController extends Controller
 			$producto_id = $detalleRequisicion->producto_id;
 			$codigo = $producto_id;
 			$productos = DB::select("
-            SELECT p.codProducto, p.descripcion,
-            dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0) AS stock,
-            COALESCE(rp.cantidad_aprobada, 0) AS stock1
-            FROM productos p
-            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
-            FROM detalle_compras
-            GROUP BY producto_id) dc ON p.id = dc.producto_id 
-            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
-            SUM(CASE WHEN estado_id = 4 THEN cantidad ELSE 0 END) AS cantidad_rechazada
-            FROM detalle_requisicions dr
-            JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-            WHERE rp.estado_id IN (1, 2, 4, 5)
-            GROUP BY producto_id) rp ON p.id = rp.producto_id
-            WHERE p.id = ?
+			SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
+				COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
+				COALESCE(rp.cantidad_aprobada_pendiente, 0) AS stockReservado,
+				m.nombreMedida as nombreMedida, r.descripRubro as rubro
+				FROM productos p
+				JOIN medidas m ON p.medida_id = m.id
+				JOIN rubros r ON p.rubro_id = r.id
+				LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
+				FROM detalle_compras
+				GROUP BY producto_id) dc ON p.id = dc.producto_id
+				LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
+				SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
+				FROM detalle_requisicions dr
+				JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
+				WHERE rp.estado_id IN (1, 2, 3, 4, 5)
+				GROUP BY producto_id) rp ON p.id = rp.producto_id
+					WHERE p.id = ?
             ", [$codigo]);
 
 			$valorCantidadMinima = 0;
 			foreach ($productos as $p) {
-				$valorCantidadMinima = $p->stock;
+				$valorCantidadMinima = $p->stockReal;
 			};
 			if ($request->cantidad > $valorCantidadMinima) {
 				return redirect()->back()->with('msg', 'Error, el numero supera a la cantida en stock! Unicamente hay ' . $valorCantidadMinima . ' disponibles');
 			} else {
 
-			$detalle =  DetalleRequisicion::find($detalleRequisicion->id);
-			$detalle->cantidad = $request->cantidad;
-			$detalle->total = ($request->cantidad) * ($detalle->precioPromedio);
-			$detalle->save();
-			return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('status', 'Se ha actualizado correctamente!');
-		}
+				$detalle =  DetalleRequisicion::find($detalleRequisicion->id);
+				$detalle->cantidad = $request->cantidad;
+				$detalle->total = ($request->cantidad) * ($detalle->precioPromedio);
+				$detalle->save();
+				return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('status', 'Se ha actualizado correctamente!');
+			}
 		} catch (\Exception $e) {
 			return redirect()->back()->with('msg', $e->getMessage());
 		}

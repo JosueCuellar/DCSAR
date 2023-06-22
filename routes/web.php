@@ -193,9 +193,24 @@ Route::get('usuario/edit/{usuario}', [UserController::class, 'edit'])->name('usu
 Route::put('usuario/update/{usuario}', [UserController::class, 'update'])->name('usuario.update');
 //eliminar
 Route::get('usuario/destroy/{usuario}', [UserController::class, 'destroy'])->name('usuario.destroy');
-Route::get('roles', [UserController::class, 'indexRoles'])->name('roles.index');
+
+//----------------------------Asignar roles a usuario------------------------
+Route::get('rolesAssign', [UserController::class, 'indexRolesAssing'])->name('roles.indexAssign');
 Route::get('/roles/{role}/assign-permissions', [UserController::class, 'showAssignPermissionsForm'])->name('roles.assign-permissions');
 Route::post('/roles/{role}/assign-permissions', [UserController::class, 'assignPermissions'])->name('roles.assign-permissions');
+
+//----------------------------Roles------------------------
+//Listar
+Route::get('rol', [UserController::class, 'indexRoles'])->name('rol.index');
+//crear
+Route::get('rol/crear', [UserController::class, 'createRoles'])->name('rol.create');
+Route::post('rol/store', [UserController::class, 'storeRoles'])->name('rol.store');
+//actualizar
+Route::get('rol/edit/{rol}', [UserController::class, 'editRoles'])->name('rol.edit');
+Route::put('rol/update/{rol}', [UserController::class, 'updateRoles'])->name('rol.update');
+//eliminar
+Route::get('rol/destroy/{rol}', [UserController::class, 'destroyRoles'])->name('rol.destroy');
+
 //----------------------------Reportes------------------------
 //Reportes mensuales
 //Pantalla de inicio

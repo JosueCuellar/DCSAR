@@ -19,10 +19,6 @@
                                         <h6>Ingresos registrados</h6>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" id="aceptadas-tab" data-toggle="pill" href="#aceptadas"
-                                        role="tab" aria-controls="aceptadas" aria-selected="false"><h6>Compras SIN COMPLETAR</h6></a>
-                                </li> --}}
                             </ul>
                         </div>
                         <div class="card-body">
@@ -60,7 +56,7 @@
 																										<i class="fas fa-edit"></i> Editar Detalles
 																									</a>
 																									<a href="{{ route('recepcionCompra.destroy', $item) }}" data-toggle="modal" data-target="#deleteModal" data-delete="{{ $item->id }}" class="btn btn-sm btn-danger">
-																										<i class="fas fa-trash"></i> Eliminar
+																										<i class="fas fa-trash"></i>
 																									</a>
 																								</td>
 																								

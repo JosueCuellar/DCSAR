@@ -51,8 +51,7 @@
             </div>
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
-                @role('Super Administrador|Gerente Unidad Organizativa|Tecnico Encargado Almacen|Solicitante Unidad
-                    Organizativa|Gerente Encargado Almacen')
+                @role('Super Administrador|Gerente Unidad Organizativa|Tecnico Encargado Almacen|Solicitante Unidad Organizativa|Gerente Encargado Almacen')
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #003f5c">
                             <div class="inner">

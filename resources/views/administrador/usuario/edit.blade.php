@@ -50,13 +50,42 @@
                                     </div>
                                 </div>
 
+
+																<div class="col-md-12">
+																	<div class="form-group has-feedback row">
+																			<label for="role" class="col-12 control-label">Rol:</label>
+																			<div class="col-12">
+																					<select id="role" class="form-control" name="role">
+																							@foreach ($roles as $role)
+																									<option value="{{ $role->name }}" {{ $currentRole->name == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+																							@endforeach
+																					</select>
+																			</div>
+																	</div>
+															</div>
+
+															<div class="col-md-12">
+																<div class="form-group has-feedback row">
+																		<label for="unidad_organizativa_id" class="col-12 control-label">Unidad Organizativa:</label>
+																		<div class="col-12">
+																				<select id="unidad_organizativa_id" class="form-control" name="unidad_organizativa_id">
+																						@foreach ($unidadesOrganizativas as $unidadOrganizativa)
+																								<option value="{{ $unidadOrganizativa->id }}" {{ $currentUnidadOrganizativa == $unidadOrganizativa->id ? 'selected' : '' }}>{{ $unidadOrganizativa->nombreUnidadOrganizativa }}</option>
+																						@endforeach
+																				</select>
+																		</div>
+																</div>
+														</div>
+														
+															
+
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
                                         <label for="password" class="col-12 control-label">Contraseña:</label>
                                         <div class="col-12">
                                             <input  id="password" type="password"
                                                 class="form-control" name="password"
-                                                required>
+                                                >
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +96,7 @@
                                         <div class="col-12">
                                             <input  id="password_confirmation" type="password"
                                                 class="form-control" name="password_confirmation"
-                                                required>
+                                                >
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +108,7 @@
                                     <span data-toggle="tooltip" title data-original-title="Guardar cambios realizados">
                                         <button type="submit" class="btn btn-success" value="Guardar" name="action">
                                             <ion-icon name="save-outline"></ion-icon>
-                                            Actualizar marca
+                                            Actualizar usuario
                                         </button>
                                     </span>
                                 </div>

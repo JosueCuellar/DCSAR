@@ -47,6 +47,39 @@
                                     </div>
                                 </div>
 
+																<div class="col-md-12">
+																	<div class="form-group has-feedback row">
+																			<label for="unidad_organizativa_id" class="col-12 control-label">Unidad
+																					Organizativa:</label>
+																			<div class="col-12">
+																					<select class="form-control" name="unidad_organizativa_id"
+																							id="unidad_organizativa_id">
+																							<option selected='true' disabled='disabled'>Seleccionar unidad organizativa
+																							</option>
+																							@foreach ($unidadesOrganizativas as $item)
+																									<option value="{{ $item->id }}">
+																											{{ $item->nombreUnidadOrganizativa }}
+																									</option>
+																							@endforeach
+																					</select>
+																			</div>
+																	</div>
+															</div>
+
+															<div class="col-md-12">
+																<div class="form-group has-feedback row">
+																		<label for="role" class="col-12 control-label">Rol:</label>
+																		<div class="col-12">
+																				<select id="role" class="form-control" name="role">
+																						@foreach ($roles as $role)
+																								<option value="{{ $role->name }}">{{ $role->name }}</option>
+																						@endforeach
+																				</select>
+																		</div>
+																</div>
+														</div>
+														
+
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
                                         <label for="password" class="col-12 control-label">Contraseña</label>

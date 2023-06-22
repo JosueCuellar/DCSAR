@@ -13,4 +13,11 @@ class UnidadOrganizativa extends Model
         'descripUnidadOrganizativa'
     ];
 
+
+		public function users()
+{
+    return $this->hasMany('App\Models\User', 'unidad_organizativa_id');
+}
+
+
 }

@@ -56,16 +56,23 @@
                                                         class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                        <ion-icon name="create-outline" class="fa-lg text-primary">
-                                                        </ion-icon>
-                                                    </a>
-                                                    <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                        data-toggle="modal" data-target="#deleteModal"
-                                                        data-categoriaid="{{ $item->id }}">
-                                                        <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                        </ion-icon>
-                                                    </a>
+                                                    @if ($item->user_id == Auth::id())
+                                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
+                                                            <ion-icon name="create-outline" class="fa-lg text-primary">
+                                                            </ion-icon>
+                                                        </a>                                                      
+                                                    @endif
+																											@role('Gerente Unidad Organizativa')
+																											
+																													<a href="{{ route('requisicionProducto.destroy', $item) }}"
+																															data-toggle="modal" data-target="#deleteModal"
+																															data-categoriaid="{{ $item->id }}">
+																															<ion-icon name="trash-outline" class="fa-lg text-danger">
+																															</ion-icon>
+																													</a>
+																											@endrole
+																									</td>
+
                                                 </td>
                                                 </tr>
                                             @endforeach
@@ -138,18 +145,24 @@
                                                         <td><span
                                                                 class="badge badge-danger">{{ $item->estado->nombreEstado }}</span>
                                                         </td>
+
                                                         <td>
-                                                            <a
-                                                                href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                                <ion-icon name="create-outline"
-                                                                    class="fa-lg text-primary"></ion-icon>
-                                                            </a>
-                                                            <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                                data-toggle="modal" data-target="#deleteModal"
-                                                                data-categoriaid="{{ $item->id }}">
-                                                                <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                                </ion-icon>
-                                                            </a>
+                                                            @if ($item->user_id == Auth::id())
+                                                                <a
+                                                                    href="{{ route('requisicionProducto.detalle', $item->id) }}">
+                                                                    <ion-icon name="create-outline"
+                                                                        class="fa-lg text-primary">
+                                                                    </ion-icon>
+                                                                </a>
+                                                            @endif
+                                                            @role('Gerente Unidad Organizativa')
+                                                                <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                                    data-toggle="modal" data-target="#deleteModal"
+                                                                    data-categoriaid="{{ $item->id }}">
+                                                                    <ion-icon name="trash-outline" class="fa-lg text-danger">
+                                                                    </ion-icon>
+                                                                </a>
+                                                            @endrole
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -6,10 +6,25 @@
         <x-errores class="mb-4" />
     </div>
     <div class="m-1">
-        <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
-            data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning  text-left"><i class="fa fa-check"></i>
-            Finalizar
-            Requisición</button>
+
+        @if ($requisicionProducto->estado_id == 3)
+            <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
+                data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-success  text-left"><i
+                    class="fa fa-check"></i>
+                Reenviar Requisición</button>
+        @else
+            @if ($requisicionProducto->estado_id == 1)
+                <a href="{{ route('requisicionProducto.index') }}" class="btn btn-secondary float-right" data-toggle="tooltip"
+                    data-placement="left" title data-original-title="Regresar a lista de usuarios">Regresar</a>
+            @else
+                <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
+                    data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning  text-left"><i
+                        class="fa fa-check"></i>
+                    Finalizar
+                    Requisición</button>
+            @endif
+        @endif
+
 
 
         <button type="submit" data-toggle="modal" data-target="#modalDetalle"
@@ -347,13 +362,13 @@
                         data: null,
                         name: 'total',
                         render: function(data, type, row) {
-                            return Number(row.stock) - Number(row.stock1);
+                            return Number(row.stockReal) - Number(row.stockReservado);
                         }
                     },
                     {
                         "data": null,
                         "render": function(data, type, row) {
-                            if (row.stock - row.stock1 > 0) {
+                            if (row.stockReal - row.stockReservado > 0) {
                                 return '<button type="submit" data-toggle="modal" data-target="#exampleModalCenter" data-requi="' +
                                     requisicionProductoId + '" data-producto="' + row.id +
                                     '" class="btn btn-sm btn-success">Agregar</button>';

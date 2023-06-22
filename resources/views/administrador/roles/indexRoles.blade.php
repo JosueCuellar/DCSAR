@@ -1,15 +1,14 @@
 @extends('administrador.layouts.app')
-@section('title', 'Usuarios')
+@section('title', 'Roles')
 @section('header')
-    <div class="col-12">
-        <h2>Lista de usuarios</h2>
+    <div class="col-md-12">
+        <h2>Roles</h2>
     </div>
-
     <div class="col-12">
-        <form action="{{ route('usuario.create') }}" method="GET">
+        <form action="{{ route('rol.create') }}" method="GET">
             @csrf
             <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                    class="fa fa-plus"></i> Nuevo usuario</button>
+                    class="fa fa-plus"></i> Nuevo rol</button>
         </form>
     </div>
 @endsection
@@ -21,34 +20,21 @@
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Email</th>
                             <th scope="col">Rol</th>
-                            <th scope="col">Unidad organizativa</th>
                             <th scope="col"></th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($usuarios as $item)
+                        @foreach ($roles as $item)
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>@php
-                                    $roles = $item->getRoleNames();
-                                @endphp
-
-                                    @foreach ($roles as $role)
-                                        {{ $role }}
-                                    @endforeach
-                                </td>
-																<td>{{ $item->unidadOrganizativa->nombreUnidadOrganizativa }}</td>
                                 <td>
-                                    <a href="{{ route('usuario.edit', $item->id) }}">
+                                    <a href="{{ route('rol.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
                                     </a>
-                                    <a href="{{ route('usuario.destroy', $item) }}" data-toggle="modal"
+                                    <a href="{{ route('rol.destroy', $item) }}" data-toggle="modal"
                                         data-target="#deleteModal" data-delete="{{ $item->id }}">
                                         <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
                                     </a>
@@ -85,8 +71,8 @@
         <div class="card-footer small text-muted"></div>
     </div>
 @endsection
-
 @section('js_datatable')
+
 
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
@@ -95,9 +81,10 @@
 
             var modal = $(this)
             // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', 'usuario/destroy/' + delete_id);
+            modal.find('form').attr('action', 'rol/destroy/' + delete_id);
         })
     </script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable6').DataTable({

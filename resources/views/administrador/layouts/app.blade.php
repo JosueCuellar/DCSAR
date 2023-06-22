@@ -107,8 +107,16 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ asset('roles') }}" class="nav-link active">
-                                <ion-icon name="person-add-outline" class="nav-icon"></ion-icon>                                
+                            <a href="{{ asset('rolesAssign') }}" class="nav-link active">
+                                <ion-icon name="person-add-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Agregar Permisos a Rol
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ asset('rol') }}" class="nav-link active">
+                                <ion-icon name="person-add-outline" class="nav-icon"></ion-icon>
                                 <p>
                                     Roles
                                 </p>
@@ -123,16 +131,16 @@
                             </a>
                         </li>
                         @can('CRUD unidad organizativa')
-                        <li class="nav-item">
-                            <a href="{{ asset('unidadOrganizativa') }}" class="nav-link active">
-                                <ion-icon name="people-circle-outline" class="nav-icon"></ion-icon>
-                                <p>
-                                    Unidad Organizativa
-                                </p>
-                            </a>
-                        </li>                        
+                            <li class="nav-item">
+                                <a href="{{ asset('unidadOrganizativa') }}" class="nav-link active">
+                                    <ion-icon name="people-circle-outline" class="nav-icon"></ion-icon>
+                                    <p>
+                                        Unidad Organizativa
+                                    </p>
+                                </a>
+                            </li>
                         @endcan
-                        
+
 
                 </nav>
                 <!-- /.sidebar-menu -->

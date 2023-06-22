@@ -1,17 +1,10 @@
 @extends('administrador.layouts.app')
-@section('title', 'Roles')
+@section('title', 'Permisos')
 @section('header')
     <div class="col-md-12">
-        <h2>Lista de roles</h2>
+        <h2>Asignar permisos a rol</h2>
     </div>
 
-    <div class="col-md-12 d-grid gap-2 d-md-flex">
-        <form action="{{ route('usuario.create') }}" method="GET">
-            @csrf
-            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true" disabled><i
-                    class="fa fa-plus"></i> Nuevo Rol</button>
-        </form>
-    </div>
 @endsection
 @section('content')
     <div class="card mb-3">
@@ -31,14 +24,7 @@
                             <tr>
                                 <th scope="row">{{ $item->id }}</th>
                                 <td>{{ $item->name }}</td>
-                                <td>
-                                    {{-- <a href="{{ route('usuario.edit', $item->id) }}">
-                                        <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
-                                    </a> --}}
-                                    {{-- <a href="{{ route('usuario.destroy', $item) }}" data-toggle="modal"
-                                        data-target="#deleteModal" data-delete="{{ $item->id }}">
-                                        <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
-                                    </a> --}}
+                                <td>                                  
                                     <a href="{{ route('roles.assign-permissions', $item->id) }}" class="">
                                         <ion-icon name="create-outline" class="fa-lg text-dark"></ion-icon>
                                     </a>
@@ -77,17 +63,6 @@
     </div>
 @endsection
 @section('js_datatable')
-
-    <script>
-        $('#deleteModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var delete_id = button.data('delete')
-
-            var modal = $(this)
-            // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', 'usuario/destroy/' + delete_id);
-        })
-    </script>
     <script>
         $(document).ready(function() {
             $('#dataTable6').DataTable({
@@ -104,67 +79,4 @@
         });
     </script>
 @endsection
-@section('js')
 
-    @if (session('msg'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Error',
-                position: 'topRight',
-                body: '{{ session('msg') }}',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle ',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'usuario agregado',
-                position: 'topRight',
-                body: '{{ session('status') }} se ha actualizado la tabla',
-                class: 'bg-success',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'usuario eliminado',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-solid fa-xmark',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-@endsection

@@ -21,21 +21,36 @@ class UserRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
-        return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:8|confirmed',
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'name.*'=>'Ingrese un nombre, de no mas de 255 caracteres',
-            'email.*'=>'Ingrese un email, de no mas de 255 caracteres',
-            'password.*'=>'Contrasenia incorrecta'
+		public function rules()
+		{
+				$rules = [
+						'name' => 'required|string|max:255',
+						'email' => 'required|string|email|max:255',
+						'role' => 'required|exists:roles,name',
+				];
+		
+				if ($this->isMethod('post')) {
+						// If creating a new user, the password is required and must be confirmed
+						$rules['password'] = 'required|string|min:8|confirmed';
+				} else {
+						// If updating an existing user, the password is optional but must be confirmed if present
+						$rules['password'] = 'nullable|string|min:8|confirmed';
+				}
+		
+				return $rules;
+		}
+		
 
-        ];
-    }
+		
+		public function messages()
+		{
+				return [
+						'name.*'=>'Ingrese un nombre, de no mas de 255 caracteres',
+						'email.*'=>'Ingrese un email, de no mas de 255 caracteres',
+						'password.*'=>'Contraseña incorrecta',
+						'role.required' => 'El campo rol es obligatorio',
+						'role.exists' => 'El rol seleccionado no es válido',
+				];
+		}
+		
 }
