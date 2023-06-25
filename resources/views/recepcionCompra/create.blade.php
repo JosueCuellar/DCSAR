@@ -1,12 +1,5 @@
-@extends('admin.layouts.index')
-@section('title', 'Requisicion producto')
-@section('header')
-    <div class="container">
-        <div class="col-md-12">
-            <h2>Editar recepcion de compra</h2>
-        </div>
-    </div>
-@endsection
+@extends('bar.layouts.bar')
+@section('title', 'Recepción Ingreso')
 @section('content')
     <div class="content">
         <div class="row">
@@ -27,7 +20,7 @@
                                         <label for="proveedor_id" class="col-12 control-label">Seleccionar proveedor</label>
                                         <div class="col-12">
                                             <select class="proveedor form-control" name="proveedor_id" id="proveedor_id">
-                                                <option selected='true' disabled='disabled'>Seleccionar proveedor</option>
+                                                <option selected='true' disabled='disabled'>Seleccionar proveedor</option>																								
                                                 @foreach ($proveedores as $item)
                                                     <option value="{{ $item->id }}">{{ $item->nombreComercial }}
                                                     </option>
@@ -40,37 +33,45 @@
                                             Compra:</label>
                                         <div class="col-12">
                                             <input id="nOrdenCompra" type="text" class="form-control" name="nOrdenCompra"
-                                                placeholder="Número de orden de compra" value="{{ old('nOrdenCompra') }}">
+                                                placeholder="Número de orden de compra">
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
+
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback row">
                                         <label for="nPresupuestario" class="col-12 control-label">Número Compromiso
                                             Presupuestario:</label>
                                         <div class="col-12">
-                                            <input id="nPresupuestario" type="number" class="form-control"
-                                                name="nPresupuestario" placeholder="Número presupuestario"
-                                                value="{{ old('nPresupuestario') }}">
+                                            <input id="nPresupuestario" type="text" class="form-control"
+                                                name="nPresupuestario" placeholder="Número presupuestario">
                                         </div>
                                     </div>
-                                    <div class="form-group has-feedback row">
-                                        <label for="codigoFactura" class="col-12 control-label">Codigo Factura:</label>
-                                        <div class="col-12">
-                                            <input id="codigoFactura" type="number" class="form-control"
-                                                name="codigoFactura" placeholder="Codigo Factura"
-                                                value="{{ old('codigoFactura') }}">
-                                        </div>
-                                    </div>
+																		<div class="form-group has-feedback row">
+																			<label for="codigoFactura" class="col-12 control-label">Codigo Factura:</label>
+																			<div class="col-12">
+																					<input id="codigoFactura" type="number" class="form-control"
+																							name="codigoFactura" placeholder="Codigo Factura"
+																							value="">
+																			</div>
+																	</div>
+
                                 </div>
+
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback row">
                                         <label for="fechaVenc" class="col-12 control-label">Fecha del ingreso:</label>
                                         <div class="col-12">
                                             <input id='fecha' value="{{ old('fecha') }}" type='date'
-                                                class='form-control' name='fecha' placeholder='Fecha de vencimiento'>
+                                                class='form-control' name='fecha'
+                                                placeholder='Fecha de vencimiento'>
                                         </div>
-                                    </div>
+
+                                        @error('fecha')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>                                
+
                                 </div>
                             </div>
                         </div>

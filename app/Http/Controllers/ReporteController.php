@@ -11,6 +11,11 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Dompdf\Renderer\Page_Text_Renderers;
 use Dompdf\FrameReflower\Text;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Settings;
+use PhpOffice\PhpWord\TemplateProcessor;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class ReporteController extends Controller
 {
@@ -103,36 +108,35 @@ class ReporteController extends Controller
 		return $pdf->stream($requisicionProducto->nCorrelativo . '.pdf');
 	}
 
-	public function totalIngresoMes(Request $request)
-	{
-		$array = $request->session()->get('array');
+	// public function totalIngresoMes(Request $request)
+	// {
+	// 	$array = $request->session()->get('array');
 
-		$pdf = PDF::loadView('reporte.totalIngresoMes', $array);
-		$pdf->setPaper('letter', 'portrait', 'auto');
-		// 'letter' is letter size, 'portrait' is the orientation
-		$pdf->render();
+	// 	$pdf = PDF::loadView('reporte.totalIngresoMes', $array);
+	// 	$pdf->setPaper('letter', 'portrait', 'auto');
+	// 	// 'letter' is letter size, 'portrait' is the orientation
+	// 	$pdf->render();
 
-		$canvas = $pdf->getCanvas();
+	// 	$canvas = $pdf->getCanvas();
 
-		$fontMetrics = $pdf->getFontMetrics();
-		$w = $canvas->get_width();
-		$h = $canvas->get_height();
+	// 	$fontMetrics = $pdf->getFontMetrics();
+	// 	$w = $canvas->get_width();
+	// 	$h = $canvas->get_height();
 
-		// Agregar los números de página al pie de página
-		$font = $fontMetrics->getFont("Calibri", "bold");
-		$text = 'Página {PAGE_NUM} de {PAGE_COUNT}';
-		$textWidth = $fontMetrics->getTextWidth($text, $font, 10);
-		$x = $w - $textWidth - 150;
-		$y = $h - 30;
-		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		$page_count = $canvas->get_page_count();
+	// 	// Agregar los números de página al pie de página
+	// 	$font = $fontMetrics->getFont("Calibri", "bold");
+	// 	$text = 'Página {PAGE_NUM} de {PAGE_COUNT}';
+	// 	$textWidth = $fontMetrics->getTextWidth($text, $font, 10);
+	// 	$x = $w - $textWidth - 150;
+	// 	$y = $h - 30;
+	// 	$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
+	// 	$page_count = $canvas->get_page_count();
 
-		return $pdf->stream('xd' . '.pdf');
-	}
+	// 	return $pdf->stream('xd' . '.pdf');
+	// }
 
 	public function totalIngresoMesPost(Request $request)
 	{
-
 		$fecha = $request->fechaInput;
 		list($year, $month) = explode("-", $fecha);
 		$totalFinal = 0;
@@ -148,48 +152,57 @@ class ReporteController extends Controller
 			->groupBy('rubros.codigopresupuestario', 'rubros.descriprubro')
 			->get();
 
-
 		foreach ($resultados as $item) {
 			$totalFinal += $item->sumaTotal;
 		}
 		$formatted_number = number_format($totalFinal, 2, '.', '');
+		// Crea una nueva instancia de la clase TemplateProcessor y carga tu plantilla
+		$templateProcessor = new TemplateProcessor('plantillas/plantillaEntrada.docx');
+		$cwd = "";
 
-		$array = [
-			'reporteTotalIngreso' => $resultados,
-			'totalFinal' => $formatted_number,
-			'mes' => $month,
-			'anio' => $year
-		];
-		return redirect()->route('reporte.totalIngresoMes')->with('array', $array);
+		// Clona la fila de la tabla y reemplaza los marcadores de posición con tus datos
+		$templateProcessor->setValue('month', $month);
+		$templateProcessor->setValue('year', $year);
+		$templateProcessor->setValue('totalFinal', $formatted_number);
+		$templateProcessor->cloneRowAndSetValues('codigopresupuestario', $resultados);
+
+		// Guarda la plantilla poblada como un documento de Word
+		$tempFile = $cwd . 'tempDoc/' . uniqid('PHPWord') . '.docx';
+		$pdfTempFile = $cwd . 'pdfs/' . uniqid('PDF') . '.pdf';
+
+		$templateProcessor->saveAs($tempFile);
+
+		return response()->download($tempFile)->deleteFileAfterSend(true);
 	}
 
 
-	public function totalSalidaMes(Request $request)
-	{
-		$array = $request->session()->get('array');
 
-		$pdf = PDF::loadView('reporte.totalSalidaMes', $array);
-		$pdf->setPaper('letter', 'portrait', 'auto');
-		// 'letter' is letter size, 'portrait' is the orientation
-		$pdf->render();
+	// public function totalSalidaMes(Request $request)
+	// {
+	// 	$array = $request->session()->get('array');
 
-		$canvas = $pdf->getCanvas();
+	// 	$pdf = PDF::loadView('reporte.totalSalidaMes', $array);
+	// 	$pdf->setPaper('letter', 'portrait', 'auto');
+	// 	// 'letter' is letter size, 'portrait' is the orientation
+	// 	$pdf->render();
 
-		$fontMetrics = $pdf->getFontMetrics();
-		$w = $canvas->get_width();
-		$h = $canvas->get_height();
+	// 	$canvas = $pdf->getCanvas();
 
-		// Agregar los números de página al pie de página
-		$font = $fontMetrics->getFont("Calibri", "bold");
-		$text = 'Página {PAGE_NUM} de {PAGE_COUNT}';
-		$textWidth = $fontMetrics->getTextWidth($text, $font, 10);
-		$x = $w - $textWidth - 150;
-		$y = $h - 30;
-		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		$page_count = $canvas->get_page_count();
+	// 	$fontMetrics = $pdf->getFontMetrics();
+	// 	$w = $canvas->get_width();
+	// 	$h = $canvas->get_height();
 
-		return $pdf->stream('xd' . '.pdf');
-	}
+	// 	// Agregar los números de página al pie de página
+	// 	$font = $fontMetrics->getFont("Calibri", "bold");
+	// 	$text = 'Página {PAGE_NUM} de {PAGE_COUNT}';
+	// 	$textWidth = $fontMetrics->getTextWidth($text, $font, 10);
+	// 	$x = $w - $textWidth - 150;
+	// 	$y = $h - 30;
+	// 	$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
+	// 	$page_count = $canvas->get_page_count();
+
+	// 	return $pdf->stream('xd' . '.pdf');
+	// }
 
 	public function totalSalidaMesPost(Request $request)
 	{
@@ -214,13 +227,22 @@ class ReporteController extends Controller
 			$totalFinal += $item->sumaTotal;
 		}
 		$formatted_number = number_format($totalFinal, 2, '.', '');
+		// Crea una nueva instancia de la clase TemplateProcessor y carga tu plantilla
+		$templateProcessor = new TemplateProcessor('plantillas/plantillaSalida.docx');
+		$cwd = "";
 
-		$array = [
-			'reporteTotalSalida' => $resultados,
-			'totalFinal' => $formatted_number,
-			'mes' => $month,
-			'anio' => $year
-		];
-		return redirect()->route('reporte.totalSalidaMes')->with('array', $array);
+		// Clona la fila de la tabla y reemplaza los marcadores de posición con tus datos
+		$templateProcessor->setValue('month', $month);
+		$templateProcessor->setValue('year', $year);
+		$templateProcessor->setValue('totalFinal', $formatted_number);
+		$templateProcessor->cloneRowAndSetValues('codigopresupuestario', $resultados);
+
+		// Guarda la plantilla poblada como un documento de Word
+		$tempFile = $cwd . 'tempDoc/' . uniqid('PHPWord') . '.docx';
+		$pdfTempFile = $cwd . 'pdfs/' . uniqid('PDF') . '.pdf';
+
+		$templateProcessor->saveAs($tempFile);
+
+		return response()->download($tempFile)->deleteFileAfterSend(true);
 	}
 }
