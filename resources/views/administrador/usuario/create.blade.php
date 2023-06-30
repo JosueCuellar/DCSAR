@@ -18,7 +18,7 @@
                             <div class="pull-right">
                                 <a href="{{ route('usuario.index') }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title
-                                    data-original-title="Regresar a lista de categorias">Regresar</a>
+                                    data-original-title="Regresar a lista de usuarios">Regresar</a>
                             </div>
                         </div>
                     </div>

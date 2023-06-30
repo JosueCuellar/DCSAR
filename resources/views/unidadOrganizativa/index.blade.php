@@ -4,14 +4,12 @@
     <div class="col-md-12">
         <h2>Lista de unidades organizativas</h2>
     </div>
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('unidadOrganizativa.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nueva unidad Organizativa</button>
-            </form>
-        </div>
+    <div class="col-md-12 d-grid gap-2 d-md-flex">
+        <form action="{{ route('unidadOrganizativa.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nueva unidad Organizativa</button>
+        </form>
     </div>
 @endsection
 @section('content')

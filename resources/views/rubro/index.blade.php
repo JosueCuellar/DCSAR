@@ -4,14 +4,12 @@
     <div class="col-md-12">
         <h2>Lista de rubros</h2>
     </div>
-    <div class="row p-3">
-        <div class="col-md-12 d-grid gap-2 d-md-flex">
-            <form action="{{ route('rubro.create') }}" method="GET">
-                @csrf
-                <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
-                        class="fa fa-plus"></i> Nuevo rubro</button>
-            </form>
-        </div>
+    <div class="col-md-12 d-grid gap-2 d-md-flex">
+        <form action="{{ route('rubro.create') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
+                    class="fa fa-plus"></i> Nuevo rubro</button>
+        </form>
     </div>
 @endsection
 @section('content')
@@ -155,7 +153,7 @@
                 body: '{{ session('error') }}',
                 class: 'bg-warning',
                 autohide: true,
-                icon: 'fas fa-solid fa-xmark',
+                icon: 'fas fa-exclamation-triangle',
                 delay: 3500,
                 close: false,
             })

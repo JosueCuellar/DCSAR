@@ -172,7 +172,7 @@
                 body: '{{ session('error') }}',
                 class: 'bg-warning',
                 autohide: true,
-                icon: 'fas fa-solid fa-xmark',
+                icon: 'fas fa-exclamation-triangle',
                 delay: 3500,
                 close: false,
             })

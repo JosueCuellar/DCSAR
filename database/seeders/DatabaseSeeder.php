@@ -28,59 +28,71 @@ class DatabaseSeeder extends Seeder
 		$this->call(UserSeeder::class);
 
 		DB::table('estados')->insert([
-			'codigoEstado' => 'SE',
-			'descripcionEstado' => 'Una requisición ha sido enviada',
-			'nombreEstado' => 'Solicitud Enviada',
-		]);
-
-		DB::table('estados')->insert([
-			'codigoEstado' => 'SA',
-			'descripcionEstado' => 'Una requisición ha sido aprobada',
-			'nombreEstado' => 'Solicitud Aprobada',
-		]);
-
-		DB::table('estados')->insert([
-			'codigoEstado' => 'SR',
-			'descripcionEstado' => 'Una requisición ha sido rechazada',
-			'nombreEstado' => 'Solicitud Rechazada',
-		]);
-
-		DB::table('estados')->insert([
-			'codigoEstado' => 'SEN',
-			'descripcionEstado' => 'Una requisición ha sido entregada',
-			'nombreEstado' => 'Solicitud Entregada',
-		]);
-
-		DB::table('estados')->insert([
-			'codigoEstado' => 'NA',
-			'descripcionEstado' => 'No terminada',
-			'nombreEstado' => 'NA',
+			['id' => 1, 'codigoEstado' => 'SE', 'descripcionEstado' => 'Una requisición ha sido enviada', 'nombreEstado' => 'Solicitud Enviada'],
+			['id' => 2, 'codigoEstado' => 'SA', 'descripcionEstado' => 'Una requisición ha sido aprobada', 'nombreEstado' => 'Solicitud Aprobada'],
+			['id' => 3, 'codigoEstado' => 'SR', 'descripcionEstado' => 'Una requisición ha sido rechazada', 'nombreEstado' => 'Solicitud Rechazada'],
+			['id' => 4, 'codigoEstado' => 'SEN', 'descripcionEstado' => 'Una requisición ha sido entregada', 'nombreEstado' => 'Solicitud Entregada'],
+			['id' => 5, 'codigoEstado' => 'NA', 'descripcionEstado' => 'No terminada', 'nombreEstado' => 'Solicitud Inicializada',]
 		]);
 
 		//Medidas
 		DB::table('medidas')->insert([
-			'nombreMedida' => 'Kilos(kg)',
+			['nombreMedida' => 'Bolsa 1/2 Kg.'],
+			['nombreMedida' => 'Kilo'],
+			['nombreMedida' => 'Resma'],
+			['nombreMedida' => 'Paq/100 U.'],
+			['nombreMedida' => 'Unidad'],
+			['nombreMedida' => 'Pliegos'],
+			['nombreMedida' => 'Caja'],
+			['nombreMedida' => 'Paq/ 200'],
+			['nombreMedida' => 'Rollo'],
+			['nombreMedida' => 'Galon'],
+			['nombreMedida' => 'Millares'],
+			['nombreMedida' => 'Bolsa/1 kls.'],
+			['nombreMedida' => 'b/100'],
+			['nombreMedida' => 'frascos'],
+			['nombreMedida' => 'Tarro/42.5 gs'],
+			['nombreMedida' => 'cubeta'],
+			['nombreMedida' => 'Paquete 10'],
+			['nombreMedida' => 'Paquete 5'],
+			['nombreMedida' => 'Bote'],
+			['nombreMedida' => 'Paquete'],
+			['nombreMedida' => 'Litro'],
+			['nombreMedida' => 'Bote 200 ml'],
+			['nombreMedida' => 'Llanta'],
+			['nombreMedida' => 'Yardas'],
+			['nombreMedida' => 'C./100 Pares'],
+			['nombreMedida' => 'Pares'],
+			['nombreMedida' => 'Bolsa/100'],
+			['nombreMedida' => 'Caja 50 Unid'],
+			['nombreMedida' => 'Caja de 50'],
+			['nombreMedida' => 'Caja/ 10 U.'],
+			['nombreMedida' => 'Caja/ 50 U.'],
+			['nombreMedida' => 'Caja/ 100 U.'],
+			['nombreMedida' => 'Caja/ 12 U.'],
+			['nombreMedida' => 'C/1000 U.'],
+			['nombreMedida' => 'Blister'],
+			['nombreMedida' => 'C ./50 U'],
+			['nombreMedida' => 'Bolsa 1 Lb.'],
+			['nombreMedida' => 'Caja/12 U.'],
+			['nombreMedida' => '50/sets'],
+			['nombreMedida' => 'Paq./ 5'],
+			['nombreMedida' => 'Caja / 100'],
+			['nombreMedida' => 'Caja / 12'],
+			['nombreMedida' => 'Cartucho'],
+			['nombreMedida' => 'Juego'],
+			['nombreMedida' => 'Paque./25'],
+			['nomebreMendia' => "Paquete/7"],
+			['nomebreMendia' => "Paquete/25"]
 		]);
-		DB::table('medidas')->insert([
-			'nombreMedida' => 'Cajas',
-		]);
-		DB::table('medidas')->insert([
-			'nombreMedida' => 'Rollos',
-		]);
-		DB::table('medidas')->insert([
-			'nombreMedida' => 'Paquetes',
-		]);
+
+
 
 
 		//Bodegas
 		DB::table('bodegas')->insert([
-			'nombreBodega' => 'Bodega principal',
-			'ubicacion' => 'Nivel 1',
-		]);
-
-		DB::table('bodegas')->insert([
-			'nombreBodega' => 'Bodega secundaria',
-			'ubicacion' => 'Nivel 1',
+			['nombreBodega' => 'Bodega principal', 'ubicacion' => 'Nivel 1'],
+			['nombreBodega' => 'Bodega secundaria', 'ubicacion' => 'Nivel 1']
 		]);
 
 		//RUBROS

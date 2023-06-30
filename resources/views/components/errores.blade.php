@@ -14,9 +14,9 @@
 
     <script>
         // Selecciona el elemento que quieres ocultar
-        let elemento = document.querySelector('.alert.alert-danger');
+        const elemento = document.querySelector('.alert.alert-danger');
         // Establece un tiempo de espera en milisegundos
-        let tiempoDeEspera = 4000; // 3 segundos
+        const tiempoDeEspera = 4000; // 3 segundos
         // Usa setTimeout para ejecutar una función después del tiempo de espera
         setTimeout(() => {
             // Oculta el elemento

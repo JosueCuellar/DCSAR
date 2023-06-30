@@ -215,12 +215,9 @@ Route::get('rol/destroy/{rol}', [UserController::class, 'destroyRoles'])->name('
 //Reportes mensuales
 //Pantalla de inicio
 Route::get('reporte', [ReporteController::class, 'index'])->name('reporte.index');
-//Total ingreso mensual
-Route::get('reporte/totalIngresoMes', [ReporteController::class, 'totalIngresoMes'])->name('reporte.totalIngresoMes');
-Route::post('reporte/totalIngresoMesPost', [ReporteController::class, 'totalIngresoMesPost'])->name('reporte.totalIngresoMesPost');
-//Total salida mensual
-Route::get('reporte/totalSalidaMes', [ReporteController::class, 'totalSalidaMes'])->name('reporte.totalSalidaMes');
-Route::post('reporte/totalSalidaMesPost', [ReporteController::class, 'totalSalidaMesPost'])->name('reporte.totalSalidaMesPost');
+//Metodo para escoger
+Route::post('reporte/reportesMensuales', [ReporteController::class, 'reportesMensuales'])->name('reporte.reportesMensuales');
+Route::post('reporte/reportesGenerales', [ReporteController::class, 'reportesGenerales'])->name('reporte.reportesGenerales');
 //---------------------------PDFs------------------------------------------------------
 Route::get('requisicionProducto/pdf/comprobante/{requisicionProducto}', [ReporteController::class, 'comprobanteRequiProductoPDF'])->name('pdf.requisicionProducto');
 Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [ReporteController::class, 'aprobarRequiProductoPDF'])->name('pdf.aprobarRequisicionProducto');
