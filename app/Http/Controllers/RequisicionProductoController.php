@@ -66,10 +66,10 @@ class RequisicionProductoController extends Controller
 	public function revisar()
 	{
 		$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
-		->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
-		->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
-		->select('requisicion_productos.*')
-		->get();
+			->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+			->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+			->select('requisicion_productos.*')
+			->get();
 
 		return view('requisicionProducto.revisar', compact('requisicionesEnviadas'));
 	}
@@ -83,11 +83,11 @@ class RequisicionProductoController extends Controller
 	public function requisicionRecibida()
 	{
 		$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)
-		->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
-		->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
-		->select('requisicion_productos.*')
-		->get();
-		
+			->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+			->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+			->select('requisicion_productos.*')
+			->get();
+
 		return view('requisicionProducto.requiRealizada', compact('requisicionRecibidas'));
 	}
 
@@ -153,45 +153,46 @@ class RequisicionProductoController extends Controller
 	public function requisicionEntregada(RequisicionProducto $requisicionProducto)
 	{
 		try {
-			$requisicionProducto->estado_id =  4;
+			$requisicionProducto->estado_id = 4;
 			$detallesRequi = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
 			foreach ($detallesRequi as $detalle) {
 				$producto_id = $detalle->producto_id;
-				$this->reset($detalle->id);
-				$detalle->save();
-				$this->reset($detalle->id);
-
 				$bodegas = ProductoBodega::where('producto_id', $producto_id)->where('cantidadDisponible', '>', 0)->orderBy('id', 'asc')->get();
-				foreach ($bodegas as $bodega) {
-					$detaBodega = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();
-					$cantDesc = $detaBodega->cantidadEntregada;
-					if ($cantDesc > 0) {
-						if ($bodega->cantidadDisponible < $cantDesc) { //50
+				$detaBodega = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->where('producto_id', $producto_id)->first();
+				$cantDesc = $detaBodega->cantidadEntregada;
+				if ($cantDesc > 0) {
+					foreach ($bodegas as $bodega) {
+						//Si la cantidadEntregada es mayor que cantidad disponible 5000 < 100
+						if ($bodega->cantidadDisponible < $cantDesc) {
+							//50
 							$detaBodega->cantidadEntregada -= $bodega->cantidadDisponible; //-10 hay 40
 							$detaBodega->save();
 							$bodega->cantidadDisponible = 0;
+							// Update cantDesc after updating cantidadEntregada
+							$cantDesc = $detaBodega->cantidadEntregada;
 						} else {
-							$dif = $bodega->cantidadDisponible - $detaBodega->cantidadEntregada; // 50 - 1
+
+							$dif = $bodega->cantidadDisponible - $cantDesc; // 50 - 1
 							$detaBodega->cantidadEntregada = 0; //-10 hay 40
 							$detaBodega->save();
+							// Update cantDesc after updating cantidadEntregada
+							$cantDesc = 0;
 							$bodega->cantidadDisponible = $dif;
 							$bodega->save();
 						}
 						// Explicit save operation
 						$bodega->save();
 					}
-					if ($cantDesc === 0) {
-						break;
-					}
 				}
 			}
-
 			$requisicionProducto->save();
-			return  redirect()->route('requisicionProducto.entrega')->with('status', 'Registro correcto');
+			return redirect()->route('requisicionProducto.entrega')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return  redirect()->route('requisicionProducto.entrega')->with('msg', 'Error' . $e->getMessage());
+			return redirect()->route('requisicionProducto.entrega')->with('msg', 'Error' . $e->getMessage());
 		}
 	}
+
+
 
 
 	public function reset($id)

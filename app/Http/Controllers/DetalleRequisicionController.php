@@ -112,13 +112,13 @@ class DetalleRequisicionController extends Controller
 					$detalle_requisicion = DetalleRequisicion::find($existe[0]->id);
 					$detalle_requisicion->precioPromedio = $productoA->costoPromedio;
 					$detalle_requisicion->cantidad = ($detalle_requisicion->cantidad) + $request->cantidadAdd;
-					$detalle_requisicion->cantidadEntregada = 0;
+					$detalle_requisicion->cantidadEntregada = ($detalle_requisicion->cantidad) + $request->cantidadAdd;;
 					$detalle_requisicion->total = ($detalle_requisicion->cantidad) * $precioPromedio;
 					$detalle_requisicion->save();
 				} else {
 					$detalle_requisicion =  new DetalleRequisicion();
 					$detalle_requisicion->cantidad = $request->cantidadAdd;
-					$detalle_requisicion->cantidadEntregada = 0;
+					$detalle_requisicion->cantidadEntregada = $request->cantidadAdd;
 					$detalle_requisicion->precioPromedio = $productoA->costoPromedio;
 					$detalle_requisicion->total = ($detalle_requisicion->cantidad) * $precioPromedio;
 					$detalle_requisicion->requisicion_id = $requisicionProducto->id;

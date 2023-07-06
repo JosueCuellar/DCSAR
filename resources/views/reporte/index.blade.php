@@ -72,35 +72,46 @@
                             target="_blank">
                             @csrf
                             <div class="form-group row">
-                                <label for="reportTypeGeneral" class="col-sm-2 col-form-label">Tipo de reporte</label>
-                                <div class="col-sm-10">
+                                <label for="reportTypeGeneral" class="col-sm-4 col-form-label">Tipo de reporte</label>
+                                <div class="col-sm-8">
                                     <select class="form-control" id="reportTypeGeneral" name="reportTypeGeneral" required>
                                         <option value="" disabled selected>--- Selecciona el reporte ---</option>
                                         <option value="existenciaFecha">Existencia a la fecha</option>
-                                        <option value="reporteEspecifico">Reporte por especifico</option>
+                                        <option value="consumoPorRubro">Reporte consumo por rubro</option>
                                     </select>
 
                                 </div>
                             </div>
-                            <div class="form-group row additional-element">
-                                <label for="rubroSelect" class="col-sm-2 col-form-label">Rubro</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control" id="rubroSelect" name="rubroSelect">
-                                        <option value="rubro1">Rubro 1</option>
-                                        <option value="rubro2">Rubro 2</option>
-                                    </select>
+                            <div class="additional-element">
+                                <div class="form-group row">
+                                    <label for="rubro_id" class="col-sm-4 col-form-label">Rubro:</label>
+                                    <div class="col-sm-8">
+                                        <input type="hidden" name="codigoPresupuestario" id="codigoPresupuestario">
+                                        <input type="hidden" name="descripRubro" id="descripRubro">
+                                        <select class="form-control" name="rubro_id" id="rubro_id">
+                                            <option selected='true' disabled='disabled'>---- Seleccionar especifico para
+                                                realizar reporte ----</option>
+                                            @foreach ($rubros as $item)
+                                                <option value="{{ $item->id }}"
+                                                    data-codigoPresupuestario="{{ $item->codigoPresupuestario }}"
+                                                    data-descripRubro="{{ $item->descripRubro }}">
+                                                    {{ $item->codigoPresupuestario . ' ' . $item->descripRubro }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row additional-element">
-                                <label for="fechaInicio" class="col-sm-2 col-form-label">Fecha inicio</label>
-                                <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
+                                <div class="form-group row">
+                                    <label for="start_date" class="col-sm-4 col-form-label">Fecha inicio</label>
+                                    <div class="col-sm-8">
+                                        <input type="month" class="form-control" id="start_date" name="start_date">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row additional-element">
-                                <label for="fechaFin" class="col-sm-2 col-form-label">Fecha fin</label>
-                                <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+                                <div class="form-group row">
+                                    <label for="start_date" class="col-sm-4 col-form-label">Fecha fin</label>
+                                    <div class="col-sm-8">
+                                        <input type="month" class="form-control" id="end_date" name="end_date">
+                                    </div>
                                 </div>
                             </div>
 
@@ -116,6 +127,32 @@
     </div>
 @endsection
 @section('js_datatable')
+
+    <script>
+        $(document).ready(function(e) {
+            $('#rubro_id').select2({
+                width: 'resolve',
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+
+            $('#rubro_id').on('select2:select', function(e) {
+                var data = e.params.data;
+                var codigoPresupuestario = data.element.getAttribute('data-codigoPresupuestario');
+                var descripRubro = data.element.getAttribute('data-descripRubro');
+                document.getElementById('codigoPresupuestario').value = codigoPresupuestario;
+                document.getElementById('descripRubro').value = descripRubro;
+            });
+        });
+    </script>
+
+
 
     <script>
         const h5Tabs = document.querySelectorAll('#h5Tabs a');
@@ -146,34 +183,33 @@
         });
     </script>
 
-		<script>
-			// Obtener el elemento select y los elementos adicionales
-const reportTypeSelect = document.querySelector('#reportTypeGeneral');
-const additionalElements = document.querySelectorAll('.additional-element');
+    <script>
+        // Obtener el elemento select y los elementos adicionales
+        const reportTypeSelect = document.querySelector('#reportTypeGeneral');
+        const additionalElements = document.querySelectorAll('.additional-element');
 
-// Ocultar los elementos adicionales al cargar la página
-additionalElements.forEach((element) => {
-    element.style.display = 'none';
-});
-
-// Agregar un evento de cambio al select
-reportTypeSelect.addEventListener('change', (event) => {
-    // Obtener el valor seleccionado
-    const selectedValue = event.target.value;
-
-    // Mostrar u ocultar los elementos adicionales según el valor seleccionado
-    if (selectedValue === 'reporteEspecifico') {
-        additionalElements.forEach((element) => {
-            element.style.display = 'block';
-        });
-    } else {
+        // Ocultar los elementos adicionales al cargar la página
         additionalElements.forEach((element) => {
             element.style.display = 'none';
         });
-    }
-});
 
-		</script>
+        // Agregar un evento de cambio al select
+        reportTypeSelect.addEventListener('change', (event) => {
+            // Obtener el valor seleccionado
+            const selectedValue = event.target.value;
+
+            // Mostrar u ocultar los elementos adicionales según el valor seleccionado
+            if (selectedValue === 'consumoPorRubro') {
+                additionalElements.forEach((element) => {
+                    element.style.display = 'block';
+                });
+            } else {
+                additionalElements.forEach((element) => {
+                    element.style.display = 'none';
+                });
+            }
+        });
+    </script>
 
 
 @endsection

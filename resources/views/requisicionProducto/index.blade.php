@@ -52,13 +52,10 @@
                                             </a>
                                         @endif
 
-                                        @role('Gerente Unidad Organizativa')
-                                            <a href="{{ route('requisicionProducto.destroy', $item) }}" data-toggle="modal"
-                                                data-target="#deleteModal" data-delete="{{ $item->id }}"
-                                                class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        @endrole
+																				@if(auth()->user()->hasRole('Gerente Unidad Organizativa') || auth()->user()->hasRole('Super Administrador'))
+																				<a href="{{ route('requisicionProducto.destroy', $item) }}" data-toggle="modal" data-target="#deleteModal" data-delete="{{ $item->id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i> </a>
+																		@endif
+																		
                                     </td>
 
                                 </tr>
