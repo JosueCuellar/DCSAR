@@ -92,7 +92,7 @@
             $(document).Toasts('create', {
                 title: 'Solicitud enviada',
                 position: 'topRight',
-                body: '{{ session('status') }} se ha enviado la solicitud para su revisión',
+                body: '{{ session('status') }} la solicitud se entrego correctamente',
                 class: 'bg-info',
                 autohide: true,
                 icon: 'fas fa-solid fa-check',

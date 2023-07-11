@@ -49,7 +49,7 @@ class ReporteController extends Controller
 			'totalFinal' => $totalFinal,
 			'requisicionProducto' => $requisicionProducto
 		];
-		$pdf = PDF::loadView('reporte.requisicionProducto', $data);
+		$pdf = PDF::loadView('reporte.comprobanteRequiProduc', $data);
 		$pdf->setPaper('letter', 'portrait', 'auto');
 		// 'letter' is letter size, 'portrait' is the orientation
 		$pdf->render();
@@ -74,6 +74,7 @@ class ReporteController extends Controller
 		return $pdf->stream($requisicionProducto->nCorrelativo . '.pdf');
 	}
 
+	//PDF aprobacion re requicision
 	public function aprobarRequiProductoPDF(RequisicionProducto $requisicionProducto)
 	{
 		$totalFinal = 0.0;
@@ -115,7 +116,38 @@ class ReporteController extends Controller
 		return $pdf->stream($requisicionProducto->nCorrelativo . '.pdf');
 	}
 
-	public function totalIngresoMesPost(Request $request)
+	// REPORTES MENSUALES
+
+	//Metodo que recibe el tipo de reporte que se requiere, le pasa los parametros para ecoger el reporte mensual
+	public function reportesMensuales(reportesMensualesRequest $request)
+	{
+		$method = $request->input('reportType');
+		return $this->escogerMetodoReportesMens($request, $method);
+	}
+
+	//Este reporte llama al metodo del reporte seleccionado
+	public function escogerMetodoReportesMens(Request $request, $method)
+	{
+
+		if ($request->fechaInput) {
+			switch ($method) {
+				case 'totalIngresoMes':
+					return $this->totalIngresoMes($request);
+				case 'totalSalidaMes':
+					return $this->totalSalidaMes($request);
+				case 'listadoArticulos':
+					return $this->listadoArticulos($request);
+				default:
+					return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
+					break;
+			}
+		} else {
+			return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
+		}
+	}
+
+
+	public function totalIngresoMes(Request $request)
 	{
 		$fecha = $request->fechaInput;
 		list($year, $month) = explode("-", $fecha);
@@ -136,10 +168,14 @@ class ReporteController extends Controller
 			$totalFinal += $item->sumaTotal;
 		}
 		$formatted_number = number_format($totalFinal, 2, '.', '');
+		$fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMMM');
+		$nombreMes = $fmt->format(mktime(0, 0, 0, $month, 10));
+		$nombreMes = mb_strtoupper($nombreMes, 'UTF-8');
+		
 		$array = [
 			'reporteTotalIngreso' => $resultados,
 			'totalFinal' => $formatted_number,
-			'mes' => $month,
+			'mes' => $nombreMes,
 			'anio' => $year
 		];
 
@@ -160,11 +196,10 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		$page_count = $canvas->get_page_count();
-		return $pdf->stream('xd' . '.pdf');
+		return $pdf->stream('Total_Ingreso_Mes_'.$nombreMes.'_'.$year. '.pdf');
 	}
 
-	public function totalSalidaMesPost(Request $request)
+	public function totalSalidaMes(Request $request)
 	{
 
 		$fecha = $request->fechaInput;
@@ -186,11 +221,13 @@ class ReporteController extends Controller
 			$totalFinal += $item->sumaTotal;
 		}
 		$formatted_number = number_format($totalFinal, 2, '.', '');
-
+		$fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMMM');
+		$nombreMes = $fmt->format(mktime(0, 0, 0, $month, 10));
+		$nombreMes = mb_strtoupper($nombreMes, 'UTF-8');
 		$array = [
 			'reporteTotalSalida' => $resultados,
 			'totalFinal' => $formatted_number,
-			'mes' => $month,
+			'mes' => $nombreMes,
 			'anio' => $year
 		];
 		$pdf = PDF::loadView('reporte.totalSalidaMes', $array);
@@ -211,9 +248,8 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		$page_count = $canvas->get_page_count();
+		return $pdf->stream('Total_Salida_Mes_'.$nombreMes.'_'.$year. '.pdf');
 
-		return $pdf->stream('xd' . '.pdf');
 	}
 
 	public function listadoArticulos(Request $request)
@@ -268,10 +304,12 @@ class ReporteController extends Controller
 		foreach ($groupedResults as $codigoPresupuestario => $data) {
 			$totalSumGeneral += $data['totalSum'];
 		}
-
+		$fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMMM');
+		$nombreMes = $fmt->format(mktime(0, 0, 0, $month, 10));
+		$nombreMes = mb_strtoupper($nombreMes, 'UTF-8');
 		$array = [
 			'reporte' => $groupedResults,
-			'mes' => $month,
+			'mes' => $nombreMes,
 			'anio' => $year,
 			'sumaGeneral' => $totalSumGeneral
 		];
@@ -295,36 +333,13 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		$page_count = $canvas->get_page_count();
+		return $pdf->stream('Listado_Articulos_Mes_'.$nombreMes.'_'.$year. '.pdf');
 
-		return $pdf->stream('xd' . '.pdf');
 	}
 
-	public function reportesMensuales(reportesMensualesRequest $request)
-	{
-		$method = $request->input('reportType');
-		return $this->escogerMetodoReportesMens($request, $method);
-	}
+	// REPORTES GENERALES
 
-	public function escogerMetodoReportesMens(Request $request, $method)
-	{
-
-		if ($request->fechaInput) {
-			switch ($method) {
-				case 'totalIngresoMesPost':
-					return $this->totalIngresoMesPost($request);
-				case 'totalSalidaMesPost':
-					return $this->totalSalidaMesPost($request);
-				case 'listadoArticulos':
-					return $this->listadoArticulos($request);
-				default:
-					return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
-					break;
-			}
-		} else {
-			return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
-		}
-	}
+	//Metodo que recibe el tipo de reporte que se requiere, le pasa los parametros para ecoger el reporte general
 
 	public function reportesGenerales(Request $request)
 	{
@@ -345,7 +360,6 @@ class ReporteController extends Controller
 				break;
 		}
 	}
-
 
 	public function existenciaFecha(Request $request)
 	{
@@ -381,9 +395,13 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		$page_count = $canvas->get_page_count();
+		$year = Carbon::now()->year;
+		$month = Carbon::now()->month;
+		$fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMMM');
+		$nombreMes = $fmt->format(mktime(0, 0, 0, $month, 10));
+		$nombreMes = mb_strtoupper($nombreMes, 'UTF-8');
 
-		return $pdf->stream('xd' . '.pdf');
+		return $pdf->stream('Existencia a la Fecha ' . $nombreMes .' '. $year . '.pdf');
 	}
 
 	public function consumoPorRubro(Request $request)
@@ -391,27 +409,32 @@ class ReporteController extends Controller
 
 		$start_date = $request->start_date;
 		$end_date = $request->end_date;
+
+		if ($start_date > $end_date) {
+			return redirect()->back()->with('error', 'La fecha de fin debe ser mayor o igual a la fecha de inicio');
+		}
+
 		$rubro_id = $request->rubro_id; // Replace with the desired rubro_id value
-		
+
 		$start_month_year = date('Y-m', strtotime($start_date));
 		$end_month_year = date('Y-m', strtotime($end_date));
-		
+
 		$resultados = DB::table('detalle_requisicions')
-				->join('requisicion_productos', 'detalle_requisicions.requisicion_id', '=', 'requisicion_productos.id')
-				->join('productos', 'detalle_requisicions.producto_id', '=', 'productos.id')
-				->select(
-						'detalle_requisicions.producto_id',
-						'productos.descripcion',
-						DB::raw('MONTH(requisicion_productos.fechaRequisicion) as month'),
-						DB::raw('SUM(detalle_requisicions.cantidad) as cantidad_productos'),
-						DB::raw('SUM(detalle_requisicions.total) as total')
-				)
-				->where('requisicion_productos.estado_id', '=', 4)
-				->whereRaw("DATE_FORMAT(requisicion_productos.fechaRequisicion, '%Y-%m') BETWEEN ? AND ?", [$start_month_year, $end_month_year])
-				->where('productos.rubro_id', '=', $rubro_id)
-				->groupBy('detalle_requisicions.producto_id', 'productos.descripcion', DB::raw('MONTH(requisicion_productos.fechaRequisicion)'))
-				->get();
-		
+			->join('requisicion_productos', 'detalle_requisicions.requisicion_id', '=', 'requisicion_productos.id')
+			->join('productos', 'detalle_requisicions.producto_id', '=', 'productos.id')
+			->select(
+				'detalle_requisicions.producto_id',
+				'productos.descripcion',
+				DB::raw('MONTH(requisicion_productos.fechaRequisicion) as month'),
+				DB::raw('SUM(detalle_requisicions.cantidad) as cantidad_productos'),
+				DB::raw('SUM(detalle_requisicions.total) as total')
+			)
+			->where('requisicion_productos.estado_id', '=', 4)
+			->whereRaw("DATE_FORMAT(requisicion_productos.fechaRequisicion, '%Y-%m') BETWEEN ? AND ?", [$start_month_year, $end_month_year])
+			->where('productos.rubro_id', '=', $rubro_id)
+			->groupBy('detalle_requisicions.producto_id', 'productos.descripcion', DB::raw('MONTH(requisicion_productos.fechaRequisicion)'))
+			->get();
+
 		// Set the locale for Carbon to Spanish
 		Carbon::setLocale('es');
 
@@ -499,8 +522,7 @@ class ReporteController extends Controller
 			'months' => array_values($months),
 			'mes_inicio' => $start_date,
 			'mes_final' => $end_date,
-			'mes_final' => $end_date,
-			'rubro' => $request->codigoPresupuestario .' '. $request->descripRubro,
+			'rubro' => $request->codigoPresupuestario . ' ' . $request->descripRubro,
 
 		];
 
@@ -522,8 +544,7 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		$page_count = $canvas->get_page_count();
 
-		return $pdf->stream('xd' . '.pdf');
+		return $pdf->stream('Consumo Por Especifico desde '. $start_date . ' Hasta '. $end_date. '.pdf');
 	}
 }

@@ -7,28 +7,31 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('fondo/logo22.png') }}">
     <!-- DataTables -->
-    {{-- <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"> --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.min.css"
-        integrity="sha512-xlddSVZtsRE3eIgHezgaKXDhUrdkIZGMeAFrvlpkK0k5Udv19fTPmZFdQapBJnKZyAQtlr3WXEM3Lf4tsrHvSA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> {{-- <link rel="stylesheet" href="{{ asset('vendor/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}"> --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        href="{{ asset('dependencias/css/cdn.datatables.net_1.13.4_css_dataTables.bootstrap5.min.css') }}">
+    <!-- DataTables responsive -->
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_responsive_2.4.1_css_responsive.dataTables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_buttons_2.3.6_css_buttons.bootstrap5.min.css') }}">
+    <!-- ScrollBar -->
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdnjs.cloudflare.com_ajax_libs_jquery.scrollbar_0.2.11_jquery.scrollbar.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_css_bootstrap.min.css') }}">
+    <!-- Toast -->
     <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Select 2 -->
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_css_select2.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="{{ asset('dependencias/css/fonts.googleapis.com_css_family=Source+Sans+Pro_300,400,400i,700&display=fallback.css') }}">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('vendor/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/dist/css/adminlte.min.css') }}">
-</head>
-
-<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed m-0 p-0 layout-footer-fixed">
+    <!-- Estilo CSS del loader -->
     <style>
         #preloader {
             position: fixed;
@@ -78,7 +81,22 @@
             }
         }
     </style>
+
+    <!-- Estilo CSS del loader -->
+    <style>
+        .table-extra-sm td,
+        .table-extra-sm th {
+            padding: 0.1rem;
+        }
+    </style>
+
+</head>
+
+
+<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed m-0 p-0 layout-footer-fixed">
+    <!-- wrapper -->
     <div class="wrapper">
+        <!-- Loader se carga aca -->
         <div id="preloader">
             <div class="loader"></div>
         </div>
@@ -96,8 +114,8 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item d-none d-sm-inline-block">
-                    <h5 class="text-white-50"><b>Requisiciones y Almacén para la trazabilidad de
-                            las solicitudes de bienes y/o insumos</b></h5>
+                    <h5 class="text-white-50"><b>Requisiciones y Almacén para la trazabilidad de las solicitudes de
+                            bienes y/o insumos</b></h5>
                 </li>
             </ul>
             <!-- Right navbar links -->
@@ -127,7 +145,8 @@
             style="background-color:#313945">
             <!-- Sidebar -->
             <a href="/" class="brand-link" style="background-color:#313945">
-                <img src="{{ asset('fondo/logoPNG.png') }}" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+                <img src="{{ asset('fondo/logoPNG.png') }}" alt="AdminLTE Logo" class="brand-image"
+                    style="opacity: .8">
                 <span class="brand-text font-weight-light">DCSAR</span>
             </a>
             <div class="sidebar">
@@ -317,24 +336,20 @@
                                 </ul>
                             </li>
                         @endcan
+                    </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
             <div class="sidebar-custom">
                 @can('Ver panel admin')
-                    <a href="{{ asset('admin') }}" class="btn btn-link">
+                    <a href="{{ asset('admin') }}" class="btn btn-link">											
                         <ion-icon name="settings-outline" class="fa-2x bg-dark"></ion-icon>
                     </a>
                 @endcan
             </div>
         </aside>
-        <style>
-            .table-extra-sm td,
-            .table-extra-sm th {
-                padding: 0.1rem;
-            }
-        </style>
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('bar')
@@ -356,35 +371,31 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- jQuery -->
-    {{-- <script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="{{ asset('dependencias/js/code.jquery.com_jquery-3.6.4.min.js') }}"></script>
     <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_js_select2.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('vendor/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
     <!-- Bootstrap core JavaScript-->
-    {{-- <script src="{{ asset('vendor/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>
-    {{-- <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_bs5-lightbox@1.8.3_dist_index.bundle.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_js_bootstrap.bundle.min.js') }}">
     </script>
     <!-- Core plugin JavaScript-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
-        integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('dependencias/js/cdnjs.cloudflare.com_ajax_libs_jquery-easing_1.4.1_jquery.easing.min.js') }}">
+    </script>
     <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollbar/0.2.11/jquery.scrollbar.min.js"
-        integrity="sha512-5AcaBUUUU/lxSEeEcruOIghqABnXF8TWqdIDXBZ2SNEtrTGvD408W/ShtKZf0JNjQUfOiRBJP+yHk6Ab2eFw3Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('dependencias/js/cdnjs.cloudflare.com_ajax_libs_jquery.scrollbar_0.2.11_jquery.scrollbar.min.js') }}">
+    </script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_buttons.bootstrap5.min.js') }}"></script>
+
     @yield('js_datatable')
     @yield('js_imagen')
     @yield('js')

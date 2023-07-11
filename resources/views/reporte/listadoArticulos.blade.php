@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PDF</title>
+    <title>Listado Articulos</title>
 </head>
 
 <style>
@@ -102,14 +102,14 @@
                 <tfoot>
                     <tr>
                         <td colspan="5" style="font-weight:700">Total por especifico</td>
-                        <td colspan="1" style="font-weight:700">${{ $item['totalSum'] }}</td>
+                        <td colspan="1" style="font-weight:700">${{ number_format($item['totalSum'], 2, '.', '')}}</td>
                     </tr>
                 </tfoot>
             </table>
             </br>
         @endforeach
 
-        <div>TOTAL GENERAL ${{ $sumaGeneral }}</div>
+        <div>TOTAL GENERAL --------------------------------------------------------------------------------------------- ${{number_format($sumaGeneral, 2, '.', '') }}</div>
 
     </section>
 </body>

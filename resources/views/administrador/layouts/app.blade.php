@@ -7,30 +7,97 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('fondo/logo22.png') }}">
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_1.13.4_css_dataTables.bootstrap5.min.css') }}">
+    <!-- DataTables responsive -->
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_responsive_2.4.1_css_responsive.dataTables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_buttons_2.3.6_css_buttons.bootstrap5.min.css') }}">
+    <!-- ScrollBar -->
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdnjs.cloudflare.com_ajax_libs_jquery.scrollbar_0.2.11_jquery.scrollbar.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_css_bootstrap.min.css') }}">
+    <!-- Toast -->
     <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <!-- Select 2 -->
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_css_select2.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="{{ asset('dependencias/css/fonts.googleapis.com_css_family=Source+Sans+Pro_300,400,400i,700&display=fallback.css') }}">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('vendor/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/dist/css/adminlte.min.css') }}">
+    <!-- Estilo CSS del loader -->
+    <style>
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 1);
+            /* Color blanco con opacidad del 50% */
+        }
 
-    <link rel="stylesheet" href="{{ asset('vendor/plugins/ekko-lightbox/ekko-lightbox.css') }}">
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            border-top: 3px solid #3498db;
+            border-right: 3px solid #3498db;
+            border-bottom: 3px solid #3498db;
+            border-left: 3px solid #ccc;
+            width: 30px;
+            height: 30px;
+            margin-top: -15px;
+            margin-left: -15px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
 
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- Estilo CSS del loader -->
+    <style>
+        .table-extra-sm td,
+        .table-extra-sm th {
+            padding: 0.1rem;
+        }
+    </style>
 
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse layout-fixed">
 
     <div class="wrapper">
+        <div id="preloader">
+            <div class="loader"></div>
+        </div>
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-dark" style="background-color:#313945">
             <!-- Left navbar links -->
@@ -40,7 +107,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ asset('/') }}" class="nav-link">Inicio</a>
+                    <a href="{{ asset('/') }}" class="nav-link">Volver al Inicio Principal</a>
                 </li>
             </ul>
 
@@ -78,9 +145,7 @@
 
         </nav>
 
-
         <!-- /.navbar -->
-
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar main-sidebar-custom sidebar-dark-secondary elevation-4"
             style="background-color:#313945">
@@ -140,8 +205,6 @@
                                 </a>
                             </li>
                         @endcan
-
-
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
@@ -150,16 +213,10 @@
                 <a href="#" class="btn btn-link">
                     <ion-icon name="settings-outline" class="fa-2x bg-dark"></ion-icon>
                 </a>
-                {{-- <a href="#" class="btn btn-secondary hide-on-collapse pos-right">///</a> --}}
             </div>
         </aside>
 
-        <style>
-            .table-extra-sm td,
-            .table-extra-sm th {
-                padding: 0.1rem;
-            }
-        </style>
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('bar')
@@ -181,41 +238,34 @@
 
     </div>
     <!-- ./wrapper -->
-
     <!-- REQUIRED SCRIPTS -->
-
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
     <!-- jQuery -->
-    <script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/code.jquery.com_jquery-3.6.4.min.js') }}"></script>
     <!-- Bootstrap -->
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_js_select2.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('vendor/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
-
-
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('vendor/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
-    {{-- <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_bs5-lightbox@1.8.3_dist_index.bundle.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_js_bootstrap.bundle.min.js') }}">
     </script>
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
+    <script src="{{ asset('dependencias/js/cdnjs.cloudflare.com_ajax_libs_jquery-easing_1.4.1_jquery.easing.min.js') }}">
+    </script>
     <!-- DataTables -->
-    <script src="{{ asset('vendor/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('vendor/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('dependencias/js/cdnjs.cloudflare.com_ajax_libs_jquery.scrollbar_0.2.11_jquery.scrollbar.min.js') }}">
+    </script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_buttons.bootstrap5.min.js') }}"></script>
 
 
     @yield('js_datatable')
@@ -223,5 +273,11 @@
     @yield('js')
 
 </body>
+
+<script>
+    $(window).on('load', function() {
+        $('#preloader').slideUp('850');
+    });
+</script>
 
 </html>

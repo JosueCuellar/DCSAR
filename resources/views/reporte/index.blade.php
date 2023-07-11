@@ -42,8 +42,8 @@
                                 <div class="col-sm-8">
                                     <select class="form-control" id="reportType" name="reportType" required>
                                         <option value="" disabled selected>--- Selecciona el reporte ---</option>
-                                        <option value="totalIngresoMesPost">Total Ingreso Mes</option>
-                                        <option value="totalSalidaMesPost">Total Salida Mes</option>
+                                        <option value="totalIngresoMes">Total Ingreso Mes</option>
+                                        <option value="totalSalidaMes">Total Salida Mes</option>
                                         <option value="listadoArticulos">Listado Articulos</option>
                                     </select>
                                 </div>
@@ -68,8 +68,8 @@
                 <div class="card mx-auto" style="width: 40rem;">
                     <div class="card-body">
                         <x-errores class="mb-4" />
-                        <form method="POST" class="form-horizontal" action="{{ route('reporte.reportesGenerales') }}"
-                            target="_blank">
+                        <form method="POST" class="form-horizontal" id="form"
+                            action="{{ route('reporte.reportesGenerales') }}" target="_blank">
                             @csrf
                             <div class="form-group row">
                                 <label for="reportTypeGeneral" class="col-sm-4 col-form-label">Tipo de reporte</label>
@@ -88,8 +88,8 @@
                                     <div class="col-sm-8">
                                         <input type="hidden" name="codigoPresupuestario" id="codigoPresupuestario">
                                         <input type="hidden" name="descripRubro" id="descripRubro">
-                                        <select class="form-control" name="rubro_id" id="rubro_id">
-                                            <option selected='true' disabled='disabled'>---- Seleccionar especifico para
+                                        <select class="form-control" name="rubro_id" id="rubro_id" required>
+                                            <option value="" disabled selected>---- Seleccionar especifico para
                                                 realizar reporte ----</option>
                                             @foreach ($rubros as $item)
                                                 <option value="{{ $item->id }}"
@@ -104,13 +104,15 @@
                                 <div class="form-group row">
                                     <label for="start_date" class="col-sm-4 col-form-label">Fecha inicio</label>
                                     <div class="col-sm-8">
-                                        <input type="month" class="form-control" id="start_date" name="start_date">
+                                        <input type="month" class="form-control" id="start_date" name="start_date"
+                                            required max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="start_date" class="col-sm-4 col-form-label">Fecha fin</label>
+                                    <label for="end_date" class="col-sm-4 col-form-label">Fecha fin</label>
                                     <div class="col-sm-8">
-                                        <input type="month" class="form-control" id="end_date" name="end_date">
+                                        <input type="month" class="form-control" id="end_date" name="end_date"
+                                            required max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +120,21 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-warning">Generar reporte</button>
                             </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    let startDate = document.querySelector('#start_date');
+                                    let endDate = document.querySelector('#end_date');
+                                    let form = document.querySelector('#form');
+
+                                    form.addEventListener('submit', function(event) {
+                                        if (startDate.value > endDate.value) {
+                                            event.preventDefault();
+                                            alert('La fecha de fin debe ser mayor o igual a la fecha de inicio.');
+                                        }
+                                    });
+                                });
+                            </script>
                         </form>
                     </div>
                 </div>
@@ -153,7 +170,6 @@
     </script>
 
 
-
     <script>
         const h5Tabs = document.querySelectorAll('#h5Tabs a');
         const reportesCierreMensuales = document.querySelector('#reportesCierreMensuales');
@@ -179,8 +195,19 @@
                     reportesCierreMensuales.style.display = 'none';
                     reportesGenerales.style.display = 'block';
                 }
+
+                // Save the current tab value to local storage
+                localStorage.setItem('currentTab', event.target.dataset.value);
             });
         });
+
+        // When the page is reloaded, get the current tab value from local storage
+        const currentTab = localStorage.getItem('currentTab');
+
+        // If there is a current tab value in local storage, set the corresponding tab as active
+        if (currentTab) {
+            document.querySelector(`#h5Tabs a[data-value="${currentTab}"]`).click();
+        }
     </script>
 
     <script>
@@ -193,7 +220,6 @@
             element.style.display = 'none';
         });
 
-        // Agregar un evento de cambio al select
         reportTypeSelect.addEventListener('change', (event) => {
             // Obtener el valor seleccionado
             const selectedValue = event.target.value;
@@ -203,11 +229,21 @@
                 additionalElements.forEach((element) => {
                     element.style.display = 'block';
                 });
+                document.querySelector('#rubro_id').setAttribute('required', true);
+                document.querySelector('#start_date').setAttribute('required', true);
+                document.querySelector('#end_date').setAttribute('required', true);
             } else {
                 additionalElements.forEach((element) => {
                     element.style.display = 'none';
                 });
+                document.querySelector('#rubro_id').removeAttribute('required');
+                document.querySelector('#start_date').removeAttribute('required');
+                document.querySelector('#end_date').removeAttribute('required');
             }
+
+            // Limpiar los valores de los inputs
+            document.querySelector('#start_date').value = '';
+            document.querySelector('#end_date').value = '';
         });
     </script>
 

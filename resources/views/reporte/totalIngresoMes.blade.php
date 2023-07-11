@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PDF</title>
+    <title>Total Ingreso Mes</title>
 </head>
 <body style="font-family:'Calibri',sans-serif;">
     <header name="page-header">

@@ -6,10 +6,8 @@ use App\Http\Controllers\DetalleRequisicionController;
 use App\Http\Controllers\DocumentoXCompraController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\InventarioController;
-use App\Http\Controllers\LoteController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\MedidaController;
-use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProductoBodegaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
@@ -19,7 +17,6 @@ use App\Http\Controllers\RequisicionProductoController;
 use App\Http\Controllers\RubroController;
 use App\Http\Controllers\UnidadOrganizativaController;
 use App\Http\Controllers\UserController;
-use App\Models\ProductoBodega;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -180,8 +177,11 @@ Route::get('inventarioDatos', [InventarioController::class, 'datosInventario'])-
 Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'])->name('productoBodega.index')->middleware('can:Ver bodega principal');
 Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2')->middleware('can:Ver bodega secundaria');
 Route::post('productoBodega/{productoBodega}/', [ProductoBodegaController::class, 'store'])->name('productoBodega.store');
+
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['can:Ver panel admin'])->group(function () {
+
 //----------------------------Usuarios------------------------
 //listar
 Route::get('usuario', [UserController::class, 'index'])->name('usuario.index');
@@ -210,7 +210,7 @@ Route::get('rol/edit/{rol}', [UserController::class, 'editRoles'])->name('rol.ed
 Route::put('rol/update/{rol}', [UserController::class, 'updateRoles'])->name('rol.update');
 //eliminar
 Route::get('rol/destroy/{rol}', [UserController::class, 'destroyRoles'])->name('rol.destroy');
-
+});
 //----------------------------Reportes------------------------
 //Reportes mensuales
 //Pantalla de inicio
