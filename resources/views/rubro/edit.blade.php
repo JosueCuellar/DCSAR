@@ -16,7 +16,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Editando rubro:
                             <div class="pull-right">
-                                <a href="{{ route('rubro.index')  }}" class="btn btn-outline-secondary btn-sm float-right"
+                                <a href="{{ route('rubro.index') }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title
                                     data-original-title="Regresar a lista de marcas">Regresar</a>
                             </div>

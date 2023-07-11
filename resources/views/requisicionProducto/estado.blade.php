@@ -60,18 +60,17 @@
                                                         <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
                                                             <ion-icon name="create-outline" class="fa-lg text-primary">
                                                             </ion-icon>
-                                                        </a>                                                      
+                                                        </a>
                                                     @endif
-																											@role('Gerente Unidad Organizativa')
-																											
-																													<a href="{{ route('requisicionProducto.destroy', $item) }}"
-																															data-toggle="modal" data-target="#deleteModal"
-																															data-categoriaid="{{ $item->id }}">
-																															<ion-icon name="trash-outline" class="fa-lg text-danger">
-																															</ion-icon>
-																													</a>
-																											@endrole
-																									</td>
+                                                    @role('Gerente Unidad Organizativa')
+                                                        <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                            data-toggle="modal" data-target="#deleteModal"
+                                                            data-categoriaid="{{ $item->id }}">
+                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">
+                                                            </ion-icon>
+                                                        </a>
+                                                    @endrole
+                                                </td>
 
                                                 </td>
                                                 </tr>

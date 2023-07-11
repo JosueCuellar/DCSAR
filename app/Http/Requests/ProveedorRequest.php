@@ -32,20 +32,20 @@ class ProveedorRequest extends FormRequest
 				'required',
 				'max:15',
 				function ($attribute, $value, $fail) {
-						if (!preg_match('/^\(\d{3}\) \d{4}-\d{4}$/', $value)) {
-								$fail('El teléfono debe tener el formato (999) 9999-9999');
-						}
-				},
-		],
-		'telefonoProveedor2' => [
-			'nullable',
-			'max:15',
-			function ($attribute, $value, $fail) {
-					if ($value !== null && !preg_match('/^\(\d{3}\) \d{4}-\d{4}$/', $value)) {
-							$fail('El teléfono opcional debe tener el formato (999) 9999-9999');
+					if (!preg_match('/^\(\d{3}\) \d{4}-\d{4}$/', $value)) {
+						$fail('El teléfono debe tener el formato (999) 9999-9999');
 					}
-			},
-	],
+				},
+			],
+			'telefonoProveedor2' => [
+				'nullable',
+				'max:15',
+				function ($attribute, $value, $fail) {
+					if ($value !== null && !preg_match('/^\(\d{3}\) \d{4}-\d{4}$/', $value)) {
+						$fail('El teléfono opcional debe tener el formato (999) 9999-9999');
+					}
+				},
+			],
 		];
 	}
 

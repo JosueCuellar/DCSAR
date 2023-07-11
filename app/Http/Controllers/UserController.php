@@ -12,9 +12,6 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-	//
-
-
 
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()

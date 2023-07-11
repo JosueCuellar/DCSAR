@@ -96,7 +96,9 @@
                             });
                         });
                 },
-								order: [[ 1, "asc" ]],
+                order: [
+                    [1, "asc"]
+                ],
                 ajax: '{{ route('producto.datos') }}',
                 columns: [{
                         data: 'rubro_id',

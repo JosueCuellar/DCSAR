@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Http\Requests\ProductoRequest;
 use App\Models\Marca;
 use App\Models\Medida;
@@ -8,9 +10,9 @@ use App\Models\Rubro;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Yajra\DataTables\DataTables;
+
 class ProductoController extends Controller
 {
-	//
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{

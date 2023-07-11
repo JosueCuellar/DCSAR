@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UnidadOrganizativaRequest;
 use App\Models\UnidadOrganizativa;
-use Illuminate\Http\Request;
 
 class UnidadOrganizativaController extends Controller
 {

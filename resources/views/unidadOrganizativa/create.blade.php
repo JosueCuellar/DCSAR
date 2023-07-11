@@ -16,8 +16,9 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Creando unidad Organizativa:
                             <div class="pull-right">
-                                <a href="{{ route('unidadOrganizativa.index') }}" class="btn btn-outline-secondary btn-sm float-right"
-                                    data-toggle="tooltip" data-placement="left" title
+                                <a href="{{ route('unidadOrganizativa.index') }}"
+                                    class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
+                                    data-placement="left" title
                                     data-original-title="Regresar a lista de unidades organizativas">Regresar</a>
                             </div>
                         </div>
@@ -29,10 +30,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
-                                        <label for="nombreUnidadOrganizativa" class="col-12 control-label">Nombre de unidad:</label>
+                                        <label for="nombreUnidadOrganizativa" class="col-12 control-label">Nombre de
+                                            unidad:</label>
                                         <div class="col-12">
-                                            <input id="nombreUnidadOrganizativa" type="text" class="form-control" name="nombreUnidadOrganizativa"
-                                                value="{{ old('nombreUnidadOrganizativa') }}" placeholder="Nombre de unidad">
+                                            <input id="nombreUnidadOrganizativa" type="text" class="form-control"
+                                                name="nombreUnidadOrganizativa"
+                                                value="{{ old('nombreUnidadOrganizativa') }}"
+                                                placeholder="Nombre de unidad">
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
@@ -40,7 +44,8 @@
                                             unidad:</label>
                                         <div class="col-12">
                                             <input id="descripUnidadOrganizativa" type="text" class="form-control"
-                                                name="descripUnidadOrganizativa" value="{{ old('descripUnidadOrganizativa') }}"
+                                                name="descripUnidadOrganizativa"
+                                                value="{{ old('descripUnidadOrganizativa') }}"
                                                 placeholder="Decripción de unidad">
                                         </div>
                                     </div>

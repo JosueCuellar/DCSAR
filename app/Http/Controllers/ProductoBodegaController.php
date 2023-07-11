@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Producto;
 use App\Models\ProductoBodega;
-use Exception;
 use Illuminate\Http\Request;
 
 class ProductoBodegaController extends Controller
@@ -37,13 +35,6 @@ class ProductoBodegaController extends Controller
 		}
 	}
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
 	public function store(Request $request, ProductoBodega $productoBodega)
 	{
 		// Get input values

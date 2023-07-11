@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentoXCompra;
 use App\Models\RecepcionCompra;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class DocumentoXCompraController extends Controller
 {
 
+	//Este controlador se encarga de todo lo relacionado a la carga de documentos de una recepcion de compra (INGRESO)
 
 	public function leerDocumento($uuid)
 	{
@@ -33,9 +33,6 @@ class DocumentoXCompraController extends Controller
 		$recepcionID = DocumentoXCompra::where('id', $recepcionCompra);
 		return redirect()->route('recepcionCompra.detalle', $recepcionCompra);
 	}
-
-
-
 
 	public function upload(Request $request, RecepcionCompra $recepcionCompra)
 	{

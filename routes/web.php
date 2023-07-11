@@ -170,10 +170,8 @@ Route::controller(DetalleCompraController::class)->group(function () {
 //---------------------------Inventario------------------------------------------------------
 Route::get('inventario', [InventarioController::class, 'index'])->name('inventario.index')->middleware('can:Ver inventario');
 Route::get('inventarioDatos', [InventarioController::class, 'datosInventario'])->name('inventario.datos')->middleware('can:Ver inventario');
-//--------------------------Salida de lotes------------------------------------------------------
-// Route::get('lote/{requisicionProducto}', [LoteController::class, 'index'])->name('lote.index');
-// Route::post('lote/despacho/{requisicionProducto}/{lote}', [LoteController::class, 'store'])->name('lote.store');
-//--------------------------Salida de lotes------------------------------------------------------
+
+//--------------------------Salida de bodegas------------------------------------------------------
 Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'])->name('productoBodega.index')->middleware('can:Ver bodega principal');
 Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2')->middleware('can:Ver bodega secundaria');
 Route::post('productoBodega/{productoBodega}/', [ProductoBodegaController::class, 'store'])->name('productoBodega.store');

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medida extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'nombreMedida'
-    ];
+	use HasFactory;
+	protected $fillable = [
+		'nombreMedida'
+	];
 }

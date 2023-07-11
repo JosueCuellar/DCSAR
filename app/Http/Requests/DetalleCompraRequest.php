@@ -28,15 +28,15 @@ class DetalleCompraRequest extends FormRequest
 			'producto_id' => 'required',
 			'cantidadIngreso' => 'required|integer|max:10000',
 			'precioUnidad' => [
-					'required',
-					Rule::notIn([0]),
-					function ($attribute, $value, $fail) {
-							if (preg_match('/^\d+(\.\d{1,2})?$/', $value) !== 1) {
-									$fail('Debe tener como máximo 2 decimales');
-							}
-					},
+				'required',
+				Rule::notIn([0]),
+				function ($attribute, $value, $fail) {
+					if (preg_match('/^\d+(\.\d{1,2})?$/', $value) !== 1) {
+						$fail('Debe tener como máximo 2 decimales');
+					}
+				},
 			],
-	];
+		];
 	}
 	public function messages()
 	{

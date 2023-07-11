@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Aprobar Requisicion</title>
 </head>
+
 <body>
     <header name="page-header">
         <!-- Header del PDF -->
@@ -256,7 +258,7 @@
         <div class="page-break"
             style="position: relative; margin-bottom: 5px; bottom: 10%; width: 100%; text-align: center;">
             <!----------------------------------- Firma --------------------------------------------------------------------->
-            {{-- <table style="width:463.5pt;border-collapse:collapse;border:none;">
+            <table style="width:463.5pt;border-collapse:collapse;border:none;">
                 <tbody>
                     <tr>
                         <td
@@ -300,8 +302,9 @@
                         <td style="width:.15in;padding:0in 5.4pt 0in 5.4pt;height:15.75pt;"><br></td>
                     </tr>
                 </tbody>
-            </table> --}}
+            </table>
         </div>
     </section>
 </body>
+
 </html>

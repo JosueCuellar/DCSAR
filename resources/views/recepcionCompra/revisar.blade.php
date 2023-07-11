@@ -1,9 +1,9 @@
 @extends('admin.layouts.index')
 @section('title', 'Detalle de Ingreso')
 @section('header')
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
-    <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+    <script src="{{ asset('dependencias/js/unpkg.com_axios@1.4.0_dist_axios.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('dependencias/js/unpkg.com_dropzone@6.0.0-beta.1_dist_dropzone.css') }}">
+    <script src="{{ asset('dependencias/js/unpkg.com_dropzone@6.0.0-beta.1_dist_dropzone-min.js') }}"></script>
     <div class="col-md-12">
         <h2>Detalles del ingreso de insumos</h2>
     </div>

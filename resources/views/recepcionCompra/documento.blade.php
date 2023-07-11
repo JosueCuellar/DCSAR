@@ -1,9 +1,9 @@
 @extends('bar.layouts.bar')
 @section('title', 'Documentos')
 @section('header')
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
-    <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+    <script src="{{ asset('dependencias/js/unpkg.com_axios@1.4.0_dist_axios.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('dependencias/js/unpkg.com_dropzone@6.0.0-beta.1_dist_dropzone.css') }}">
+    <script src="{{ asset('dependencias/js/unpkg.com_dropzone@6.0.0-beta.1_dist_dropzone-min.js') }}"></script>
 @endsection
 @section('content')
     <div class="content">
@@ -40,7 +40,7 @@
         Dropzone.options.myDropzone = {
             // Configuration options go here
             paramName: "file[]",
-						acceptedFiles: "application/pdf",
+            acceptedFiles: "application/pdf",
             dictDefaultMessage: 'Agrega los documentos aquí, solo permite documentos en formato PDF',
             maxFilesize: 4, // MB
             addRemoveLinks: true,

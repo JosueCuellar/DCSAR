@@ -44,8 +44,5 @@ class PermisoSeeder extends Seeder
 		Permission::create(['name' => 'Ver inventario']);
 
 		Permission::create(['name' => 'Ver bodega principal']);
-
-
-		
 	}
 }

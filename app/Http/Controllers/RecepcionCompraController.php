@@ -10,9 +10,7 @@ use App\Models\Producto;
 use App\Models\ProductoBodega;
 use App\Models\Proveedor;
 use App\Models\RecepcionCompra;
-use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 class RecepcionCompraController extends Controller
@@ -41,7 +39,7 @@ class RecepcionCompraController extends Controller
 	}
 
 
-
+	//Permite la creacion de un nuevo INGRESO de productos
 	public function store(RecepcionCompraRequest $request)
 	{
 		try {
@@ -59,18 +57,20 @@ class RecepcionCompraController extends Controller
 		}
 	}
 
+	//Vista paraedicion de una recepcion de ingreso de productos ya creada
 	public function edit(RecepcionCompra $recepcionCompra)
 	{
 		try {
 			$proveedores = Proveedor::all();
 
-			return view('recepcionCompra.edit', compact('recepcionCompra','proveedores'));
+			return view('recepcionCompra.edit', compact('recepcionCompra', 'proveedores'));
 		} catch (\Exception $e) {
 			return $e->getMessage();
 		}
 	}
 
-	public function updateCompra(RecepcionCompra $recepcionCompra , RecepcionCompraRequest $request)
+	//Permite la edicion de una recepcion de ingreso de productos ya creada
+	public function updateCompra(RecepcionCompra $recepcionCompra, RecepcionCompraRequest $request)
 	{
 		try {
 			$recepcionCompra->proveedor_id = $request->proveedor_id;
@@ -85,8 +85,6 @@ class RecepcionCompraController extends Controller
 			return redirect()->back()->with('error', 'Algo salio mal!');
 		}
 	}
-
-
 
 	public function update(Request $request, RecepcionCompra $recepcionCompra)
 	{
@@ -122,7 +120,7 @@ class RecepcionCompraController extends Controller
 		}
 	}
 
-
+	//Visualizar las recepcion de ingreso completas
 	public function consultar()
 	{
 		$recepcionesSinCompletar = RecepcionCompra::where('estado', false)->get();
@@ -133,6 +131,7 @@ class RecepcionCompraController extends Controller
 		return view('recepcionCompra.consultar', compact('recepcionesCompletas'));
 	}
 
+	//Visualizar al revision de los detalles de la recepcion de ingreso de productos
 	public function revisar(RecepcionCompra $recepcionCompra)
 	{
 		$totalFinal = 0.0;
@@ -144,11 +143,7 @@ class RecepcionCompraController extends Controller
 		return view('recepcionCompra.revisar', compact('documentos', 'detalleCompra', 'recepcionCompra', 'totalFinal'));
 	}
 
-
-
-
-
-
+	//Permite eliminar un registro de una recepcion de compra
 	public function destroy(RecepcionCompra $recepcionCompra)
 	{
 		try {

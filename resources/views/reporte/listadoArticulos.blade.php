@@ -27,15 +27,16 @@
         text-decoration: none;
         font-family: Calibri, sans-serif;
         text-align: center,
-        vertical-align:middle;
+            vertical-align:middle;
     }
 
-		thead {
-    background-color: gray;
-  }
-  tfoot {
-    background-color: lightgray;
-  }
+    thead {
+        background-color: gray;
+    }
+
+    tfoot {
+        background-color: lightgray;
+    }
 </style>
 
 <body style="font-family:'Calibri',sans-serif;">
@@ -102,14 +103,16 @@
                 <tfoot>
                     <tr>
                         <td colspan="5" style="font-weight:700">Total por especifico</td>
-                        <td colspan="1" style="font-weight:700">${{ number_format($item['totalSum'], 2, '.', '')}}</td>
+                        <td colspan="1" style="font-weight:700">${{ number_format($item['totalSum'], 2, '.', '') }}
+                        </td>
                     </tr>
                 </tfoot>
             </table>
             </br>
         @endforeach
 
-        <div>TOTAL GENERAL --------------------------------------------------------------------------------------------- ${{number_format($sumaGeneral, 2, '.', '') }}</div>
+        <div>TOTAL GENERAL ---------------------------------------------------------------------------------------------
+            ${{ number_format($sumaGeneral, 2, '.', '') }}</div>
 
     </section>
 </body>

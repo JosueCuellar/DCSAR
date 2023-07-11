@@ -5,18 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DetalleCompraRequest;
 use App\Models\Bodega;
 use App\Models\DetalleCompra;
-use App\Models\DetalleRequisicion;
 use App\Models\DocumentoXCompra;
-use App\Models\Lote;
 use App\Models\Producto;
 use App\Models\RecepcionCompra;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Http\Request;
+
 
 class DetalleCompraController extends Controller
 {
 	//
 
+	//Funcion para revisar detalle de compra
 	public function index(RecepcionCompra $recepcionCompra)
 	{
 		$detalleCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
@@ -24,6 +22,7 @@ class DetalleCompraController extends Controller
 		$bodegas = Bodega::all();
 		return view('detalleCompra.index', compact('detalleCompra', 'productos', 'bodegas'));
 	}
+
 
 	public function create(RecepcionCompra $recepcionCompra)
 	{
@@ -44,12 +43,11 @@ class DetalleCompraController extends Controller
 		}
 	}
 
+	//Funcion para crear un nuevo detalle de compra
 	public function store(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra)
 	{
 		$total = ($request->cantidadIngreso) * ($request->precioUnidad);
 		try {
-			$deta = DetalleCompra::all();
-			$n = count($deta) + 1;
 			$detalleCompra =  new DetalleCompra();
 			$detalleCompra->producto_id = $request->producto_id;
 			$detalleCompra->recepcion_compra_id = $recepcionCompra->id;
@@ -58,7 +56,6 @@ class DetalleCompraController extends Controller
 			$detalleCompra->precioUnidad = $request->precioUnidad;
 			$detalleCompra->total = $total;
 			$detalleCompra->save();
-
 			return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
 		} catch (\Exception $e) {
 			return $e->getMessage();
@@ -72,6 +69,7 @@ class DetalleCompraController extends Controller
 	}
 
 
+	//Funcion para editar un detalle de compra
 	public function update(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)
 	{
 		$total = ($request->cantidadIngreso) * ($request->precioUnidad);
@@ -92,7 +90,7 @@ class DetalleCompraController extends Controller
 		}
 	}
 
-
+	//Funcion para eliminar un detalle de compra
 	public function destroy(RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)
 	{
 		$detalleCompra->delete();

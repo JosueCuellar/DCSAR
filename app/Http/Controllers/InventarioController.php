@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Inventario;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -16,6 +13,8 @@ class InventarioController extends Controller
 		return view('inventario.index');
 	}
 
+	//Este metodo se encarga de enviar los datos a una dataTable
+	//La consulta SQL contiene los calculos de los stocks para saber la cantidad que se enceuntran disponibles
 	public function datosInventario()
 	{
 		$inventarios = DB::select(

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Comprobante requisicion</title>
 </head>
+
 <body style="font-family:'Calibri',sans-serif;">
     <header name="page-header">
         <!-- Header del PDF -->
@@ -335,4 +337,5 @@
         </table>
     </div>
 </body>
+
 </html>

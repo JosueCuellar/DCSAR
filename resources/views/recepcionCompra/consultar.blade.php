@@ -46,21 +46,26 @@
                                                 <td>{{ $item->codigoFactura }}</td>
                                                 <td>{{ $item->proveedor->nombreComercial }}</td>
                                                 <td>
-																									<a href="{{ route('recepcionCompra.revisar', $item->id) }}" class="btn btn-sm btn-dark">
-																										<i class="fas fa-eye"></i> Ver detalles
-																									</a>
-																									<a href="{{ route('recepcionCompra.edit', $item->id) }}" class="btn btn-sm btn-success">
-																										<i class="fas fa-clipboard"></i> Editar Recepcion
-																									</a>
-																									<a href="{{ route('recepcionCompra.detalle', $item->id) }}" class="btn btn-sm btn-primary">
-																										<i class="fas fa-edit"></i> Editar Detalles
-																									</a>
-																									<a href="{{ route('recepcionCompra.destroy', $item) }}" data-toggle="modal" data-target="#deleteModal" data-delete="{{ $item->id }}" class="btn btn-sm btn-danger">
-																										<i class="fas fa-trash"></i>
-																									</a>
-																								</td>
-																								
-																								
+                                                    <a href="{{ route('recepcionCompra.revisar', $item->id) }}"
+                                                        class="btn btn-sm btn-dark">
+                                                        <i class="fas fa-eye"></i> Ver detalles
+                                                    </a>
+                                                    <a href="{{ route('recepcionCompra.edit', $item->id) }}"
+                                                        class="btn btn-sm btn-success">
+                                                        <i class="fas fa-clipboard"></i> Editar Recepcion
+                                                    </a>
+                                                    <a href="{{ route('recepcionCompra.detalle', $item->id) }}"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-edit"></i> Editar Detalles
+                                                    </a>
+                                                    <a href="{{ route('recepcionCompra.destroy', $item) }}"
+                                                        data-toggle="modal" data-target="#deleteModal"
+                                                        data-delete="{{ $item->id }}" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </td>
+
+
                                                 </tr>
                                             @endforeach
                                         </tbody>

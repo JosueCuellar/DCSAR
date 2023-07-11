@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EstadoRequest;
 use App\Models\Estado;
-use Illuminate\Http\Request;
 
 class EstadoController extends Controller
 {
-	//
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{

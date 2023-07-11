@@ -51,7 +51,8 @@
             </div>
             <h5 class="text-bold">Accesos directos</h5>
             <div class="row p-2">
-                @role('Super Administrador|Gerente Unidad Organizativa|Tecnico Encargado Almacen|Solicitante Unidad Organizativa|Gerente Encargado Almacen')
+                @role('Super Administrador|Gerente Unidad Organizativa|Tecnico Encargado Almacen|Solicitante Unidad
+                    Organizativa|Gerente Encargado Almacen')
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #003f5c">
                             <div class="inner">
@@ -176,35 +177,24 @@
                     </div>
                 @endrole
             </div>
-            {{-- 
-            <h5 class="text-bold">Proceso de requisiciones</h5>
-            <div class="row p-2">
-                <div class="col-lg-32">
-                    <div class="card card-dark card-outline">
-                        <ul class="list-group">
-                            <li class="list-group-item "><b class="text-info">Enviada:</b> Indica que la solicitud ha
-                                sido realizada y enviada por el solicitante para su revisión</li>
-                            <li class="list-group-item"><b class="text-success">Aprobada:</b> Indica que la solicitud ha
-                                sido aprobada con éxito por el jefe de la unidad organizativa</li>
-                            <li class="list-group-item"><b class="text-danger">Rechazada:</b> Indica que la solicitud ha
-                                sido rechazada y puede modificarse por el solicitante</li>
-                        </ul>
-                    </div>
-                </div>
-            </div> --}}
+
         </div>
     </div>
-    {{-- @if ($existe)
-        @section('js_datatable')
-            <script>
-                $(document).Toasts('create', {
-                    title: 'Solicitudes',
-                    position: 'topRight',
-                    body: 'Hay {{ $n }} solicitudes recibidas por revisar.',
-                    class: 'bg-info',
-                    icon: '	far fa-file',
-                })
-            </script>
-        @endsection
-    @endif --}}
+    {{-- Notificacion para saber si hay solicitudes por revisar --}}
+    @if (Auth::user()->hasRole('Gerente Unidad Organizativa'))
+        @if ($existe)
+            @section('js_datatable')
+                <script>
+                    $(document).Toasts('create', {
+                        title: 'Solicitudes',
+                        position: 'topRight',
+                        body: 'Hay {{ $n }} solicitudes recibidas por revisar.',
+                        class: 'bg-info',
+                        icon: ' far fa-file',
+                    })
+                </script>
+            @endsection
+        @endif
+    @endif
+
 @endsection

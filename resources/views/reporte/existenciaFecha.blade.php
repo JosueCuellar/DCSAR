@@ -16,7 +16,8 @@
             <img src="{{ asset('fondo/logopdf.png') }}" style="max-width: 58px;">
         </div>
         <p style="margin:1px;text-align:center;">
-            <strong><span style="font-size:20px;"><br> ESTADO ACTUAL DE EXISTENCIAS HASTA LA FECHA DE CADA ARTICULO</strong>
+            <strong><span style="font-size:20px;"><br> ESTADO ACTUAL DE EXISTENCIAS HASTA LA FECHA DE CADA
+                    ARTICULO</strong>
         </p>
     </header>
     <br>
@@ -82,9 +83,6 @@
             </table>
         </div>
     </div>
-
-
-
 </body>
 
 </html>

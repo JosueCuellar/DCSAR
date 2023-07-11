@@ -32,16 +32,16 @@
                                     <div class="form-group has-feedback row">
                                         <label for="codigoEstado" class="col-12 control-label">Codigo de estado:</label>
                                         <div class="col-12">
-                                            <input value="{{ old('codigoEstado', $estado->codigoEstado) }}" id="codigoEstado"
-                                                type="text" class="form-control" name="codigoEstado"
+                                            <input value="{{ old('codigoEstado', $estado->codigoEstado) }}"
+                                                id="codigoEstado" type="text" class="form-control" name="codigoEstado"
                                                 placeholder="Codigo de estado" required>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
                                         <label for="nombreEstado" class="col-12 control-label">Nombre estado:</label>
                                         <div class="col-12">
-                                            <input value="{{ old('nombreEstado', $estado->nombreEstado) }}" id="nombreEstado"
-                                                type="text" class="form-control" name="nombreEstado"
+                                            <input value="{{ old('nombreEstado', $estado->nombreEstado) }}"
+                                                id="nombreEstado" type="text" class="form-control" name="nombreEstado"
                                                 placeholder="Nombre de estado" required>
                                         </div>
                                     </div>

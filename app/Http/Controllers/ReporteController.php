@@ -12,16 +12,9 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
-use DateTime;
-use Dompdf\Renderer\Page_Text_Renderers;
-use Dompdf\FrameReflower\Text;
 use Illuminate\Support\Facades\DB;
 use IntlDateFormatter;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\Settings;
-use PhpOffice\PhpWord\TemplateProcessor;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+
 
 class ReporteController extends Controller
 {
@@ -171,7 +164,7 @@ class ReporteController extends Controller
 		$fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMMM');
 		$nombreMes = $fmt->format(mktime(0, 0, 0, $month, 10));
 		$nombreMes = mb_strtoupper($nombreMes, 'UTF-8');
-		
+
 		$array = [
 			'reporteTotalIngreso' => $resultados,
 			'totalFinal' => $formatted_number,
@@ -196,7 +189,7 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		return $pdf->stream('Total_Ingreso_Mes_'.$nombreMes.'_'.$year. '.pdf');
+		return $pdf->stream('Total_Ingreso_Mes_' . $nombreMes . '_' . $year . '.pdf');
 	}
 
 	public function totalSalidaMes(Request $request)
@@ -248,8 +241,7 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		return $pdf->stream('Total_Salida_Mes_'.$nombreMes.'_'.$year. '.pdf');
-
+		return $pdf->stream('Total_Salida_Mes_' . $nombreMes . '_' . $year . '.pdf');
 	}
 
 	public function listadoArticulos(Request $request)
@@ -333,8 +325,7 @@ class ReporteController extends Controller
 		$x = $w - $textWidth - 150;
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-		return $pdf->stream('Listado_Articulos_Mes_'.$nombreMes.'_'.$year. '.pdf');
-
+		return $pdf->stream('Listado_Articulos_Mes_' . $nombreMes . '_' . $year . '.pdf');
 	}
 
 	// REPORTES GENERALES
@@ -401,7 +392,7 @@ class ReporteController extends Controller
 		$nombreMes = $fmt->format(mktime(0, 0, 0, $month, 10));
 		$nombreMes = mb_strtoupper($nombreMes, 'UTF-8');
 
-		return $pdf->stream('Existencia a la Fecha ' . $nombreMes .' '. $year . '.pdf');
+		return $pdf->stream('Existencia a la Fecha ' . $nombreMes . ' ' . $year . '.pdf');
 	}
 
 	public function consumoPorRubro(Request $request)
@@ -545,6 +536,6 @@ class ReporteController extends Controller
 		$y = $h - 30;
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
 
-		return $pdf->stream('Consumo Por Especifico desde '. $start_date . ' Hasta '. $end_date. '.pdf');
+		return $pdf->stream('Consumo Por Especifico desde ' . $start_date . ' Hasta ' . $end_date . '.pdf');
 	}
 }

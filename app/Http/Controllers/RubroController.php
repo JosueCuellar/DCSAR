@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RubroRequest;
 use App\Models\Estado;
 use App\Models\Rubro;
-use Illuminate\Http\Request;
 
 class RubroController extends Controller
 {
-	//
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{

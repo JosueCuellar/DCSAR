@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Total Ingreso Mes</title>
 </head>
+
 <body style="font-family:'Calibri',sans-serif;">
     <header name="page-header">
         <!-- Header del PDF -->
@@ -17,8 +19,8 @@
             <strong><span style="font-size:15px; opacity: 70%">INFORME TOTAL INGRESOS</strong>
         </p>
         <p style="margin:2px;text-align:center;">
-            <span style="font-size:17px;">MES: <strong><u> {{$mes}}  </u> </strong>
-            <span style="font-size:17px;">PERIODO: <strong><u> {{$anio}} </u> </strong>
+            <span style="font-size:17px;">MES: <strong><u> {{ $mes }} </u> </strong>
+                <span style="font-size:17px;">PERIODO: <strong><u> {{ $anio }} </u> </strong>
         </p>
     </header>
     <br>
@@ -176,4 +178,5 @@
         </table>
     </div> --}}
 </body>
+
 </html>

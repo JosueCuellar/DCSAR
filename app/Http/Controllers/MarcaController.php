@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MarcaRequest;
 use App\Models\Marca;
-use Illuminate\Http\Request;
 
 class MarcaController extends Controller
 {
-	//
-
+	
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{

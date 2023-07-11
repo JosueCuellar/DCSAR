@@ -91,14 +91,14 @@
     </div>
 @endsection
 @section('js_datatable')
-<script>
-	document.getElementById('cantidadProducto').addEventListener('input', function(e) {
-			if (e.target.value.includes('.')) {
-					e.target.value = e.target.value.replace('.', '');
-			}
-			e.target.value = e.target.value.replace(/\./g, '');
-	});
-</script>
+    <script>
+        document.getElementById('cantidadProducto').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', '');
+            }
+            e.target.value = e.target.value.replace(/\./g, '');
+        });
+    </script>
     <script>
         $('#exampleModalCenter').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)

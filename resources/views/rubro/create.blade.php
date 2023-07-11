@@ -16,7 +16,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Creando rubro:
                             <div class="pull-right">
-                                <a href="{{ route('rubro.index')  }}" class="btn btn-outline-secondary btn-sm float-right"
+                                <a href="{{ route('rubro.index') }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title
                                     data-original-title="Regresar a lista de rubros">Regresar</a>
                             </div>
@@ -33,17 +33,16 @@
                                             presupuestario:</label>
                                         <div class="col-12">
                                             <input id="codigoPresupuestario" type="number" class="form-control"
-                                                name="codigoPresupuestario" 
-                                                placeholder="Codigo presupuestario" value="{{ old('codigoPresupuestario')}}">
+                                                name="codigoPresupuestario" placeholder="Codigo presupuestario"
+                                                value="{{ old('codigoPresupuestario') }}">
                                         </div>
-                                    </div>                
+                                    </div>
                                     <div class="form-group has-feedback row">
                                         <label for="descripRubro" class="col-12 control-label">Descripción de
                                             rubro:</label>
                                         <div class="col-12">
-                                            <input id="descripRubro" type="text" class="form-control"
-                                                name="descripRubro" 
-                                                placeholder="Descripción de rubro" value="{{ old('descripRubro')}}">
+                                            <input id="descripRubro" type="text" class="form-control" name="descripRubro"
+                                                placeholder="Descripción de rubro" value="{{ old('descripRubro') }}">
                                         </div>
                                     </div>
 
@@ -72,12 +71,12 @@
 
 @section('js')
 
-<script>
-	document.getElementById('codigoPresupuestario').addEventListener('input', function(e) {
-			if (e.target.value.includes('.')) {
-					e.target.value = e.target.value.replace('.', '');
-			}
-			e.target.value = e.target.value.replace(/\./g, '');
-	});
-</script>
+    <script>
+        document.getElementById('codigoPresupuestario').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', '');
+            }
+            e.target.value = e.target.value.replace(/\./g, '');
+        });
+    </script>
 @endsection

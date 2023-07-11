@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequisicionProductoUpdateRequest;
 use App\Models\DetalleRequisicion;
-use App\Models\Lote;
 use App\Models\ProductoBodega;
 use App\Models\RequisicionProducto;
 use Carbon\Carbon;
@@ -13,11 +12,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Termwind\Components\BreakLine;
 
 class RequisicionProductoController extends Controller
 {
-	//
+	//Metodo que se encarga de visualizar las requisiciones enviadas para la revision
 	public function index(Request $request)
 	{
 		try {
@@ -39,6 +37,7 @@ class RequisicionProductoController extends Controller
 		}
 	}
 
+	//Envia los estados de las requisiciones enviadas, aprobadas y rechazadas
 	public function estado()
 	{
 		$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
@@ -63,6 +62,7 @@ class RequisicionProductoController extends Controller
 		return view('requisicionProducto.estado', compact('requisicionesEnviadas', 'requisicionesAprobadas', 'requisicionesRechazadas', 'nEnviadas', 'nAprobadas', 'nRechazadas'));
 	}
 
+	//Muestra el panel de Revision de solicitudes enviadas, es el panel que ve el Gerente de cada Unidad Organizativa
 	public function revisar()
 	{
 		$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
@@ -74,12 +74,14 @@ class RequisicionProductoController extends Controller
 		return view('requisicionProducto.revisar', compact('requisicionesEnviadas'));
 	}
 
+	//Muestra el panel de Requisicon a entregar, que ve el Encargado de Almacen para confirmar que los productos han sido enviados
 	public function entrega()
 	{
 		$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)->get();
 		return view('requisicionProducto.entrega', compact('requisicionesAprobadas'));
 	}
 
+	//Muestra una tabla con todas las requisiciones que han sido entregadas
 	public function requisicionRecibida()
 	{
 		$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)
@@ -91,6 +93,7 @@ class RequisicionProductoController extends Controller
 		return view('requisicionProducto.requiRealizada', compact('requisicionRecibidas'));
 	}
 
+	//Metodo que sirve para inicializar cada requisicion que se creara
 	public function store(Request $request)
 	{
 		$requisicionProducto = new RequisicionProducto();
@@ -127,7 +130,7 @@ class RequisicionProductoController extends Controller
 		}
 	}
 
-
+	//METODO QUE SE ENCARGA DE QUE SE PUEDA FINALIZAR UNA REQUISICION QUE HA SIDO INICIALIZADA (Cambia el estado a enviadas)
 	public function completar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		try {
@@ -148,8 +151,7 @@ class RequisicionProductoController extends Controller
 		}
 	}
 
-
-
+	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A ENTREGADA (Productos recibidos)
 	public function requisicionEntregada(RequisicionProducto $requisicionProducto)
 	{
 		try {
@@ -193,8 +195,6 @@ class RequisicionProductoController extends Controller
 	}
 
 
-
-
 	public function reset($id)
 	{
 		$registro = DetalleRequisicion::find($id);
@@ -202,6 +202,7 @@ class RequisicionProductoController extends Controller
 		$registro->save();
 	}
 
+	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A APROBADA POR EL JEFE GERENTE de cada Unidad Organizativa
 	public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		$requisicionProducto->estado_id =  2;
@@ -220,6 +221,7 @@ class RequisicionProductoController extends Controller
 		return  redirect()->route('requisicionProducto.revisar');
 	}
 
+	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A DENEGADA POR EL JEFE GERENTE de cada Unidad Organizativa
 	public function denegar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		$requisicionProducto->estado_id =  3;
@@ -228,6 +230,7 @@ class RequisicionProductoController extends Controller
 		return  redirect()->route('requisicionProducto.revisar');
 	}
 
+	//Se encarga de eliminar una requisicion de productos
 	public function destroy(RequisicionProducto $requisicionProducto)
 	{
 		$requisicionProducto->delete();

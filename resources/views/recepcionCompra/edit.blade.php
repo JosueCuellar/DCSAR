@@ -24,8 +24,9 @@
                                     Guardar cambios
                                 </button>
                                 <div class="pull-right">
-                                    <a href="{{ route('recepcionCompra.consultar')}}" class="btn btn-outline-secondary btn-sm float-right"
-                                        data-toggle="tooltip" data-placement="left" title
+                                    <a href="{{ route('recepcionCompra.consultar') }}"
+                                        class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
+                                        data-placement="left" title
                                         data-original-title="Regresar a lista de marcas">Regresar</a>
                                 </div>
                             </div>

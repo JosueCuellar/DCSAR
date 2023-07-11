@@ -14,8 +14,9 @@
                 Reenviar Requisición</button>
         @else
             @if ($requisicionProducto->estado_id == 1)
-                <a href="{{ route('requisicionProducto.index') }}" class="btn btn-secondary float-right" data-toggle="tooltip"
-                    data-placement="left" title data-original-title="Regresar a lista de usuarios">Regresar</a>
+                <a href="{{ route('requisicionProducto.index') }}" class="btn btn-secondary float-right"
+                    data-toggle="tooltip" data-placement="left" title
+                    data-original-title="Regresar a lista de usuarios">Regresar</a>
             @else
                 <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
                     data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-warning  text-left"><i

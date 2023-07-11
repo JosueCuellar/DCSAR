@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DetalleRequisicionRequest;
-use App\Models\DetalleCompra;
 use App\Models\DetalleRequisicion;
 use App\Models\Producto;
 use App\Models\RequisicionProducto;
@@ -21,14 +20,17 @@ class DetalleRequisicionController extends Controller
 		foreach ($detalle_requisicion as $item) {
 			$totalFinal += $item->total;
 		}
-
 		return view('requisicionProducto.detalle', compact('detalle_requisicion', 'requisicionProducto', 'totalFinal'));
 	}
 
-
-
 	public function datosDetalleProducto()
 	{
+		// Este método ejecuta una consulta SQL para recuperar detalles de productos de una base de datos. 
+		// La consulta recupera los campos id, descripcion, imagen, stockReal, stockReservado, nombreMedida y rubro para 
+		// cada producto. El campo stockReal se calcula como la cantidad total del producto en stock menos la cantidad entregada, 
+		// mientras que el campo stockReservado se calcula como la cantidad del producto aprobada pero aún no entregada. 
+		// La consulta une varias tablas, incluyendo las tablas productos, medidas y rubros, y utiliza subconsultas para calcular 
+		// la cantidad total de cada producto en stock y la cantidad aprobada pero aún no entregada. Los datos se devuelven en formato DataTables.
 		$productos = DB::select(
 			"SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
             COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
@@ -47,6 +49,9 @@ class DetalleRequisicionController extends Controller
             WHERE rp.estado_id IN (1, 2, 3, 4, 5)
             GROUP BY producto_id) rp ON p.id = rp.producto_id;"
 		);
+
+		// Este método recupera detalles de productos de una base de datos y los devuelve en formato DataTables.
+		// Esta forma de pasar los datos optimiza de mejor forma la carga de datos en el DataTables en la view
 		return DataTables::of($productos)->make(true);
 	}
 
@@ -73,7 +78,13 @@ class DetalleRequisicionController extends Controller
 	{
 		try {
 			$producto_id = $producto->id;
-			$codigo = $producto->id;;
+			$codigo = $producto->id;
+			// Este método ejecuta una consulta SQL para recuperar detalles de productos de una base de datos. 
+			// La consulta recupera los campos id, descripcion, imagen, stockReal, stockReservado, nombreMedida y rubro para 
+			// cada producto. El campo stockReal se calcula como la cantidad total del producto en stock menos la cantidad entregada, 
+			// mientras que el campo stockReservado se calcula como la cantidad del producto aprobada pero aún no entregada. 
+			// La consulta une varias tablas, incluyendo las tablas productos, medidas y rubros, y utiliza subconsultas para calcular 
+			// la cantidad total de cada producto en stock y la cantidad aprobada pero aún no entregada. Los datos se devuelven en formato DataTables.
 			$productos = DB::select("
 			SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
 					COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
@@ -133,6 +144,7 @@ class DetalleRequisicionController extends Controller
 		}
 	}
 
+	//Metodo para actualizar la cantidad el detalla de una requisicion
 	public function update(Request $request, RequisicionProducto $requisicionProducto, DetalleRequisicion $detalleRequisicion)
 	{
 		try {
@@ -180,6 +192,8 @@ class DetalleRequisicionController extends Controller
 			return redirect()->back()->with('msg', $e->getMessage());
 		}
 	}
+
+	//Elimina un detalle de una requisicion
 	public function destroy(RequisicionProducto $requisicionProducto, DetalleRequisicion $detalleRequisicion)
 	{
 		try {
