@@ -78,6 +78,7 @@
                                         <option value="" disabled selected>--- Selecciona el reporte ---</option>
                                         <option value="existenciaFecha">Existencia a la fecha</option>
                                         <option value="consumoPorRubro">Reporte consumo por rubro</option>
+                                        <option value="salidaPorUnidadesMes">Reporte salida por unidades </option>
                                     </select>
 
                                 </div>
@@ -112,6 +113,15 @@
                                     <label for="end_date" class="col-sm-4 col-form-label">Fecha fin</label>
                                     <div class="col-sm-8">
                                         <input type="month" class="form-control" id="end_date" name="end_date"
+                                            required max="{{ date('Y-m') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fechaUnidades">
+                                <div class="form-group row">
+                                    <label for="fechaInput" class="col-sm-4 col-form-label">Fecha</label>
+                                    <div class="col-sm-8">
+                                        <input type="month" class="form-control" id="fechaInput" name="fechaInput"
                                             required max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
@@ -214,9 +224,14 @@
         // Obtener el elemento select y los elementos adicionales
         const reportTypeSelect = document.querySelector('#reportTypeGeneral');
         const additionalElements = document.querySelectorAll('.additional-element');
+        const fechaUnidad = document.querySelectorAll('.fechaUnidades');
 
         // Ocultar los elementos adicionales al cargar la página
         additionalElements.forEach((element) => {
+            element.style.display = 'none';
+        });
+
+        fechaUnidad.forEach((element) => {
             element.style.display = 'none';
         });
 
@@ -244,6 +259,14 @@
             // Limpiar los valores de los inputs
             document.querySelector('#start_date').value = '';
             document.querySelector('#end_date').value = '';
+						
+            if (selectedValue === 'salidaPorUnidadesMes') {
+                // Show the div with the class fechaUnidades
+                document.querySelector('.fechaUnidades').style.display = 'block';
+            } else {
+                // Hide the div with the class fechaUnidades
+                document.querySelector('.fechaUnidades').style.display = 'none';
+            }
         });
     </script>
 

@@ -385,6 +385,8 @@ class ReporteController extends Controller
 				return $this->existenciaFecha($request);
 			case 'consumoPorRubro':
 				return $this->consumoPorRubro($request);
+			case 'salidaPorUnidadesMes':
+				return $this->salidaPorUnidadesMes($request);
 			default:
 				return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
 				break;
@@ -576,5 +578,63 @@ class ReporteController extends Controller
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
 
 		return $pdf->stream('Consumo Por Especifico desde ' . $start_date . ' Hasta ' . $end_date . '.pdf');
+	}
+
+	public function salidaPorUnidadesMes(Request $request)
+	{
+		$fecha = $request->fechaInput;
+		list($year, $month) = explode("-", $fecha);
+
+		$resultados = DB::table('unidad_organizativas')
+			->join('usuarios', 'unidad_organizativas.id', '=', 'usuarios.unidad_organizativa_id')
+			->join('requisicion_productos', 'usuarios.id', '=', 'requisicion_productos.user_id')
+			->join('detalle_requisicions', 'requisicion_productos.id', '=', 'detalle_requisicions.requisicion_id')
+			->join('productos', 'detalle_requisicions.producto_id', '=', 'productos.id')
+			->select('unidad_organizativas.nombreUnidadOrganizativa', 'productos.descripcion', DB::raw('SUM(detalle_requisicions.cantidad) as total_cantidad'), DB::raw('SUM(detalle_requisicions.total) as total'))
+			->where('requisicion_productos.estado_id', 4)
+			->whereMonth('requisicion_productos.fechaRequisicion', $month)
+			->whereYear('requisicion_productos.fechaRequisicion', $year)
+			->groupBy('unidad_organizativas.nombreUnidadOrganizativa', 'productos.descripcion')
+			->orderBy('unidad_organizativas.nombreUnidadOrganizativa', 'asc')
+			->orderBy('productos.descripcion', 'asc')
+			->get();
+
+		$fmt = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMMM');
+		$nombreMes = $fmt->format(mktime(0, 0, 0, $month, 10));
+		$nombreMes = mb_strtoupper($nombreMes, 'UTF-8');
+		$arrayU = [];
+		foreach ($resultados as $resultado) {
+			$nombreUnidadOrganizativa = $resultado->nombreUnidadOrganizativa;
+			if (!isset($arrayU[$nombreUnidadOrganizativa])) {
+				$arrayU[$nombreUnidadOrganizativa] = [
+					'nombreUnidadOrganizativa' => $nombreUnidadOrganizativa,
+					'productos' => []
+				];
+			}
+			$arrayU[$nombreUnidadOrganizativa]['productos'][] = [
+				'descripcion' => $resultado->descripcion,
+				'total_cantidad' => $resultado->total_cantidad,
+				'total' => $resultado->total
+			];
+		}
+
+		// Calculate the total for each nombreUnidadOrganizativa
+		foreach ($arrayU as $nombreUnidadOrganizativa => $data) {
+			$total = 0;
+			foreach ($data['productos'] as $producto) {
+				$total += $producto['total'];
+			}
+			$arrayU[$nombreUnidadOrganizativa]['total'] = $total;
+		}
+
+		$array = [
+			'reporte' => $arrayU,
+			'mes' => $nombreMes,
+			'anio' => $year
+	];
+	
+
+		$pdf = PDF::loadView('reporte.salidaUnidadesAdministrativas', $array);
+		return $pdf->stream('Salidas_Unidades_Mes_' . $month . '_' . $year . '.pdf');
 	}
 }
