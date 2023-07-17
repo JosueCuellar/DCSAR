@@ -21,18 +21,18 @@
     <!----------------------------------- Requisicion de producto --------------------------------------------------------------------->
     <section>
         <!----------------------------------- Header de la requisicion --------------------------------------------------------------------->
-        <table style="border: none;width:463.25pt;border-collapse:collapse;">
+        <table style="border: none;width:100%;border-collapse:collapse;">
             <tbody>
                 <tr>
                     <td
-                        style="width:112.25pt;border-top:1.0pt;border-left:1.0pt;border-bottom:2.25pt;border-right:1.5pt;padding:0in 5.4pt 0in 5.4pt;height:  16.5pt;">
+                        style="width:50.25pt;border-top:1.0pt;border-left:1.0pt;border-bottom:2.25pt;border-right:1.5pt;padding:0in 5.4pt 0in 5.4pt;height:  16.5pt;">
                         <p
                             style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">
                             <strong><span style="font-size:12px;color:black;">Numero de envio:</span></strong>
                         </p>
                     </td>
                     <td
-                        style="width:44.6pt;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
+                        style="width:50.6pt;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
                         <p
                             style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:right;">
                             <strong><span
@@ -40,8 +40,7 @@
                         </p>
                     </td>
                     <td
-                        style="width:148.9pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
-                        <br>
+                        style="width:50.9pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
                     </td>
                     <td
                         style="width:75pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
@@ -71,12 +70,13 @@
                         style="width:351.0pt;border-top:0.0pt;border-left:0.0pt;border-bottom:2.0pt;border-right:0.0pt;border-color:windowtext;border-style:  solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
                         <p
                             style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;">
-                            <strong><u><span style="font-size:12px;color:black;">Unidad Organizativa</span></u></strong>
+                            <strong><u><span style="font-size:12px;color:black;">{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}</span></u></strong>
                         </p>
                     </td>
                 </tr>
             </tbody>
         </table>
+				
         <p
             style="margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:'Calibri',sans-serif;">
             <span style="font-size:12px;line-height:107%;">&nbsp;</span>
@@ -254,6 +254,9 @@
             </table>
         </div>
     </section>
+		<br>
+		<br>
+
     <section>
         <div class="page-break"
             style="position: relative; margin-bottom: 5px; bottom: 10%; width: 100%; text-align: center;">

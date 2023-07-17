@@ -1,9 +1,9 @@
 @extends('administrador.layouts.app')
-@section('title', 'Usuarios')
+@section('title', 'Asignar permiso a rol')
 @section('header')
     <div class="container">
         <div class="col-md-12">
-            <h2>Editar usuario</h2>
+            <h2>Asignar permiso a rol</h2>
         </div>
     </div>
 @endsection
@@ -14,7 +14,7 @@
                 <div class="card card-post" id="post_card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            Editando usuario:
+                            Asignar permiso a rol:
                             <div class="pull-right">
                                 <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm float-right"
                                     data-toggle="tooltip" data-placement="left" title

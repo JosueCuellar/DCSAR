@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\ReporteController;
 
 class RequisicionProductoController extends Controller
 {
@@ -203,23 +204,44 @@ class RequisicionProductoController extends Controller
 	}
 
 	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A APROBADA POR EL JEFE GERENTE de cada Unidad Organizativa
+	// public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
+	// {
+	// 	$requisicionProducto->estado_id =  2;
+	// 	$nR = 1;
+	// 	$date = new Carbon();
+	// 	$n = DB::select("SELECT COUNT(id) AS nRequi FROM requisicion_productos WHERE nCorrelativo IS NOT NULL;");
+	// 	foreach ($n as $item) {
+	// 		$nR += $item->nRequi;
+	// 	}
+	// 	if ($nR < 10)
+	// 		$requisicionProducto->nCorrelativo =  '0' . $nR . '-' . $date->format('Y');
+	// 	else
+	// 		$requisicionProducto->nCorrelativo =  $nR . '-' . $date->format('Y');
+	// 	$requisicionProducto->observacion = $request->observacion;
+	// 	$requisicionProducto->save();
+	// 	// Create an instance of the other controller
+	// 	$aceptarPDF = new ReporteController();
+
+	// 	// Call the aprobarRequiProductoPDF method on the other controller instance and return its result
+	// 	return $aceptarPDF->aprobarRequiProductoDescargar($requisicionProducto);
+	// }
+
 	public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
 	{
-		$requisicionProducto->estado_id =  2;
-		$nR = 1;
-		$date = new Carbon();
-		$n = DB::select("SELECT COUNT(id) AS nRequi FROM requisicion_productos WHERE nCorrelativo IS NOT NULL;");
-		foreach ($n as $item) {
-			$nR += $item->nRequi;
-		}
-		if ($nR < 10)
-			$requisicionProducto->nCorrelativo =  '0' . $nR . '-' . $date->format('Y');
-		else
-			$requisicionProducto->nCorrelativo =  $nR . '-' . $date->format('Y');
-		$requisicionProducto->observacion = $request->observacion;
-		$requisicionProducto->save();
-		return  redirect()->route('requisicionProducto.revisar');
+		DB::transaction(function () use ($request, $requisicionProducto) {
+			$requisicionProducto->estado_id = 2;
+			$date = new Carbon();
+			// Format the nCorrelativo field to include the day, hour, and minute
+			$requisicionProducto->nCorrelativo = sprintf('%02d%02d%02d-%s', $date->format('d'), $date->format('Hi'), $date->format('s'), $date->format('Y'));
+			$requisicionProducto->observacion = $request->observacion;
+			$requisicionProducto->save();
+		});
+
+		// Call the aprobarRequiProductoPDF method on the other controller instance and return its result
+		return redirect()->route('requisicionProducto.revisar')->with('status', $requisicionProducto);
 	}
+
+
 
 	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A DENEGADA POR EL JEFE GERENTE de cada Unidad Organizativa
 	public function denegar(Request $request, RequisicionProducto $requisicionProducto)

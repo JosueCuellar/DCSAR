@@ -53,7 +53,7 @@
 																					Organizativa:</label>
 																			<div class="col-12">
 																					<select class="form-control" name="unidad_organizativa_id"
-																							id="unidad_organizativa_id">
+																							id="unidad_organizativa_id" required>
 																							<option selected='true' disabled='disabled'>Seleccionar unidad organizativa
 																							</option>
 																							@foreach ($unidadesOrganizativas as $item)
@@ -70,7 +70,7 @@
 																<div class="form-group has-feedback row">
 																		<label for="role" class="col-12 control-label">Rol:</label>
 																		<div class="col-12">
-																				<select id="role" class="form-control" name="role">
+																				<select id="role" class="form-control" name="role" required>
 																						@foreach ($roles as $role)
 																								<option value="{{ $role->name }}">{{ $role->name }}</option>
 																						@endforeach

@@ -20,6 +20,7 @@
                                             <th scope="col">Fecha</th>
                                             <th scope="col">Numero correlativo</th>
                                             <th scope="col">Estado</th>
+                                            <th scope="col">Unidad Organizativa</th>
                                             <th scope="col">Opciones</th>
                                         </tr>
                                     </thead>
@@ -31,23 +32,26 @@
                                                 <td><span
                                                         class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
+                                                <td scope="row">
+                                                    {{ $item->user->unidadOrganizativa->nombreUnidadOrganizativa }}</td>
                                                 <td>
                                                     <div>
                                                         <button
                                                             onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
                                                             type="button" class="btn btn-primary"><i class="fa fa-eye"></i>
                                                             Detalles</button>
-                                                        <button
+                                                        {{-- <button
                                                             onclick="location.href = '{{ asset('/requisicionProducto/pdf/aprobar/') }}/{{ $item->id }}';"
                                                             type="button" class="btn btn-success"><i
-                                                                class="fa fa-download"></i> Autorizacion</button>
+                                                                class="fa fa-download"></i> Autorizacion</button> --}}
                                                         <button
                                                             onclick="location.href = '{{ asset('/requisicionProducto/pdf/comprobante/') }}/{{ $item->id }}';"
                                                             type="button" class="btn btn-secondary"><i
                                                                 class="fa fa-download"></i> Comprobante</button>
                                                         <button type="submit" data-toggle="modal"
-                                                            data-target="#modalConfirmar" data-aceptar="{{ $item->id }}"
-                                                            class="btn btn-dark"><i class="fa fa-check"></i> Confirmar
+                                                            data-target="#modalConfirmar"
+                                                            data-aceptar="{{ $item->id }}" class="btn btn-dark"><i
+                                                                class="fa fa-check"></i> Confirmar
                                                             entrega</button>
                                                     </div>
                                                 </td>

@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
 			'name' => 'required|string|max:255',
 			'email' => 'required|string|email|max:255',
 			'role' => 'required|exists:roles,name',
+			'unidad_organizativa_id' => 'required',
 		];
 
 		if ($this->isMethod('post')) {
@@ -40,8 +41,6 @@ class UserRequest extends FormRequest
 		return $rules;
 	}
 
-
-
 	public function messages()
 	{
 		return [
@@ -49,6 +48,7 @@ class UserRequest extends FormRequest
 			'email.*' => 'Ingrese un email, de no mas de 255 caracteres',
 			'password.*' => 'Contraseña incorrecta',
 			'role.required' => 'El campo rol es obligatorio',
+			'unidad_organizativa_id.required' => 'Debe de seleccionar una unidad organizativa',
 			'role.exists' => 'El rol seleccionado no es válido',
 		];
 	}

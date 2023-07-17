@@ -25,7 +25,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Rol</th>
                             <th scope="col">Unidad organizativa</th>
-                            <th scope="col"></th>
+                            <th scope="col">Opciones</th>
 
                         </tr>
                     </thead>

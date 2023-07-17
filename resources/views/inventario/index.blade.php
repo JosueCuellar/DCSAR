@@ -19,7 +19,8 @@
                                         <th scope="col">Codigo producto</th>
                                         <th scope="col">Descripción producto</th>
                                         <th scope="col">Stock real</th>
-                                        <th scope="col">Stock actual(Stock real - Cantidad reservada)</th>
+                                        <th scope="col">Stock disponible</th>
+                                        {{-- <th scope="col">Stock actual(Stock real - Cantidad reservada)</th> --}}
                                         <th scope="col">Cantidad reservada</th>
                                     </tr>
                                 </thead>

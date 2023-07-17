@@ -45,34 +45,46 @@
                                                 <th scope="col">Fecha</th>
                                                 <th scope="col">Descripción</th>
                                                 <th scope="col">Estado</th>
+                                                <th scope="col">Realizada por</th>
                                                 <th scope="col">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($requisicionesEnviadas as $item)
-                                                <td scope="row">{{ $item->fechaRequisicion }}</td>
-                                                <td>{{ $item->descripcion }}</td>
-                                                <td><span
-                                                        class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
-                                                </td>
-                                                <td>
-                                                    @if ($item->user_id == Auth::id())
-                                                        <a href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                            <ion-icon name="create-outline" class="fa-lg text-primary">
-                                                            </ion-icon>
-                                                        </a>
-                                                    @endif
-                                                    @role('Gerente Unidad Organizativa')
-                                                        <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                            data-toggle="modal" data-target="#deleteModal"
-                                                            data-categoriaid="{{ $item->id }}">
-                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                            </ion-icon>
-                                                        </a>
-                                                    @endrole
-                                                </td>
+                                                <tr>
+                                                    <td scope="row">{{ $item->fechaRequisicion }}</td>
+                                                    <td>{{ $item->descripcion }}</td>
+                                                    <td><span
+                                                            class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
+                                                    </td>
+                                                    <td>{{ $item->user->name }}</td>
+                                                    <td>
+                                                        <button
+                                                            onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
+                                                            type="button" id="myButton" class="btn btn-sm btn-dark">
+                                                            <i class="fas fa-eye"></i> Ver detalles
+                                                        </button>
+                                                        @if ($item->user_id == Auth::id())
+                                                            <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
+                                                                class="btn btn-sm btn-primary ">
+                                                                <i class="fas fa-edit"></i> Editar Detalles
+                                                            </a>
+                                                            <a href="{{ route('requisicionProducto.edit', $item->id) }}"
+                                                                class="btn btn-success btn-sm">
+                                                                <i class="fas fa-clipboard"></i> Editar Requisición
+                                                            </a>
+                                                        @endif
 
-                                                </td>
+                                                        @if (auth()->user()->hasRole('Gerente Unidad Organizativa') ||
+                                                                auth()->user()->hasRole('Super Administrador'))
+                                                            <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                                data-toggle="modal" data-target="#deleteModal"
+                                                                data-delete="{{ $item->id }}"
+                                                                class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i>
+                                                            </a>
+                                                        @endif
+
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -90,6 +102,7 @@
                                                     <th scope="col">Descripción</th>
                                                     <th scope="col">Observacion</th>
                                                     <th scope="col">Estado</th>
+                                                    <th scope="col">Realizada por</th>
                                                     <th scope="col">Ver</th>
                                                 </tr>
                                             </thead>
@@ -103,17 +116,26 @@
                                                         <td><span
                                                                 class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
                                                         </td>
+                                                        <td>{{ $item->user->name }}</td>
                                                         <td>
                                                             <a
                                                                 href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
                                                                 <ion-icon name="eye-outline" class="fa-lg text-success">
                                                                 </ion-icon>
                                                             </a>
-                                                            <a
-                                                                href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
-                                                                <ion-icon name="document-text-outline"
-                                                                    class="fa-lg text-secondary"></ion-icon>
-                                                            </a>
+                                                            @hasanyrole('Gerente Unidad Organizativa|Super Administrador')
+                                                                <a
+                                                                    href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
+                                                                    <ion-icon name="document-text-outline"
+                                                                        class="fa-lg text-secondary"></ion-icon>
+                                                                </a>
+                                                                <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                                    data-toggle="modal" data-target="#deleteModal"
+                                                                    data-categoriaid="{{ $item->id }}">
+                                                                    <ion-icon name="trash-outline" class="fa-lg text-danger">
+                                                                    </ion-icon>
+                                                                </a>
+                                                            @endhasanyrole
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -122,7 +144,8 @@
                                     </div>
                                 </div>
                                 {{-- Denegadas --}}
-                                <div class="tab-pane fade" id="denegadas" role="tabpanel" aria-labelledby="denegadas-tab">
+                                <div class="tab-pane fade" id="denegadas" role="tabpanel"
+                                    aria-labelledby="denegadas-tab">
                                     <div class="table-responsive">
                                         <table class="table table-sm table-striped text-center" id="dataTable13"
                                             width="100%" cellspacing="0">
@@ -132,6 +155,7 @@
                                                     <th scope="col">Descripción</th>
                                                     <th scope="col">Observacion</th>
                                                     <th scope="col">Estado</th>
+                                                    <th scope="col">Realizada por</th>
                                                     <th scope="col">Opciones</th>
                                                 </tr>
                                             </thead>
@@ -144,7 +168,7 @@
                                                         <td><span
                                                                 class="badge badge-danger">{{ $item->estado->nombreEstado }}</span>
                                                         </td>
-
+                                                        <td>{{ $item->user->name }}</td>
                                                         <td>
                                                             @if ($item->user_id == Auth::id())
                                                                 <a
@@ -154,14 +178,14 @@
                                                                     </ion-icon>
                                                                 </a>
                                                             @endif
-                                                            @role('Gerente Unidad Organizativa')
+                                                            @hasanyrole('Gerente Unidad Organizativa|Super Administrador')
                                                                 <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                                     data-toggle="modal" data-target="#deleteModal"
                                                                     data-categoriaid="{{ $item->id }}">
                                                                     <ion-icon name="trash-outline" class="fa-lg text-danger">
                                                                     </ion-icon>
                                                                 </a>
-                                                            @endrole
+                                                            @endhasanyrole
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -203,6 +227,7 @@
     </div>
 @endsection
 @section('js_datatable')
+
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)

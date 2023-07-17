@@ -191,7 +191,7 @@
                                 <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
                                     <ion-icon name="folder-open-outline" class="nav-icon"></ion-icon>
                                     <p>
-                                        Solicitudes Recibidas
+                                        Solicitudes a Revisar
                                     </p>
                                 </a>
                             </li>
@@ -261,7 +261,7 @@
                                 </a>
                             </li>
                         @endcan
-                        {{-- @can('Ver bodega principal') --}}
+                        @can('Catalogo')
                         <li class="nav-header text-light">REPORTES</li>
                         <li class="nav-item">
                             <a href="{{ asset('reporte') }}" class="nav-link active">
@@ -271,7 +271,7 @@
                                 </p>
                             </a>
                         </li>
-                        {{-- @endcan --}}
+                        @endcan
                         @can('Catalogo')
                             <li class="nav-header text-light">CATALOGOS </li>
                             <li class="nav-item">

@@ -15,7 +15,7 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Rol</th>
-                            <th scope="col"></th>
+                            <th scope="col">Opciones</th>
 
                         </tr>
                     </thead>

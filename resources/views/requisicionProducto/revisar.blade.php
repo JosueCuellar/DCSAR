@@ -20,6 +20,7 @@
                                             <th scope="col">Fecha</th>
                                             <th scope="col">Descripción</th>
                                             <th scope="col">Estado</th>
+                                            <th scope="col">Realizada por</th>
                                             <th scope="col">Opciones</th>
                                         </tr>
                                     </thead>
@@ -31,6 +32,7 @@
                                                 <td><span
                                                         class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
+                                                <td>{{ $item->user->name }}</td>
                                                 <td>
                                                     <div class="margin">
                                                         <div class="btn-group">
@@ -162,4 +164,26 @@
                 categoria_id);
         })
     </script>
+    @if (session('status'))
+        <script>
+            // Get the session ID
+            var sessionId = '{{ session('status')->id }}';
+
+            // Create a function to redirect to the route
+            function redirectToLink() {
+                var url = '{{ route('pdf.aprobarRequisicionProducto', session('status')->id) }}';
+                // Abrir nuevo tab
+                var win = window.open(url, '_blank');
+                // Cambiar el foco al nuevo tab (punto opcional)
+                win.focus();
+            }
+
+            // Create a message with a button
+            var message = '- Pueder ir a el PDF presionando el boton OK';
+            if (confirm(message)) {
+                redirectToLink();
+            }
+        </script>
+    @endif
+
 @endsection

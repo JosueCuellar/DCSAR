@@ -2,7 +2,7 @@
 @section('title', 'Estados requisiciones')
 @section('header')
     <div class="col-md-12">
-        <h2>Requisiciones Realizadas</h2>
+			<h2>Requisiciones Realizadas de {{ Auth::user()->unidadOrganizativa->nombreUnidadOrganizativa }}</h2>
     </div>
 @endsection
 @section('content')
@@ -36,16 +36,23 @@
                                                         style="background-color: orange">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('requisicionProducto.detalleRevision', $item->id) }}">
-                                                        <ion-icon name="eye-outline" class="fa-lg text-success">
-                                                        </ion-icon>
-                                                    </a>
-                                                    {{-- <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                            data-toggle="modal" data-target="#deleteModal"
-                                                            data-categoriaid="{{ $item->id }}">
-                                                            <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                            </ion-icon>
-                                                        </a> --}}
+                                                    <div>
+                                                        <button
+                                                            onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
+                                                            type="button" class="btn btn-primary"><i class="fa fa-eye"></i>
+                                                            Detalles</button>
+                                                        {{-- <button
+                                                            onclick="location.href = '{{ asset('/requisicionProducto/pdf/comprobante/') }}/{{ $item->id }}';"
+                                                            type="button" class="btn btn-secondary"><i
+                                                                class="fa fa-download"></i> Comprobante</button> --}}
+                                                        @if (auth()->user()->hasRole('Gerente Unidad Organizativa') ||
+                                                                auth()->user()->hasRole('Super Administrador'))
+                                                            <button
+                                                                onclick="location.href = '{{ asset('/requisicionProducto/pdf/aprobar/') }}/{{ $item->id }}';"
+                                                                type="button" class="btn btn-success"><i
+                                                                    class="fa fa-download"></i> Autorizacion</button>
+                                                        @endif
+                                                    </div>
                                                 </td>
                                                 </tr>
                                             @endforeach
@@ -58,44 +65,9 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6 class="modal-title" id="exampleModalLabel">¿Estás seguro de que quieres eliminar esto?
-                        </h6>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este registro
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <form method="POST" action="">
-                            @method('GET')
-                            @csrf
-                            <!--{{-- <input type="hidden" id="user_id" name="user_id" value=""> --}}-->
-                            <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Borrar</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 @section('js_datatable')
-    <script>
-        $('#deleteModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
-            var modal = $(this)
-            // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', '{{ asset('/requisicionProducto/destroy/') }}' + '/' +
-                categoria_id);
-        })
-    </script>
     <script>
         $(document).ready(function() {
             $('a[data-toggle="pill"]').on('shown.bs.tab', function(e) {

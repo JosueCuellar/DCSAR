@@ -172,7 +172,7 @@
                                 <label>{{ $requisicionProducto->fechaRequisicion }}</label>
                             </div>
                             <br>
-                            <div class="col-6">Unidad Organizativa: <label>Unidad de Logistica</label>
+                            <div class="col-6">Unidad Organizativa: <label>{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}</label>
                             </div>
                             <br>
                         </div>
@@ -332,6 +332,19 @@
             $('#dataTable13').DataTable({
                 // processing: true, 
                 serverSide: true,
+								drawCallback: function(settings) {
+                    this.api().table().body().querySelectorAll('[data-toggle="lightbox"]').forEach(
+                        el => {
+                            el.addEventListener('click', e => {
+                                e.preventDefault();
+                                const lightbox = new Lightbox(el);
+                                lightbox.show();
+                            });
+                        });
+                },
+								order: [
+                    [0, "asc"]
+                ],
                 ajax: '{{ route('requisicionProducto.datos') }}',
                 columns: [{
                         data: 'rubro',
