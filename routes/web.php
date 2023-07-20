@@ -17,6 +17,7 @@ use App\Http\Controllers\RequisicionProductoController;
 use App\Http\Controllers\RubroController;
 use App\Http\Controllers\UnidadOrganizativaController;
 use App\Http\Controllers\UserController;
+use App\Models\Inventario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -223,4 +224,5 @@ Route::post('reporte/reportesGenerales', [ReporteController::class, 'reportesGen
 //---------------------------PDFs------------------------------------------------------
 Route::get('requisicionProducto/pdf/comprobante/{requisicionProducto}', [ReporteController::class, 'comprobanteRequiProductoPDF'])->name('pdf.requisicionProducto');
 Route::get('ingresoProducto/pdf/{recepcionCompra}', [ReporteController::class, 'ingresoProductoPDF'])->name('pdf.ingresoProducto');
+Route::get('inventario/excel/', [InventarioController::class, 'downloadData'])->name('inventario.excel');
 Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [ReporteController::class, 'aprobarRequiProductoPDF'])->name('pdf.aprobarRequisicionProducto');

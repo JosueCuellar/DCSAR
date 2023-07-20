@@ -8,7 +8,13 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
+					@role('Super Administrador|Tecnico Encargado Almacen|Gerente Encargado Almacen')
+					<button onclick="location.href = '{{ asset('inventario/excel/') }}';" type="button"
+                class="btn btn-block btn-success"><i class="fa fa-download"></i>Descargar Excel</button>
+            <br>
+					@endrole
             <div class="row">
+
                 <div class="card card-secondary card-outline" style="width: 100%">
                     <div class="card-body">
                         <div class="table-responsive">
