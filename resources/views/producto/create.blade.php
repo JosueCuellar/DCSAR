@@ -86,14 +86,15 @@
                                     <div class="form-group has-feedback row">
                                         <label for="codProducto" class="col-12 control-label">Codigo producto:</label>
                                         <div class="row">
-                                            <div class="col-3"> <input id="codProductoPrefijo" type="text"
-                                                    class="form-control" name="codProductoPrefijo" readonly>
+                                            <div class="col-12">
+                                                <input id="codProductoCon" type="text" class="form-control"
+                                                    name="codProductoCon" readonly>
                                             </div>
-                                            <div class="col-9"> <input id="codProducto" type="number" class="form-control"
+                                            {{-- <div class="col-9"> <input id="codProducto" type="number" class="form-control"
                                                     name="codProducto" placeholder="Numero del producto" required
                                                     min="1" max="9999"></div>
                                             <input id="codProductoCon" type="text" class="form-control"
-                                                name="codProductoCon" hidden>
+                                                name="codProductoCon" hidden> --}}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -142,31 +143,30 @@
 @section('js_imagen')
     <script>
         const select = document.getElementById('rubro_id');
-        const input = document.getElementById('codProductoPrefijo');
-        document.getElementById("codProductoCon").value = codProductoCon;
+        const input = document.getElementById('codProductoCon');
+        var lastCodes = <?php echo json_encode($lastCodes); ?>;
+
+        // document.getElementById("codProductoCon").value = codProductoCon;
         $('#rubro_id').on('change', function(e) {
             // Obtener el elemento option seleccionado
             let selectedOption = select.options[select.selectedIndex];
             // Obtener el valor del atributo data-codigo
             let codigo = selectedOption.getAttribute('data-codigo');
-            // Asignar el valor al elemento input
-            input.value = codigo;
-        });
-        document.querySelector('button[name="action"]').addEventListener('click', function() {
-            var codProductoPrefijo = document.getElementById("codProductoPrefijo").value;
-            var codProducto = document.getElementById("codProducto").value;
-            var concatenatedValue = codProductoPrefijo + '-' + codProducto;
-            document.getElementById("codProductoCon").value = concatenatedValue;
-        });
-    </script>
-    <script>
-        document.getElementById('codProducto').addEventListener('input', function(e) {
-            if (e.target.value.includes('.')) {
-                e.target.value = e.target.value.replace('.', '');
+
+            for (let key in lastCodes) {
+                // Check if the property value starts with the codigo value
+                if (lastCodes[key].startsWith(codigo)) {
+                    // Retrieve the record
+                    let record = lastCodes[key];
+                    // Do something with the record
+                    input.value = record;
+                }
             }
-            e.target.value = e.target.value.replace(/\./g, '');
         });
+
     </script>
+    
+
     <script>
         $(document).ready(function(e) {
             $('#rubro_id').select2({

@@ -203,58 +203,69 @@ class RequisicionProductoController extends Controller
 		$registro->save();
 	}
 
-	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A APROBADA POR EL JEFE GERENTE de cada Unidad Organizativa
-	// public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
-	// {
-	// 	$requisicionProducto->estado_id =  2;
-	// 	$nR = 1;
-	// 	$date = new Carbon();
-	// 	$n = DB::select("SELECT COUNT(id) AS nRequi FROM requisicion_productos WHERE nCorrelativo IS NOT NULL;");
-	// 	foreach ($n as $item) {
-	// 		$nR += $item->nRequi;
-	// 	}
-	// 	if ($nR < 10)
-	// 		$requisicionProducto->nCorrelativo =  '0' . $nR . '-' . $date->format('Y');
-	// 	else
-	// 		$requisicionProducto->nCorrelativo =  $nR . '-' . $date->format('Y');
-	// 	$requisicionProducto->observacion = $request->observacion;
-	// 	$requisicionProducto->save();
-	// 	// Create an instance of the other controller
-	// 	$aceptarPDF = new ReporteController();
-
-	// 	// Call the aprobarRequiProductoPDF method on the other controller instance and return its result
-	// 	return $aceptarPDF->aprobarRequiProductoDescargar($requisicionProducto);
-	// }
-
 	public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
 	{
-		DB::transaction(function () use ($request, $requisicionProducto) {
-			$requisicionProducto->estado_id = 2;
+		$requisicionProducto->estado_id = 2;
+		$requisicionProducto->observacion = $request->observacion;
+		// Check if the RequisicionProducto table is empty
+		if (RequisicionProducto::count() == 0) {
+			// If the table is empty, set the nCorrelativo value to 01-YYYY
 			$date = new Carbon();
-			// Format the nCorrelativo field to include the day, hour, and minute
-			$requisicionProducto->nCorrelativo = sprintf('%02d%02d%02d-%s', $date->format('d'), $date->format('Hi'), $date->format('s'), $date->format('Y'));
-			$requisicionProducto->observacion = $request->observacion;
-			$requisicionProducto->save();
-		});
+			$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');
+		} else {
+			// If the table is not empty, get the last RequisicionProducto record from the database
+			// Get the last RequisicionProducto record with estado_id = 4 from the database
+			$lastRequisicionProducto = RequisicionProducto::where('estado_id', 2)->orderBy('id', 'desc')->first();
 
-		// Call the aprobarRequiProductoPDF method on the other controller instance and return its result
+			// Get the nCorrelativo value from the last record
+			$lastNumber = $lastRequisicionProducto->nCorrelativo;
+			list($number, $year) = explode('-', $lastNumber);
+
+			// Create a new Carbon instance to get the current year
+			$date = new Carbon();
+			$currentYear = $date->format('Y');
+
+			// Check if the current year is different from the year part of the last nCorrelativo value
+			if ($currentYear != $year) {
+				// If the years are different, reset the number part of the nCorrelativo value to 01
+				$number = '01';
+			} else {
+				// If the years are the same, increment the number part of the nCorrelativo value
+				$number = (int)$number + 1;
+
+				// Zero-pad the number if necessary
+				if ($number < 10) {
+					$number = '0' . $number;
+				}
+			}
+			// Construct the new nCorrelativo value
+			$requisicionProducto->nCorrelativo = $number . '-' . $currentYear;
+		}
+		$requisicionProducto->save();
 		return redirect()->route('requisicionProducto.revisar')->with('status', $requisicionProducto);
 	}
-
 
 
 	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A DENEGADA POR EL JEFE GERENTE de cada Unidad Organizativa
 	public function denegar(Request $request, RequisicionProducto $requisicionProducto)
 	{
-		$requisicionProducto->estado_id =  3;
+		$requisicionProducto->estado_id = 3;
 		$requisicionProducto->observacion = $request->observacion;
+		if (!is_null($requisicionProducto->nCorrelativo)) {
+			$requisicionProducto->save();
+			return redirect()->route('requisicionProducto.entrega');
+		}
 		$requisicionProducto->save();
-		return  redirect()->route('requisicionProducto.revisar');
+		return redirect()->route('requisicionProducto.revisa');
 	}
+
 
 	//Se encarga de eliminar una requisicion de productos
 	public function destroy(RequisicionProducto $requisicionProducto)
 	{
+		if ($requisicionProducto->nCorrelativo !== null) {
+			return redirect()->route('requisicionProducto.estado')->with('error', 'No se puede eliminar el registro porque ya se le asigno un numero correlativo');
+		}
 		$requisicionProducto->delete();
 		return redirect()->route('requisicionProducto.index')->with('delete', 'Registro eliminado');
 	}

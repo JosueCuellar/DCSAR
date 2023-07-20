@@ -41,7 +41,9 @@
                                             type="button" id="myButton" class="btn btn-sm btn-dark">
                                             <i class="fas fa-eye"></i> Ver detalles
                                         </button>
-                                        @if ($item->user_id == Auth::id())
+                                        @if (
+                                            $item->user_id == Auth::id() ||
+                                                auth()->user()->hasRole('Super Administrador'))
                                             <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
                                                 class="btn btn-sm btn-primary ">
                                                 <i class="fas fa-edit"></i> Editar Detalles

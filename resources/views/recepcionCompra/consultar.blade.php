@@ -48,21 +48,27 @@
                                                 <td>
                                                     <a href="{{ route('recepcionCompra.revisar', $item->id) }}"
                                                         class="btn btn-sm btn-dark">
-                                                        <i class="fas fa-eye"></i> Ver detalles
+                                                        <i class="fas fa-eye"></i> Ver
                                                     </a>
                                                     <a href="{{ route('recepcionCompra.edit', $item->id) }}"
                                                         class="btn btn-sm btn-success">
                                                         <i class="fas fa-clipboard"></i> Editar Recepcion
                                                     </a>
-                                                    <a href="{{ route('recepcionCompra.detalle', $item->id) }}"
+                                                    <a href="{{ route('detalleCompra.editCompra', $item->id) }}"
                                                         class="btn btn-sm btn-primary">
                                                         <i class="fas fa-edit"></i> Editar Detalles
                                                     </a>
+                                                    <button
+                                                        onclick="location.href = '{{ asset('ingresoProducto/pdf/') }}/{{ $item->id }}';"
+                                                        type="button" class="btn btn-sm btn-secondary"><i
+                                                            class="fa fa-download"></i> PDF</button>
+
                                                     <a href="{{ route('recepcionCompra.destroy', $item) }}"
                                                         data-toggle="modal" data-target="#deleteModal"
                                                         data-delete="{{ $item->id }}" class="btn btn-sm btn-danger">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
+
                                                 </td>
 
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\reportesMensualesRequest;
+use App\Models\DetalleCompra;
 use App\Models\DetalleRequisicion;
 use App\Models\Producto;
+use App\Models\RecepcionCompra;
 use App\Models\RequisicionProducto;
 use App\Models\Rubro;
 use Illuminate\Http\Request;
@@ -30,7 +32,6 @@ class ReporteController extends Controller
 	{
 		$totalFinal = 0.0;
 		$productos = Producto::all();
-
 
 		$detalle_requisicion = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
 		foreach ($detalle_requisicion as $item) {
@@ -65,6 +66,44 @@ class ReporteController extends Controller
 		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
 		// 'letter' is letter size, 'portrait' is the orientation
 		return $pdf->stream($requisicionProducto->nCorrelativo . '.pdf');
+	}
+
+	public function ingresoProductoPDF(RecepcionCompra $recepcionCompra)
+	{
+		$totalFinal = 0.0;
+		$detalle_compra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
+		foreach ($detalle_compra as $item) {
+			$totalFinal += $item->total;
+		}
+		$data = [
+			'detalle_compra' => $detalle_compra,
+			'totalFinal' => $totalFinal,
+			'recepcionCompra' => $recepcionCompra
+		];
+
+		$pdf = PDF::loadView('reporte.ingresoProductos', $data);
+		$pdf->setPaper('letter', 'portrait', 'auto');
+		// 'letter' is letter size, 'portrait' is the orientation
+		$pdf->render();
+
+		$canvas = $pdf->getCanvas();
+
+		// Agregar los números de página al pie de página
+
+		// Obtener el objeto FontMetrics
+		$fontMetrics = $pdf->getFontMetrics();
+		$w = $canvas->get_width();
+		$h = $canvas->get_height();
+
+		// Agregar los números de página al pie de página
+		$font = $fontMetrics->getFont("helvetica", "bold");
+		$text = 'Página {PAGE_NUM} de {PAGE_COUNT}';
+		$textWidth = $fontMetrics->getTextWidth($text, $font, 10);
+		$x = $w - $textWidth - 150;
+		$y = $h - 30;
+		$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
+		// 'letter' is letter size, 'portrait' is the orientation
+		return $pdf->stream($recepcionCompra->nCorrelativo . '.pdf');
 	}
 
 	//PDF aprobacion re requicision
@@ -147,6 +186,9 @@ class ReporteController extends Controller
 
 		return $pdf->download($requisicionProducto->nCorrelativo . '.pdf');
 	}
+
+
+
 
 	// REPORTES MENSUALES
 
@@ -631,10 +673,13 @@ class ReporteController extends Controller
 			'reporte' => $arrayU,
 			'mes' => $nombreMes,
 			'anio' => $year
-	];
-	
+		];
+
 
 		$pdf = PDF::loadView('reporte.salidaUnidadesAdministrativas', $array);
 		return $pdf->stream('Salidas_Unidades_Mes_' . $month . '_' . $year . '.pdf');
 	}
+
+
+
 }

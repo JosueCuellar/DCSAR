@@ -80,6 +80,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
+													<p>Ten en cuenta que cuando la aceptes se le asigna un numero correlativo la cual no podra ser eliminada</p>
                             <label for="observacion" class="col-sm-2 col-form-label">Observacion</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="observacion" name="observacion" rows="3" placeholder="Ingresa una observacion"></textarea>

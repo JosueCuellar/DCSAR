@@ -49,10 +49,13 @@
                                                             type="button" class="btn btn-secondary"><i
                                                                 class="fa fa-download"></i> Comprobante</button>
                                                         <button type="submit" data-toggle="modal"
-                                                            data-target="#modalConfirmar"
-                                                            data-aceptar="{{ $item->id }}" class="btn btn-dark"><i
-                                                                class="fa fa-check"></i> Confirmar
+                                                            data-target="#modalConfirmar" data-aceptar="{{ $item->id }}"
+                                                            class="btn btn-dark"><i class="fa fa-check"></i> Confirmar
                                                             entrega</button>
+                                                        <button type="submit" data-toggle="modal"
+                                                            data-target="#modalObservacionDenegar"
+                                                            data-categoriaid="{{ $item->id }}"
+                                                            class="btn bg-danger">Rechazar</button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -89,8 +92,48 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalObservacionDenegar" style="display: none;" aria-hidden="true">
+        <form method="POST" class="form-horizontal" action="">
+            @csrf
+            @method('put')
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ingresa una observacion de la requisición por rechazar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="observacion" class="col-sm-2 col-form-label">Observacion</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="observacion" name="observacion" rows="3" placeholder="Ingresa una observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Guardar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection
 @section('js')
+
+    <script>
+        $('#modalObservacionDenegar').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var categoria_id = button.data('categoriaid')
+            var modal = $(this)
+            // modal.find('.modal-footer #user_id').val(user_id)
+            modal.find('form').attr('action', '{{ asset('/requisicionProducto/denegar/') }}' + '/' +
+                categoria_id);
+        })
+    </script>
     @if (session('status'))
         <script>
             $(document).Toasts('create', {

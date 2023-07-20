@@ -35,8 +35,51 @@ class ProductoController extends Controller
 		$medidas = Medida::all();
 		$rubros = Rubro::all();
 		$productos = Producto::all();
-		return view('producto.create', compact('marcas', 'medidas', 'rubros', 'productos'));
+
+		// Create an array to store the last codes for each category
+		$lastCodes = [];
+
+		// Loop through each category
+		foreach ($rubros as $rubro) {
+			// Get all the products for the current category
+			$productos = Producto::where('rubro_id', $rubro->id)->get();
+			// Check if any products were found
+			if ($productos->count() > 0) {
+				// Create a variable to store the largest number after the hyphen
+				$maxNumber = 0;
+				// Loop through each product
+				foreach ($productos as $producto) {
+					// Get the codProducto value from the current product
+					$codProducto = $producto->codProducto;
+					// Split the codProducto value into its parts
+					list($part1, $part2) = explode('-', $codProducto);
+					// Convert the second part of the codProducto value to an integer
+					$number = (int)$part2;
+					// Check if the current number is larger than the current maximum
+					if ($number > $maxNumber) {
+						// If it is, update the maximum number
+						$maxNumber = $number;
+					}
+				}
+				// Increment the maximum number
+				$maxNumber++;
+				// Zero-pad the maximum number if necessary
+				if ($maxNumber < 10) {
+					$maxNumber = '0' . $maxNumber;
+				}
+				// Add the incremented maximum number to the array of last codes
+				$lastCodes[$rubro->id] = $part1 . '-' . $maxNumber;
+			} else {
+				// If no products were found for the current category, get the codigoPresupuestario value and append -01 to it
+				$codigoPresupuestario = Rubro::where('id', $rubro->id)->value('codigoPresupuestario');
+				$lastCodes[$rubro->id] = $codigoPresupuestario . '-01';
+			}
+		}
+
+
+		return view('producto.create', compact('marcas', 'medidas', 'rubros', 'productos', 'lastCodes'));
 	}
+
 	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
 	//Se hace uso de la clase Request para los mensajes de validación
 	public function store(ProductoRequest $request)

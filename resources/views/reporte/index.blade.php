@@ -121,8 +121,7 @@
                                 <div class="form-group row">
                                     <label for="fechaInput" class="col-sm-4 col-form-label">Fecha</label>
                                     <div class="col-sm-8">
-                                        <input type="month" class="form-control" id="fechaInput" name="fechaInput"
-                                            required max="{{ date('Y-m') }}">
+                                        <input type="month" class="form-control" id="fechaInput" name="fechaInput" max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                             </div>
@@ -263,9 +262,11 @@
             if (selectedValue === 'salidaPorUnidadesMes') {
                 // Show the div with the class fechaUnidades
                 document.querySelector('.fechaUnidades').style.display = 'block';
+								document.querySelector('#fechaInput').setAttribute('required', true);
             } else {
                 // Hide the div with the class fechaUnidades
                 document.querySelector('.fechaUnidades').style.display = 'none';
+								document.querySelector('#fechaInput').removeAttribute('required');
             }
         });
     </script>

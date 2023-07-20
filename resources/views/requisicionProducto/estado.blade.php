@@ -42,6 +42,7 @@
                                         cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>
+                                                <th scope="col">Número correlativo</th>
                                                 <th scope="col">Fecha</th>
                                                 <th scope="col">Descripción</th>
                                                 <th scope="col">Estado</th>
@@ -52,7 +53,9 @@
                                         <tbody>
                                             @foreach ($requisicionesEnviadas as $item)
                                                 <tr>
-                                                    <td scope="row">{{ $item->fechaRequisicion }}</td>
+                                                    <th scope="row">{{ $item->nCorrelativo }}</th>
+
+                                                    <td>{{ $item->fechaRequisicion }}</td>
                                                     <td>{{ $item->descripcion }}</td>
                                                     <td><span
                                                             class="badge badge-primary">{{ $item->estado->nombreEstado }}</span>
@@ -64,7 +67,8 @@
                                                             type="button" id="myButton" class="btn btn-sm btn-dark">
                                                             <i class="fas fa-eye"></i> Ver detalles
                                                         </button>
-                                                        @if ($item->user_id == Auth::id())
+                                                        @if ($item->user_id == Auth::id() ||
+																												auth()->user()->hasRole('Super Administrador'))
                                                             <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
                                                                 class="btn btn-sm btn-primary ">
                                                                 <i class="fas fa-edit"></i> Editar Detalles
@@ -83,7 +87,6 @@
                                                                 class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i>
                                                             </a>
                                                         @endif
-
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -123,7 +126,9 @@
                                                                 <ion-icon name="eye-outline" class="fa-lg text-success">
                                                                 </ion-icon>
                                                             </a>
-                                                            @hasanyrole('Gerente Unidad Organizativa|Super Administrador')
+
+
+                                                            @if (auth()->user()->hasRole('Super Administrador'))
                                                                 <a
                                                                     href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
                                                                     <ion-icon name="document-text-outline"
@@ -131,9 +136,18 @@
                                                                 </a>
                                                                 <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                                     data-toggle="modal" data-target="#deleteModal"
-                                                                    data-categoriaid="{{ $item->id }}">
-                                                                    <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                                    </ion-icon>
+                                                                    data-delete="{{ $item->id }}"
+                                                                    class="btn btn-danger btn-sm"> <i
+                                                                        class="fas fa-trash"></i> </a>
+                                                            @endif
+
+                                                            @hasanyrole('Super Administrador')
+                                                            @endhasanyrole
+                                                            @hasanyrole('Gerente Unidad Organizativa')
+                                                                <a
+                                                                    href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
+                                                                    <ion-icon name="document-text-outline"
+                                                                        class="fa-lg text-secondary"></ion-icon>
                                                                 </a>
                                                             @endhasanyrole
                                                         </td>
@@ -151,6 +165,7 @@
                                             width="100%" cellspacing="0">
                                             <thead class="thead-dark">
                                                 <tr>
+                                                    <th scope="col">Número correlativo</th>
                                                     <th scope="col">Fecha</th>
                                                     <th scope="col">Descripción</th>
                                                     <th scope="col">Observacion</th>
@@ -162,7 +177,9 @@
                                             <tbody>
                                                 @foreach ($requisicionesRechazadas as $item)
                                                     <tr>
-                                                        <td scope="row">{{ $item->fechaRequisicion }}</td>
+                                                        <th scope="row">{{ $item->nCorrelativo }}</th>
+
+                                                        <td>{{ $item->fechaRequisicion }}</td>
                                                         <td>{{ $item->descripcion }}</td>
                                                         <td>{{ $item->observacion }}</td>
                                                         <td><span
@@ -170,22 +187,15 @@
                                                         </td>
                                                         <td>{{ $item->user->name }}</td>
                                                         <td>
-                                                            @if ($item->user_id == Auth::id())
-                                                                <a
-                                                                    href="{{ route('requisicionProducto.detalle', $item->id) }}">
-                                                                    <ion-icon name="create-outline"
-                                                                        class="fa-lg text-primary">
-                                                                    </ion-icon>
-                                                                </a>
-                                                            @endif
-                                                            @hasanyrole('Gerente Unidad Organizativa|Super Administrador')
+
+                                                            @if (auth()->user()->hasRole('Gerente Unidad Organizativa') ||
+                                                                    auth()->user()->hasRole('Super Administrador'))
                                                                 <a href="{{ route('requisicionProducto.destroy', $item) }}"
                                                                     data-toggle="modal" data-target="#deleteModal"
-                                                                    data-categoriaid="{{ $item->id }}">
-                                                                    <ion-icon name="trash-outline" class="fa-lg text-danger">
-                                                                    </ion-icon>
-                                                                </a>
-                                                            @endhasanyrole
+                                                                    data-delete="{{ $item->id }}"
+                                                                    class="btn btn-danger btn-sm"> <i
+                                                                        class="fas fa-trash"></i> </a>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -231,11 +241,10 @@
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
+            var delete_id = button.data('delete')
             var modal = $(this)
-            // modal.find('.modal-footer #user_id').val(user_id)
             modal.find('form').attr('action', '{{ asset('/requisicionProducto/destroy/') }}' + '/' +
-                categoria_id);
+                delete_id);
         })
     </script>
     <script>
@@ -308,4 +317,62 @@
             });
         });
     </script>
+@endsection
+@section('js')
+    @if (session('status'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Solicitud enviada',
+                position: 'topRight',
+                body: '{{ session('status') }} se ha enviado la solicitud para su revisión',
+                class: 'bg-info',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+    @if (session('actualizado'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Registro actualizado',
+                position: 'topRight',
+                body: '{{ session('actualizado') }} se ha actualizado el registro',
+                class: 'bg-success',
+                autohide: true,
+                icon: 'fas fa-solid fa-check',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+    @if (session('delete'))
+        <script>
+            $(document).Toasts('create', {
+                position: 'topRight',
+                title: 'Solicitud eliminada',
+                body: '{{ session('delete') }}, se ha actualizado la tabla',
+                class: 'bg-danger',
+                autohide: true,
+                icon: 'fas fa-solid fa-trash',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Notificación',
+                position: 'topRight',
+                body: '{{ session('error') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-exclamation-triangle',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 @endsection

@@ -1,4 +1,4 @@
-@extends('bar.layouts.bar')
+@extends('admin.layouts.index')
 @section('title', 'Detalle de Ingreso')
 @section('header')
     <script src="{{ asset('dependencias/js/unpkg.com_axios@1.4.0_dist_axios.min.js') }}"></script>
@@ -12,10 +12,18 @@
             <div class="col-md-12">
                 <div class="card card-post" id="post_card">
                     <div class="card-header">
-                        <button type="submit" data-toggle="modal" data-target="#modalFinalizar"
-                            data-detalle="{{ $recepcionCompra->id }}" class="btn btn-success">
-                            Finalizar registro</button>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            {{-- <button type="submit" data-toggle="modal" data-target="#modalFinalizar"
+                                data-detalle="{{ $recepcionCompra->id }}" class="btn btn-sm btn-success">
+                                Finalizar registro</button> --}}
+                            <div class="pull-right">
+                                <a href="{{ route('recepcionCompra.consultar') }}"
+                                    class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
+                                    data-placement="left" title data-original-title="Regresar a lista">Regresar</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-4">
@@ -151,7 +159,7 @@
                                                             </th>
                                                             <td>{{ $itemDet->cantidadIngreso }}</td>
                                                             @if (is_null($itemDet->fechaVencimiento))
-                                                                <td>------------------------------</td>
+                                                                <td>-----</td>
                                                             @else
                                                                 <td>{{ $itemDet->fechaVencimiento }}</td>
                                                             @endif
@@ -243,15 +251,7 @@
     </div>
 @endsection
 @section('js_datatable')
-    <script>
-        document.getElementById('cantidadIngreso').addEventListener('input', function(e) {
-            if (e.target.value.includes('.')) {
-                e.target.value = e.target.value.replace('.', '');
-            }
-            e.target.value = e.target.value.replace('-', '');
-            e.target.value = e.target.value.replace(/\./g, '');
-        });
-    </script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable7').DataTable({
@@ -269,6 +269,16 @@
             });
         });
     </script>
+    <script>
+        document.getElementById('cantidadIngreso').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', '');
+            }
+            e.target.value = e.target.value.replace('-', '');
+            e.target.value = e.target.value.replace(/\./g, '');
+        });
+    </script>
+
 
 
     <script>

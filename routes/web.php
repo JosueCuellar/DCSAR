@@ -159,11 +159,13 @@ Route::controller(DocumentoXCompraController::class)->group(function () {
 Route::controller(DetalleCompraController::class)->group(function () {
 	//Ingresar detalle
 	Route::get('detalleCompra/revisar/{recepcionCompra}', 'index')->name('detalleCompra.detalle');
-	Route::get('detalleCompra/detalle/{recepcionCompra}', 'create')->name('recepcionCompra.detalle'); //2
+	Route::get('detalleCompra/detalle/{recepcionCompra}', 'create')->name('recepcionCompra.detalle');    //2
 	Route::post('detalleCompra/detalle/{recepcionCompra}', 'store')->name('detalleCompra.store');
+	Route::get('detalleCompra/detalleEdit/{recepcionCompra}', 'editCompra')->name('detalleCompra.editCompra');
 	//Editar recepcionCompra 
 	Route::get('detalleCompra/detalle/edit/{recepcionCompra}/{detalleCompra}', 'edit')->name('detalleCompra.edit');
 	Route::put('detalleCompra/detalle/update/{recepcionCompra}/{detalleCompra}', 'update')->name('detalleCompra.update');
+	Route::put('detalleCompra/detalle/updateCompra/{recepcionCompra}/{detalleCompra}', 'updateCompra')->name('detalleCompra.updateCompra');
 	//Dar de baja el detalle del recepcionCompra
 	Route::get('detalleCompra/detalle/destroy/{recepcionCompra}/{detalleCompra}', 'destroy')->name('detalleCompra.destroy');
 });
@@ -218,4 +220,5 @@ Route::post('reporte/reportesMensuales', [ReporteController::class, 'reportesMen
 Route::post('reporte/reportesGenerales', [ReporteController::class, 'reportesGenerales'])->name('reporte.reportesGenerales');
 //---------------------------PDFs------------------------------------------------------
 Route::get('requisicionProducto/pdf/comprobante/{requisicionProducto}', [ReporteController::class, 'comprobanteRequiProductoPDF'])->name('pdf.requisicionProducto');
+Route::get('ingresoProducto/pdf/{recepcionCompra}', [ReporteController::class, 'ingresoProductoPDF'])->name('pdf.ingresoProducto');
 Route::get('requisicionProducto/pdf/aprobar/{requisicionProducto}', [ReporteController::class, 'aprobarRequiProductoPDF'])->name('pdf.aprobarRequisicionProducto');

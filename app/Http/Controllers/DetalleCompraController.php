@@ -43,6 +43,25 @@ class DetalleCompraController extends Controller
 		}
 	}
 
+	public function editCompra(RecepcionCompra $recepcionCompra)
+	{
+		try {
+			$bodegas = Bodega::all();
+			$currentStep = "3.Ingreso de productos"; //Paso actual
+			$labelBar = ["1.Recepcion de compra", "2.Subir documentos del ingreso", "3.Ingreso de productos"]; // Array con los números de los pasos
+			$totalFinal = 0;
+			$detalleCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
+			$productos = Producto::all();
+			foreach ($detalleCompra as $item) {
+				$totalFinal += $item->total;
+			}
+			$documentos  = DocumentoXCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
+			return view('detalleCompra.editCompra', compact('recepcionCompra', 'detalleCompra', 'productos', 'bodegas', 'documentos', 'totalFinal', 'labelBar', 'currentStep'));
+		} catch (\Exception $e) {
+			$e->getMessage();
+		}
+	}
+
 	//Funcion para crear un nuevo detalle de compra
 	public function store(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra)
 	{
@@ -89,6 +108,27 @@ class DetalleCompraController extends Controller
 			return $e->getMessage();
 		}
 	}
+
+		//Funcion para editar un detalle de compra
+		public function updateCompra(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)
+		{
+			$total = ($request->cantidadIngreso) * ($request->precioUnidad);
+			// $producto_id = $request->producto_id;
+			try {
+				//Se guardan los nuevos datos del detalle del ingreso
+				$detalleCompra->recepcion_compra_id = $recepcionCompra->id;
+				$detalleCompra->producto_id = $request->producto_id;
+				$detalleCompra->cantidadIngreso = $request->cantidadIngreso;
+				$detalleCompra->fechaVencimiento = $request->fechaVenc;
+				$detalleCompra->precioUnidad = $request->precioUnidad;
+				$detalleCompra->total = $total;
+				$detalleCompra->update();
+	
+				return redirect()->route('detalleCompra.editCompra', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
+			} catch (\Exception $e) {
+				return $e->getMessage();
+			}
+		}
 
 	//Funcion para eliminar un detalle de compra
 	public function destroy(RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)

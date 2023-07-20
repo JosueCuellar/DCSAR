@@ -70,13 +70,14 @@
                         style="width:351.0pt;border-top:0.0pt;border-left:0.0pt;border-bottom:2.0pt;border-right:0.0pt;border-color:windowtext;border-style:  solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
                         <p
                             style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;">
-                            <strong><u><span style="font-size:12px;color:black;">{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}</span></u></strong>
+                            <strong><u><span
+                                        style="font-size:12px;color:black;">{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}</span></u></strong>
                         </p>
                     </td>
                 </tr>
             </tbody>
         </table>
-				
+
         <p
             style="margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:'Calibri',sans-serif;">
             <span style="font-size:12px;line-height:107%;">&nbsp;</span>
@@ -254,8 +255,8 @@
             </table>
         </div>
     </section>
-		<br>
-		<br>
+    <br>
+    <br>
 
     <section>
         <div class="page-break"
