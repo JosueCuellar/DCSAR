@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+    <?php $includeScript = $includeScript ?? true; ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
@@ -31,6 +32,12 @@
     <link rel="stylesheet" href="{{ asset('vendor/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_searchbuilder_1.5.0_css_searchBuilder.dataTables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_buttons_2.4.1_css_buttons.dataTables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('dependencias/css/cdn.datatables.net_datetime_1.5.1_css_dataTables.dateTime.min.css') }}">
     <!-- Estilo CSS del loader -->
     <style>
         #preloader {
@@ -239,6 +246,17 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('Crear ingreso de productos')
+                            <li class="nav-header text-light">HISTORIAL REQUISICIONES</li>
+                            <li class="nav-item">
+                                <a href="{{ asset('requisicionProducto/historialRecibidas') }}" class="nav-link active">
+                                    <ion-icon name="hourglass-outline" class="nav-icon"></ion-icon>
+                                    <p>
+                                        Historial Requisiciones
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
                         @can('Ver inventario')
                             <li class="nav-header text-light">INVENTARIO</li>
                             <li class="nav-item">
@@ -262,15 +280,15 @@
                             </li>
                         @endcan
                         @can('Catalogo')
-                        <li class="nav-header text-light">REPORTES</li>
-                        <li class="nav-item">
-                            <a href="{{ asset('reporte') }}" class="nav-link active">
-                                <ion-icon name="bar-chart-outline" class="nav-icon"></ion-icon>
-                                <p>
-                                    Generar reportes
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-header text-light">REPORTES</li>
+                            <li class="nav-item">
+                                <a href="{{ asset('reporte') }}" class="nav-link active">
+                                    <ion-icon name="bar-chart-outline" class="nav-icon"></ion-icon>
+                                    <p>
+                                        Generar reportes
+                                    </p>
+                                </a>
+                            </li>
                         @endcan
                         @can('Catalogo')
                             <li class="nav-header text-light">CATALOGOS </li>
@@ -343,7 +361,7 @@
             <!-- /.sidebar -->
             <div class="sidebar-custom">
                 @can('Ver panel admin')
-                    <a href="{{ asset('admin') }}" class="btn btn-link">											
+                    <a href="{{ asset('admin') }}" class="btn btn-link">
                         <ion-icon name="settings-outline" class="fa-2x bg-dark"></ion-icon>
                     </a>
                 @endcan
@@ -372,6 +390,7 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- jQuery -->
     <script src="{{ asset('dependencias/js/code.jquery.com_jquery-3.6.4.min.js') }}"></script>
+
     <!-- Bootstrap -->
     <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_js_select2.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -385,8 +404,19 @@
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('dependencias/js/cdnjs.cloudflare.com_ajax_libs_jquery-easing_1.4.1_jquery.easing.min.js') }}">
     </script>
-    <!-- DataTables -->
+
+    <?php if (!$includeScript): ?>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_searchbuilder_1.5.0_js_dataTables.searchBuilder.min.js') }}">
+    </script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('dependencias/js/cdn.datatables.net_datetime_1.5.1_js_dataTables.dateTime.min.js') }}"></script>
+    <?php endif; ?>
+
+    <?php if ($includeScript): ?>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_jquery.dataTables.min.js') }}"></script>
+    <?php endif; ?>
+    <!-- DataTables -->
     <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.min.js') }}">
     </script>
@@ -395,6 +425,8 @@
     </script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_buttons.bootstrap5.min.js') }}"></script>
+
+
 
     @yield('js_datatable')
     @yield('js_imagen')

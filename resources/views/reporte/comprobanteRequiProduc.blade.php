@@ -22,65 +22,23 @@
     <!----------------------------------- Requisicion de producto --------------------------------------------------------------------->
     <section>
         <!----------------------------------- Header de la requisicion --------------------------------------------------------------------->
-        <table style="border: none;width:463.25pt;border-collapse:collapse;">
+				<br>
+        <table style="width:100%;font-size: 13px;font-family:'Calibri',sans-serif;">
             <tbody>
                 <tr>
-                    <td
-                        style="width:112.25pt;border-top:1.0pt;border-left:1.0pt;border-bottom:2.25pt;border-right:1.5pt;padding:0in 5.4pt 0in 5.4pt;height:  16.5pt;">
-                        <p
-                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
-                            <strong><span style="font-size:12px;color:black;">Numero de envio:</span></strong>
-                        </p>
-                    </td>
-                    <td
-                        style="width:95.6pt;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
-                        <p
-                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:right;">
-                            <strong><span
-                                    style="font-size:12px;color:black;">{{ $requisicionProducto->nCorrelativo }}</span></strong>
-                        </p>
-                    </td>
-                    <td
-                        style="width:100.9pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
-                        <br>
-                    </td>
-                    <td
-                        style="width:80pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.5pt;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
-                        <p
-                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
-                            <strong><span style="font-size:12px;color:black;">Fecha / Licitacion:</span></strong>
-                        </p>
-                    </td>
-                    <td
-                        style="width:1.5in;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt;height:16.5pt;">
-                        <p
-                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
-                            <strong><span
-                                    style="font-size:12px;color:black;">{{ $requisicionProducto->fechaRequisicion }}</span></strong>
-                        </p>
-                    </td>
+                    <td colspan="4"><strong><span>Numero de envio:</span></strong>
+                        {{ $requisicionProducto->nCorrelativo }}</td>
+                    <td colspan="8" style="text-align: left;"><strong><span>Fecha / Licitacion:
+                            </span></strong></span></strong> {{ $requisicionProducto->fechaRequisicion }}</td>
                 </tr>
                 <tr>
-                    <td
-                        style="width:112.25pt;border-top:0.0pt;border-left:0.0pt;border-bottom:2.0pt;border-right:0.0pt;border-color:windowtext;border-style:solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
-                        <p
-                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;">
-                            <strong><span style="font-size:12px;color:black;">CLIENTE:</span></strong>
-                        </p>
-                    </td>
-                    <td colspan="4"
-                        style="width:351.0pt;border-top:0.0pt;border-left:0.0pt;border-bottom:2.0pt;border-right:0.0pt;border-color:windowtext;border-style:  solid;padding:0in 5.4pt 0in 5.4pt;height:3.0pt;">
-                        <p
-                            style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
-                            <strong><u><span style="font-size:12px;color:black;">{{$requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa}}</span></u></strong>
-                        </p>
+                    <td><strong><span>CLIENTE: </span></strong>
+                        {{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}
                     </td>
                 </tr>
             </tbody>
         </table>
-        <p style="margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;">
-            <span style="font-size:12px;line-height:107%;">&nbsp;</span>
-        </p>
+  <hr>
         <!----------------------------------- Header de la tabla de los detalles --------------------------------------------------------------------->
         <table style="border-collapse:collapse;border:none;">
             <tbody>

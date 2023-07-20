@@ -118,6 +118,8 @@ Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 
 Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar')->middleware('can:Revision de solicitudes');
 Route::get('requisicionProducto/entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega')->middleware('can:Bandeja solicitud a entregar');
 Route::get('requisicionProducto/recibida', [RequisicionProductoController::class, 'requisicionRecibida'])->name('requisicionProducto.recibida')->middleware('can:Ver solicitudes realizadas');
+Route::get('requisicionProducto/historialRecibidas', [RequisicionProductoController::class, 'historialRequi'])->name('requisicionProducto.historialRecibida')->middleware('can:Crear ingreso de productos');
+
 //Metodo para poner el estado de entregada 
 Route::put('requisicionProducto/entregada/{requisicionProducto}', [RequisicionProductoController::class, 'requisicionEntregada'])->name('requisicionProducto.entregada');
 Route::post('requisicionProducto', [RequisicionProductoController::class, 'store'])->name('requisicionProducto.store');

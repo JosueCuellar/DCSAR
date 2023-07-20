@@ -93,6 +93,12 @@ class RequisicionProductoController extends Controller
 
 		return view('requisicionProducto.requiRealizada', compact('requisicionRecibidas'));
 	}
+	//Muestra una tabla con todas las requisiciones que han sido entregadas
+	public function historialRequi()
+	{
+		$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)->get();
+		return view('requisicionProducto.historialRequi', compact('requisicionRecibidas'));
+	}
 
 	//Metodo que sirve para inicializar cada requisicion que se creara
 	public function store(Request $request)
