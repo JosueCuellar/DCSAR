@@ -213,8 +213,10 @@ class RequisicionProductoController extends Controller
 	{
 		$requisicionProducto->estado_id = 2;
 		$requisicionProducto->observacion = $request->observacion;
+		$countRequi = RequisicionProducto::where('estado_id', 4)->orderBy('id', 'desc')->first();
+
 		// Check if the RequisicionProducto table is empty
-		if (RequisicionProducto::count() == 0) {
+		if ($countRequi == 0) {
 			// If the table is empty, set the nCorrelativo value to 01-YYYY
 			$date = new Carbon();
 			$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');

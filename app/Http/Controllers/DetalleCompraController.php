@@ -7,6 +7,7 @@ use App\Models\Bodega;
 use App\Models\DetalleCompra;
 use App\Models\DocumentoXCompra;
 use App\Models\Producto;
+use App\Models\ProductoBodega;
 use App\Models\RecepcionCompra;
 
 
@@ -109,26 +110,60 @@ class DetalleCompraController extends Controller
 		}
 	}
 
-		//Funcion para editar un detalle de compra
-		public function updateCompra(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)
-		{
-			$total = ($request->cantidadIngreso) * ($request->precioUnidad);
-			// $producto_id = $request->producto_id;
-			try {
-				//Se guardan los nuevos datos del detalle del ingreso
-				$detalleCompra->recepcion_compra_id = $recepcionCompra->id;
-				$detalleCompra->producto_id = $request->producto_id;
-				$detalleCompra->cantidadIngreso = $request->cantidadIngreso;
-				$detalleCompra->fechaVencimiento = $request->fechaVenc;
-				$detalleCompra->precioUnidad = $request->precioUnidad;
-				$detalleCompra->total = $total;
-				$detalleCompra->update();
-	
-				return redirect()->route('detalleCompra.editCompra', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
-			} catch (\Exception $e) {
-				return $e->getMessage();
+	//Funcion para editar un detalle de compra
+	public function updateCompra(DetalleCompraRequest $request, RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)
+	{
+		$total = ($request->cantidadIngreso) * ($request->precioUnidad);
+		// $producto_id = $request->producto_id;
+		try {
+			//Se guardan los nuevos datos del detalle del ingreso
+
+
+			$productoExistente = ProductoBodega::where('producto_id', $request->producto_id)->get();
+			$cantidadCambiar = $detalleCompra->cantidadIngreso;
+			foreach ($productoExistente as $item) {
+				if ($item->cantidadDisponible >= $cantidadCambiar) {
+					$item->cantidadDisponible -= $cantidadCambiar;
+					$item->save();
+					break;
+				} else {
+					$cantidadCambiar -= $item->cantidadDisponible;
+					$item->cantidadDisponible = 0;
+					$item->save();
+				}
 			}
+
+
+			$detalleCompra->recepcion_compra_id = $recepcionCompra->id;
+			$detalleCompra->producto_id = $request->producto_id;
+			$detalleCompra->cantidadIngreso = $request->cantidadIngreso;
+			$detalleCompra->fechaVencimiento = $request->fechaVenc;
+			$detalleCompra->precioUnidad = $request->precioUnidad;
+			$detalleCompra->total = $total;
+			$detalleCompra->update();
+
+			//Crear los registros de los productos en la bodega
+			$bodega_id = 1;
+			$cantidadAlmacenar = $detalleCompra->cantidadIngreso;
+			$productoExistente = ProductoBodega::where('producto_id', $request->producto_id)->where('bodega_id', $bodega_id)->first();
+			if ($productoExistente) {
+				$productoExistente->cantidadDisponible += $cantidadAlmacenar;
+				$productoExistente->save();
+			} else {
+				ProductoBodega::create([
+					'producto_id' => $request->producto_id,
+					'bodega_id' => $bodega_id,
+					'cantidadDisponible' => $cantidadAlmacenar
+				]);
+			}
+
+
+
+			return redirect()->route('detalleCompra.editCompra', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
+		} catch (\Exception $e) {
+			return $e->getMessage();
 		}
+	}
 
 	//Funcion para eliminar un detalle de compra
 	public function destroy(RecepcionCompra $recepcionCompra, DetalleCompra $detalleCompra)

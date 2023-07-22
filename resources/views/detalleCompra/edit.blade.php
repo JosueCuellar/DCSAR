@@ -25,7 +25,7 @@
                     </div>
                     <x-errores class="mb-4" />
                     <form
-                        @if ($recepcionCompra->estado === 1) action="{{ route('detalleCompra.updateCompra', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $detalleCompra->id]) }}"
+                        @if ($recepcionCompra->inicializado === "1") action="{{ route('detalleCompra.updateCompra', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $detalleCompra->id]) }}"
 										@else
 											action="{{ route('detalleCompra.update', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $detalleCompra->id]) }}" @endif
                         method="POST">

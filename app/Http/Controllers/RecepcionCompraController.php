@@ -46,7 +46,7 @@ class RecepcionCompraController extends Controller
 			$recepcionCompra = new RecepcionCompra();
 			$recepcionCompra->proveedor_id = $request->proveedor_id;
 			$recepcionCompra->fechaIngreso = $request->fecha;
-			$recepcionCompra->estado = false;
+			$recepcionCompra->inicializado = false;
 			$recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
 			$recepcionCompra->nPresupuestario = $request->nPresupuestario;
 			$recepcionCompra->codigoFactura = $request->codigoFactura;
@@ -75,7 +75,7 @@ class RecepcionCompraController extends Controller
 		try {
 			$recepcionCompra->proveedor_id = $request->proveedor_id;
 			$recepcionCompra->fechaIngreso = $request->fecha;
-			$recepcionCompra->estado = true;
+			$recepcionCompra->inicializado = true;
 			$recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
 			$recepcionCompra->nPresupuestario = $request->nPresupuestario;
 			$recepcionCompra->codigoFactura = $request->codigoFactura;
@@ -89,7 +89,7 @@ class RecepcionCompraController extends Controller
 	public function update(Request $request, RecepcionCompra $recepcionCompra)
 	{
 		try {
-			$recepcionCompra->estado = true;
+			$recepcionCompra->inicializado = true;
 			$detallesCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
 			foreach ($detallesCompra as $detalle) {
 				$producto_id = $detalle->producto_id;
@@ -123,11 +123,11 @@ class RecepcionCompraController extends Controller
 	//Visualizar las recepcion de ingreso completas
 	public function consultar()
 	{
-		$recepcionesSinCompletar = RecepcionCompra::where('estado', false)->get();
+		$recepcionesSinCompletar = RecepcionCompra::where('inicializado', false)->get();
 		foreach ($recepcionesSinCompletar as $item) {
 			$item->delete();
 		}
-		$recepcionesCompletas = RecepcionCompra::where('estado', true)->get();
+		$recepcionesCompletas = RecepcionCompra::where('inicializado', true)->get();
 		return view('recepcionCompra.consultar', compact('recepcionesCompletas'));
 	}
 

@@ -28,11 +28,11 @@ class DatabaseSeeder extends Seeder
 		$this->call(UserSeeder::class);
 
 		DB::table('estados')->insert([
-			['id' => 1, 'codigoEstado' => 'SE', 'descripcionEstado' => 'Una requisición ha sido enviada', 'nombreEstado' => 'Solicitud Enviada'],
-			['id' => 2, 'codigoEstado' => 'SA', 'descripcionEstado' => 'Una requisición ha sido aprobada', 'nombreEstado' => 'Solicitud Aprobada'],
-			['id' => 3, 'codigoEstado' => 'SR', 'descripcionEstado' => 'Una requisición ha sido rechazada', 'nombreEstado' => 'Solicitud Rechazada'],
-			['id' => 4, 'codigoEstado' => 'SEN', 'descripcionEstado' => 'Una requisición ha sido entregada', 'nombreEstado' => 'Solicitud Entregada'],
-			['id' => 5, 'codigoEstado' => 'NA', 'descripcionEstado' => 'No terminada', 'nombreEstado' => 'Solicitud Inicializada',]
+			['codigoEstado' => 'SE', 'descripcionEstado' => 'Una requisición ha sido enviada', 'nombreEstado' => 'Solicitud Enviada'],
+			['codigoEstado' => 'SA', 'descripcionEstado' => 'Una requisición ha sido aprobada', 'nombreEstado' => 'Solicitud Aprobada'],
+			['codigoEstado' => 'SR', 'descripcionEstado' => 'Una requisición ha sido rechazada', 'nombreEstado' => 'Solicitud Rechazada'],
+			['codigoEstado' => 'SEN', 'descripcionEstado' => 'Una requisición ha sido entregada', 'nombreEstado' => 'Solicitud Entregada'],
+			['codigoEstado' => 'NA', 'descripcionEstado' => 'No terminada', 'nombreEstado' => 'Solicitud Inicializada',]
 		]);
 
 		//Medidas

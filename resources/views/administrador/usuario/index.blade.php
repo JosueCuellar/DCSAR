@@ -43,7 +43,7 @@
                                         {{ $role }}
                                     @endforeach
                                 </td>
-																<td>{{ $item->unidadOrganizativa->nombreUnidadOrganizativa }}</td>
+                                <td> {{ $item->unidadOrganizativa->nombreUnidadOrganizativa ?? '' }}</td>
                                 <td>
                                     <a href="{{ route('usuario.edit', $item->id) }}">
                                         <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>

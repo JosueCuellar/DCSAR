@@ -344,7 +344,7 @@ class ReporteController extends Controller
 				DB::raw('(COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso)<=? AND MONTH(fechaIngreso)<=?)),0)-COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id=productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id=4 AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)) AS total')
 			)
 			->groupBy('rubros.codigoPresupuestario', 'rubros.descripRubro', 'productos.codProducto', 'productos.descripcion', 'medidas.nombreMedida', 'productos.id')
-			->havingRaw('existencias > 0')
+			->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) > 0', [$year, $month, $year, $month])
 			->setBindings([$year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month])
 			->get();
 
@@ -443,7 +443,7 @@ class ReporteController extends Controller
 				DB::raw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4)), 0) AS existencias')
 			)
 			->groupBy('productos.descripcion', 'productos.id')
-			->havingRaw('existencias > 0')
+			->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4)), 0) > 0')
 			->orderBy('productos.descripcion')
 			->get();
 
@@ -504,7 +504,7 @@ class ReporteController extends Controller
 				DB::raw('SUM(detalle_requisicions.total) as total')
 			)
 			->where('requisicion_productos.estado_id', '=', 4)
-			->whereRaw("DATE_FORMAT(requisicion_productos.fechaRequisicion, '%Y-%m') BETWEEN ? AND ?", [$start_month_year, $end_month_year])
+			->whereRaw("FORMAT(requisicion_productos.fechaRequisicion, 'yyyy-MM') BETWEEN ? AND ?", [$start_month_year, $end_month_year])
 			->where('productos.rubro_id', '=', $rubro_id)
 			->groupBy('detalle_requisicions.producto_id', 'productos.descripcion', DB::raw('MONTH(requisicion_productos.fechaRequisicion)'))
 			->get();
@@ -679,7 +679,4 @@ class ReporteController extends Controller
 		$pdf = PDF::loadView('reporte.salidaUnidadesAdministrativas', $array);
 		return $pdf->stream('Salidas_Unidades_Mes_' . $month . '_' . $year . '.pdf');
 	}
-
-
-
 }

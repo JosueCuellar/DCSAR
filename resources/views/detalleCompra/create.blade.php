@@ -378,7 +378,7 @@
         $('#producto_id').on('change', function(e) {
             const objeto_encontrado = objetos.find(objeto => objeto.id === parseInt($(this).val()));
             console.log(objeto_encontrado["perecedero"]);
-            if (objeto_encontrado["perecedero"] === 1) {
+            if (objeto_encontrado["perecedero"] === "1") {
                 input.disabled = false;
                 div.style.display = 'block';
 

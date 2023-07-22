@@ -120,3 +120,38 @@
         </div>
     </div>
 @endsection
+@section('js')
+    <script>
+        $(document).ready(function(e) {
+            $('#role').select2({
+                width: 'resolve',
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        });
+        $("#role").select2()
+    </script>
+
+    <script>
+        $(document).ready(function(e) {
+            $('#unidad_organizativa_id').select2({
+                width: 'resolve',
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        });
+        $("#unidad_organizativa_id").select2()
+    </script>
+@endsection
