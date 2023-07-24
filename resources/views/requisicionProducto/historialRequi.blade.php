@@ -39,7 +39,7 @@
                                                         style="background-color: orange">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
 																								<td scope="row">
-																									{{ $item->user->unidadOrganizativa->nombreUnidadOrganizativa }}</td>																							
+																									{{ $item->user->unidadOrganizativa->nombreUnidadOrganizativa ?? '' }}</td>																							
                                                 <td>
                                                     <div>
                                                         <button

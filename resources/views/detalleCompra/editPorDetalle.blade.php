@@ -16,16 +16,23 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             Editando detalle:
                             <div class="pull-right">
-                                <a href="{{ route('recepcionCompra.detalle', $recepcionCompra) }}"
-                                    class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
-                                    data-placement="left" title
-                                    data-original-title="Regresar a lista de marcas">Regresar</a>
+                                @if ($recepcionCompra->inicializado === '1')
+                                    <a href="{{ route('recepcionCompra.detalleEdit', $recepcionCompra) }}"
+                                        class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
+                                        data-placement="left" title
+                                        data-original-title="Regresar a lista de marcas">Regresar</a>
+                                @else
+                                    <a href="{{ route('recepcionCompra.detalle', $recepcionCompra) }}"
+                                        class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
+                                        data-placement="left" title
+                                        data-original-title="Regresar a lista de marcas">Regresar</a>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <x-errores class="mb-4" />
                     <form
-                        @if ($recepcionCompra->inicializado === "1") action="{{ route('detalleCompra.updateCompra', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $detalleCompra->id]) }}"
+                        @if ($recepcionCompra->inicializado === '1') action="{{ route('detalleCompra.updateEdit', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $detalleCompra->id]) }}"
 										@else
 											action="{{ route('detalleCompra.update', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $detalleCompra->id]) }}" @endif
                         method="POST">

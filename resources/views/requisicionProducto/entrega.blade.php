@@ -33,7 +33,7 @@
                                                         class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
                                                 </td>
                                                 <td scope="row">
-                                                    {{ $item->user->unidadOrganizativa->nombreUnidadOrganizativa }}</td>
+                                                    {{ $item->user->unidadOrganizativa->nombreUnidadOrganizativa ?? ''}}</td>
                                                 <td>
                                                     <div>
                                                         <button

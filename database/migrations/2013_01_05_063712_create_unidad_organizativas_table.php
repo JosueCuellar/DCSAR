@@ -18,6 +18,8 @@ return new class extends Migration
 			$table->string('nombreUnidadOrganizativa', 50);
 			$table->string('descripUnidadOrganizativa', 100);
 			$table->timestamps();
+			$table->softDeletes();
+
 		});
 	}
 

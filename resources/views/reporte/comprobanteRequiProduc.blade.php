@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td><strong><span>CLIENTE: </span></strong>
-                        {{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}
+                        {{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa ?? '' }}
                     </td>
                 </tr>
             </tbody>

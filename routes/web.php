@@ -160,17 +160,34 @@ Route::controller(DocumentoXCompraController::class)->group(function () {
 });
 //---------------------------DetalleCompra------------------------------------------------------
 Route::controller(DetalleCompraController::class)->group(function () {
-	//Ingresar detalle
-	Route::get('detalleCompra/revisar/{recepcionCompra}', 'index')->name('detalleCompra.detalle');
-	Route::get('detalleCompra/detalle/{recepcionCompra}', 'create')->name('recepcionCompra.detalle');    //2
-	Route::post('detalleCompra/detalle/{recepcionCompra}', 'store')->name('detalleCompra.store');
-	Route::get('detalleCompra/detalleEdit/{recepcionCompra}', 'editCompra')->name('detalleCompra.editCompra');
-	//Editar recepcionCompra 
-	Route::get('detalleCompra/detalle/edit/{recepcionCompra}/{detalleCompra}', 'edit')->name('detalleCompra.edit');
-	Route::put('detalleCompra/detalle/update/{recepcionCompra}/{detalleCompra}', 'update')->name('detalleCompra.update');
-	Route::put('detalleCompra/detalle/updateCompra/{recepcionCompra}/{detalleCompra}', 'updateCompra')->name('detalleCompra.updateCompra');
-	//Dar de baja el detalle del recepcionCompra
-	Route::get('detalleCompra/detalle/destroy/{recepcionCompra}/{detalleCompra}', 'destroy')->name('detalleCompra.destroy');
+
+
+
+	//DETALLE DE UNA RECEPCION DE UNA COMPRA QUE SE ESTA INGRESANDO
+
+	//Ruta que dirige a la pantalla de creacion de los nuevos detalles
+	Route::get('detalleCompra/detalleNuevo/{recepcionCompra}', 'index')->name('recepcionCompra.detalle');
+	//Creacion de un nuevo detalle de productos
+	Route::post('detalleCompra/detalleNuevo/{recepcionCompra}', 'store')->name('detalleCompra.store');
+	//Edicion individual de un detalle
+	Route::get('detalleCompra/detalleNuevo/{recepcionCompra}/{detalleCompra}', 'edit')->name('detalleCompra.edit');
+	//Edicion de un detalle de compra no  inicializada
+	Route::put('detalleCompra/detalleNuevo/update/{recepcionCompra}/{detalleCompra}', 'update')->name('detalleCompra.update');
+	//Dar de baja el detalle del recepcionCompra no inicializada
+	Route::get('detalleCompra/detalleNuevo/destroy/{recepcionCompra}/{detalleCompra}', 'destroy')->name('detalleCompra.destroy');
+
+	//DETALLE DE UNA RECEPCION DE UNA COMPRA YA EXISTENTE Y REGISTRADA EN EL SISTEMA
+
+	//Ruta que dirige a la pantalla de creacion de los nuevos detalles 
+	Route::get('detalleCompra/detalleRegistrado/{recepcionCompra}', 'indexEdit')->name('recepcionCompra.detalleEdit');
+	//Crear una nuevo detalle de una recepcion ya registrada
+	Route::post('detalleCompra/detalleRegistrado/{recepcionCompra}', 'storeEdit')->name('detalleCompra.storeEdit');
+	//Edicion individual de un detalle
+	// Route::get('detalleCompra/detalleRegistrado/{recepcionCompra}', 'edit')->name('detalleCompra.editEdit');
+	//Edicion de una detalle de compra ya inicializado
+	Route::put('detalleCompra/detalleRegistrado/update/{recepcionCompra}/{detalleCompra}', 'updateEdit')->name('detalleCompra.updateEdit');
+	//Dar de baha detalle cuando ya ha sido creada una recepcion ya inicializada 
+	Route::get('detalleCompra/detalleRegistrado/destroy/{recepcionCompra}/{detalleCompra}', 'destroyEdit')->name('detalleCompra.destroyEdit');
 });
 //---------------------------Inventario------------------------------------------------------
 Route::get('inventario', [InventarioController::class, 'index'])->name('inventario.index')->middleware('can:Ver inventario');
@@ -185,34 +202,34 @@ Auth::routes();
 
 Route::middleware(['can:Ver panel admin'])->group(function () {
 
-//----------------------------Usuarios------------------------
-//listar
-Route::get('usuario', [UserController::class, 'index'])->name('usuario.index');
-//crear
-Route::get('usuario/crear', [UserController::class, 'create'])->name('usuario.create');
-Route::post('usuario/store', [UserController::class, 'store'])->name('usuario.store');
-//actualizar
-Route::get('usuario/edit/{usuario}', [UserController::class, 'edit'])->name('usuario.edit');
-Route::put('usuario/update/{usuario}', [UserController::class, 'update'])->name('usuario.update');
-//eliminar
-Route::get('usuario/destroy/{usuario}', [UserController::class, 'destroy'])->name('usuario.destroy');
+	//----------------------------Usuarios------------------------
+	//listar
+	Route::get('usuario', [UserController::class, 'index'])->name('usuario.index');
+	//crear
+	Route::get('usuario/crear', [UserController::class, 'create'])->name('usuario.create');
+	Route::post('usuario/store', [UserController::class, 'store'])->name('usuario.store');
+	//actualizar
+	Route::get('usuario/edit/{usuario}', [UserController::class, 'edit'])->name('usuario.edit');
+	Route::put('usuario/update/{usuario}', [UserController::class, 'update'])->name('usuario.update');
+	//eliminar
+	Route::get('usuario/destroy/{usuario}', [UserController::class, 'destroy'])->name('usuario.destroy');
 
-//----------------------------Asignar roles a usuario------------------------
-Route::get('rolesAssign', [UserController::class, 'indexRolesAssing'])->name('roles.indexAssign');
-Route::get('/roles/{role}/assign-permissions', [UserController::class, 'showAssignPermissionsForm'])->name('roles.assign-permissions');
-Route::post('/roles/{role}/assign-permissions', [UserController::class, 'assignPermissions'])->name('roles.assign-permissions');
+	//----------------------------Asignar roles a usuario------------------------
+	Route::get('rolesAssign', [UserController::class, 'indexRolesAssing'])->name('roles.indexAssign');
+	Route::get('/roles/{role}/assign-permissions', [UserController::class, 'showAssignPermissionsForm'])->name('roles.assign-permissions');
+	Route::post('/roles/{role}/assign-permissions', [UserController::class, 'assignPermissions'])->name('roles.assign-permissions');
 
-//----------------------------Roles------------------------
-//Listar
-Route::get('rol', [UserController::class, 'indexRoles'])->name('rol.index');
-//crear
-Route::get('rol/crear', [UserController::class, 'createRoles'])->name('rol.create');
-Route::post('rol/store', [UserController::class, 'storeRoles'])->name('rol.store');
-//actualizar
-Route::get('rol/edit/{rol}', [UserController::class, 'editRoles'])->name('rol.edit');
-Route::put('rol/update/{rol}', [UserController::class, 'updateRoles'])->name('rol.update');
-//eliminar
-Route::get('rol/destroy/{rol}', [UserController::class, 'destroyRoles'])->name('rol.destroy');
+	//----------------------------Roles------------------------
+	//Listar
+	Route::get('rol', [UserController::class, 'indexRoles'])->name('rol.index');
+	//crear
+	Route::get('rol/crear', [UserController::class, 'createRoles'])->name('rol.create');
+	Route::post('rol/store', [UserController::class, 'storeRoles'])->name('rol.store');
+	//actualizar
+	Route::get('rol/edit/{rol}', [UserController::class, 'editRoles'])->name('rol.edit');
+	Route::put('rol/update/{rol}', [UserController::class, 'updateRoles'])->name('rol.update');
+	//eliminar
+	Route::get('rol/destroy/{rol}', [UserController::class, 'destroyRoles'])->name('rol.destroy');
 });
 //----------------------------Reportes------------------------
 //Reportes mensuales

@@ -147,6 +147,32 @@ class RecepcionCompraController extends Controller
 	public function destroy(RecepcionCompra $recepcionCompra)
 	{
 		try {
+			$detallesCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
+			foreach ($detallesCompra as $detalle) {
+				$producto_id = $detalle->producto_id;
+
+				//Crear los registros de los productos en la bodega
+				$cantidadAlmacenar = $detalle->cantidadIngreso;
+				$productoExistente = ProductoBodega::where('producto_id', $producto_id)->get();
+				$cantidadRestante = $cantidadAlmacenar;
+				foreach ($productoExistente as $producto) {
+					if ($cantidadRestante > 0) {
+						if ($producto->cantidadDisponible >= $cantidadRestante) {
+							$producto->cantidadDisponible -= $cantidadRestante;
+							$cantidadRestante = 0;
+						} else {
+							$cantidadRestante -= $producto->cantidadDisponible;
+							$producto->cantidadDisponible = 0;
+						}
+						$producto->save();
+					}
+				}
+				$detalle->delete();
+				$cProm = $this->costoPromedioCalculo($producto_id);
+				$productoA = Producto::where('id', $producto_id)->first();
+				$productoA->costoPromedio = $cProm;
+				$productoA->save();
+			}
 			$recepcionCompra->delete();
 			return redirect()->route('recepcionCompra.consultar')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {

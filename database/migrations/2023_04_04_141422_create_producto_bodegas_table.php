@@ -21,6 +21,8 @@ return new class extends Migration
 			$table->foreign('bodega_id')->references('id')->on('bodegas');
 			$table->foreign('producto_id')->references('id')->on('productos');
 			$table->timestamps();
+			$table->softDeletes();
+
 		});
 	}
 

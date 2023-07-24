@@ -121,7 +121,7 @@
                                 <div class="form-group row">
                                     <label for="fechaInput" class="col-sm-4 col-form-label">Fecha</label>
                                     <div class="col-sm-8">
-                                        <input type="month" class="form-control" id="fechaInput" name="fechaInput" max="{{ date('Y-m') }}">
+                                        <input type="month" class="form-control" id="fechaInput" name="fechaInput" max="{{ date('Y-m') }}" required>
                                     </div>
                                 </div>
                             </div>

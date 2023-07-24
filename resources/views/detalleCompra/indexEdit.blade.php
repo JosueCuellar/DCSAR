@@ -1,4 +1,4 @@
-@extends('bar.layouts.bar')
+@extends('admin.layouts.index')
 @section('title', 'Detalle de Ingreso')
 @section('header')
     <script src="{{ asset('dependencias/js/unpkg.com_axios@1.4.0_dist_axios.min.js') }}"></script>
@@ -12,16 +12,21 @@
             <div class="col-md-12">
                 <div class="card card-post" id="post_card">
                     <div class="card-header">
-                        <button type="submit" data-toggle="modal" data-target="#modalFinalizar"
-                            data-detalle="{{ $recepcionCompra->id }}" class="btn btn-success">
-                            Finalizar registro</button>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="pull-right">
+                                <a href="{{ route('recepcionCompra.consultar') }}"
+                                    class="btn btn-outline-secondary btn-sm float-right" data-toggle="tooltip"
+                                    data-placement="left" title data-original-title="Regresar a lista">Regresar</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="card card-post" id="post_card">
                                     <form
-                                        action="{{ route('detalleCompra.store', ['recepcionCompra' => $recepcionCompra->id]) }}"
+                                        action="{{ route('detalleCompra.storeEdit', ['recepcionCompra' => $recepcionCompra->id]) }}"
                                         method='POST'>
                                         @csrf
                                         <div class="card-body">
@@ -138,7 +143,7 @@
                                                                         class="fa-lg text-primary">
                                                                     </ion-icon>
                                                                 </a>
-                                                                <a href="{{ route('detalleCompra.destroy', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $itemDet]) }}"
+                                                                <a href="{{ route('detalleCompra.destroyEdit', ['recepcionCompra' => $recepcionCompra->id, 'detalleCompra' => $itemDet]) }}"
                                                                     data-toggle="modal" data-target="#deleteModal"
                                                                     data-ingresoid="{{ $recepcionCompra->id }}"
                                                                     data-detalleid="{{ $itemDet->id }}">
@@ -151,7 +156,7 @@
                                                             </th>
                                                             <td>{{ $itemDet->cantidadIngreso }}</td>
                                                             @if (is_null($itemDet->fechaVencimiento))
-                                                                <td>------------------------------</td>
+                                                                <td>-----</td>
                                                             @else
                                                                 <td>{{ $itemDet->fechaVencimiento }}</td>
                                                             @endif
@@ -243,15 +248,7 @@
     </div>
 @endsection
 @section('js_datatable')
-    <script>
-        document.getElementById('cantidadIngreso').addEventListener('input', function(e) {
-            if (e.target.value.includes('.')) {
-                e.target.value = e.target.value.replace('.', '');
-            }
-            e.target.value = e.target.value.replace('-', '');
-            e.target.value = e.target.value.replace(/\./g, '');
-        });
-    </script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable7').DataTable({
@@ -269,6 +266,16 @@
             });
         });
     </script>
+    <script>
+        document.getElementById('cantidadIngreso').addEventListener('input', function(e) {
+            if (e.target.value.includes('.')) {
+                e.target.value = e.target.value.replace('.', '');
+            }
+            e.target.value = e.target.value.replace('-', '');
+            e.target.value = e.target.value.replace(/\./g, '');
+        });
+    </script>
+
 
 
     <script>
@@ -277,17 +284,11 @@
             var ingreso_id = button.data('ingresoid')
             var detalle_id = button.data('detalleid')
             var modal = $(this)
-            modal.find('form').attr('action', '/detalleCompra/detalle/destroy/' + ingreso_id + '/' + detalle_id);
+            modal.find('form').attr('action', '/detalleCompra/detalleRegistrado/destroy/' + ingreso_id + '/' +
+                detalle_id);
         });
     </script>
-    <script>
-        $('#modalFinalizar').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var recepcion_id = button.data('detalle')
-            var modal = $(this)
-            modal.find('form').attr('action', '{{ asset('/recepcionCompra/completar/') }}' + '/' + recepcion_id);
-        });
-    </script>
+
 @endsection
 @section('js')
     @if (session('status'))

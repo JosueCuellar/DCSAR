@@ -28,6 +28,7 @@
                             <th scope="col">Imagen</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Medida</th>
+                            <th scope="col">C Prom</th>
                             <th scope="col">Observacion</th>
                             <th scope="col">Opciones</th>
                         </tr>
@@ -146,6 +147,10 @@
                     {
                         data: 'medida_id',
                         name: 'medida_id'
+                    },
+                    {
+                        data: 'costoPromedio',
+                        name: 'costoPromedio'
                     },
                     {
                         data: 'observacion',

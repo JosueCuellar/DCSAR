@@ -54,7 +54,7 @@
                                                         class="btn btn-sm btn-success">
                                                         <i class="fas fa-clipboard"></i> Editar Recepcion
                                                     </a>
-                                                    <a href="{{ route('detalleCompra.editCompra', $item->id) }}"
+                                                    <a href="{{ route('recepcionCompra.detalleEdit', $item->id) }}"
                                                         class="btn btn-sm btn-primary">
                                                         <i class="fas fa-edit"></i> Editar Detalles
                                                     </a>

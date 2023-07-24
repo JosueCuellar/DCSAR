@@ -28,6 +28,8 @@ return new class extends Migration
 			$table->foreign('medida_id')->references('id')->on('medidas');
 			$table->foreign('rubro_id')->references('id')->on('rubros');
 			$table->timestamps();
+			$table->softDeletes();
+
 		});
 	}
 

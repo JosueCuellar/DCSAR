@@ -20,7 +20,7 @@
 
     td {
         color: black;
-        font-size: 11px;
+        font-size: 8.5px;
         font-weight: 450;
         text-align: center;
         font-style: normal;

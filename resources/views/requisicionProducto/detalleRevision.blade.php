@@ -37,7 +37,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">Unidad Organizativa:
-                                    <label>{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}</label>
+                                    <label>{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa ?? '' }}</label>
                                 </div>
                                 <div class="col-6">Fecha de solicitud:
                                     <label>{{ $requisicionProducto->fechaRequisicion }}</label>

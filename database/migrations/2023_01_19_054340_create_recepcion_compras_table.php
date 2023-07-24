@@ -24,6 +24,8 @@ return new class extends Migration
 			$table->boolean('inicializado');
 			$table->string('codigoFactura', 50);
 			$table->timestamps();
+			$table->softDeletes();
+
 		});
 	}
 

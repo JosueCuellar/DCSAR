@@ -20,12 +20,16 @@ class ProductoController extends Controller
 	}
 	public function datosProducto()
 	{
-		$productos = DB::table('productos')
-			->join('marcas', 'productos.marca_id', '=', 'marcas.id')
-			->join('rubros', 'productos.rubro_id', '=', 'rubros.id')
-			->join('medidas', 'productos.medida_id', '=', 'medidas.id')
-			->select('productos.*', 'marcas.nombre as marca_id', 'rubros.descripRubro as rubro_id', 'medidas.nombreMedida as medida_id')
-			->get();
+		$productos = Producto::with(['marca', 'rubro', 'medida'])
+    ->get()
+    ->map(function ($producto) {
+        $producto->marca_id = $producto->marca->nombre;
+        $producto->rubro_id = $producto->rubro->descripRubro;
+        $producto->medida_id = $producto->medida->nombreMedida;
+        unset($producto->marca, $producto->rubro, $producto->medida);
+        return $producto;
+    });
+
 		return DataTables::of($productos)->make(true);
 	}
 	//Envia un arreglo de estados

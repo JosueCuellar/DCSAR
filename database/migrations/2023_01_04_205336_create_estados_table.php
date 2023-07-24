@@ -19,6 +19,8 @@ return new class extends Migration
 			$table->string('codigoEstado', 20);
 			$table->string('nombreEstado', 150);
 			$table->string('descripcionEstado', 150);
+			$table->softDeletes();
+
 		});
 	}
 

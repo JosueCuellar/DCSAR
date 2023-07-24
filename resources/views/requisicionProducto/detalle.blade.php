@@ -172,7 +172,7 @@
                                 <label>{{ $requisicionProducto->fechaRequisicion }}</label>
                             </div>
                             <br>
-                            <div class="col-6">Unidad Organizativa: <label>{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa }}</label>
+                            <div class="col-6">Unidad Organizativa: <label>{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa ?? ''}}</label>
                             </div>
                             <br>
                         </div>

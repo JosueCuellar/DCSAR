@@ -19,6 +19,8 @@ return new class extends Migration
 			// $table->unsignedBigInteger('estado_id')->unsigned();
 			$table->string('codigoPresupuestario');
 			$table->string('descripRubro');
+			$table->softDeletes();
+
 			// $table->foreign('estado_id')->references('id')->on('estados');
 		});
 	}

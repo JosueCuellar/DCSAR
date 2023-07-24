@@ -2,7 +2,7 @@
 @section('title', 'Estados requisiciones')
 @section('header')
     <div class="col-md-12">
-			<h2>Requisiciones Realizadas de {{ Auth::user()->unidadOrganizativa->nombreUnidadOrganizativa }}</h2>
+			<h2>Requisiciones Realizadas  {{ Auth::user()->unidadOrganizativa->nombreUnidadOrganizativa ?? '' }}</h2>
     </div>
 @endsection
 @section('content')
