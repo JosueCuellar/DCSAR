@@ -22,18 +22,20 @@ class InventarioController extends Controller
 	{
 		$inventarios = DB::select(
 			"SELECT p.codProducto, p.descripcion,
-            COALESCE(dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0),0) AS stock,
-            COALESCE(rp.cantidad_aprobada, 0) AS stock1
+            COALESCE(dcom.cantidadIngreso - COALESCE(dreq.cantidad_rechazada, 0),0) AS stock,
+            COALESCE(dreq.cantidad_aprobada, 0) AS stock1
             FROM productos p
-            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
-            FROM detalle_compras
-            GROUP BY producto_id) dc ON p.id = dc.producto_id
+						LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
+            FROM detalle_compras dc
+						JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
+						WHERE rcom.inicializado = 1
+            GROUP BY producto_id) dcom ON p.id = dcom.producto_id
             LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
             SUM(CASE WHEN estado_id = 4 THEN cantidad ELSE 0 END) AS cantidad_rechazada
             FROM detalle_requisicions dr
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
             WHERE rp.estado_id IN (1, 2, 4)
-            GROUP BY producto_id) rp ON p.id = rp.producto_id;"
+            GROUP BY producto_id) dreq ON p.id = dreq.producto_id;"
 		);
 		return DataTables::of($inventarios)->make(true);
 	}
@@ -43,20 +45,21 @@ class InventarioController extends Controller
 		// Obtener los datos y convertirlos en un array
 		$inventarios = DB::select(
 			"SELECT p.codProducto, p.descripcion,
-            COALESCE(dc.cantidadIngreso - COALESCE(rp.cantidad_rechazada, 0),0) AS stock,
-            COALESCE(rp.cantidad_aprobada, 0) AS stock1
+            COALESCE(dcom.cantidadIngreso - COALESCE(dreq.cantidad_rechazada, 0),0) AS stock,
+            COALESCE(dreq.cantidad_aprobada, 0) AS stock1
             FROM productos p
-            LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
-            FROM detalle_compras
-            GROUP BY producto_id) dc ON p.id = dc.producto_id
+						LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidadIngreso
+            FROM detalle_compras dc
+						JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
+						WHERE rcom.inicializado = 1
+            GROUP BY producto_id) dcom ON p.id = dcom.producto_id
             LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
             SUM(CASE WHEN estado_id = 4 THEN cantidad ELSE 0 END) AS cantidad_rechazada
             FROM detalle_requisicions dr
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
             WHERE rp.estado_id IN (1, 2, 4)
-            GROUP BY producto_id) rp ON p.id = rp.producto_id;"
+            GROUP BY producto_id) dreq ON p.id = dreq.producto_id;"
 		);
-
 
 		// Preparar los datos para guardar en el archivo de Excel
 		$sheets = [];

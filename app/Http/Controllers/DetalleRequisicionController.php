@@ -33,21 +33,23 @@ class DetalleRequisicionController extends Controller
 		// la cantidad total de cada producto en stock y la cantidad aprobada pero aún no entregada. Los datos se devuelven en formato DataTables.
 		$productos = DB::select(
 			"SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
-            COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
-            COALESCE(rp.cantidad_aprobada_pendiente, 0) AS stockReservado,
+            COALESCE(COALESCE(dcom.cantidad_ingreso_total, 0) - COALESCE(dreq.cantidad_entregada, 0),0) AS stockReal,
+            COALESCE(dreq.cantidad_aprobada_pendiente, 0) AS stockReservado,
             m.nombreMedida as nombreMedida, r.descripRubro as rubro
             FROM productos p
             JOIN medidas m ON p.medida_id = m.id
             JOIN rubros r ON p.rubro_id = r.id
             LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
-            FROM detalle_compras
-            GROUP BY producto_id) dc ON p.id = dc.producto_id
+            FROM detalle_compras dc
+						JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
+						WHERE rcom.inicializado = 1
+            GROUP BY producto_id) dcom ON p.id = dcom.producto_id
             LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
             SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
             FROM detalle_requisicions dr
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
             WHERE rp.estado_id IN (1, 2, 3, 4, 5)
-            GROUP BY producto_id) rp ON p.id = rp.producto_id;"
+            GROUP BY producto_id) dreq ON p.id = dreq.producto_id;"
 		);
 
 		// Este método recupera detalles de productos de una base de datos y los devuelve en formato DataTables.
@@ -87,21 +89,23 @@ class DetalleRequisicionController extends Controller
 			// la cantidad total de cada producto en stock y la cantidad aprobada pero aún no entregada. Los datos se devuelven en formato DataTables.
 			$productos = DB::select("
 			SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
-					COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
-					COALESCE(rp.cantidad_aprobada_pendiente, 0) AS stockReservado,
+					COALESCE(COALESCE(dcom.cantidad_ingreso_total, 0) - COALESCE(dreq.cantidad_entregada, 0),0) AS stockReal,
+					COALESCE(dreq.cantidad_aprobada_pendiente, 0) AS stockReservado,
 					m.nombreMedida as nombreMedida, r.descripRubro as rubro
 					FROM productos p
 					JOIN medidas m ON p.medida_id = m.id
 					JOIN rubros r ON p.rubro_id = r.id
 					LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
-					FROM detalle_compras
-					GROUP BY producto_id) dc ON p.id = dc.producto_id
+					FROM detalle_compras dc
+					JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
+					WHERE rcom.inicializado = 1
+					GROUP BY producto_id) dcom ON p.id = dcom.producto_id
 					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
 					SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
 					FROM detalle_requisicions dr
 					JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
 					WHERE rp.estado_id IN (1, 2, 3, 4, 5)
-					GROUP BY producto_id) rp ON p.id = rp.producto_id
+					GROUP BY producto_id) dreq ON p.id = dreq.producto_id
             WHERE p.id = ?
             ", [$codigo]);
 
@@ -156,22 +160,24 @@ class DetalleRequisicionController extends Controller
 			$codigo = $producto_id;
 			$productos = DB::select("
 			SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
-				COALESCE(COALESCE(dc.cantidad_ingreso_total, 0) - COALESCE(rp.cantidad_entregada, 0),0) AS stockReal,
-				COALESCE(rp.cantidad_aprobada_pendiente, 0) AS stockReservado,
-				m.nombreMedida as nombreMedida, r.descripRubro as rubro
-				FROM productos p
-				JOIN medidas m ON p.medida_id = m.id
-				JOIN rubros r ON p.rubro_id = r.id
-				LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
-				FROM detalle_compras
-				GROUP BY producto_id) dc ON p.id = dc.producto_id
-				LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
-				SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
-				FROM detalle_requisicions dr
-				JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-				WHERE rp.estado_id IN (1, 2, 3, 4, 5)
-				GROUP BY producto_id) rp ON p.id = rp.producto_id
-					WHERE p.id = ?
+					COALESCE(COALESCE(dcom.cantidad_ingreso_total, 0) - COALESCE(dreq.cantidad_entregada, 0),0) AS stockReal,
+					COALESCE(dreq.cantidad_aprobada_pendiente, 0) AS stockReservado,
+					m.nombreMedida as nombreMedida, r.descripRubro as rubro
+					FROM productos p
+					JOIN medidas m ON p.medida_id = m.id
+					JOIN rubros r ON p.rubro_id = r.id
+					LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
+					FROM detalle_compras dc
+					JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
+					WHERE rcom.inicializado = 1
+					GROUP BY producto_id) dcom ON p.id = dcom.producto_id
+					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
+					SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
+					FROM detalle_requisicions dr
+					JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
+					WHERE rp.estado_id IN (1, 2, 3, 4, 5)
+					GROUP BY producto_id) dreq ON p.id = dreq.producto_id
+            WHERE p.id = ?
             ", [$codigo]);
 
 			$valorCantidadMinima = 0;

@@ -198,7 +198,9 @@ class RecepcionCompraController extends Controller
 		$sumaRequi = 0;
 		$cantidadCompra = 0;
 		$cantidadRequi = 0;
-		$detalleCompras = DetalleCompra::where('producto_id', $producto)->get();
+		$detalleCompras = DetalleCompra::whereHas('recepcionCompra', function ($query) {
+			$query->where('inicializado', 1);
+		})->where('producto_id', $producto)->get();		
 		foreach ($detalleCompras as $itemCompra) {
 			$cantidadCompra += $itemCompra->cantidadIngreso;
 			$sumaCompras += $itemCompra->total;

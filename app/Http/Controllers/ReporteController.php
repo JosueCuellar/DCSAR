@@ -235,6 +235,7 @@ class ReporteController extends Controller
 			->select('rubros.codigopresupuestario', 'rubros.descriprubro', DB::raw('sum(detalle_compras.total) as sumaTotal'))
 			->whereMonth('recepcion_compras.fechaingreso', $month)
 			->whereYear('recepcion_compras.fechaingreso', $year)
+			->where('recepcion_compras.inicializado', 1)
 			->groupBy('rubros.codigopresupuestario', 'rubros.descriprubro')
 			->get();
 
@@ -330,23 +331,42 @@ class ReporteController extends Controller
 		$fecha = $request->fechaInput;
 		list($year, $month) = explode("-", $fecha);
 
+		// $resultados = DB::table('rubros')
+		// 	->join('productos', 'rubros.id', '=', 'productos.rubro_id')
+		// 	->join('medidas', 'productos.medida_id', '=', 'medidas.id')
+		// 	->select(
+		// 		'rubros.codigoPresupuestario',
+		// 		'rubros.descripRubro',
+		// 		'productos.codProducto',
+		// 		'productos.descripcion',
+		// 		'medidas.nombreMedida',
+		// 		DB::raw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) AS existencias'),
+		// 		DB::raw('ROUND((COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0)) / (COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso)<=?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)),2) AS precio_promedio'),
+		// 		DB::raw('(COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso)<=? AND MONTH(fechaIngreso)<=?)),0)-COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id=productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id=4 AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)) AS total')
+		// 	)
+		// 	->groupBy('rubros.codigoPresupuestario', 'rubros.descripRubro', 'productos.codProducto', 'productos.descripcion', 'medidas.nombreMedida', 'productos.id')
+		// 	->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) > 0', [$year, $month, $year, $month])
+		// 	->setBindings([$year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month])
+		// 	->get();
+
 		$resultados = DB::table('rubros')
-			->join('productos', 'rubros.id', '=', 'productos.rubro_id')
-			->join('medidas', 'productos.medida_id', '=', 'medidas.id')
-			->select(
-				'rubros.codigoPresupuestario',
-				'rubros.descripRubro',
-				'productos.codProducto',
-				'productos.descripcion',
-				'medidas.nombreMedida',
-				DB::raw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) AS existencias'),
-				DB::raw('ROUND((COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0)) / (COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso)<=?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)),2) AS precio_promedio'),
-				DB::raw('(COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso)<=? AND MONTH(fechaIngreso)<=?)),0)-COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id=productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id=4 AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)) AS total')
-			)
-			->groupBy('rubros.codigoPresupuestario', 'rubros.descripRubro', 'productos.codProducto', 'productos.descripcion', 'medidas.nombreMedida', 'productos.id')
-			->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) > 0', [$year, $month, $year, $month])
-			->setBindings([$year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month])
-			->get();
+    ->join('productos', 'rubros.id', '=', 'productos.rubro_id')
+    ->join('medidas', 'productos.medida_id', '=', 'medidas.id')
+    ->select(
+        'rubros.codigoPresupuestario',
+        'rubros.descripRubro',
+        'productos.codProducto',
+        'productos.descripcion',
+        'medidas.nombreMedida',
+        DB::raw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ? AND inicializado = 1)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) AS existencias'),
+        DB::raw('ROUND((COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ? AND inicializado = 1)), 0) - COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0)) / (COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso)<=? AND inicializado = 1)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)),2) AS precio_promedio'),
+        DB::raw('(COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso)<=? AND MONTH(fechaIngreso)<=? AND inicializado = 1)),0)-COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id=productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id=4 AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)) AS total')
+    )
+    ->groupBy('rubros.codigoPresupuestario', 'rubros.descripRubro', 'productos.codProducto', 'productos.descripcion', 'medidas.nombreMedida', 'productos.id')
+    ->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) > 0', [$year, $month, $year, $month])
+    ->setBindings([$year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month, $year, $month])
+    ->get();
+
 
 
 
@@ -440,10 +460,10 @@ class ReporteController extends Controller
 		$resultados = DB::table('productos')
 			->select(
 				'productos.descripcion',
-				DB::raw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4)), 0) AS existencias')
+				DB::raw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE inicializado = 1)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4)), 0) AS existencias')
 			)
 			->groupBy('productos.descripcion', 'productos.id')
-			->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4)), 0) > 0')
+			->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE inicializado = 1)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4)), 0) > 0')
 			->orderBy('productos.descripcion')
 			->get();
 

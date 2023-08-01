@@ -187,7 +187,7 @@
                     $(document).Toasts('create', {
                         title: 'Solicitudes',
                         position: 'topRight',
-                        body: 'Hay {{ $n }} solicitudes recibidas por revisar.',
+                        body: 'Hay {{ $n }} solicitudes enviadas por revisar.',
                         class: 'bg-info',
                         icon: ' far fa-file',
                     })

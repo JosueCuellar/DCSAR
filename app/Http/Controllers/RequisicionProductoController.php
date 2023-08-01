@@ -28,7 +28,10 @@ class RequisicionProductoController extends Controller
 				->select('requisicion_productos.*')
 				->get();
 
-			$requisicionesSinCompletar = RequisicionProducto::where('estado_id', 5)->get();
+			$requisicionesSinCompletar = RequisicionProducto::where('estado_id', 5)
+				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+				->get();
 			foreach ($requisicionesSinCompletar as $item) {
 				$item->delete();
 			}
@@ -213,20 +216,24 @@ class RequisicionProductoController extends Controller
 	{
 		$requisicionProducto->estado_id = 2;
 		$requisicionProducto->observacion = $request->observacion;
-		$countRequi = RequisicionProducto::where('estado_id', 4)->orderBy('id', 'desc')->first();
+		$countRequiApro = RequisicionProducto::where('estado_id', 2)->orderBy('id', 'desc')->first();
+		$countRequiReci = RequisicionProducto::where('estado_id', 4)->orderBy('id', 'desc')->first();
 
 		// Check if the RequisicionProducto table is empty
-		if ($countRequi == 0) {
+		if ($countRequiApro == null && $countRequiReci == null) {
 			// If the table is empty, set the nCorrelativo value to 01-YYYY
 			$date = new Carbon();
 			$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');
 		} else {
-			// If the table is not empty, get the last RequisicionProducto record from the database
-			// Get the last RequisicionProducto record with estado_id = 4 from the database
-			$lastRequisicionProducto = RequisicionProducto::where('estado_id', 2)->orderBy('id', 'desc')->first();
+			// Get the last RequisicionProducto record with estado_id = 2 or estado_id = 4 from the database, ordered by the numerical part of the nCorrelativo field
+			$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [2, 3, 4])
+				->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
+				->first();
 
 			// Get the nCorrelativo value from the last record
 			$lastNumber = $lastRequisicionProducto->nCorrelativo;
+
+
 			list($number, $year) = explode('-', $lastNumber);
 
 			// Create a new Carbon instance to get the current year
@@ -264,7 +271,7 @@ class RequisicionProductoController extends Controller
 			return redirect()->route('requisicionProducto.entrega');
 		}
 		$requisicionProducto->save();
-		return redirect()->route('requisicionProducto.revisa');
+		return redirect()->route('requisicionProducto.revisar');
 	}
 
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>No encontrado</title>
+    <title>No permitido</title>
 
     <style>
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -528,7 +528,20 @@
         body {
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
-				
+
+        .boton {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #3490dc;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .boton:hover {
+            background-color: #227dc7;
+        }
     </style>
 </head>
 
@@ -538,12 +551,12 @@
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
             <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
                 <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
-                    404 </div>
-
+                    403 </div>
                 <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
-                    La página a la que quiere acceder no existe</div>
+                    No posee permisos para acceder</div>
             </div>
         </div>
+
     </div>
 </body>
 
