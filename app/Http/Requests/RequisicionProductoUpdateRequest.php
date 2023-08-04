@@ -25,13 +25,13 @@ class RequisicionProductoUpdateRequest extends FormRequest
 	{
 		return [
 			'fechaRequisicion' => 'required',
-			'descripcion' => 'required|max:512',
+			'descripcion' => 'required|max:255',
 		];
 	}
 	public function messages()
 	{
 		return [
-			'descripcion.*' => 'Ingrese una descripcion, de no mas de 512 caracteres',
+			'descripcion.*' => 'Ingrese una descripcion, de no mas de 255 caracteres',
 			'fechaRequisicion.*' => 'La fecha no puede estar vacia',
 
 

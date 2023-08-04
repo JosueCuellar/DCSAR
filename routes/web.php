@@ -184,7 +184,7 @@ Route::controller(DetalleCompraController::class)->group(function () {
 	Route::post('detalleCompra/detalleRegistrado/{recepcionCompra}', 'storeEdit')->name('detalleCompra.storeEdit');
 	//Edicion individual de un detalle
 	// Route::get('detalleCompra/detalleRegistrado/{recepcionCompra}', 'edit')->name('detalleCompra.editEdit');
-	//Edicion de una detalle de compra ya inicializado
+	//Edicion de una detalle de compra ya finalizado
 	Route::put('detalleCompra/detalleRegistrado/update/{recepcionCompra}/{detalleCompra}', 'updateEdit')->name('detalleCompra.updateEdit');
 	//Dar de baha detalle cuando ya ha sido creada una recepcion ya inicializada 
 	Route::get('detalleCompra/detalleRegistrado/destroy/{recepcionCompra}/{detalleCompra}', 'destroyEdit')->name('detalleCompra.destroyEdit');

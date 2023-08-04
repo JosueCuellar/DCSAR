@@ -24,7 +24,7 @@ class MedidaRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'nombreMedida' => 'required|regex:/^[a-zA-Z\s]*$/|min:5|max:20',
+			'nombreMedida' => 'required|min:4|max:25',
 		];
 	}
 
@@ -32,9 +32,8 @@ class MedidaRequest extends FormRequest
 	{
 		return [
 			'nombreMedida.required' => 'Ingrese un nombre',
-			'nombreMedida.regex' => 'El nombre solo debe contener letras y espacios',
-			'nombreMedida.min' => 'El nombre debe tener al menos 5 caracteres',
-			'nombreMedida.max' => 'El nombre no debe tener más de 20 caracteres',
+			'nombreMedida.min' => 'El nombre debe tener al menos 4 caracteres',
+			'nombreMedida.max' => 'El nombre no debe tener más de 25 caracteres',
 		];
 	}
 }

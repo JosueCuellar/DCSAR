@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="form-group has-feedback row">
                                         <label for="telefonoProveedor2" class="col-12 control-label">Teléfono
-                                            Opcional:</label>
+                                            opcional:</label>
                                         <div class="col-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">

@@ -2,14 +2,17 @@
 @section('title', 'Revisicion de requisición')
 @section('header')
     <div class="col-md-12">
-        <h2>Revisión de solicitudes</h2>
+        <h3>Revisión de solicitudes</h3>
     </div>
 @endsection
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="card card-secondary card-outline" style="width: 100%">
+                <div class="card card-primary card-outline" style="width: 100%">
+                    <div class="card-header">
+                        <h4 class="text-center">Pendientes de Revisar</h4>
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="table-responsive">
@@ -64,6 +67,83 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="card card-success card-outline" style="width: 100%">
+                    <div class="card-header">
+                        <h4 class="text-center">Aceptadas</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped text-center" id="dataTable12" width="100%"
+                                    cellspacing="0">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Número correlativo</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Observacion</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Realizada por</th>
+                                            <th scope="col">Ver</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($requisicionesAprobadas as $item)
+                                            <tr>
+                                                <th scope="row">{{ $item->nCorrelativo }}</th>
+                                                <td>{{ $item->fechaRequisicion }}</td>
+                                                <td>{{ $item->descripcion }}</td>
+                                                <td>{{ $item->observacion }}</td>
+                                                <td><span
+                                                        class="badge badge-success">{{ $item->estado->nombreEstado }}</span>
+                                                </td>
+                                                <td>{{ $item->user->name }}</td>
+                                                <td>
+                                    
+																										<div class="margin">
+																											<div class="btn-group">
+																													<button
+																															onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
+																															type="button" id="myButton"
+																															class="btn btn-sm btn-primary">Ver detalles</button>
+																											</div>
+																											<div class="btn-group">
+																												@hasanyrole('Gerente Unidad Organizativa')
+																												<button
+																												onclick="location.href = '{{ asset('requisicionProducto/pdf/aprobar/') }}/{{ $item->id }}';"
+																												type="button" id="myButton"
+																												class="btn btn-sm btn-secondary">Presiona aqui para ver el PDF</button>
+																												@endhasanyrole
+																											
+																											</div>
+																										
+																									</div>
+
+
+                                                    @if (auth()->user()->hasRole('Super Administrador'))
+                                                        <a href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
+                                                            <ion-icon name="document-text-outline"
+                                                                class="fa-lg text-secondary"></ion-icon>
+                                                        </a>
+                                                        <a href="{{ route('requisicionProducto.destroy', $item) }}"
+                                                            data-toggle="modal" data-target="#deleteModal"
+                                                            data-delete="{{ $item->id }}"
+                                                            class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i> </a>
+                                                    @endif
+                                      
+                                  
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="modalObservacionAceptar" style="display: none;" aria-hidden="true">
@@ -80,10 +160,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-													<p>Ten en cuenta que cuando la aceptes se le asigna un numero correlativo la cual no podra ser eliminada</p>
+                            <p>Ten en cuenta que cuando la aceptes se le asigna un numero correlativo la cual no podra ser
+                                eliminada</p>
                             <label for="observacion" class="col-sm-2 col-form-label">Observacion</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="observacion" name="observacion" rows="3" placeholder="Ingresa una observacion"></textarea>
+                                <textarea class="form-control" id="observacion" name="observacion" rows="3"
+                                    placeholder="Ingresa una observacion"></textarea>
                             </div>
                         </div>
                     </div>
@@ -111,7 +193,8 @@
                         <div class="form-group row">
                             <label for="observacion" class="col-sm-2 col-form-label">Observacion</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="observacion" name="observacion" rows="3" placeholder="Ingresa una observacion"></textarea>
+                                <textarea class="form-control" id="observacion" name="observacion" rows="3"
+                                    placeholder="Ingresa una observacion"></textarea>
                             </div>
                         </div>
                     </div>
@@ -132,6 +215,32 @@
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
                 "autoWidth": false,
+                "searching": false,
+                "info": false,
+                "paginate": false,
+                "responsive": true,
+                "columnDefs": [{
+                        "responsivePriority": 10001,
+                        "targets": 1
+                    },
+                    {
+                        "responsivePriority": 10002,
+                        'targets': 2
+                    }
+                ]
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable12').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                "autoWidth": false,
+                "searching": false,
+                "info": false,
+                "paginate": false,
                 "responsive": true,
                 "columnDefs": [{
                         "responsivePriority": 10001,
@@ -165,7 +274,7 @@
                 categoria_id);
         })
     </script>
-    @if (session('status'))
+    {{-- @if (session('status'))
         <script>
             // Get the session ID
             var sessionId = '{{ session('status')->id }}';
@@ -185,6 +294,6 @@
                 redirectToLink();
             }
         </script>
-    @endif
+    @endif --}}
 
 @endsection

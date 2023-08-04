@@ -17,7 +17,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-bordered table-extra-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>

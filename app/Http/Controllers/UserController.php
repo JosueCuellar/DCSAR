@@ -16,18 +16,27 @@ class UserController extends Controller
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{
-		$usuarios = User::all();
 
-		return view('administrador.usuario.index', compact('usuarios'));
+		try {
+			$usuarios = User::all();
+
+			return view('administrador.usuario.index', compact('usuarios'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Envia un arreglo de estados
 	public function create()
 	{
 		//    $estados = Estado::all();
-		$roles = Role::all();
-		$unidadesOrganizativas = UnidadOrganizativa::all();
-		return view('administrador.usuario.create', compact('unidadesOrganizativas', 'roles'));
+		try {
+			$roles = Role::all();
+			$unidadesOrganizativas = UnidadOrganizativa::all();
+			return view('administrador.usuario.create', compact('unidadesOrganizativas', 'roles'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
@@ -47,7 +56,7 @@ class UserController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('usuario.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return $e->getMessage();
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
 	}
 
@@ -61,7 +70,7 @@ class UserController extends Controller
 			$currentRole = $usuario->roles->first();
 			return view('administrador.usuario.edit', compact('usuario', 'roles', 'currentRole', 'unidadesOrganizativas', 'currentUnidadOrganizativa'));
 		} catch (\Exception $e) {
-			return $e->getMessage();
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
 	}
 
@@ -82,7 +91,7 @@ class UserController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('usuario.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar');
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -95,7 +104,7 @@ class UserController extends Controller
 			$usuario->delete();
 			return redirect()->route('usuario.index')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar');
+			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
 		}
 	}
 
@@ -103,58 +112,78 @@ class UserController extends Controller
 
 	public function indexRolesAssing()
 	{
-		$roles = Role::all();
-		return view('administrador.roles.indexAssign', compact('roles'));
+		try {
+			$roles = Role::all();
+			return view('administrador.roles.indexAssign', compact('roles'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	public function showAssignPermissionsForm(Role $role)
 	{
-		$permissions = Permission::all();
-		return view('administrador.roles.assign-permissions', compact('role', 'permissions'));
+		try {
+			$permissions = Permission::all();
+			return view('administrador.roles.assign-permissions', compact('role', 'permissions'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	public function assignPermissions(Request $request, Role $role)
 	{
-		$role->syncPermissions($request->input('permissions'));
-		return redirect()->route('roles.indexAssign');
+		try {
+			$role->syncPermissions($request->input('permissions'));
+			return redirect()->route('roles.indexAssign');
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	public function indexRoles()
 	{
-		$roles = Role::all();
-		return view('administrador.roles.indexRoles', compact('roles'));
+		try {
+			$roles = Role::all();
+			return view('administrador.roles.indexRoles', compact('roles'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
-		//Envia un arreglo de estados
-		public function createRoles()
-		{
+	//Envia un arreglo de estados
+	public function createRoles()
+	{
+		try {
 			return view('administrador.roles.create');
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
-	
-		//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
-		//Se hace uso de la clase Request para los mensajes de validación
-		public function storeRoles(Request $request)
-		{
-			try {
-				//Se crea y almacena un nuevo objeto
-				$rol = new Role();
-				$rol->name = $request->name;
-				$rol->save();
-				//Se redirige al listado de todos los registros
-				return redirect()->route('rol.index')->with('status', 'Registro correcto');
-			} catch (\Exception $e) {
-				return $e->getMessage();
-			}
+	}
+
+	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
+	//Se hace uso de la clase Request para los mensajes de validación
+	public function storeRoles(Request $request)
+	{
+		try {
+			//Se crea y almacena un nuevo objeto
+			$rol = new Role();
+			$rol->name = $request->name;
+			$rol->save();
+			//Se redirige al listado de todos los registros
+			return redirect()->route('rol.index')->with('status', 'Registro correcto');
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
+	}
 
 
-			//Función que permite la edición de un registro almacenado
+	//Función que permite la edición de un registro almacenado
 	public function editRoles(Role $rol)
 	{
 		try {
 			return view('administrador.roles.edit', compact('rol'));
 		} catch (\Exception $e) {
-			return $e->getMessage();
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
 	}
 
@@ -167,7 +196,7 @@ class UserController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('rol.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar');
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -180,8 +209,7 @@ class UserController extends Controller
 			$rol->delete();
 			return redirect()->route('rol.index')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar');
+			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
 		}
 	}
-
 }

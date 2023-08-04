@@ -26,7 +26,7 @@ class RubroRequest extends FormRequest
 	{
 		return [
 			'codigoPresupuestario' => 'required|string|min:5|max:6',
-			'descripRubro' => 'required|max:255',
+			'descripRubro' => 'required|max:60',
 		];
 	}
 
@@ -38,7 +38,7 @@ class RubroRequest extends FormRequest
 			'codigoPresupuestario.min' => 'El código presupuestario debe tener al menos 5 caracteres',
 			'codigoPresupuestario.max' => 'El código presupuestario no debe tener más de 6 caracteres',
 			'descripRubro.required' => 'Ingrese una descripción del rubro',
-			'descripRubro.max' => 'La descripción del rubro no debe tener más de 255 caracteres',
+			'descripRubro.max' => 'La descripción del rubro no debe tener más de 60 caracteres',
 		];
 	}
 }

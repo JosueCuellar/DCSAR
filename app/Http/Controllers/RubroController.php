@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RubroRequest;
-use App\Models\Estado;
 use App\Models\Rubro;
 
 class RubroController extends Controller
@@ -11,16 +10,18 @@ class RubroController extends Controller
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{
-		$rubros = Rubro::all();
-		$estados = Estado::all();
-		return view('rubro.index', compact('rubros', 'estados'));
+		try {
+			$rubros = Rubro::all();
+			return view('rubro.index', compact('rubros'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Envia un arreglo de estados
 	public function create()
 	{
-		$estados = Estado::all();
-		return view('rubro.create', compact('estados'));
+		return view('rubro.create');
 	}
 
 	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
@@ -36,7 +37,7 @@ class RubroController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('rubro.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar');
+			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 
@@ -44,10 +45,9 @@ class RubroController extends Controller
 	public function edit(Rubro $rubro)
 	{
 		try {
-			$estados = Estado::all();
-			return view('rubro.edit', compact('rubro', 'estados'));
+			return view('rubro.edit', compact('rubro'));
 		} catch (\Exception $e) {
-			return $e->getMessage();
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -61,7 +61,7 @@ class RubroController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('rubro.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar');
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -73,7 +73,7 @@ class RubroController extends Controller
 			$rubro->delete();
 			return redirect()->route('rubro.index')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar');
+			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
 		}
 	}
 }

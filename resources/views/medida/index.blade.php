@@ -16,7 +16,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-bordered table-extra-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -55,8 +55,7 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este registro
-                        </div>
+                        <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro                        </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                             <form method="POST" action="">

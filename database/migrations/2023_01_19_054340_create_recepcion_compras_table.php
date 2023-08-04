@@ -21,7 +21,7 @@ return new class extends Migration
 			$table->string('nOrdenCompra', 50);
 			$table->string('nPresupuestario', 50);
 			// $table->string('nCompromiso',50);
-			$table->boolean('inicializado');
+			$table->boolean('finalizado');
 			$table->string('codigoFactura', 50);
 			$table->timestamps();
 			$table->softDeletes();

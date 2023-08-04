@@ -17,8 +17,8 @@ return new class extends Migration
 			$table->id();
 			$table->dateTime('fechaRequisicion');
 			$table->string('nCorrelativo')->nullable();
-			$table->string('descripcion', 512)->nullable();
-			$table->string('observacion', 512)->nullable();
+			$table->string('descripcion', 255)->nullable();
+			$table->string('observacion', 255)->nullable();
 			$table->unsignedBigInteger('estado_id')->unsigned();
 			$table->foreign('estado_id')->references('id')->on('estados');
 			// Agregar columna user_id y establecer relación de clave foránea con la tabla usuarios

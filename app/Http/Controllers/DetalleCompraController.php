@@ -245,7 +245,7 @@ class DetalleCompraController extends Controller
 		$cantidadRequi = 0;
 
 		$detalleCompras = DetalleCompra::whereHas('recepcionCompra', function ($query) {
-			$query->where('inicializado', 1);
+			$query->where('finalizado', 1);
 		})->where('producto_id', $producto)->get();
 
 	

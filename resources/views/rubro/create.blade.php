@@ -29,11 +29,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback row">
-                                        <label for="codigoPresupuestario" class="col-12 control-label">Codigo
+                                        <label for="codigoPresupuestario" class="col-12 control-label">Código
                                             presupuestario:</label>
                                         <div class="col-12">
                                             <input id="codigoPresupuestario" type="number" class="form-control"
-                                                name="codigoPresupuestario" placeholder="Codigo presupuestario"
+                                                name="codigoPresupuestario" placeholder="Código presupuestario"
                                                 value="{{ old('codigoPresupuestario') }}">
                                         </div>
                                     </div>

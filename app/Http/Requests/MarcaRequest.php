@@ -24,7 +24,7 @@ class MarcaRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'nombre' => 'required|max:25|regex:/^[a-zA-Z\s]*$/',
+			'nombre' => 'required|max:25|regex:/^[a-zA-Z\sñáéíóúÁÉÍÓÚ]+$/'
 		];
 	}
 

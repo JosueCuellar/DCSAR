@@ -24,8 +24,8 @@ class UserRequest extends FormRequest
 	public function rules()
 	{
 		$rules = [
-			'name' => 'required|string|max:255',
-			'email' => 'required|string|email|max:255',
+			'name' => 'required|string|max:60|min:10',
+			'email' => 'required|string|email|max:100',
 			'role' => 'required|exists:roles,name',
 			'unidad_organizativa_id' => 'required',
 		];
@@ -44,8 +44,11 @@ class UserRequest extends FormRequest
 	public function messages()
 	{
 		return [
-			'name.*' => 'Ingrese un nombre, de no mas de 255 caracteres',
-			'email.*' => 'Ingrese un email, de no mas de 255 caracteres',
+			'name.required' => 'Ingrese un nombre',
+			'name.min' => 'Ingrese un nombre, de al menos 10 caracteres',
+			'name.max' => 'Ingrese un nombre, de no mas de 60 caracteres',
+			'email.required' => 'Ingrese un email',
+			'email.max' => 'Ingrese un email, de no mas de 100 caracteres',
 			'password.*' => 'Contraseña incorrecta',
 			'role.required' => 'El campo rol es obligatorio',
 			'unidad_organizativa_id.required' => 'Debe de seleccionar una unidad organizativa',

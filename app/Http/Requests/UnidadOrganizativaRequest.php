@@ -24,15 +24,15 @@ class UnidadOrganizativaRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'nombreUnidadOrganizativa' => 'required|max:100',
-			'descripUnidadOrganizativa' => 'required|max:200',
+			'nombreUnidadOrganizativa' => 'required|max:50',
+			'descripUnidadOrganizativa' => 'required|max:100',
 		];
 	}
 	public function messages()
 	{
 		return [
-			'nombreUnidadOrganizativa.*' => 'Ingrese un nombre, de no mas de 100 caracteres',
-			'descripUnidadOrganizativa.*' => 'Ingrese una descripcion, de no mas de 200 caracteres',
+			'nombreUnidadOrganizativa.*' => 'Ingrese un nombre, de no mas de 50 caracteres',
+			'descripUnidadOrganizativa.*' => 'Ingrese una descripcion, de no mas de 100caracteres',
 		];
 	}
 }

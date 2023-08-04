@@ -23,25 +23,25 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <x-errores class="mb-4" />
-                        <form action="{{ route('roles.assign-permissions', $role) }}" method="POST">
-                            @csrf
-                          <div class="row">
-                            @foreach ($permissions as $permission)
-                            <div class="col-2">
-                                <div class="form-check bg-dark">
-                                    <input type="checkbox" class="form-check-input" name="permissions[]"
-                                        value="{{ $permission->id }}"
-                                        {{ $role->hasPermissionTo($permission) ? 'checked' : '' }}>
-                                    <label>{{ $permission->name }}</label>
-                                </div>
-                                <br>
-                            </div>
-                        @endforeach
-                          </div>
-                            <button type="submit" class="btn btn-success">Asignar permisos</button>
-                        </form>
-                    </div>
+											<x-errores class="mb-4" />
+											<form action="{{ route('roles.assign-permissions', $role) }}" method="POST">
+													@csrf
+													<div class="row">
+															@foreach ($permissions as $permission)
+															<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+																	<div class="form-check bg-dark">
+																			<input type="checkbox" class="form-check-input" name="permissions[]"
+																					value="{{ $permission->id }}"
+																					{{ $role->hasPermissionTo($permission) ? 'checked' : '' }}>
+																			<label>{{ $permission->name }}</label>
+																	</div>
+																	<br>
+															</div>
+															@endforeach
+													</div>
+													<button type="submit" class="btn btn-success">Asignar permisos</button>
+											</form>
+									</div>
 
                 </div>
             </div>

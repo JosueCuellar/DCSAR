@@ -7,12 +7,16 @@ use App\Models\Marca;
 
 class MarcaController extends Controller
 {
-	
+
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{
-		$marcas = Marca::all();
-		return view('marca.index', compact('marcas'));
+		try {
+			$marcas = Marca::all();
+			return view('marca.index', compact('marcas'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
@@ -28,7 +32,7 @@ class MarcaController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('marca.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar');
+			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 
@@ -38,7 +42,7 @@ class MarcaController extends Controller
 		try {
 			return view('marca.edit', compact('marca'));
 		} catch (\Exception $e) {
-			return $e->getMessage();
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -52,7 +56,7 @@ class MarcaController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('marca.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar');
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -63,7 +67,7 @@ class MarcaController extends Controller
 			$marca->delete();
 			return redirect()->route('marca.index')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza');
+			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
 		}
 	}
 }

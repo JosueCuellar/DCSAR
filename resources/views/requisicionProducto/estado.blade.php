@@ -141,8 +141,7 @@
                                                                         class="fas fa-trash"></i> </a>
                                                             @endif
 
-                                                            @hasanyrole('Super Administrador')
-                                                            @endhasanyrole
+
                                                             @hasanyrole('Gerente Unidad Organizativa')
                                                                 <a
                                                                     href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
@@ -196,6 +195,18 @@
                                                                     class="btn btn-danger btn-sm"> <i
                                                                         class="fas fa-trash"></i> </a>
                                                             @endif
+
+																														@if ($item->user_id == Auth::id() ||
+																														auth()->user()->hasRole('Super Administrador'))
+																																<a href="{{ route('requisicionProducto.detalle', $item->id) }}"
+																																		class="btn btn-sm btn-primary ">
+																																		<i class="fas fa-edit"></i> Editar Detalles
+																																</a>
+																																<a href="{{ route('requisicionProducto.edit', $item->id) }}"
+																																		class="btn btn-success btn-sm">
+																																		<i class="fas fa-clipboard"></i> Editar Requisición
+																																</a>
+																														@endif
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -220,8 +231,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este registro
-                    </div>
+                    <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                         <form method="POST" action="">

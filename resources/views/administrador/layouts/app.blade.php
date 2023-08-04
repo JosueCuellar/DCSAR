@@ -84,6 +84,10 @@
 
     <!-- Estilo CSS del loader -->
     <style>
+        html {
+            font-size: 90%;
+        }
+
         .table-extra-sm td,
         .table-extra-sm th {
             padding: 0.1rem;
@@ -267,6 +271,20 @@
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_buttons.bootstrap5.min.js') }}"></script>
 
+    @if (session('catch'))
+        <script>
+            $(document).Toasts('create', {
+                title: 'Error',
+                position: 'topRight',
+                body: '{{ session('catch') }}',
+                class: 'bg-warning',
+                autohide: true,
+                icon: 'fas fa-exclamation-triangle ',
+                delay: 3500,
+                close: false,
+            })
+        </script>
+    @endif
 
     @yield('js_datatable')
     @yield('js_imagen')

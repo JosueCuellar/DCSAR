@@ -46,7 +46,7 @@ class RecepcionCompraController extends Controller
 			$recepcionCompra = new RecepcionCompra();
 			$recepcionCompra->proveedor_id = $request->proveedor_id;
 			$recepcionCompra->fechaIngreso = $request->fecha;
-			$recepcionCompra->inicializado = false;
+			$recepcionCompra->finalizado = false;
 			$recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
 			$recepcionCompra->nPresupuestario = $request->nPresupuestario;
 			$recepcionCompra->codigoFactura = $request->codigoFactura;
@@ -75,7 +75,7 @@ class RecepcionCompraController extends Controller
 		try {
 			$recepcionCompra->proveedor_id = $request->proveedor_id;
 			$recepcionCompra->fechaIngreso = $request->fecha;
-			$recepcionCompra->inicializado = true;
+			$recepcionCompra->finalizado = true;
 			$recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
 			$recepcionCompra->nPresupuestario = $request->nPresupuestario;
 			$recepcionCompra->codigoFactura = $request->codigoFactura;
@@ -89,7 +89,7 @@ class RecepcionCompraController extends Controller
 	public function update(Request $request, RecepcionCompra $recepcionCompra)
 	{
 		try {
-			$recepcionCompra->inicializado = true;
+			$recepcionCompra->finalizado = true;
 			$detallesCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
 			foreach ($detallesCompra as $detalle) {
 				$producto_id = $detalle->producto_id;
@@ -123,24 +123,32 @@ class RecepcionCompraController extends Controller
 	//Visualizar las recepcion de ingreso completas
 	public function consultar()
 	{
-		$recepcionesSinCompletar = RecepcionCompra::where('inicializado', false)->get();
-		foreach ($recepcionesSinCompletar as $item) {
-			$item->delete();
+		try {
+			$recepcionesSinCompletar = RecepcionCompra::where('finalizado', false)->get();
+			foreach ($recepcionesSinCompletar as $item) {
+				$item->delete();
+			}
+			$recepcionesCompletas = RecepcionCompra::where('finalizado', true)->get();
+			return view('recepcionCompra.consultar', compact('recepcionesCompletas'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
-		$recepcionesCompletas = RecepcionCompra::where('inicializado', true)->get();
-		return view('recepcionCompra.consultar', compact('recepcionesCompletas'));
 	}
 
 	//Visualizar al revision de los detalles de la recepcion de ingreso de productos
 	public function revisar(RecepcionCompra $recepcionCompra)
 	{
-		$totalFinal = 0.0;
-		$detalleCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
-		foreach ($detalleCompra as $item) {
-			$totalFinal += $item->total;
+		try {
+			$totalFinal = 0.0;
+			$detalleCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
+			foreach ($detalleCompra as $item) {
+				$totalFinal += $item->total;
+			}
+			$documentos  = DocumentoXCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
+			return view('recepcionCompra.revisar', compact('documentos', 'detalleCompra', 'recepcionCompra', 'totalFinal'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
-		$documentos  = DocumentoXCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
-		return view('recepcionCompra.revisar', compact('documentos', 'detalleCompra', 'recepcionCompra', 'totalFinal'));
 	}
 
 	//Permite eliminar un registro de una recepcion de compra
@@ -191,34 +199,38 @@ class RecepcionCompraController extends Controller
 
 	public function costoPromedioCalculo($producto)
 	{
-		$existencias = 0;
-		$saldoTotal = 0;
-		$costoPromedioVar = 0;
-		$sumaCompras = 0;
-		$sumaRequi = 0;
-		$cantidadCompra = 0;
-		$cantidadRequi = 0;
-		$detalleCompras = DetalleCompra::whereHas('recepcionCompra', function ($query) {
-			$query->where('inicializado', 1);
-		})->where('producto_id', $producto)->get();		
-		foreach ($detalleCompras as $itemCompra) {
-			$cantidadCompra += $itemCompra->cantidadIngreso;
-			$sumaCompras += $itemCompra->total;
-		}
-		$detalleRequisicion = DetalleRequisicion::whereHas('requisicionProducto', function ($query) {
-			$query->where('estado_id', 4);
-		})->where('producto_id', $producto)->get();
-
-		if (count($detalleRequisicion) > 0) {
-			foreach ($detalleRequisicion as $itemRequi) {
-				$cantidadRequi = $itemRequi->cantidad;
-				$sumaRequi += $itemRequi->total;
+		try {
+			$existencias = 0;
+			$saldoTotal = 0;
+			$costoPromedioVar = 0;
+			$sumaCompras = 0;
+			$sumaRequi = 0;
+			$cantidadCompra = 0;
+			$cantidadRequi = 0;
+			$detalleCompras = DetalleCompra::whereHas('recepcionCompra', function ($query) {
+				$query->where('finalizado', 1);
+			})->where('producto_id', $producto)->get();
+			foreach ($detalleCompras as $itemCompra) {
+				$cantidadCompra += $itemCompra->cantidadIngreso;
+				$sumaCompras += $itemCompra->total;
 			}
-		}
+			$detalleRequisicion = DetalleRequisicion::whereHas('requisicionProducto', function ($query) {
+				$query->where('estado_id', 4);
+			})->where('producto_id', $producto)->get();
 
-		$saldoTotal = $sumaCompras - $sumaRequi;
-		$existencias = $cantidadCompra - $cantidadRequi;
-		$costoPromedioVar = $saldoTotal / $existencias;
-		return $costoPromedioVar;
+			if (count($detalleRequisicion) > 0) {
+				foreach ($detalleRequisicion as $itemRequi) {
+					$cantidadRequi = $itemRequi->cantidad;
+					$sumaRequi += $itemRequi->total;
+				}
+			}
+
+			$saldoTotal = $sumaCompras - $sumaRequi;
+			$existencias = $cantidadCompra - $cantidadRequi;
+			$costoPromedioVar = $saldoTotal / $existencias;
+			return $costoPromedioVar;
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 }

@@ -36,13 +36,13 @@ return new class extends Migration
             AFTER UPDATE
             AS
             BEGIN
-                IF UPDATE(inicializado)
+                IF UPDATE(finalizado)
                 BEGIN
 									INSERT INTO kardex (fecha_movimiento, tipo_movimiento, producto_id, cantidad, precio_promedio, detalle_compra_id, recepcion_id)
 									SELECT i.fechaIngreso, 'entrada', detalle_compras.producto_id, detalle_compras.cantidadIngreso, detalle_compras.precioUnidad, detalle_compras.id, i.id
 									FROM inserted i
 									JOIN detalle_compras ON detalle_compras.recepcion_compra_id = i.id
-									WHERE i.inicializado = 1;								
+									WHERE i.finalizado = 1;								
                 END
             END;
         ");

@@ -16,11 +16,10 @@ return new class extends Migration
 		Schema::create('estados', function (Blueprint $table) {
 			$table->id();
 			$table->timestamps();
-			$table->string('codigoEstado', 20);
-			$table->string('nombreEstado', 150);
-			$table->string('descripcionEstado', 150);
+			$table->string('codigoEstado', 10);
+			$table->string('nombreEstado', 50);
+			$table->string('descripcionEstado', 50);
 			$table->softDeletes();
-
 		});
 	}
 

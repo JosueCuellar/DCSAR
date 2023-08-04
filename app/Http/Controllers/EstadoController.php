@@ -10,8 +10,12 @@ class EstadoController extends Controller
 	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
 	public function index()
 	{
-		$estados = Estado::all();
-		return view('estado.index', compact('estados'));
+		try {
+			$estados = Estado::all();
+			return view('estado.index', compact('estados'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
@@ -28,7 +32,7 @@ class EstadoController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('estado.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar');
+			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 
@@ -53,7 +57,7 @@ class EstadoController extends Controller
 			//Se redirige al listado de todos los registros
 			return redirect()->route('estado.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar');
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -64,7 +68,7 @@ class EstadoController extends Controller
 			$estado->delete();
 			return redirect()->route('estado.index')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza');
+			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
 		}
 	}
 }

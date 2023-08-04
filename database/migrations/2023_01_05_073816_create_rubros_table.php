@@ -17,8 +17,8 @@ return new class extends Migration
 			$table->id();
 			$table->timestamps();
 			// $table->unsignedBigInteger('estado_id')->unsigned();
-			$table->string('codigoPresupuestario');
-			$table->string('descripRubro');
+			$table->string('codigoPresupuestario', 6);
+			$table->string('descripRubro' , 60);
 			$table->softDeletes();
 
 			// $table->foreign('estado_id')->references('id')->on('estados');

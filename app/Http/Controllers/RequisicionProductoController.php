@@ -44,76 +44,106 @@ class RequisicionProductoController extends Controller
 	//Envia los estados de las requisiciones enviadas, aprobadas y rechazadas
 	public function estado()
 	{
-		$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
-			->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
-			->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
-			->select('requisicion_productos.*')
-			->get();
-		$nEnviadas = count($requisicionesEnviadas);
-		$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)
-			->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
-			->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
-			->select('requisicion_productos.*')
-			->get();
-		$nAprobadas = count($requisicionesAprobadas);
-		$requisicionesRechazadas = RequisicionProducto::where('estado_id', 3)
-			->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
-			->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
-			->select('requisicion_productos.*')
-			->get();
-		$nRechazadas = count($requisicionesRechazadas);
+		try {
+			$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
+				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+				->select('requisicion_productos.*')
+				->get();
+			$nEnviadas = count($requisicionesEnviadas);
+			$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)
+				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+				->select('requisicion_productos.*')
+				->get();
+			$nAprobadas = count($requisicionesAprobadas);
+			$requisicionesRechazadas = RequisicionProducto::where('estado_id', 3)
+				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+				->select('requisicion_productos.*')
+				->get();
+			$nRechazadas = count($requisicionesRechazadas);
 
-		return view('requisicionProducto.estado', compact('requisicionesEnviadas', 'requisicionesAprobadas', 'requisicionesRechazadas', 'nEnviadas', 'nAprobadas', 'nRechazadas'));
+			return view('requisicionProducto.estado', compact('requisicionesEnviadas', 'requisicionesAprobadas', 'requisicionesRechazadas', 'nEnviadas', 'nAprobadas', 'nRechazadas'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Muestra el panel de Revision de solicitudes enviadas, es el panel que ve el Gerente de cada Unidad Organizativa
 	public function revisar()
 	{
-		$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
-			->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
-			->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
-			->select('requisicion_productos.*')
-			->get();
+		try {
+			$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
+				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+				->select('requisicion_productos.*')
+				->get();
 
-		return view('requisicionProducto.revisar', compact('requisicionesEnviadas'));
+			$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)
+				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+				->select('requisicion_productos.*')
+				->get();
+
+			return view('requisicionProducto.revisar', compact('requisicionesEnviadas', 'requisicionesAprobadas'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Muestra el panel de Requisicon a entregar, que ve el Encargado de Almacen para confirmar que los productos han sido enviados
 	public function entrega()
 	{
-		$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)->get();
-		return view('requisicionProducto.entrega', compact('requisicionesAprobadas'));
+		try {
+			$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)->get();
+			return view('requisicionProducto.entrega', compact('requisicionesAprobadas'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Muestra una tabla con todas las requisiciones que han sido entregadas
 	public function requisicionRecibida()
 	{
-		$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)
-			->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
-			->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
-			->select('requisicion_productos.*')
-			->get();
+		try {
+			$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)
+				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
+				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
+				->select('requisicion_productos.*')
+				->get();
 
-		return view('requisicionProducto.requiRealizada', compact('requisicionRecibidas'));
+			return view('requisicionProducto.requiRealizada', compact('requisicionRecibidas'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 	//Muestra una tabla con todas las requisiciones que han sido entregadas
 	public function historialRequi()
 	{
-		$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)->get();
-		return view('requisicionProducto.historialRequi', compact('requisicionRecibidas'));
+		try {
+			$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)->get();
+			return view('requisicionProducto.historialRequi', compact('requisicionRecibidas'));
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Metodo que sirve para inicializar cada requisicion que se creara
 	public function store(Request $request)
 	{
-		$requisicionProducto = new RequisicionProducto();
-		$date =  new DateTime();
-		$requisicionProducto->fechaRequisicion = $date->format('Y-m-d H:i:s');
-		$requisicionProducto->estado_id = 5;
-		// Asignar el user_id al usuario autenticado actualmente
-		$requisicionProducto->user_id = Auth::id();
-		$requisicionProducto->save();
-		return redirect()->route('requisicionProducto.detalle', $requisicionProducto);
+		try {
+			$requisicionProducto = new RequisicionProducto();
+			$date =  new DateTime();
+			$requisicionProducto->fechaRequisicion = $date->format('Y-m-d H:i:s');
+			$requisicionProducto->estado_id = 5;
+			// Asignar el user_id al usuario autenticado actualmente
+			$requisicionProducto->user_id = Auth::id();
+			$requisicionProducto->save();
+			return redirect()->route('requisicionProducto.detalle', $requisicionProducto);
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+		}
 	}
 
 	//Función que permite la edición de un registro almacenado
@@ -214,74 +244,86 @@ class RequisicionProductoController extends Controller
 
 	public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
 	{
-		$requisicionProducto->estado_id = 2;
-		$requisicionProducto->observacion = $request->observacion;
-		$countRequiApro = RequisicionProducto::where('estado_id', 2)->orderBy('id', 'desc')->first();
-		$countRequiReci = RequisicionProducto::where('estado_id', 4)->orderBy('id', 'desc')->first();
+		try {
+			$requisicionProducto->estado_id = 2;
+			$requisicionProducto->observacion = $request->observacion;
+			$countRequiApro = RequisicionProducto::where('estado_id', 2)->orderBy('id', 'desc')->first();
+			$countRequiReci = RequisicionProducto::where('estado_id', 4)->orderBy('id', 'desc')->first();
 
-		// Check if the RequisicionProducto table is empty
-		if ($countRequiApro == null && $countRequiReci == null) {
-			// If the table is empty, set the nCorrelativo value to 01-YYYY
-			$date = new Carbon();
-			$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');
-		} else {
-			// Get the last RequisicionProducto record with estado_id = 2 or estado_id = 4 from the database, ordered by the numerical part of the nCorrelativo field
-			$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [2, 3, 4])
-				->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
-				->first();
-
-			// Get the nCorrelativo value from the last record
-			$lastNumber = $lastRequisicionProducto->nCorrelativo;
-
-
-			list($number, $year) = explode('-', $lastNumber);
-
-			// Create a new Carbon instance to get the current year
-			$date = new Carbon();
-			$currentYear = $date->format('Y');
-
-			// Check if the current year is different from the year part of the last nCorrelativo value
-			if ($currentYear != $year) {
-				// If the years are different, reset the number part of the nCorrelativo value to 01
-				$number = '01';
+			// Check if the RequisicionProducto table is empty
+			if ($countRequiApro == null && $countRequiReci == null) {
+				// If the table is empty, set the nCorrelativo value to 01-YYYY
+				$date = new Carbon();
+				$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');
 			} else {
-				// If the years are the same, increment the number part of the nCorrelativo value
-				$number = (int)$number + 1;
+				// Get the last RequisicionProducto record with estado_id = 2 or estado_id = 4 from the database, ordered by the numerical part of the nCorrelativo field
+				$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [2, 3, 4])
+					->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
+					->first();
 
-				// Zero-pad the number if necessary
-				if ($number < 10) {
-					$number = '0' . $number;
+				// Get the nCorrelativo value from the last record
+				$lastNumber = $lastRequisicionProducto->nCorrelativo;
+
+
+				list($number, $year) = explode('-', $lastNumber);
+
+				// Create a new Carbon instance to get the current year
+				$date = new Carbon();
+				$currentYear = $date->format('Y');
+
+				// Check if the current year is different from the year part of the last nCorrelativo value
+				if ($currentYear != $year) {
+					// If the years are different, reset the number part of the nCorrelativo value to 01
+					$number = '01';
+				} else {
+					// If the years are the same, increment the number part of the nCorrelativo value
+					$number = (int)$number + 1;
+
+					// Zero-pad the number if necessary
+					if ($number < 10) {
+						$number = '0' . $number;
+					}
 				}
+				// Construct the new nCorrelativo value
+				$requisicionProducto->nCorrelativo = $number . '-' . $currentYear;
 			}
-			// Construct the new nCorrelativo value
-			$requisicionProducto->nCorrelativo = $number . '-' . $currentYear;
+			$requisicionProducto->save();
+			return redirect()->route('requisicionProducto.revisar')->with('status', $requisicionProducto);
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
-		$requisicionProducto->save();
-		return redirect()->route('requisicionProducto.revisar')->with('status', $requisicionProducto);
 	}
 
 
 	//METODO QUE SE ENCARGA DE QUE  UNA REQUISICION CAMBIE A DENEGADA POR EL JEFE GERENTE de cada Unidad Organizativa
 	public function denegar(Request $request, RequisicionProducto $requisicionProducto)
 	{
-		$requisicionProducto->estado_id = 3;
-		$requisicionProducto->observacion = $request->observacion;
-		if (!is_null($requisicionProducto->nCorrelativo)) {
+		try {
+			$requisicionProducto->estado_id = 3;
+			$requisicionProducto->observacion = $request->observacion;
+			if (!is_null($requisicionProducto->nCorrelativo)) {
+				$requisicionProducto->save();
+				return redirect()->route('requisicionProducto.entrega');
+			}
 			$requisicionProducto->save();
-			return redirect()->route('requisicionProducto.entrega');
+			return redirect()->route('requisicionProducto.revisar');
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
-		$requisicionProducto->save();
-		return redirect()->route('requisicionProducto.revisar');
 	}
 
 
 	//Se encarga de eliminar una requisicion de productos
 	public function destroy(RequisicionProducto $requisicionProducto)
 	{
-		if ($requisicionProducto->nCorrelativo !== null) {
-			return redirect()->route('requisicionProducto.estado')->with('error', 'No se puede eliminar el registro porque ya se le asigno un numero correlativo');
+		try {
+			if ($requisicionProducto->nCorrelativo !== null) {
+				return redirect()->route('requisicionProducto.estado')->with('error', 'No se puede eliminar el registro porque ya se le asigno un numero correlativo');
+			}
+			$requisicionProducto->delete();
+			return redirect()->route('requisicionProducto.index')->with('delete', 'Registro eliminado');
+		} catch (\Exception $e) {
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
-		$requisicionProducto->delete();
-		return redirect()->route('requisicionProducto.index')->with('delete', 'Registro eliminado');
 	}
 }

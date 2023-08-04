@@ -42,7 +42,7 @@ class DetalleRequisicionController extends Controller
             LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
             FROM detalle_compras dc
 						JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
-						WHERE rcom.inicializado = 1
+						WHERE rcom.finalizado = 1
             GROUP BY producto_id) dcom ON p.id = dcom.producto_id
             LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
             SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
@@ -98,7 +98,7 @@ class DetalleRequisicionController extends Controller
 					LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
 					FROM detalle_compras dc
 					JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
-					WHERE rcom.inicializado = 1
+					WHERE rcom.finalizado = 1
 					GROUP BY producto_id) dcom ON p.id = dcom.producto_id
 					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
 					SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
@@ -169,7 +169,7 @@ class DetalleRequisicionController extends Controller
 					LEFT JOIN (SELECT producto_id, SUM(cantidadIngreso) AS cantidad_ingreso_total
 					FROM detalle_compras dc
 					JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
-					WHERE rcom.inicializado = 1
+					WHERE rcom.finalizado = 1
 					GROUP BY producto_id) dcom ON p.id = dcom.producto_id
 					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
 					SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
