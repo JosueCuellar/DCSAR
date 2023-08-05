@@ -17,8 +17,8 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-extra-sm table-hover table-striped text-center" id="dataTable6" width="100%"
-                    cellspacing="0">
+                <table class="table table-bordered table-extra-sm table-hover table-striped text-center" id="dataTable6"
+                    width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Rubro</th>
@@ -50,7 +50,7 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro                        </div>
+                        <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                             <form method="POST" action="">
@@ -149,8 +149,24 @@
                     },
                     {
                         data: 'costoPromedio',
-                        name: 'costoPromedio'
+                        name: 'costoPromedio',
+                        render: function(data, type, row) {
+                            if (data === null) {
+                                return 0;
+                            }
+                            // Convert the value to a float
+                            var value = parseFloat(data);
+
+                            // Format the value with 2 decimal places and include the leading zero
+                            var formattedValue = value.toLocaleString('en-US', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            });
+
+                            return formattedValue;
+                        }
                     },
+
                     {
                         data: 'observacion',
                         name: 'observacion'

@@ -71,6 +71,8 @@
                                         <label for="role" class="col-12 control-label">Rol:</label>
                                         <div class="col-12">
                                             <select id="role" class="form-control" name="role" required>
+																							<option selected='true' disabled='disabled'>Seleccionar un rol
+																							</option>
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                                                 @endforeach

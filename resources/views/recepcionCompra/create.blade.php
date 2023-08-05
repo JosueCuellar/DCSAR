@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="form-group has-feedback row">
                                         <label for="nOrdenCompra" class="col-12 control-label">Orden de
-                                            Compra:</label>
+                                            compra:</label>
                                         <div class="col-12">
                                             <input id="nOrdenCompra" type="text" class="form-control" name="nOrdenCompra"
                                                 placeholder="Número de orden de compra">
@@ -40,15 +40,15 @@
 
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback row">
-                                        <label for="nPresupuestario" class="col-12 control-label">Número Compromiso
-                                            Presupuestario:</label>
+                                        <label for="nPresupuestario" class="col-12 control-label">Número compromiso
+                                            presupuestario:</label>
                                         <div class="col-12">
                                             <input id="nPresupuestario" type="text" class="form-control"
                                                 name="nPresupuestario" placeholder="Número presupuestario">
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback row">
-                                        <label for="codigoFactura" class="col-12 control-label">Codigo Factura:</label>
+                                        <label for="codigoFactura" class="col-12 control-label">Codigo factura:</label>
                                         <div class="col-12">
                                             <input id="codigoFactura" type="number" class="form-control"
                                                 name="codigoFactura" placeholder="Codigo Factura" value="">
@@ -62,14 +62,10 @@
                                         <label for="fechaVenc" class="col-12 control-label">Fecha del ingreso:</label>
                                         <div class="col-12">
                                             <input id='fecha' value="{{ old('fecha') }}" type='date'
-                                                class='form-control' name='fecha' placeholder='Fecha de vencimiento'>
+                                                class='form-control' name='fecha' max="{{ date('Y-m-d') }}"
+                                                placeholder='Fecha de vencimiento'>
                                         </div>
-
-                                        @error('fecha')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
                                     </div>
-
                                 </div>
                             </div>
                         </div>

@@ -3,55 +3,58 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
-            <h5 class="text-bold">Cantidad de solicitudes</h5>
-            <div class="row p-2">
-                <div class="col-md-3 col-sm-6 col-12">
-                    <div class="info-box shadow">
-                        <span class="info-box-icon text-white" style="background-color: #003f5c"><i
-                                class="far fa-envelope"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Enviadas</span>
-                            <span class="info-box-number">{{ $nEnviadas }}</span>
+            @can('Ver dashboard: Cantidad de solicitudes')
+                <h5 class="text-bold">Cantidad de solicitudes</h5>
+                <div class="row p-2">
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box shadow">
+                            <span class="info-box-icon text-white" style="background-color: #003f5c"><i
+                                    class="far fa-envelope"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Enviadas</span>
+                                <span class="info-box-number">{{ $nEnviadas }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box shadow">
+                            <span class="info-box-icon text-white" style="background-color: #3e8e41">
+                                <ion-icon name="checkmark-done-sharp" class="text-white"></ion-icon>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Aprobadas</span>
+                                <span class="info-box-number">{{ $nAprobadas }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box shadow">
+                            <span class="info-box-icon text-white" style="background-color: #e63946">
+                                <ion-icon name="alert-circle-sharp" class="text-white"></ion-icon>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Rechazadas</span>
+                                <span class="info-box-number">{{ $nRechazadas }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box shadow">
+                            <span class="info-box-icon text-white" style="background-color: #dd8b26">
+                                <ion-icon name="documents-sharp" class="text-white"></ion-icon>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Recibidas</span>
+                                <span class="info-box-number">{{ $nRecibidas }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-12">
-                    <div class="info-box shadow">
-                        <span class="info-box-icon text-white" style="background-color: #3e8e41">
-                            <ion-icon name="checkmark-done-sharp" class="text-white"></ion-icon>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Aprobadas</span>
-                            <span class="info-box-number">{{ $nAprobadas }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12">
-                    <div class="info-box shadow">
-                        <span class="info-box-icon text-white" style="background-color: #e63946">
-                            <ion-icon name="alert-circle-sharp" class="text-white"></ion-icon>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Rechazadas</span>
-                            <span class="info-box-number">{{ $nRechazadas }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12">
-                    <div class="info-box shadow">
-                        <span class="info-box-icon text-white" style="background-color: #dd8b26">
-                            <ion-icon name="documents-sharp" class="text-white"></ion-icon>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Recibidas</span>
-                            <span class="info-box-number">{{ $nRecibidas }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h5 class="text-bold">Accesos directos</h5>
-            <div class="row p-2">
-                @role('Super Administrador|Gerente Unidad Organizativa|Tecnico Encargado Almacen|Solicitante Unidad Organizativa|Gerente Encargado Almacen')
+            @endcan
+
+            @can('Ver dashboard: Accesos directos 1')
+                <h5 class="text-bold">Accesos directos 1</h5>
+                <div class="row p-2">
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #003f5c">
                             <div class="inner">
@@ -112,8 +115,12 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-                @endrole
-                @role('Super Administrador|Gerente Encargado Almacen|Tecnico Encargado Almacen')
+                </div>
+            @endcan
+
+            @can('Ver dashboard: Accesos directos 2')
+                <h5 class="text-bold">Accesos directos 2</h5>
+                <div class="row p-2">
                     <div class="col-lg-3 col-6">
                         <div class="text-white small-box" style="background-color: #003f5c">
                             <div class="inner">
@@ -174,8 +181,8 @@
                                     class="fas fa-external-link-square-alt"></i></a>
                         </div>
                     </div>
-                @endrole
-            </div>
+                </div>
+            @endcan
 
         </div>
     </div>

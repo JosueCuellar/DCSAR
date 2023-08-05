@@ -60,7 +60,7 @@
                                     <span data-toggle="tooltip" title data-original-title="Guardar cambios realizados">
                                         <button type="submit" class="btn btn-success" value="Guardar" name="action">
                                             <ion-icon name="save-outline"></ion-icon>
-                                            Guardar unida organizativa
+                                            Guardar unidad organizativa
                                         </button>
                                     </span>
                                 </div>

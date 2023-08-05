@@ -28,6 +28,11 @@ class DocumentoXCompraController extends Controller
 		return view('recepcionCompra.documento', compact('currentStep', 'labelBar', 'recepcionCompra'));
 	}
 
+	public function documentoEdit(RecepcionCompra $recepcionCompra)
+	{
+		return view('recepcionCompra.documentoEdit', compact('recepcionCompra'));
+	}
+
 	public function documentoBarPost(RecepcionCompra $recepcionCompra)
 	{
 		$recepcionID = DocumentoXCompra::where('id', $recepcionCompra);
@@ -62,6 +67,23 @@ class DocumentoXCompraController extends Controller
 			if (File::exists($url)) {
 				File::delete($url);
 				DocumentoXCompra::where('nombreDocumento', $recepcionCompra->id . '-' . $filename)->delete();
+				return redirect()->back()->with('message', 'Exito!');
+			} else {
+				return  $m = 'File does not exist.';
+			}
+		} catch (\Exception $e) {
+			return redirect()->back()->with('message', 'Error!');
+		}
+	}
+
+	public function deleteEdit($id)
+	{
+		try {
+			$documento = DocumentoXCompra::where('id', $id)->firstOrFail();
+			$url = public_path('documentos/' . $documento->nombreDocumento);
+			if (File::exists($url)) {
+				File::delete($url);
+				DocumentoXCompra::where('id', $id)->delete();
 				return redirect()->back()->with('message', 'Exito!');
 			} else {
 				return  $m = 'File does not exist.';

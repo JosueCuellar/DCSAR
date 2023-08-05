@@ -199,16 +199,14 @@
                                 </p>
                             </a>
                         </li>
-                        @can('CRUD unidad organizativa')
-                            <li class="nav-item">
-                                <a href="{{ asset('unidadOrganizativa') }}" class="nav-link active">
-                                    <ion-icon name="people-circle-outline" class="nav-icon"></ion-icon>
-                                    <p>
-                                        Unidad Organizativa
-                                    </p>
-                                </a>
-                            </li>
-                        @endcan
+                        <li class="nav-item">
+                            <a href="{{ asset('unidadOrganizativa') }}" class="nav-link active">
+                                <ion-icon name="people-circle-outline" class="nav-icon"></ion-icon>
+                                <p>
+                                    Unidad Organizativa
+                                </p>
+                            </a>
+                        </li>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>

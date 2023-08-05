@@ -14,35 +14,24 @@ class PermisoSeeder extends Seeder
 	 */
 	public function run(): void
 	{
+		//------------------------------------------VISUALES-----------------------------------------------
 		//Permiso administrador
 		Permission::create(['name' => 'Ver panel admin']);
 
+		//Dashboard
+		Permission::create(['name' => 'Ver dashboard: Cantidad de solicitudes']);
+		Permission::create(['name' => 'Ver dashboard: Accesos directos 1']);
+		Permission::create(['name' => 'Ver dashboard: Accesos directos 2']);
 
-		//Permisos catalogos
-		Permission::create(['name' => 'Catalogo']);
-
-		Permission::create(['name' => 'CRUD estado']);
-		Permission::create(['name' => 'CRUD marca']);
-		Permission::create(['name' => 'CRUD proveedor']);
-		Permission::create(['name' => 'CRUD medida']);
-		Permission::create(['name' => 'CRUD unidad organizativa']);
-		Permission::create(['name' => 'CRUD rubro']);
-		Permission::create(['name' => 'CRUD producto']);
-
-
-		//Permisos Requisiciones productos
-		Permission::create(['name' => 'Crear solicitud requisicion']);
-		Permission::create(['name' => 'Ver estados de solicitudes']);
-		Permission::create(['name' => 'Revision de solicitudes']);
-		Permission::create(['name' => 'Bandeja solicitud a entregar']);
-		Permission::create(['name' => 'Ver solicitudes realizadas']);
-
-
-		//Permisos Recepcion ingreso productos
-		Permission::create(['name' => 'Crear ingreso de productos']);
-		Permission::create(['name' => 'Consultar ingreso de productos']);
-		Permission::create(['name' => 'Ver inventario']);
-
-		Permission::create(['name' => 'Ver bodega principal']);
+		//SIDEBAR
+		Permission::create(['name' => 'SideBar: Requisicion de producto']);
+		Permission::create(['name' => 'SideBar: Inventario']);
+		Permission::create(['name' => 'SideBar: Revisar solicitudes']);
+		Permission::create(['name' => 'SideBar: Ingreso de producto']);
+		Permission::create(['name' => 'SideBar: Solicitudes a entregar']);
+		Permission::create(['name' => 'SideBar: Historial requisiciones']);
+		Permission::create(['name' => 'SideBar: Productos Bodega']);
+		Permission::create(['name' => 'SideBar: Reportes']);
+		Permission::create(['name' => 'SideBar: Catalogos']);
 	}
 }

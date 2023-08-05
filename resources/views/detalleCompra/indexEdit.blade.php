@@ -160,8 +160,8 @@
                                                             @else
                                                                 <td>{{ $itemDet->fechaVencimiento }}</td>
                                                             @endif
-                                                            <td>${{ $itemDet->precioUnidad }}</td>
-                                                            <td>${{ $itemDet->total }}</td>
+                                                            <td>${{ number_format($itemDet->precioUnidad, 2) }}</td>
+                                                            <td>${{ number_format($itemDet->total, 2)}}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

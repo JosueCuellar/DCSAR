@@ -30,9 +30,9 @@ class UnidadOrganizativaController extends Controller
 			$unidad->descripUnidadOrganizativa = $request->descripUnidadOrganizativa;
 			$unidad->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('unidadOrganizativa.index');
+			return redirect()->route('unidadOrganizativa.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error '.$e->getMessage());
+			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 
@@ -42,7 +42,7 @@ class UnidadOrganizativaController extends Controller
 		try {
 			return view('unidadOrganizativa.edit', compact('unidadOrganizativa'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error '.$e->getMessage());
+			return redirect()->back()->with('msg', 'Ha ocurrido un error '.$e->getMessage());
 		}
 	}
 
@@ -54,9 +54,9 @@ class UnidadOrganizativaController extends Controller
 			$unidadOrganizativa->descripUnidadOrganizativa = $request->descripUnidadOrganizativa;
 			$unidadOrganizativa->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('unidadOrganizativa.index');
+			return redirect()->route('unidadOrganizativa.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error '.$e->getMessage());
+			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -65,9 +65,9 @@ class UnidadOrganizativaController extends Controller
 	{
 		try {
 			$unidadOrganizativa->delete();
-			return redirect()->route('unidadOrganizativa.index');
+			return redirect()->route('unidadOrganizativa.index')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
-		return redirect()->back()->with('catch', 'Ha ocurrido un error '.$e->getMessage());
+			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
 		}
 	}
 }

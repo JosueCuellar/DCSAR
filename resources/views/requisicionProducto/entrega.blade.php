@@ -137,10 +137,10 @@
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
-                title: 'Solicitud enviada',
+                title: 'Solicitud confirmada',
                 position: 'topRight',
                 body: '{{ session('status') }} la solicitud se entrego correctamente',
-                class: 'bg-info',
+                class: 'bg-success',
                 autohide: true,
                 icon: 'fas fa-solid fa-check',
                 delay: 3500,

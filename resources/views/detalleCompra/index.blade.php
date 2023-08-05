@@ -155,8 +155,8 @@
                                                             @else
                                                                 <td>{{ $itemDet->fechaVencimiento }}</td>
                                                             @endif
-                                                            <td>${{ $itemDet->precioUnidad }}</td>
-                                                            <td>${{ $itemDet->total }}</td>
+                                                            <td>${{ number_format($itemDet->precioUnidad, 2) }}</td>
+                                                            <td>${{ number_format($itemDet->total, 2) }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -227,7 +227,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro                </div>
+                <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                     <form method="POST" action="">
@@ -276,7 +276,8 @@
             var ingreso_id = button.data('ingresoid')
             var detalle_id = button.data('detalleid')
             var modal = $(this)
-            modal.find('form').attr('action', '/detalleCompra/detalleNuevo/destroy/' + ingreso_id + '/' + detalle_id);
+            modal.find('form').attr('action', '/detalleCompra/detalleNuevo/destroy/' + ingreso_id + '/' +
+                detalle_id);
         });
     </script>
     <script>

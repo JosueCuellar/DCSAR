@@ -14,6 +14,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RecepcionCompraController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RequisicionProductoController;
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\RubroController;
 use App\Http\Controllers\UnidadOrganizativaController;
 use App\Http\Controllers\UserController;
@@ -36,7 +37,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('admin', [DashboardController::class, 'indexAdmin'])->name('dashboardAdmin')->middleware('can:Ver panel admin');
 //----------------------------Estado------------------------
 //listar
-Route::get('estado', [EstadoController::class, 'index'])->name('estado.index')->middleware('can:CRUD estado');
+Route::get('estado', [EstadoController::class, 'index'])->name('estado.index')->middleware('can:Ver panel admin');
 //crear
 Route::view('estado/crear', 'estado.create')->name('estado.create');
 Route::post('estado/store', [EstadoController::class, 'store'])->name('estado.store');
@@ -47,7 +48,7 @@ Route::put('estado/update/{estado}', [EstadoController::class, 'update'])->name(
 Route::get('estado/destroy/{estado}', [EstadoController::class, 'destroy'])->name('estado.destroy');
 //----------------------------Marca------------------------
 //listar
-Route::get('marca', [MarcaController::class, 'index'])->name('marca.index')->middleware('can:CRUD marca');
+Route::get('marca', [MarcaController::class, 'index'])->name('marca.index')->middleware('can:SideBar: Catalogos');;
 //crear
 Route::view('marca/crear', 'marca.create')->name('marca.create');
 Route::post('marca/store', [MarcaController::class, 'store'])->name('marca.store');
@@ -58,7 +59,7 @@ Route::put('marca/update/{marca}', [MarcaController::class, 'update'])->name('ma
 Route::get('marca/destroy/{marca}', [MarcaController::class, 'destroy'])->name('marca.destroy');
 //----------------------------Proveedor------------------------
 //listar
-Route::get('proveedor', [ProveedorController::class, 'index'])->name('proveedor.index')->middleware('can:CRUD proveedor');;
+Route::get('proveedor', [ProveedorController::class, 'index'])->name('proveedor.index')->middleware('can:SideBar: Catalogos');
 //crear
 Route::view('proveedor/crear', 'proveedor.create')->name('proveedor.create');
 Route::post('proveedor/store', [ProveedorController::class, 'store'])->name('proveedor.store');
@@ -69,7 +70,7 @@ Route::put('proveedor/update/{proveedor}', [ProveedorController::class, 'update'
 Route::get('proveedor/destroy/{proveedor}', [ProveedorController::class, 'destroy'])->name('proveedor.destroy');
 //----------------------------Medida------------------------
 //listar
-Route::get('medida', [MedidaController::class, 'index'])->name('medida.index')->middleware('can:CRUD medida');
+Route::get('medida', [MedidaController::class, 'index'])->name('medida.index')->middleware('can:SideBar: Catalogos');
 //crear
 Route::view('medida/crear', 'medida.create')->name('medida.create');
 Route::post('medida/store', [MedidaController::class, 'store'])->name('medida.store');
@@ -80,7 +81,7 @@ Route::put('medida/update/{medida}', [MedidaController::class, 'update'])->name(
 Route::get('medida/destroy/{medida}', [MedidaController::class, 'destroy'])->name('medida.destroy');
 //----------------------------UnidadOrganizativa------------------------
 //listar
-Route::get('unidadOrganizativa', [UnidadOrganizativaController::class, 'index'])->name('unidadOrganizativa.index')->middleware('can:CRUD unidad organizativa');;
+Route::get('unidadOrganizativa', [UnidadOrganizativaController::class, 'index'])->name('unidadOrganizativa.index')->middleware('can:SideBar: Catalogos');;
 //crear
 Route::view('unidadOrganizativa/crear', 'unidadOrganizativa.create')->name('unidadOrganizativa.create');
 Route::post('unidadOrganizativa/store', [UnidadOrganizativaController::class, 'store'])->name('unidadOrganizativa.store');
@@ -91,7 +92,7 @@ Route::put('unidadOrganizativa/update/{unidadOrganizativa}', [UnidadOrganizativa
 Route::get('unidadOrganizativa/destroy/{unidadOrganizativa}', [UnidadOrganizativaController::class, 'destroy'])->name('unidadOrganizativa.destroy');
 //----------------------------Rubro------------------------
 //listar
-Route::get('rubro', [RubroController::class, 'index'])->name('rubro.index')->middleware('can:CRUD rubro');
+Route::get('rubro', [RubroController::class, 'index'])->name('rubro.index')->middleware('can:SideBar: Catalogos');
 //crear
 Route::get('rubro/crear', [RubroController::class, 'create'])->name('rubro.create');
 Route::post('rubro/store', [RubroController::class, 'store'])->name('rubro.store');
@@ -102,8 +103,8 @@ Route::put('rubro/update/{rubro}', [RubroController::class, 'update'])->name('ru
 Route::get('rubro/destroy/{rubro}', [RubroController::class, 'destroy'])->name('rubro.destroy');
 //----------------------------Producto------------------------
 //listar
-Route::get('producto', [ProductoController::class, 'index'])->name('producto.index')->middleware('can:CRUD producto');
-Route::get('productoDatos', [ProductoController::class, 'datosProducto'])->name('producto.datos')->middleware('can:CRUD producto');
+Route::get('producto', [ProductoController::class, 'index'])->name('producto.index')->middleware('can:SideBar: Catalogos');
+Route::get('productoDatos', [ProductoController::class, 'datosProducto'])->name('producto.datos')->middleware('can:SideBar: Catalogos');
 //crear
 Route::get('producto/crear', [ProductoController::class, 'create'])->name('producto.create');
 Route::post('producto/store', [ProductoController::class, 'store'])->name('producto.store');
@@ -114,12 +115,12 @@ Route::put('producto/update/{producto}', [ProductoController::class, 'update'])-
 Route::get('producto/destroy/{producto}', [ProductoController::class, 'destroy'])->name('producto.destroy');
 //---------------------------RequisicionProducto------------------------------------------------------
 // Ruta que contiene la vista 
-Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index')->middleware('can:Crear solicitud requisicion');
-Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado')->middleware('can:Ver estados de solicitudes');
-Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar')->middleware('can:Revision de solicitudes');
-Route::get('requisicionProducto/entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega')->middleware('can:Bandeja solicitud a entregar');
-Route::get('requisicionProducto/recibida', [RequisicionProductoController::class, 'requisicionRecibida'])->name('requisicionProducto.recibida')->middleware('can:Ver solicitudes realizadas');
-Route::get('requisicionProducto/historialRecibidas', [RequisicionProductoController::class, 'historialRequi'])->name('requisicionProducto.historialRecibida')->middleware('can:Crear ingreso de productos');
+Route::get('requisicionProducto', [RequisicionProductoController::class, 'index'])->name('requisicionProducto.index')->middleware('can:SideBar: Requisicion de producto');
+Route::get('requisicionProducto/estado', [RequisicionProductoController::class, 'estado'])->name('requisicionProducto.estado')->middleware('can:SideBar: Requisicion de producto');
+Route::get('requisicionProducto/revisar', [RequisicionProductoController::class, 'revisar'])->name('requisicionProducto.revisar')->middleware('can:SideBar: Revisar solicitudes');
+Route::get('requisicionProducto/entregaSolicitud', [RequisicionProductoController::class, 'entrega'])->name('requisicionProducto.entrega')->middleware('can:SideBar: Solicitudes a entregar');
+Route::get('requisicionProducto/recibida', [RequisicionProductoController::class, 'requisicionRecibida'])->name('requisicionProducto.recibida')->middleware('can:SideBar: Requisicion de producto');
+Route::get('requisicionProducto/historialRecibidas', [RequisicionProductoController::class, 'historialRequi'])->name('requisicionProducto.historialRecibida')->middleware('can:SideBar: Historial requisiciones');
 
 //Metodo para poner el estado de entregada 
 Route::put('requisicionProducto/entregada/{requisicionProducto}', [RequisicionProductoController::class, 'requisicionEntregada'])->name('requisicionProducto.entregada');
@@ -140,23 +141,25 @@ Route::get('requisicionProducto/detalle/{requisicionProducto}/eliminar/{detalleR
 //---------------------------RecepcionCompra------------------------------------------------------
 Route::controller(RecepcionCompraController::class)->group(function () {
 	//Ingresar compras de productos
-	Route::get('recepcionCompra', 'index')->name('recepcionCompra.index')->middleware('can:Crear ingreso de productos');
+	Route::get('recepcionCompra', 'index')->name('recepcionCompra.index')->middleware('can:SideBar: Ingreso de producto');
 	Route::post('recepcionCompra/store', 'store')->name('recepcionCompra.store');
 	//Edicion de la recepcion de compra  como tal
 	Route::get('recepcionCompra/edit/{recepcionCompra}', 'edit')->name('recepcionCompra.edit');
 	Route::put('recepcionCompra/updateCompra/{recepcionCompra}', 'updateCompra')->name('recepcionCompra.updateCompra');
 
 	Route::put('recepcionCompra/completar/{recepcionCompra}', 'update')->name('recepcionCompra.completar');
-	Route::get('recepcionCompra/consultar', 'consultar')->name('recepcionCompra.consultar')->middleware('can:Consultar ingreso de productos');
+	Route::get('recepcionCompra/consultar', 'consultar')->name('recepcionCompra.consultar')->middleware('can:SideBar: Ingreso de producto');
 	Route::get('recepcionCompra/destroy/{recepcionCompra}',  'destroy')->name('recepcionCompra.destroy');
 	Route::get('recepcionCompra/revisar/{recepcionCompra}', 'revisar')->name('recepcionCompra.revisar');
 });
 Route::controller(DocumentoXCompraController::class)->group(function () {
 	Route::get('documento/{recepcionCompra}', 'documentoBar')->name('recepcionCompra.documento');
+	Route::get('documentoEdit/{recepcionCompra}', 'documentoEdit')->name('recepcionCompra.documentoEdit');
 	Route::post('documentoPost/{recepcionCompra}', 'documentoBarPost')->name('recepcionCompra.documentoPost'); //2
 	Route::get('leerDocumento/{documento}', 'leerDocumento')->name('leer.documento');
 	Route::post('upload/{recepcionCompra}', 'upload')->name('upload.documento');
 	Route::post('delete/{recepcionCompra}', 'delete')->name('delete.documento');
+	Route::get('deleteEdit/{recepcionCompra}', 'deleteEdit')->name('deleteEdit.documento');
 });
 //---------------------------DetalleCompra------------------------------------------------------
 Route::controller(DetalleCompraController::class)->group(function () {
@@ -190,12 +193,12 @@ Route::controller(DetalleCompraController::class)->group(function () {
 	Route::get('detalleCompra/detalleRegistrado/destroy/{recepcionCompra}/{detalleCompra}', 'destroyEdit')->name('detalleCompra.destroyEdit');
 });
 //---------------------------Inventario------------------------------------------------------
-Route::get('inventario', [InventarioController::class, 'index'])->name('inventario.index')->middleware('can:Ver inventario');
-Route::get('inventarioDatos', [InventarioController::class, 'datosInventario'])->name('inventario.datos')->middleware('can:Ver inventario');
+Route::get('inventario', [InventarioController::class, 'index'])->name('inventario.index')->middleware('can:SideBar: Inventario');
+Route::get('inventarioDatos', [InventarioController::class, 'datosInventario'])->name('inventario.datos')->middleware('can:SideBar: Inventario');
 
 //--------------------------Salida de bodegas------------------------------------------------------
-Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'])->name('productoBodega.index')->middleware('can:Ver bodega principal');
-Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2')->middleware('can:Ver bodega secundaria');
+Route::get('productoBodega/principal', [ProductoBodegaController::class, 'index'])->name('productoBodega.index')->middleware('can:SideBar: Productos Bodega');
+Route::get('productoBodega/secundaria', [ProductoBodegaController::class, 'index2'])->name('productoBodega.index2')->middleware('can:SideBar: Productos Bodega');
 Route::post('productoBodega/{productoBodega}/', [ProductoBodegaController::class, 'store'])->name('productoBodega.store');
 
 Auth::routes();
@@ -204,37 +207,37 @@ Route::middleware(['can:Ver panel admin'])->group(function () {
 
 	//----------------------------Usuarios------------------------
 	//listar
-	Route::get('usuario', [UserController::class, 'index'])->name('usuario.index');
+	Route::get('usuario', [UserController::class, 'index'])->name('usuario.index')->middleware('can:Ver panel admin');
 	//crear
 	Route::get('usuario/crear', [UserController::class, 'create'])->name('usuario.create');
 	Route::post('usuario/store', [UserController::class, 'store'])->name('usuario.store');
 	//actualizar
-	Route::get('usuario/edit/{usuario}', [UserController::class, 'edit'])->name('usuario.edit');
+	Route::get('usuario/edit/{usuario}', [UserController::class, 'edit'])->name('usuario.edit')->middleware('can:Ver panel admin');
 	Route::put('usuario/update/{usuario}', [UserController::class, 'update'])->name('usuario.update');
 	//eliminar
 	Route::get('usuario/destroy/{usuario}', [UserController::class, 'destroy'])->name('usuario.destroy');
 
 	//----------------------------Asignar roles a usuario------------------------
-	Route::get('rolesAssign', [UserController::class, 'indexRolesAssing'])->name('roles.indexAssign');
-	Route::get('/roles/{role}/assign-permissions', [UserController::class, 'showAssignPermissionsForm'])->name('roles.assign-permissions');
-	Route::post('/roles/{role}/assign-permissions', [UserController::class, 'assignPermissions'])->name('roles.assign-permissions');
+	Route::get('rolesAssign', [RolController::class, 'indexRolesAssing'])->name('roles.indexAssign')->middleware('can:Ver panel admin');
+	Route::get('/roles/{role}/assign-permissions', [RolController::class, 'showAssignPermissionsForm'])->name('roles.assign-permissions')->middleware('can:Ver panel admin');
+	Route::post('/roles/{role}/assign-permissions', [RolController::class, 'assignPermissions'])->name('roles.assign-permissions');
 
 	//----------------------------Roles------------------------
 	//Listar
-	Route::get('rol', [UserController::class, 'indexRoles'])->name('rol.index');
+	Route::get('rol', [RolController::class, 'indexRoles'])->name('rol.index')->middleware('can:Ver panel admin');
 	//crear
-	Route::get('rol/crear', [UserController::class, 'createRoles'])->name('rol.create');
-	Route::post('rol/store', [UserController::class, 'storeRoles'])->name('rol.store');
+	Route::get('rol/crear', [RolController::class, 'createRoles'])->name('rol.create');
+	Route::post('rol/store', [RolController::class, 'storeRoles'])->name('rol.store');
 	//actualizar
-	Route::get('rol/edit/{rol}', [UserController::class, 'editRoles'])->name('rol.edit');
-	Route::put('rol/update/{rol}', [UserController::class, 'updateRoles'])->name('rol.update');
+	Route::get('rol/edit/{rol}', [RolController::class, 'editRoles'])->name('rol.edit')->middleware('can:Ver panel admin');
+	Route::put('rol/update/{rol}', [RolController::class, 'updateRoles'])->name('rol.update');
 	//eliminar
-	Route::get('rol/destroy/{rol}', [UserController::class, 'destroyRoles'])->name('rol.destroy');
+	Route::get('rol/destroy/{rol}', [RolController::class, 'destroyRoles'])->name('rol.destroy');
 });
 //----------------------------Reportes------------------------
 //Reportes mensuales
 //Pantalla de inicio
-Route::get('reporte', [ReporteController::class, 'index'])->name('reporte.index');
+Route::get('reporte', [ReporteController::class, 'index'])->name('reporte.index')->middleware('can:SideBar: Reportes');
 //Metodo para escoger
 Route::post('reporte/reportesMensuales', [ReporteController::class, 'reportesMensuales'])->name('reporte.reportesMensuales');
 Route::post('reporte/reportesGenerales', [ReporteController::class, 'reportesGenerales'])->name('reporte.reportesGenerales');

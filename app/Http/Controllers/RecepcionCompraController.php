@@ -46,7 +46,7 @@ class RecepcionCompraController extends Controller
 			$recepcionCompra = new RecepcionCompra();
 			$recepcionCompra->proveedor_id = $request->proveedor_id;
 			$recepcionCompra->fechaIngreso = $request->fecha;
-			$recepcionCompra->finalizado = false;
+			$recepcionCompra->finalizado = 0;
 			$recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
 			$recepcionCompra->nPresupuestario = $request->nPresupuestario;
 			$recepcionCompra->codigoFactura = $request->codigoFactura;
@@ -75,7 +75,6 @@ class RecepcionCompraController extends Controller
 		try {
 			$recepcionCompra->proveedor_id = $request->proveedor_id;
 			$recepcionCompra->fechaIngreso = $request->fecha;
-			$recepcionCompra->finalizado = true;
 			$recepcionCompra->nOrdenCompra = $request->nOrdenCompra;
 			$recepcionCompra->nPresupuestario = $request->nPresupuestario;
 			$recepcionCompra->codigoFactura = $request->codigoFactura;
@@ -89,7 +88,8 @@ class RecepcionCompraController extends Controller
 	public function update(Request $request, RecepcionCompra $recepcionCompra)
 	{
 		try {
-			$recepcionCompra->finalizado = true;
+			$recepcionCompra->finalizado = 1;
+			$recepcionCompra->save();
 			$detallesCompra = DetalleCompra::where('recepcion_compra_id', $recepcionCompra->id)->get();
 			foreach ($detallesCompra as $detalle) {
 				$producto_id = $detalle->producto_id;

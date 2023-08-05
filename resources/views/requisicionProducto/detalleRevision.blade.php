@@ -78,7 +78,7 @@
                                                 <td>{{ $item->producto->medida->nombreMedida }}</td>
                                                 <td>{{ $item->producto->descripcion }}</td>
                                                 <td>${{ $item->producto->costoPromedio }}</td>
-                                                <td>${{ $item->total }}</td>
+                                                <td>${{ $item->total  }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

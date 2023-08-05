@@ -20,84 +20,68 @@ class RoleSeeder extends Seeder
 		$roleAdmin = Role::create(['name' => 'Super Administrador']);
 		$roleAdmin->givePermissionTo([
 			'Ver panel admin',
-			'CRUD estado',
-			'CRUD marca',
-			'CRUD proveedor',
-			'CRUD medida',
-			'CRUD unidad organizativa',
-			'CRUD rubro',
-			'CRUD producto',
-			'Crear solicitud requisicion',
-			'Ver estados de solicitudes',
-			'Revision de solicitudes',
-			'Bandeja solicitud a entregar',
-			'Ver solicitudes realizadas',
-			'Crear ingreso de productos',
-			'Consultar ingreso de productos',
-			'Ver inventario',
-			'Ver bodega principal',
-			'Catalogo'
-
+			'Ver dashboard: Cantidad de solicitudes',
+			'Ver dashboard: Accesos directos 1',
+			'Ver dashboard: Accesos directos 2',
+			'SideBar: Requisicion de producto',
+			'SideBar: Inventario',
+			'SideBar: Revisar solicitudes',
+			'SideBar: Ingreso de producto',
+			'SideBar: Solicitudes a entregar',
+			'SideBar: Historial requisiciones',
+			'SideBar: Productos Bodega',
+			'SideBar: Reportes',
+			'SideBar: Catalogos',
 		]);
 
 
 
 		$roleGerenteUO = Role::create(['name' => 'Gerente Unidad Organizativa']);
 		$roleGerenteUO->givePermissionTo([
-			'Crear solicitud requisicion',
-			'Ver estados de solicitudes',
-			'Revision de solicitudes',
-			'Ver solicitudes realizadas',
-			'Ver inventario'
+			'Ver dashboard: Cantidad de solicitudes',
+			'Ver dashboard: Accesos directos 1',
+			'SideBar: Requisicion de producto',
+			'SideBar: Inventario',
+			'SideBar: Revisar solicitudes',
 		]);
-
-
 
 		$roleGerenteAlmacen = Role::create(['name' => 'Gerente Encargado Almacen']);
 		$roleGerenteAlmacen->givePermissionTo([
-
-			'Catalogo',
-			'CRUD marca',
-			'CRUD proveedor',
-			'CRUD medida',
-			'CRUD rubro',
-			'CRUD producto',
-			'Crear solicitud requisicion',
-			'Ver estados de solicitudes',
-			'Revision de solicitudes',
-			'Bandeja solicitud a entregar',
-			'Ver solicitudes realizadas',
-			'Crear ingreso de productos',
-			'Consultar ingreso de productos',
-			'Ver inventario',
-			'Ver bodega principal'
+			'Ver dashboard: Cantidad de solicitudes',
+			'Ver dashboard: Accesos directos 1',
+			'SideBar: Requisicion de producto',
+			'SideBar: Inventario',
+			'SideBar: Revisar solicitudes',
+			'SideBar: Ingreso de producto',
+			'SideBar: Solicitudes a entregar',
+			'SideBar: Historial requisiciones',
+			'SideBar: Productos Bodega',
+			'SideBar: Reportes',
+			'SideBar: Catalogos',
 		]);
 
 		$roleTecnico = Role::create(['name' => 'Tecnico Encargado Almacen']);
 		$roleTecnico->givePermissionTo([
-			'Catalogo',
-			'CRUD marca',
-			'CRUD proveedor',
-			'CRUD medida',
-			'CRUD rubro',
-			'CRUD producto',
-			'Crear solicitud requisicion',
-			'Ver estados de solicitudes',
-			'Bandeja solicitud a entregar',
-			'Ver solicitudes realizadas',
-			'Crear ingreso de productos',
-			'Consultar ingreso de productos',
-			'Ver inventario',
-			'Ver bodega principal'
+			'Ver dashboard: Cantidad de solicitudes',
+			'Ver dashboard: Accesos directos 1',
+			'Ver dashboard: Accesos directos 2',
+			'SideBar: Requisicion de producto',
+			'SideBar: Inventario',
+			'SideBar: Ingreso de producto',
+			'SideBar: Solicitudes a entregar',
+			'SideBar: Historial requisiciones',
+			'SideBar: Productos Bodega',
+			'SideBar: Reportes',
+			'SideBar: Catalogos',
 		]);
 
 
 		$roleSolicitante = Role::create(['name' => 'Solicitante Unidad Organizativa']);
 		$roleSolicitante->givePermissionTo([
-			'Crear solicitud requisicion',
-			'Ver estados de solicitudes',
-			'Ver solicitudes realizadas',
-			'Ver inventario'
+			'Ver dashboard: Cantidad de solicitudes',
+			'Ver dashboard: Accesos directos 1',
+			'SideBar: Requisicion de producto',
+			'SideBar: Inventario',
 		]);
 	}
 }

@@ -50,6 +50,10 @@
                                                         class="btn btn-sm btn-dark">
                                                         <i class="fas fa-eye"></i> Ver
                                                     </a>
+                                                    <a href="{{ route('recepcionCompra.documentoEdit', $item->id) }}"
+                                                        class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i> Documentos
+                                                    </a>
                                                     <a href="{{ route('recepcionCompra.edit', $item->id) }}"
                                                         class="btn btn-sm btn-success">
                                                         <i class="fas fa-clipboard"></i> Editar Recepcion

@@ -54,7 +54,7 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este registro</div>
+                        <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro</div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                             <form method="POST" action="">

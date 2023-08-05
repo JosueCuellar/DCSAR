@@ -66,7 +66,7 @@
                                         <label for="precioUnidad" class="col-12 control-label">Precio de unidad($):</label>
                                         <div class="col-12">
                                             <input id='precioUnidad' type='number' min='0.01'
-                                                value="{{ old('precioUnidad', $detalleCompra->precioUnidad) }}"
+                                                value="{{ old('precioUnidad', number_format($detalleCompra->precioUnidad, 2)) }}"
                                                 step='.01' class='form-control' name='precioUnidad'
                                                 placeholder='$00.00'>
                                         </div>

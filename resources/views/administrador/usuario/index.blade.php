@@ -69,7 +69,7 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Seleccione "eliminar" Si realmente desea eliminar a este registro</div>
+                        <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro</div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                             <form method="POST" action="">
@@ -137,7 +137,7 @@
     @if (session('status'))
         <script>
             $(document).Toasts('create', {
-                title: 'usuario agregado',
+                title: 'Usuario agregado',
                 position: 'topRight',
                 body: '{{ session('status') }} se ha actualizado la tabla',
                 class: 'bg-success',
@@ -153,7 +153,7 @@
         <script>
             $(document).Toasts('create', {
                 position: 'topRight',
-                title: 'usuario eliminado',
+                title: 'Usuario eliminado',
                 body: '{{ session('delete') }}, se ha actualizado la tabla',
                 class: 'bg-danger',
                 autohide: true,

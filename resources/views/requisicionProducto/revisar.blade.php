@@ -110,7 +110,7 @@
 																															class="btn btn-sm btn-primary">Ver detalles</button>
 																											</div>
 																											<div class="btn-group">
-																												@hasanyrole('Gerente Unidad Organizativa')
+																												@hasanyrole('Gerente Unidad Organizativa||Super Administrador')
 																												<button
 																												onclick="location.href = '{{ asset('requisicionProducto/pdf/aprobar/') }}/{{ $item->id }}';"
 																												type="button" id="myButton"
@@ -119,21 +119,7 @@
 																											
 																											</div>
 																										
-																									</div>
-
-
-                                                    @if (auth()->user()->hasRole('Super Administrador'))
-                                                        <a href="{{ route('pdf.aprobarRequisicionProducto', $item->id) }}">
-                                                            <ion-icon name="document-text-outline"
-                                                                class="fa-lg text-secondary"></ion-icon>
-                                                        </a>
-                                                        <a href="{{ route('requisicionProducto.destroy', $item) }}"
-                                                            data-toggle="modal" data-target="#deleteModal"
-                                                            data-delete="{{ $item->id }}"
-                                                            class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i> </a>
-                                                    @endif
-                                      
-                                  
+																									</div>                                                                                                             
                                                 </td>
                                             </tr>
                                         @endforeach

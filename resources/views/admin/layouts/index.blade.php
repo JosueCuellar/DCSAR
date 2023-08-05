@@ -165,8 +165,8 @@
                 <nav class="mt-1">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview"
                         role="menu" data-accordion="false">
-                        <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
-                        @can('Crear solicitud requisicion')
+                        @can('SideBar: Requisicion de producto')
+                            <li class="nav-header text-light">REQUISICIÓN DE PRODUCTO</li>
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto') }}" class="nav-link active">
                                     <ion-icon name="list-outline" class="nav-icon"></ion-icon>
@@ -175,8 +175,6 @@
                                     </p>
                                 </a>
                             </li>
-                        @endcan
-                        @can('Ver estados de solicitudes')
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto/estado') }}" class="nav-link active">
                                     <ion-icon name="hourglass-outline" class="nav-icon"></ion-icon>
@@ -185,8 +183,6 @@
                                     </p>
                                 </a>
                             </li>
-                        @endcan
-                        @can('Ver solicitudes realizadas')
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto/recibida') }}" class="nav-link active">
                                     <ion-icon name="pencil-outline" class="nav-icon"></ion-icon>
@@ -196,7 +192,18 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('Revision de solicitudes')
+                        @can('SideBar: Inventario')
+                            <li class="nav-header text-light">INVENTARIO</li>
+                            <li class="nav-item">
+                                <a href="{{ asset('inventario') }}" class="nav-link active">
+                                    <ion-icon name="cube-outline" class="nav-icon"></ion-icon>
+                                    <p>
+                                        Inventario
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('SideBar: Revisar solicitudes')
                             <li class="nav-header text-light">REVISAR SOLICITUDES</li>
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto/revisar') }}" class="nav-link active">
@@ -207,7 +214,7 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('Crear ingreso de productos')
+                        @can('SideBar: Ingreso de producto')
                             <li class="nav-header text-light">INGRESO DE PRODUCTO </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -225,21 +232,19 @@
                                         </a>
                                     </li>
                                 </ul>
-                                @can('Consultar ingreso de productos')
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item menu-is-opening menu-open">
-                                            <a href="{{ asset('recepcionCompra/consultar') }}" class="nav-link dark">
-                                                <ion-icon name="grid" class="nav-icon"></ion-icon>
-                                                <p>
-                                                    Ingresos Realizados
-                                                </p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @endcan
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item menu-is-opening menu-open">
+                                        <a href="{{ asset('recepcionCompra/consultar') }}" class="nav-link dark">
+                                            <ion-icon name="grid" class="nav-icon"></ion-icon>
+                                            <p>
+                                                Ingresos Realizados
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         @endcan
-                        @can('Bandeja solicitud a entregar')
+                        @can('SideBar: Solicitudes a entregar')
                             <li class="nav-header text-light">SOLICITUDES A ENTREGAR</li>
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto/entregaSolicitud') }}" class="nav-link active">
@@ -250,7 +255,7 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('Crear ingreso de productos')
+                        @can('SideBar: Historial requisiciones')
                             <li class="nav-header text-light">HISTORIAL REQUISICIONES</li>
                             <li class="nav-item">
                                 <a href="{{ asset('requisicionProducto/historialRecibidas') }}" class="nav-link active">
@@ -261,18 +266,7 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('Ver inventario')
-                            <li class="nav-header text-light">INVENTARIO</li>
-                            <li class="nav-item">
-                                <a href="{{ asset('inventario') }}" class="nav-link active">
-                                    <ion-icon name="cube-outline" class="nav-icon"></ion-icon>
-                                    <p>
-                                        Inventario
-                                    </p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('Ver bodega principal')
+                        @can('SideBar: Productos Bodega')
                             <li class="nav-header text-light">PRODUCTOS BODEGA</li>
                             <li class="nav-item">
                                 <a href="{{ asset('productoBodega/principal/') }}" class="nav-link active">
@@ -283,7 +277,7 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('Catalogo')
+                        @can('SideBar: Reportes')
                             <li class="nav-header text-light">REPORTES</li>
                             <li class="nav-item">
                                 <a href="{{ asset('reporte') }}" class="nav-link active">
@@ -294,7 +288,7 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('Catalogo')
+                        @can('SideBar: Catalogos')
                             <li class="nav-header text-light">CATALOGOS </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">
@@ -305,56 +299,46 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    @can('CRUD marca')
-                                        <li class="nav-item">
-                                            <a href="{{ asset('marca') }}" class="nav-link">
-                                                <ion-icon name="albums-outline" class="nav-icon"></ion-icon>
-                                                <p>
-                                                    Marca
-                                                </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('CRUD proveedor')
-                                        <li class="nav-item">
-                                            <a href="{{ asset('proveedor') }}" class="nav-link">
-                                                <ion-icon name="car-outline" class="nav-icon"></ion-icon>
-                                                <p>
-                                                    Proveedor
-                                                </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('CRUD medida')
-                                        <li class="nav-item">
-                                            <a href="{{ asset('medida') }}" class="nav-link">
-                                                <ion-icon name="resize-outline" class="nav-icon"></ion-icon>
-                                                <p>
-                                                    Unidad de Medida
-                                                </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('CRUD rubro')
-                                        <li class="nav-item">
-                                            <a href="{{ asset('rubro') }}" class="nav-link">
-                                                <ion-icon name="newspaper-outline" class="nav-icon"></ion-icon>
-                                                <p>
-                                                    Rubro
-                                                </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('CRUD producto')
-                                        <li class="nav-item">
-                                            <a href="{{ asset('producto') }}" class="nav-link">
-                                                <ion-icon name="hammer-outline" class="nav-icon"></ion-icon>
-                                                <p>
-                                                    Producto
-                                                </p>
-                                            </a>
-                                        </li>
-                                    @endcan
+                                    <li class="nav-item">
+                                        <a href="{{ asset('marca') }}" class="nav-link">
+                                            <ion-icon name="albums-outline" class="nav-icon"></ion-icon>
+                                            <p>
+                                                Marca
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ asset('proveedor') }}" class="nav-link">
+                                            <ion-icon name="car-outline" class="nav-icon"></ion-icon>
+                                            <p>
+                                                Proveedor
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ asset('medida') }}" class="nav-link">
+                                            <ion-icon name="resize-outline" class="nav-icon"></ion-icon>
+                                            <p>
+                                                Unidad de Medida
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ asset('rubro') }}" class="nav-link">
+                                            <ion-icon name="newspaper-outline" class="nav-icon"></ion-icon>
+                                            <p>
+                                                Rubro
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ asset('producto') }}" class="nav-link">
+                                            <ion-icon name="hammer-outline" class="nav-icon"></ion-icon>
+                                            <p>
+                                                Producto
+                                            </p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endcan

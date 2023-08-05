@@ -18,11 +18,11 @@ return new class extends Migration
 			$table->string('fechaIngreso', 10)->nullable();
 			$table->unsignedBigInteger('proveedor_id');
 			$table->foreign('proveedor_id')->references('id')->on('proveedors');
-			$table->string('nOrdenCompra', 50);
-			$table->string('nPresupuestario', 50);
+			$table->string('nOrdenCompra', 15);
+			$table->string('nPresupuestario', 20);
 			// $table->string('nCompromiso',50);
 			$table->boolean('finalizado');
-			$table->string('codigoFactura', 50);
+			$table->string('codigoFactura', 20);
 			$table->timestamps();
 			$table->softDeletes();
 
