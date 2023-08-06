@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Reporte;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ReportesMensualesRequest;
+use App\Http\Requests\ReporteMensualesRequest;
 use App\Models\DetalleCompra;
 use App\Models\DetalleRequisicion;
 use App\Models\Producto;
@@ -119,7 +119,7 @@ class ReporteController extends Controller
 		}
 	}
 
-	//PDF aprobacion re requicision
+	//PDF aprobacion requicision
 	public function aprobarRequiProductoPDF(RequisicionProducto $requisicionProducto)
 	{
 		try {
@@ -163,53 +163,12 @@ class ReporteController extends Controller
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
 	}
-	//PDF aprobacion re requicision
-	public function aprobarRequiProductoDescargar(RequisicionProducto $requisicionProducto)
-	{
-		try {
-			$totalFinal = 0.0;
-			$productos = Producto::all();
-			$detalle_requisicion = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
-			foreach ($detalle_requisicion as $item) {
-				$totalFinal += $item->total;
-			}
-			$data = [
-				'productos' => $productos,
-				'detalle_requisicion' => $detalle_requisicion,
-				'totalFinal' => $totalFinal,
-				'requisicionProducto' => $requisicionProducto
-			];
-			$pdf = PDF::loadView('reporte.aprobarRequiProduc', $data);
-			$pdf->setPaper('letter', 'portrait', 'auto');
-			// 'letter' is letter size, 'portrait' is the orientation
-			$pdf->render();
-			$canvas = $pdf->getCanvas();
-
-			$fontMetrics = $pdf->getFontMetrics();
-			$w = $canvas->get_width();
-			$h = $canvas->get_height();
-
-			// Agregar los números de página al pie de página
-			$font = $fontMetrics->getFont("Calibri", "bold");
-			$text = 'Página {PAGE_NUM} de {PAGE_COUNT}';
-			$textWidth = $fontMetrics->getTextWidth($text, $font, 10);
-			$x = $w - $textWidth - 150;
-			$y = $h - 30;
-			$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-
-			return $pdf->download($requisicionProducto->nCorrelativo . '.pdf');
-		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
-		}
-	}
-
-
 
 
 	// REPORTES MENSUALES
 
 	//Metodo que recibe el tipo de reporte que se requiere, le pasa los parametros para ecoger el reporte mensual
-	public function reportesMensuales(ReportesMensualesRequest $request)
+	public function reportesMensuales(ReporteMensualesRequest $request)
 	{
 		try {
 			$method = $request->input('reportType');
