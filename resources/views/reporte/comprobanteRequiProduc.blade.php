@@ -22,14 +22,17 @@
     <!----------------------------------- Requisicion de producto --------------------------------------------------------------------->
     <section>
         <!----------------------------------- Header de la requisicion --------------------------------------------------------------------->
-				<br>
+        <br>
         <table style="width:100%;font-size: 13px;font-family:'Calibri',sans-serif;">
             <tbody>
                 <tr>
                     <td colspan="4"><strong><span>Numero de envio:</span></strong>
                         {{ $requisicionProducto->nCorrelativo }}</td>
                     <td colspan="8" style="text-align: left;"><strong><span>Fecha / Licitacion:
-                            </span></strong></span></strong> {{ $requisicionProducto->fechaRequisicion }}</td>
+                            </span></strong></span></strong> <?php
+                            $date = new DateTime($requisicionProducto->fechaRequisicion);
+                            echo $date->format('Y-m-d');
+                            ?></td>
                 </tr>
                 <tr>
                     <td><strong><span>CLIENTE: </span></strong>
@@ -38,7 +41,7 @@
                 </tr>
             </tbody>
         </table>
-  <hr>
+        <hr>
         <!----------------------------------- Header de la tabla de los detalles --------------------------------------------------------------------->
         <table style="border-collapse:collapse;border:none;">
             <tbody>
@@ -142,7 +145,8 @@
                             style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
                                 style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
-                                <span style="font-size:12px;color:black;">${{number_format($item->producto->costoPromedio, 2) }}</span>
+                                <span
+                                    style="font-size:12px;color:black;">${{ number_format($item->producto->costoPromedio, 2) }}</span>
                             </p>
                         </td>
                         <td

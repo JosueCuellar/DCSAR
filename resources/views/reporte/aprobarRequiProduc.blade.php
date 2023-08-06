@@ -27,7 +27,10 @@
                     <td colspan="4"><strong><span>Numero de envio:</span></strong>
                         {{ $requisicionProducto->nCorrelativo }}</td>
                     <td colspan="8" style="text-align: left;"><strong><span>Fecha / Licitacion:
-                            </span></strong></span></strong> {{ $requisicionProducto->fechaRequisicion }}</td>
+                            </span></strong></span></strong> <?php
+                            $date = new DateTime($requisicionProducto->fechaRequisicion);
+                            echo $date->format('Y-m-d');
+                            ?></td>
                 </tr>
                 <tr>
                     <td><strong><span>CLIENTE: </span></strong>
@@ -151,7 +154,8 @@
                                 style="width: 52.95pt;border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                                 <p
                                     style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;">
-                                    <span style="font-size:12px;color:black;">${{ number_format($item->total, 2) }}</span>
+                                    <span
+                                        style="font-size:12px;color:black;">${{ number_format($item->total, 2) }}</span>
                                 </p>
                             </td>
                         </tr>

@@ -1,24 +1,23 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DetalleCompraController;
-use App\Http\Controllers\DetalleRequisicionController;
-use App\Http\Controllers\DocumentoXCompraController;
-use App\Http\Controllers\EstadoController;
-use App\Http\Controllers\InventarioController;
-use App\Http\Controllers\MarcaController;
-use App\Http\Controllers\MedidaController;
-use App\Http\Controllers\ProductoBodegaController;
-use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\ProveedorController;
-use App\Http\Controllers\RecepcionCompraController;
-use App\Http\Controllers\ReporteController;
-use App\Http\Controllers\RequisicionProductoController;
-use App\Http\Controllers\RolController;
-use App\Http\Controllers\RubroController;
-use App\Http\Controllers\UnidadOrganizativaController;
-use App\Http\Controllers\UserController;
-use App\Models\Inventario;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\IngresoProducto\DetalleCompraController;
+use App\Http\Controllers\RequisicionProducto\DetalleRequisicionController;
+use App\Http\Controllers\IngresoProducto\DocumentoXCompraController;
+use App\Http\Controllers\Catalogo\EstadoController;
+use App\Http\Controllers\Inventario\InventarioController;
+use App\Http\Controllers\Catalogo\MarcaController;
+use App\Http\Controllers\Catalogo\MedidaController;
+use App\Http\Controllers\Bodega\ProductoBodegaController;
+use App\Http\Controllers\Catalogo\ProductoController;
+use App\Http\Controllers\Catalogo\ProveedorController;
+use App\Http\Controllers\IngresoProducto\RecepcionCompraController;
+use App\Http\Controllers\Reporte\ReporteController;
+use App\Http\Controllers\RequisicionProducto\RequisicionProductoController;
+use App\Http\Controllers\Usuario\RolController;
+use App\Http\Controllers\Catalogo\RubroController;
+use App\Http\Controllers\Catalogo\UnidadOrganizativaController;
+use App\Http\Controllers\Usuario\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -39,7 +38,7 @@ Route::get('admin', [DashboardController::class, 'indexAdmin'])->name('dashboard
 //listar
 Route::get('estado', [EstadoController::class, 'index'])->name('estado.index')->middleware('can:Ver panel admin');
 //crear
-Route::view('estado/crear', 'estado.create')->name('estado.create');
+Route::view('estado/crear', 'catalogo.estado.create')->name('estado.create');
 Route::post('estado/store', [EstadoController::class, 'store'])->name('estado.store');
 //actualizar
 Route::get('estado/edit/{estado}', [EstadoController::class, 'edit'])->name('estado.edit');
@@ -50,7 +49,7 @@ Route::get('estado/destroy/{estado}', [EstadoController::class, 'destroy'])->nam
 //listar
 Route::get('marca', [MarcaController::class, 'index'])->name('marca.index')->middleware('can:SideBar: Catalogos');;
 //crear
-Route::view('marca/crear', 'marca.create')->name('marca.create');
+Route::view('marca/crear', 'catalogo.marca.create')->name('marca.create');
 Route::post('marca/store', [MarcaController::class, 'store'])->name('marca.store');
 //actualizar
 Route::get('marca/edit/{marca}', [MarcaController::class, 'edit'])->name('marca.edit');
@@ -61,7 +60,7 @@ Route::get('marca/destroy/{marca}', [MarcaController::class, 'destroy'])->name('
 //listar
 Route::get('proveedor', [ProveedorController::class, 'index'])->name('proveedor.index')->middleware('can:SideBar: Catalogos');
 //crear
-Route::view('proveedor/crear', 'proveedor.create')->name('proveedor.create');
+Route::view('proveedor/crear', 'catalogo.proveedor.create')->name('proveedor.create');
 Route::post('proveedor/store', [ProveedorController::class, 'store'])->name('proveedor.store');
 //actualizar
 Route::get('proveedor/edit/{proveedor}', [ProveedorController::class, 'edit'])->name('proveedor.edit');
@@ -72,7 +71,7 @@ Route::get('proveedor/destroy/{proveedor}', [ProveedorController::class, 'destro
 //listar
 Route::get('medida', [MedidaController::class, 'index'])->name('medida.index')->middleware('can:SideBar: Catalogos');
 //crear
-Route::view('medida/crear', 'medida.create')->name('medida.create');
+Route::view('medida/crear', 'catalogo.medida.create')->name('medida.create');
 Route::post('medida/store', [MedidaController::class, 'store'])->name('medida.store');
 //actualizar
 Route::get('medida/edit/{medida}', [MedidaController::class, 'edit'])->name('medida.edit');
@@ -83,7 +82,7 @@ Route::get('medida/destroy/{medida}', [MedidaController::class, 'destroy'])->nam
 //listar
 Route::get('unidadOrganizativa', [UnidadOrganizativaController::class, 'index'])->name('unidadOrganizativa.index')->middleware('can:SideBar: Catalogos');;
 //crear
-Route::view('unidadOrganizativa/crear', 'unidadOrganizativa.create')->name('unidadOrganizativa.create');
+Route::view('unidadOrganizativa/crear', 'catalogo.unidadOrganizativa.create')->name('unidadOrganizativa.create');
 Route::post('unidadOrganizativa/store', [UnidadOrganizativaController::class, 'store'])->name('unidadOrganizativa.store');
 //actualizar
 Route::get('unidadOrganizativa/edit/{unidadOrganizativa}', [UnidadOrganizativaController::class, 'edit'])->name('unidadOrganizativa.edit');
