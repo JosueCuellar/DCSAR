@@ -50,13 +50,13 @@
                                                         class="btn btn-sm btn-dark">
                                                         <i class="fas fa-eye"></i> Ver
                                                     </a>
-                                                    <a href="{{ route('recepcionCompra.documentoEdit', $item->id) }}"
-                                                        class="btn btn-sm btn-info">
-                                                        <i class="fas fa-edit"></i> Documentos
-                                                    </a>
                                                     <a href="{{ route('recepcionCompra.edit', $item->id) }}"
                                                         class="btn btn-sm btn-success">
                                                         <i class="fas fa-clipboard"></i> Editar Recepcion
+                                                    </a>
+                                                    <a href="{{ route('recepcionCompra.documentoEdit', $item->id) }}"
+                                                        class="btn btn-sm btn-info">
+                                                        <i class="fas fa-edit"></i> Documentos
                                                     </a>
                                                     <a href="{{ route('recepcionCompra.detalleEdit', $item->id) }}"
                                                         class="btn btn-sm btn-primary">
@@ -98,7 +98,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro                    </div>
+                    <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                         <form method="POST" action="">

@@ -168,8 +168,6 @@ class ReporteController extends Controller
 		try {
 			$totalFinal = 0.0;
 			$productos = Producto::all();
-
-
 			$detalle_requisicion = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
 			foreach ($detalle_requisicion as $item) {
 				$totalFinal += $item->total;
@@ -180,13 +178,10 @@ class ReporteController extends Controller
 				'totalFinal' => $totalFinal,
 				'requisicionProducto' => $requisicionProducto
 			];
-
-
 			$pdf = PDF::loadView('reporte.aprobarRequiProduc', $data);
 			$pdf->setPaper('letter', 'portrait', 'auto');
 			// 'letter' is letter size, 'portrait' is the orientation
 			$pdf->render();
-
 			$canvas = $pdf->getCanvas();
 
 			$fontMetrics = $pdf->getFontMetrics();

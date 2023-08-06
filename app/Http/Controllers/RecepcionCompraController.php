@@ -220,7 +220,7 @@ class RecepcionCompraController extends Controller
 
 			if (count($detalleRequisicion) > 0) {
 				foreach ($detalleRequisicion as $itemRequi) {
-					$cantidadRequi = $itemRequi->cantidad;
+					$cantidadRequi += $itemRequi->cantidad;
 					$sumaRequi += $itemRequi->total;
 				}
 			}

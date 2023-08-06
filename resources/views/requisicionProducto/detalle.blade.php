@@ -98,8 +98,8 @@
                                                     </div>
                                                     <input type="number" id="cantidad"
                                                         value="{{ old('cantidad', $item->cantidad) }}" name="cantidad"
-                                                        class="form-control" placeholder="Cantidad" aria-label="Cantidad"
-                                                        aria-describedby="button-addon2">
+                                                        class="cantidad form-control" placeholder="Cantidad"
+                                                        aria-label="Cantidad" aria-describedby="button-addon2">
                                                 </div>
                                                 @error('cantidad')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -172,7 +172,8 @@
                                 <label>{{ $requisicionProducto->fechaRequisicion }}</label>
                             </div>
                             <br>
-                            <div class="col-6">Unidad Organizativa: <label>{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa ?? ''}}</label>
+                            <div class="col-6">Unidad Organizativa:
+                                <label>{{ $requisicionProducto->user->unidadOrganizativa->nombreUnidadOrganizativa ?? '' }}</label>
                             </div>
                             <br>
                         </div>
@@ -236,7 +237,7 @@
                                             <label for="cantidad" class="col-12 control-label">Cantidad de
                                                 productos:</label>
                                             <div class="col-12">
-                                                <input id="cantidadAdd" type="number" class="form-control"
+                                                <input id="cantidadAdd" type="number" class="cantidadAdd form-control"
                                                     name="cantidadAdd" value="">
                                             </div>
                                         </div>
@@ -257,23 +258,27 @@
 @section('js_datatable')
 
     <script>
-        document.getElementById('cantidadAdd').addEventListener('input', function(e) {
-            if (e.target.value.includes('.')) {
-                e.target.value = e.target.value.replace('.', '');
-            }
-            e.target.value = e.target.value.replace(/\./g, '');
-        });
+        let cantidadAddElements = document.getElementsByClassName('cantidadAdd');
+        for (let i = 0; i < cantidadAddElements.length; i++) {
+            cantidadAddElements[i].addEventListener('input', function(e) {
+                if (e.target.value.includes('.')) {
+                    e.target.value = e.target.value.replace('.', '');
+                }
+                e.target.value = e.target.value.replace(/\./g, '');
+            });
+        }
     </script>
 
     <script>
-        let initialValue = document.getElementById('cantidad').value;
-        console.log(initialValue)
-        document.getElementById('cantidad').addEventListener('input', function(e) {
-            if (e.target.value.includes('.')) {
-                e.target.value = e.target.value.replace('.', initialValue);
-            }
-            e.target.value = e.target.value.replace(/\./g, initialValue);
-        });
+        let cantidadElements = document.getElementsByClassName('cantidad');
+        for (let i = 0; i < cantidadElements.length; i++) {
+            cantidadElements[i].addEventListener('input', function(e) {
+                if (e.target.value.includes('.')) {
+                    e.target.value = e.target.value.replace('.', '');
+                }
+                e.target.value = e.target.value.replace(/\./g, '');
+            });
+        }
     </script>
 
     <script>
@@ -332,7 +337,7 @@
             $('#dataTable13').DataTable({
                 // processing: true, 
                 serverSide: true,
-								drawCallback: function(settings) {
+                drawCallback: function(settings) {
                     this.api().table().body().querySelectorAll('[data-toggle="lightbox"]').forEach(
                         el => {
                             el.addEventListener('click', e => {
@@ -342,7 +347,7 @@
                             });
                         });
                 },
-								order: [
+                order: [
                     [0, "asc"]
                 ],
                 ajax: '{{ route('requisicionProducto.datos') }}',

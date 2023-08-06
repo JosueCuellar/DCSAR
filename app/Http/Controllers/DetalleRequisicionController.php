@@ -76,9 +76,18 @@ class DetalleRequisicionController extends Controller
 		$productos = Producto::all();
 	}
 
-	public function store(DetalleRequisicionRequest $request, RequisicionProducto $requisicionProducto, Producto $producto)
+	public function store(Request $request, RequisicionProducto $requisicionProducto, Producto $producto)
 	{
 		try {
+			$rules = [
+				'cantidadAdd' => 'required|numeric|min:1',
+			];
+			$messages = [
+				'cantidadAdd.required' => 'El campo cantidad es requerido',
+				'cantidadAdd.numeric' => 'El campo cantidad debe ser numérico',
+				'cantidadAdd.min' => 'El campo cantidad debe ser al menos 1'
+			];
+			$this->validate($request, $rules, $messages);
 			$producto_id = $producto->id;
 			$codigo = $producto->id;
 			// Este método ejecuta una consulta SQL para recuperar detalles de productos de una base de datos. 
@@ -155,7 +164,12 @@ class DetalleRequisicionController extends Controller
 			$rules = [
 				'cantidad' => 'required|numeric|min:1',
 			];
-			$this->validate($request, $rules);
+			$messages = [
+				'cantidad.required' => 'El campo cantidad es requerido',
+				'cantidad.numeric' => 'El campo cantidad debe ser numérico',
+				'cantidad.min' => 'El campo cantidad debe ser al menos 1'
+			];
+			$this->validate($request, $rules, $messages);
 			$producto_id = $detalleRequisicion->producto_id;
 			$codigo = $producto_id;
 			$productos = DB::select("

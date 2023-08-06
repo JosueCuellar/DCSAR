@@ -248,7 +248,7 @@ class DetalleCompraController extends Controller
 			$query->where('finalizado', 1);
 		})->where('producto_id', $producto)->get();
 
-	
+
 		foreach ($detalleCompras as $itemCompra) {
 			$cantidadCompra += $itemCompra->cantidadIngreso;
 			$sumaCompras += $itemCompra->total;
@@ -259,14 +259,18 @@ class DetalleCompraController extends Controller
 
 		if (count($detalleRequisicion) > 0) {
 			foreach ($detalleRequisicion as $itemRequi) {
-				$cantidadRequi = $itemRequi->cantidad;
+				$cantidadRequi += $itemRequi->cantidad;
 				$sumaRequi += $itemRequi->total;
 			}
 		}
 
 		$saldoTotal = $sumaCompras - $sumaRequi;
 		$existencias = $cantidadCompra - $cantidadRequi;
-		$costoPromedioVar = $saldoTotal / $existencias;
+		if ($existencias > 0) {
+			$costoPromedioVar = $saldoTotal / $existencias;
+		} else {
+			$costoPromedioVar = $saldoTotal / 1;
+		}
 		return $costoPromedioVar;
 	}
 }

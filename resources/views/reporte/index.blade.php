@@ -51,7 +51,7 @@
                             <div class="form-group row">
                                 <label for="fechaInput" class="col-sm-4 col-form-label">Fecha</label>
                                 <div class="col-sm-8">
-                                    <input type="month" class="form-control" id="fechaInput" name="fechaInput" required
+                                    <input type="month" class="form-control" id="fechaInput" name="fechaInput"
                                         max="{{ date('Y-m') }}">
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                     <div class="col-sm-8">
                                         <input type="hidden" name="codigoPresupuestario" id="codigoPresupuestario">
                                         <input type="hidden" name="descripRubro" id="descripRubro">
-                                        <select class="form-control" name="rubro_id" id="rubro_id" required>
+                                        <select class="form-control" name="rubro_id" id="rubro_id">
                                             <option value="" disabled selected>---- Seleccionar especifico para
                                                 realizar reporte ----</option>
                                             @foreach ($rubros as $item)
@@ -106,14 +106,14 @@
                                     <label for="start_date" class="col-sm-4 col-form-label">Fecha inicio</label>
                                     <div class="col-sm-8">
                                         <input type="month" class="form-control" id="start_date" name="start_date"
-                                            required max="{{ date('Y-m') }}">
+                                          max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="end_date" class="col-sm-4 col-form-label">Fecha fin</label>
                                     <div class="col-sm-8">
                                         <input type="month" class="form-control" id="end_date" name="end_date"
-                                            required max="{{ date('Y-m') }}">
+                                          max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,8 @@
                                 <div class="form-group row">
                                     <label for="fechaInput" class="col-sm-4 col-form-label">Fecha</label>
                                     <div class="col-sm-8">
-                                        <input type="month" class="form-control" id="fechaInput" name="fechaInput" max="{{ date('Y-m') }}" required>
+                                        <input type="month" class="form-control" id="fechaInputSa" name="fechaInput"
+                                          max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                             </div>
@@ -253,21 +254,26 @@
                 document.querySelector('#rubro_id').removeAttribute('required');
                 document.querySelector('#start_date').removeAttribute('required');
                 document.querySelector('#end_date').removeAttribute('required');
+
+                // Limpiar los valores de los inputs
+                document.querySelector('#start_date').value = '';
+                document.querySelector('#end_date').value = '';
+
+                if (selectedValue === 'salidaPorUnidadesMes') {
+                    // Show the div with the class fechaUnidades
+                    document.querySelector('.fechaUnidades').style.display = 'block';
+                    document.querySelector('#fechaInputSa').setAttribute('required', true);
+										console.log("XD");
+                } else {
+                    // Hide the div with the class fechaUnidades
+                    document.querySelector('.fechaUnidades').style.display = 'none';
+                    document.querySelector('#fechaInputSa').removeAttribute('required');
+										document.querySelector('#fechaInputSa').value = '';
+
+                }
             }
 
-            // Limpiar los valores de los inputs
-            document.querySelector('#start_date').value = '';
-            document.querySelector('#end_date').value = '';
-						
-            if (selectedValue === 'salidaPorUnidadesMes') {
-                // Show the div with the class fechaUnidades
-                document.querySelector('.fechaUnidades').style.display = 'block';
-								document.querySelector('#fechaInput').setAttribute('required', true);
-            } else {
-                // Hide the div with the class fechaUnidades
-                document.querySelector('.fechaUnidades').style.display = 'none';
-								document.querySelector('#fechaInput').removeAttribute('required');
-            }
+
         });
     </script>
 

@@ -95,7 +95,7 @@
                             <td>{{ $itemP['existencias'] }}</td>
                             <td>{{ $itemP['nombreMedida'] }}</td>
                             <td>${{ number_format($itemP['precio_promedio'], 2, '.', '')}}</td>
-                            <td>${{ $itemP['total'] }}</td>
+                            <td>${{ number_format($itemP['total'] , 2) }}</td>
                         </tr>
                     @endforeach
 

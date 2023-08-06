@@ -25,7 +25,7 @@ class RecepcionCompraRequest extends FormRequest
 	{
 		return [
 			'proveedor_id' => 'required',
-			'nOrdenCompra' => 'required|max:15|regex:/^[0-9\/]+$/',
+			'nOrdenCompra' => 'required|max:15|regex:/^(?=[^\/]*\/[^\/]*$)[a-zA-Z0-9\/]+$/',
 			'nPresupuestario' => 'required|max:20',
 			'codigoFactura' => 'required|max:20',
 			'fecha' => 'required|before_or_equal:today'

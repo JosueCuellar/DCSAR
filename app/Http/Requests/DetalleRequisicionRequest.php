@@ -25,13 +25,14 @@ class DetalleRequisicionRequest extends FormRequest
 	{
 		return [
 			'cantidadAdd' => 'required|integer|min:1',
-
 		];
 	}
 	public function messages()
 	{
 		return [
-			'cantidadAdd.*' => 'Campo requerido,  debe de ser mayor a 0',
+			'cantidadAdd.required' => 'Campo requerido',
+			'cantidadAdd.integer' => 'Debe ser un numero',
+			'cantidadAdd.min' => 'Debe de ser mayor a 0',
 		];
 	}
 }

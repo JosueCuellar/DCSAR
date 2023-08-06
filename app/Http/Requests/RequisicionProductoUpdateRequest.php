@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class RequisicionProductoUpdateRequest extends FormRequest
 {
@@ -23,18 +24,22 @@ class RequisicionProductoUpdateRequest extends FormRequest
 	 */
 	public function rules()
 	{
+		Validator::extend('not_only_numbers', function ($attribute, $value, $parameters, $validator) {
+			return !preg_match('/^[0-9\s]*$/', $value);
+		});
+
 		return [
 			'fechaRequisicion' => 'required',
-			'descripcion' => 'required|max:255',
+			'descripcion' => 'required|max:255|not_only_numbers',
 		];
 	}
 	public function messages()
 	{
 		return [
-			'descripcion.*' => 'Ingrese una descripcion, de no mas de 255 caracteres',
-			'fechaRequisicion.*' => 'La fecha no puede estar vacia',
-
-
+			'descripcion.required' => 'Ingrese una descripcion, de no mas de 255 caracteres',
+			'descripcion.not_only_numbers' => 'No puede contener solo numeros',
+			'descripcion.max' => 'Ingrese una descripcion de no mas de 255 caracteres',
+			'fechaRequisicion.required' => 'La fecha no puede estar vacia',
 		];
 	}
 }

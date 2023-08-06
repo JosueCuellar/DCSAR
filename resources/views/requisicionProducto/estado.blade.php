@@ -67,8 +67,9 @@
                                                             type="button" id="myButton" class="btn btn-sm btn-dark">
                                                             <i class="fas fa-eye"></i> Ver detalles
                                                         </button>
-                                                        @if ($item->user_id == Auth::id() ||
-																												auth()->user()->hasRole('Super Administrador'))
+                                                        @if (
+                                                            $item->user_id == Auth::id() ||
+                                                                auth()->user()->hasRole('Super Administrador'))
                                                             <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
                                                                 class="btn btn-sm btn-primary ">
                                                                 <i class="fas fa-edit"></i> Editar Detalles
@@ -186,7 +187,12 @@
                                                         </td>
                                                         <td>{{ $item->user->name }}</td>
                                                         <td>
-
+                                                            <button
+                                                                onclick="location.href = '{{ asset('/requisicionProducto/detalleRevision/') }}/{{ $item->id }}';"
+                                                                type="button" id="myButton"
+                                                                class="btn btn-sm btn-dark">
+                                                                <i class="fas fa-eye"></i> Ver detalles
+                                                            </button>
                                                             @if (auth()->user()->hasRole('Gerente Unidad Organizativa') ||
                                                                     auth()->user()->hasRole('Super Administrador'))
                                                                 <a href="{{ route('requisicionProducto.destroy', $item) }}"
@@ -196,17 +202,18 @@
                                                                         class="fas fa-trash"></i> </a>
                                                             @endif
 
-																														@if ($item->user_id == Auth::id() ||
-																														auth()->user()->hasRole('Super Administrador'))
-																																<a href="{{ route('requisicionProducto.detalle', $item->id) }}"
-																																		class="btn btn-sm btn-primary ">
-																																		<i class="fas fa-edit"></i> Editar Detalles
-																																</a>
-																																<a href="{{ route('requisicionProducto.edit', $item->id) }}"
-																																		class="btn btn-success btn-sm">
-																																		<i class="fas fa-clipboard"></i> Editar Requisición
-																																</a>
-																														@endif
+                                                            @if (
+                                                                $item->user_id == Auth::id() ||
+                                                                    auth()->user()->hasRole('Super Administrador'))
+                                                                <a href="{{ route('requisicionProducto.detalle', $item->id) }}"
+                                                                    class="btn btn-sm btn-primary ">
+                                                                    <i class="fas fa-edit"></i> Editar Detalles
+                                                                </a>
+                                                                <a href="{{ route('requisicionProducto.edit', $item->id) }}"
+                                                                    class="btn btn-success btn-sm">
+                                                                    <i class="fas fa-clipboard"></i> Editar Requisición
+                                                                </a>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -231,7 +238,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro                    </div>
+                    <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                         <form method="POST" action="">

@@ -77,7 +77,8 @@
                             style="border-width: 1pt 1pt 1.5pt;border-style: solid;padding: 0in 5.4pt;height: 15pt;vertical-align: top;">
                             <p
                                 style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
-                                <span style="font-size:12px;color:black;">${{ $item->sumaTotal }}</span>
+                                <span
+                                    style="font-size:12px;color:black;">${{ number_format($item->sumaTotal, 2) }}</span>
                             </p>
                         </td>
                     </tr>
@@ -97,7 +98,7 @@
                         <p
                             style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;text-align:center;">
                             <strong><em><span
-                                        style="font-size:12px;color:black;">${{ $totalFinal }}</span></em></strong>
+                                        style="font-size:12px;color:black;">${{ number_format($totalFinal, 2) }}</span></em></strong>
                         </p>
                     </td>
                 </tr>

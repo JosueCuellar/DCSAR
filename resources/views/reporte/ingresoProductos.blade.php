@@ -30,7 +30,7 @@
         vertical-align: top;
     }
 
-		#tableHead tfoot td {
+    #tableHead tfoot td {
         border-width: 1pt 1pt 1.5pt;
         border-style: solid;
         padding: 0in 5.4pt;
@@ -171,12 +171,12 @@
                         </td>
                         <td>
                             <p>
-                                <span>${{ $item->producto->costoPromedio }}</span>
+                                <span>${{ number_format($item->producto->costoPromedio, 2) }}</span>
                             </p>
                         </td>
                         <td>
                             <p>
-                                <span>${{ $item->total }}</span>
+                                <span>${{ number_format($item->total, 2) }}</span>
                             </p>
                         </td>
                     </tr>
@@ -191,7 +191,7 @@
                     </td>
                     <td>
                         <p>
-                            <strong><em><span>${{ $totalFinal }}</span></em></strong>
+                            <strong><em><span>${{ number_format($totalFinal, 2) }}</span></em></strong>
                         </p>
                     </td>
                 </tr>

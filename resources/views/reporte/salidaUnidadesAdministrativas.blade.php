@@ -77,7 +77,7 @@
                         <tr>
                             <td> {{ $itemP['descripcion'] }}</td>
                             <td style="text-align: center;"> {{ $itemP['total_cantidad'] }}</td>
-                            <td style="text-align: center;"> {{ $itemP['total'] }}</td>
+                            <td style="text-align: center;"> {{ number_format($itemP['total'] , 2) }}</td>
                         </tr>
                     @endforeach
 

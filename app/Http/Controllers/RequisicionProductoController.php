@@ -178,16 +178,23 @@ class RequisicionProductoController extends Controller
 				return !preg_match('/^[0-9\s]*$/', $value);
 			});
 
-			$request->validate([
-				'descripcion' => ['required', 'not_only_numbers']
-			]);
+			$rules = [
+				'descripcion' => ['required', 'not_only_numbers', 'max:255']
+			];
 
+			$customMessages = [
+				'required' => 'El campo :attribute es obligatorio.',
+				'not_only_numbers' => 'El campo :attribute no debe contener solo números.',
+				'max' => 'El campo :attribute no debe tener más de :max caracteres.'
+			];
+
+			$request->validate($rules, $customMessages);
 			$requisicionProducto->estado_id = 1;
 			$requisicionProducto->descripcion = $request->descripcion;
 			$requisicionProducto->save();
 			return redirect()->route('requisicionProducto.index')->with('status', 'Registro correcto');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Debe de ingresar un a descripcion al finalizar, ademas esta no debe de contener solo numeros');
+			return redirect()->back()->with('msg', $e->getMessage());
 		}
 	}
 
@@ -245,6 +252,21 @@ class RequisicionProductoController extends Controller
 	public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		try {
+			Validator::extend('not_only_numbers', function ($attribute, $value, $parameters, $validator) {
+				return !preg_match('/^[0-9\s]*$/', $value);
+			});
+
+			$rules = [
+				'observacion' => ['required', 'not_only_numbers', 'max:255']
+			];
+
+			$customMessages = [
+				'required' => 'El campo :attribute es obligatorio.',
+				'not_only_numbers' => 'El campo :attribute no debe contener solo números.',
+				'max' => 'El campo :attribute no debe tener más de :max caracteres.'
+			];
+
+			$request->validate($rules, $customMessages);
 			$requisicionProducto->estado_id = 2;
 			$requisicionProducto->observacion = $request->observacion;
 			$countRequiApro = RequisicionProducto::where('estado_id', 2)->orderBy('id', 'desc')->first();
@@ -299,6 +321,20 @@ class RequisicionProductoController extends Controller
 	public function denegar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		try {
+			Validator::extend('not_only_numbers', function ($attribute, $value, $parameters, $validator) {
+				return !preg_match('/^[0-9\s]*$/', $value);
+			});
+
+			$rules = [
+				'observacion' => ['required', 'not_only_numbers', 'max:255']
+			];
+
+			$customMessages = [
+				'required' => 'El campo :attribute es obligatorio.',
+				'not_only_numbers' => 'El campo :attribute no debe contener solo números.',
+				'max' => 'El campo :attribute no debe tener más de :max caracteres.'
+			];
+			$request->validate($rules, $customMessages);
 			$requisicionProducto->estado_id = 3;
 			$requisicionProducto->observacion = $request->observacion;
 			if (!is_null($requisicionProducto->nCorrelativo)) {

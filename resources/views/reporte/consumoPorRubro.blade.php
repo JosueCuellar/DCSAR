@@ -97,7 +97,7 @@
 
                         @foreach ($item['product_data'] as $itemP)
                             <td>{{ $itemP->cantidad_productos }}</td>
-                            <td>{{ $itemP->total }}</td>
+                            <td>{{ number_format($itemP->total, 2) }}</td>
                         @endforeach
 
                         <td style="color: red;">{{ $item['totalSalidas'] }} </td>

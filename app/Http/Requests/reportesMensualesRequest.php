@@ -25,7 +25,7 @@ class ReportesMensualesRequest extends FormRequest
 	{
 		return [
 			'reportType' => 'required',
-			'fechaInput' => 'date|before_or_equal:' . now()->endOfMonth(),
+			'fechaInput' => 'required|date|before_or_equal:' . now()->endOfMonth(),
 		];
 	}
 
@@ -33,6 +33,7 @@ class ReportesMensualesRequest extends FormRequest
 	{
 		return [
 			'reportType.required' => 'El tipo de reporte es requerido.',
+			'fechaInput.required' => 'La fecha es requerida.',
 			'fechaInput.date' => 'La fecha ingresada debe ser una fecha válida.',
 			'fechaInput.before_or_equal' => 'La fecha ingresada debe ser igual o anterior al final del mes actual.',
 		];
