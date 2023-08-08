@@ -6,14 +6,15 @@
         <x-errores class="mb-4" />
     </div>
     <div class="m-1">
-
-        @if ($requisicionProducto->estado_id == 3)
+			<?php $RECHAZADA = config('constantes.RECHAZADA');?>
+        @if ($requisicionProducto->estado_id == $RECHAZADA)
             <button type="submit" data-toggle="modal" data-target="#modalDescripcion"
                 data-categoriaid="{{ $requisicionProducto->id }}" class="btn btn-success  text-left"><i
                     class="fa fa-check"></i>
                 Reenviar Requisición</button>
         @else
-            @if ($requisicionProducto->estado_id == 1)
+				<?php $ENVIADA= config('constantes.ENVIADA');?>
+            @if ($requisicionProducto->estado_id == $ENVIADA)
                 <a href="{{ route('requisicionProducto.index') }}" class="btn btn-secondary float-right"
                     data-toggle="tooltip" data-placement="left" title
                     data-original-title="Regresar a lista de usuarios">Regresar</a>

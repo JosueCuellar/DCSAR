@@ -33,6 +33,12 @@ class DetalleRequisicionController extends Controller
 		// mientras que el campo stockReservado se calcula como la cantidad del producto aprobada pero aún no entregada. 
 		// La consulta une varias tablas, incluyendo las tablas productos, medidas y rubros, y utiliza subconsultas para calcular 
 		// la cantidad total de cada producto en stock y la cantidad aprobada pero aún no entregada. Los datos se devuelven en formato DataTables.
+		$ENVIADA = config('constantes.ENVIADA'); //1
+		$ACEPTADA = config('constantes.ACEPTADA'); //2
+		$RECHAZADA = config('constantes.RECHAZADA'); //3
+		$ENTREGADA = config('constantes.ENTREGADA'); //4
+		$INICIALIZADA = config('constantes.INICIALIZADA'); //5
+
 		$productos = DB::select(
 			"SELECT p.id as id, p.descripcion as descripcion, p.imagen as imagen,
             COALESCE(COALESCE(dcom.cantidad_ingreso_total, 0) - COALESCE(dreq.cantidad_entregada, 0),0) AS stockReal,
@@ -46,11 +52,11 @@ class DetalleRequisicionController extends Controller
 						JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
 						WHERE rcom.finalizado = 1
             GROUP BY producto_id) dcom ON p.id = dcom.producto_id
-            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
-            SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
+            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = $ENVIADA OR estado_id = $ACEPTADA OR estado_id = $RECHAZADA OR estado_id = $INICIALIZADA THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
+            SUM(CASE WHEN estado_id = $ENTREGADA  THEN cantidad ELSE 0 END) AS cantidad_entregada
             FROM detalle_requisicions dr
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-            WHERE rp.estado_id IN (1, 2, 3, 4, 5)
+            WHERE rp.estado_id IN ($ENVIADA, $ACEPTADA, $RECHAZADA, $ENTREGADA, $INICIALIZADA)
             GROUP BY producto_id) dreq ON p.id = dreq.producto_id;"
 		);
 
@@ -81,6 +87,11 @@ class DetalleRequisicionController extends Controller
 	public function store(Request $request, RequisicionProducto $requisicionProducto, Producto $producto)
 	{
 		try {
+			$ENVIADA = config('constantes.ENVIADA'); //1
+			$ACEPTADA = config('constantes.ACEPTADA'); //2
+			$RECHAZADA = config('constantes.RECHAZADA'); //3
+			$ENTREGADA = config('constantes.ENTREGADA'); //4
+			$INICIALIZADA = config('constantes.INICIALIZADA');//5
 			$rules = [
 				'cantidadAdd' => 'required|numeric|min:1',
 			];
@@ -111,14 +122,14 @@ class DetalleRequisicionController extends Controller
 					JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
 					WHERE rcom.finalizado = 1
 					GROUP BY producto_id) dcom ON p.id = dcom.producto_id
-					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
-					SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
+					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = ? OR estado_id = ? OR estado_id = ? OR estado_id = ? THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
+					SUM(CASE WHEN estado_id = ?  THEN cantidad ELSE 0 END) AS cantidad_entregada
 					FROM detalle_requisicions dr
 					JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-					WHERE rp.estado_id IN (1, 2, 3, 4, 5)
+					WHERE rp.estado_id IN (?, ?, ?, ?, ?)
 					GROUP BY producto_id) dreq ON p.id = dreq.producto_id
             WHERE p.id = ?
-            ", [$codigo]);
+            ", [$ENVIADA, $ACEPTADA, $RECHAZADA, $INICIALIZADA, $ENTREGADA, $ENVIADA, $ACEPTADA, $RECHAZADA, $ENTREGADA, $INICIALIZADA, $codigo]);
 
 			$valorCantidadMinima = 0;
 			foreach ($productos as $p) {
@@ -163,6 +174,12 @@ class DetalleRequisicionController extends Controller
 	public function update(Request $request, RequisicionProducto $requisicionProducto, DetalleRequisicion $detalleRequisicion)
 	{
 		try {
+			$ENVIADA = config('constantes.ENVIADA'); //1
+			$ACEPTADA = config('constantes.ACEPTADA'); //2
+			$RECHAZADA = config('constantes.RECHAZADA'); //3
+			$ENTREGADA = config('constantes.ENTREGADA'); //4
+			$INICIALIZADA = config('constantes.INICIALIZADA');
+
 			$rules = [
 				'cantidad' => 'required|numeric|min:1',
 			];
@@ -187,14 +204,14 @@ class DetalleRequisicionController extends Controller
 					JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
 					WHERE rcom.finalizado = 1
 					GROUP BY producto_id) dcom ON p.id = dcom.producto_id
-					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 OR estado_id = 3 OR estado_id = 5 THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
-					SUM(CASE WHEN estado_id = 4  THEN cantidad ELSE 0 END) AS cantidad_entregada
+					LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = ? OR estado_id = ? OR estado_id = ? OR estado_id = ? THEN cantidad ELSE 0 END) AS cantidad_aprobada_pendiente,
+					SUM(CASE WHEN estado_id = ?  THEN cantidad ELSE 0 END) AS cantidad_entregada
 					FROM detalle_requisicions dr
 					JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-					WHERE rp.estado_id IN (1, 2, 3, 4, 5)
+					WHERE rp.estado_id IN (?, ?, ?, ?, ?)
 					GROUP BY producto_id) dreq ON p.id = dreq.producto_id
             WHERE p.id = ?
-            ", [$codigo]);
+						", [$ENVIADA, $ACEPTADA, $RECHAZADA, $INICIALIZADA, $ENTREGADA, $ENVIADA, $ACEPTADA, $RECHAZADA, $ENTREGADA, $INICIALIZADA, $codigo]);
 
 			$valorCantidadMinima = 0;
 			foreach ($productos as $p) {

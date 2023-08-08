@@ -254,8 +254,10 @@ class DetalleCompraController extends Controller
 			$cantidadCompra += $itemCompra->cantidadIngreso;
 			$sumaCompras += $itemCompra->total;
 		}
-		$detalleRequisicion = DetalleRequisicion::whereHas('requisicionProducto', function ($query) {
-			$query->where('estado_id', 4);
+		//Constante para el estado entregada --Se define dentro de config/constantes.php--
+		$ENTREGADA = config('constantes.ENTREGADA');
+		$detalleRequisicion = DetalleRequisicion::whereHas('requisicionProducto', function ($query) use ($ENTREGADA) {
+			$query->where('estado_id', $ENTREGADA);
 		})->where('producto_id', $producto)->get();
 
 		if (count($detalleRequisicion) > 0) {

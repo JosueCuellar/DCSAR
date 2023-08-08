@@ -22,15 +22,20 @@ class RequisicionProductoController extends Controller
 	public function index(Request $request)
 	{
 		try {
+			//Constante para el estado enviada --Se define dentro de config/constantes.php--
+			$ENVIADA = config('constantes.ENVIADA');
+
 			$fechaRequisicion = $request->get('fechaRequisicion');
-			$requisiciones = RequisicionProducto::where('estado_id', 1)
+			$requisiciones = RequisicionProducto::where('estado_id', $ENVIADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->fechaRequisicion($fechaRequisicion)
 				->select('requisicion_productos.*')
 				->get();
 
-			$requisicionesSinCompletar = RequisicionProducto::where('estado_id', 5)
+			//Constante para el estado inicializada --Se define dentro de config/constantes.php--
+			$INICIALIZADA = config('constantes.INICIALIZADA');
+			$requisicionesSinCompletar = RequisicionProducto::where('estado_id', $INICIALIZADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->get();
@@ -47,19 +52,25 @@ class RequisicionProductoController extends Controller
 	public function estado()
 	{
 		try {
-			$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
+			//Constante para el estado enviada --Se define dentro de config/constantes.php--
+			$ENVIADA = config('constantes.ENVIADA');
+			$requisicionesEnviadas = RequisicionProducto::where('estado_id', $ENVIADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->select('requisicion_productos.*')
 				->get();
 			$nEnviadas = count($requisicionesEnviadas);
-			$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)
+			//Constante para el estado aceptada --Se define dentro de config/constantes.php--
+			$ACEPTADA = config('constantes.ACEPTADA');
+			$requisicionesAprobadas = RequisicionProducto::where('estado_id', $ACEPTADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->select('requisicion_productos.*')
 				->get();
 			$nAprobadas = count($requisicionesAprobadas);
-			$requisicionesRechazadas = RequisicionProducto::where('estado_id', 3)
+			//Constante para el estado rechazada --Se define dentro de config/constantes.php--
+			$RECHAZADA = config('constantes.RECHAZADA');
+			$requisicionesRechazadas = RequisicionProducto::where('estado_id', $RECHAZADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->select('requisicion_productos.*')
@@ -76,13 +87,17 @@ class RequisicionProductoController extends Controller
 	public function revisar()
 	{
 		try {
-			$requisicionesEnviadas = RequisicionProducto::where('estado_id', 1)
+			//Constante para el estado enviada --Se define dentro de config/constantes.php--
+			$ENVIADA = config('constantes.ENVIADA');
+			$requisicionesEnviadas = RequisicionProducto::where('estado_id', $ENVIADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->select('requisicion_productos.*')
 				->get();
 
-			$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)
+			//Constante para el estado aceptada --Se define dentro de config/constantes.php--
+			$ACEPTADA = config('constantes.ACEPTADA');
+			$requisicionesAprobadas = RequisicionProducto::where('estado_id', $ACEPTADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->select('requisicion_productos.*')
@@ -98,7 +113,9 @@ class RequisicionProductoController extends Controller
 	public function entrega()
 	{
 		try {
-			$requisicionesAprobadas = RequisicionProducto::where('estado_id', 2)->get();
+			//Constante para el estado aceptada --Se define dentro de config/constantes.php--
+			$ACEPTADA = config('constantes.ACEPTADA');
+			$requisicionesAprobadas = RequisicionProducto::where('estado_id', $ACEPTADA)->get();
 			return view('requisicionProducto.requisicionProducto.entrega', compact('requisicionesAprobadas'));
 		} catch (\Exception $e) {
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
@@ -109,7 +126,9 @@ class RequisicionProductoController extends Controller
 	public function requisicionRecibida()
 	{
 		try {
-			$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)
+			//Constante para el estado entregada --Se define dentro de config/constantes.php--
+			$ENTREGADA = config('constantes.ENTREGADA');
+			$requisicionRecibidas = RequisicionProducto::where('estado_id', $ENTREGADA)
 				->join('usuarios', 'usuarios.id', '=', 'requisicion_productos.user_id')
 				->where('usuarios.unidad_organizativa_id', Auth::user()->unidad_organizativa_id)
 				->select('requisicion_productos.*')
@@ -124,7 +143,9 @@ class RequisicionProductoController extends Controller
 	public function historialRequi()
 	{
 		try {
-			$requisicionRecibidas = RequisicionProducto::where('estado_id', 4)->get();
+			//Constante para el estado entregada --Se define dentro de config/constantes.php--
+			$ENTREGADA = config('constantes.ENTREGADA');
+			$requisicionRecibidas = RequisicionProducto::where('estado_id', $ENTREGADA)->get();
 			return view('requisicionProducto.requisicionProducto.historialRequi', compact('requisicionRecibidas'));
 		} catch (\Exception $e) {
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
@@ -135,10 +156,12 @@ class RequisicionProductoController extends Controller
 	public function store(Request $request)
 	{
 		try {
+			//Constante para el estado inicializada --Se define dentro de config/constantes.php--
+			$INICIALIZADA = config('constantes.INICIALIZADA');
 			$requisicionProducto = new RequisicionProducto();
 			$date =  new DateTime();
 			$requisicionProducto->fechaRequisicion = $date->format('Y-m-d H:i:s');
-			$requisicionProducto->estado_id = 5;
+			$requisicionProducto->estado_id = $INICIALIZADA;
 			// Asignar el user_id al usuario autenticado actualmente
 			$requisicionProducto->user_id = Auth::id();
 			$requisicionProducto->save();
@@ -176,6 +199,8 @@ class RequisicionProductoController extends Controller
 	public function completar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		try {
+			//Constante para el estado enviada --Se define dentro de config/constantes.php--
+			$ENVIADA = config('constantes.ENVIADA');
 			Validator::extend('not_only_numbers', function ($attribute, $value, $parameters, $validator) {
 				return !preg_match('/^[0-9\s]*$/', $value);
 			});
@@ -189,9 +214,8 @@ class RequisicionProductoController extends Controller
 				'not_only_numbers' => 'El campo :attribute no debe contener solo números.',
 				'max' => 'El campo :attribute no debe tener más de :max caracteres.'
 			];
-
 			$request->validate($rules, $customMessages);
-			$requisicionProducto->estado_id = 1;
+			$requisicionProducto->estado_id = $ENVIADA;
 			$requisicionProducto->descripcion = $request->descripcion;
 			$requisicionProducto->save();
 			return redirect()->route('requisicionProducto.index')->with('status', 'Registro correcto');
@@ -204,7 +228,10 @@ class RequisicionProductoController extends Controller
 	public function requisicionEntregada(RequisicionProducto $requisicionProducto)
 	{
 		try {
-			$requisicionProducto->estado_id = 4;
+			//Constante para el estado entregada --Se define dentro de config/constantes.php--
+			$ENTREGADA = config('constantes.ENTREGADA');
+
+			$requisicionProducto->estado_id = $ENTREGADA;
 			$detallesRequi = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
 			foreach ($detallesRequi as $detalle) {
 				$producto_id = $detalle->producto_id;
@@ -254,6 +281,10 @@ class RequisicionProductoController extends Controller
 	public function aceptar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		try {
+			//Constante para el estado aceptada --Se define dentro de config/constantes.php--
+			$ACEPTADA = config('constantes.ACEPTADA');
+			//Constante para el estado entregada --Se define dentro de config/constantes.php--
+			$ENTREGADA = config('constantes.ENTREGADA');
 			Validator::extend('not_only_numbers', function ($attribute, $value, $parameters, $validator) {
 				return !preg_match('/^[0-9\s]*$/', $value);
 			});
@@ -269,47 +300,52 @@ class RequisicionProductoController extends Controller
 			];
 
 			$request->validate($rules, $customMessages);
-			$requisicionProducto->estado_id = 2;
+			$requisicionProducto->estado_id = $ACEPTADA;
 			$requisicionProducto->observacion = $request->observacion;
-			$countRequiApro = RequisicionProducto::where('estado_id', 2)->orderBy('id', 'desc')->first();
-			$countRequiReci = RequisicionProducto::where('estado_id', 4)->orderBy('id', 'desc')->first();
-
-			// Check if the RequisicionProducto table is empty
-			if ($countRequiApro == null && $countRequiReci == null) {
-				// If the table is empty, set the nCorrelativo value to 01-YYYY
-				$date = new Carbon();
-				$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');
+			//Constante para el estado aceptada --Se define dentro de config/constantes.php--
+			$ACEPTADA = config('constantes.ACEPTADA');
+			$RECHAZADA = config('constantes.RECHAZADA');
+			$countRequiApro = RequisicionProducto::where('estado_id', $ACEPTADA)->orderBy('id', 'desc')->first();
+			$countRequiReci = RequisicionProducto::where('estado_id', $ENTREGADA)->orderBy('id', 'desc')->first();
+			if ($requisicionProducto->nCorrelativo != NULL) {
+				$requisicionProducto->save();
 			} else {
-				// Get the last RequisicionProducto record with estado_id = 2 or estado_id = 4 from the database, ordered by the numerical part of the nCorrelativo field
-				$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [2, 3, 4])
-					->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
-					->first();
-
-				// Get the nCorrelativo value from the last record
-				$lastNumber = $lastRequisicionProducto->nCorrelativo;
-
-
-				list($number, $year) = explode('-', $lastNumber);
-
-				// Create a new Carbon instance to get the current year
-				$date = new Carbon();
-				$currentYear = $date->format('Y');
-
-				// Check if the current year is different from the year part of the last nCorrelativo value
-				if ($currentYear != $year) {
-					// If the years are different, reset the number part of the nCorrelativo value to 01
-					$number = '01';
+				// Check if the RequisicionProducto table is empty
+				if ($countRequiApro == null && $countRequiReci == null) {
+					// If the table is empty, set the nCorrelativo value to 01-YYYY
+					$date = new Carbon();
+					$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');
 				} else {
-					// If the years are the same, increment the number part of the nCorrelativo value
-					$number = (int)$number + 1;
+					$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [$ACEPTADA, $RECHAZADA, $ENTREGADA])
+						->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
+						->first();
 
-					// Zero-pad the number if necessary
-					if ($number < 10) {
-						$number = '0' . $number;
+					// Get the nCorrelativo value from the last record
+					$lastNumber = $lastRequisicionProducto->nCorrelativo;
+
+
+					list($number, $year) = explode('-', $lastNumber);
+
+					// Create a new Carbon instance to get the current year
+					$date = new Carbon();
+					$currentYear = $date->format('Y');
+
+					// Check if the current year is different from the year part of the last nCorrelativo value
+					if ($currentYear != $year) {
+						// If the years are different, reset the number part of the nCorrelativo value to 01
+						$number = '01';
+					} else {
+						// If the years are the same, increment the number part of the nCorrelativo value
+						$number = (int)$number + 1;
+
+						// Zero-pad the number if necessary
+						if ($number < 10) {
+							$number = '0' . $number;
+						}
 					}
+					// Construct the new nCorrelativo value
+					$requisicionProducto->nCorrelativo = $number . '-' . $currentYear;
 				}
-				// Construct the new nCorrelativo value
-				$requisicionProducto->nCorrelativo = $number . '-' . $currentYear;
 			}
 			$requisicionProducto->save();
 			return redirect()->route('requisicionProducto.revisar')->with('status', $requisicionProducto);
@@ -323,6 +359,8 @@ class RequisicionProductoController extends Controller
 	public function denegar(Request $request, RequisicionProducto $requisicionProducto)
 	{
 		try {
+			//Constante para el estado rechazada --Se define dentro de config/constantes.php--
+			$RECHAZADA = config('constantes.RECHAZADA');
 			Validator::extend('not_only_numbers', function ($attribute, $value, $parameters, $validator) {
 				return !preg_match('/^[0-9\s]*$/', $value);
 			});
@@ -337,7 +375,7 @@ class RequisicionProductoController extends Controller
 				'max' => 'El campo :attribute no debe tener más de :max caracteres.'
 			];
 			$request->validate($rules, $customMessages);
-			$requisicionProducto->estado_id = 3;
+			$requisicionProducto->estado_id = $RECHAZADA;
 			$requisicionProducto->observacion = $request->observacion;
 			if (!is_null($requisicionProducto->nCorrelativo)) {
 				$requisicionProducto->save();

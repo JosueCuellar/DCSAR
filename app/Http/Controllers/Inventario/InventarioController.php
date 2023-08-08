@@ -22,6 +22,12 @@ class InventarioController extends Controller
 	public function datosInventario()
 	{
 		try {
+			//Se define dentro de config/constantes.php--
+			$ENVIADA = config('constantes.ENVIADA'); //1
+			$ACEPTADA = config('constantes.ACEPTADA'); //2
+			$RECHAZADA = config('constantes.RECHAZADA'); //3
+			$ENTREGADA = config('constantes.ENTREGADA'); //4
+
 			$inventarios = DB::select(
 				"SELECT p.codProducto, p.descripcion,
 							COALESCE(dcom.cantidadIngreso - COALESCE(dreq.cantidad_rechazada, 0),0) AS stock,
@@ -32,11 +38,11 @@ class InventarioController extends Controller
 							JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
 							WHERE rcom.finalizado = 1
 							GROUP BY producto_id) dcom ON p.id = dcom.producto_id
-							LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
-							SUM(CASE WHEN estado_id = 4 THEN cantidad ELSE 0 END) AS cantidad_rechazada
+							LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = $ENVIADA OR estado_id = $ACEPTADA THEN cantidad ELSE 0 END) AS cantidad_aprobada,
+							SUM(CASE WHEN estado_id = $ENTREGADA THEN cantidad ELSE 0 END) AS cantidad_rechazada
 							FROM detalle_requisicions dr
 							JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-							WHERE rp.estado_id IN (1, 2, 4)
+							WHERE rp.estado_id IN ($ENVIADA, $ACEPTADA, $ENTREGADA)
 							GROUP BY producto_id) dreq ON p.id = dreq.producto_id;"
 			);
 			return DataTables::of($inventarios)->make(true);
@@ -48,6 +54,11 @@ class InventarioController extends Controller
 	public function downloadData()
 	{
 		try {
+			//Se define dentro de config/constantes.php--
+			$ENVIADA = config('constantes.ENVIADA'); //1
+			$ACEPTADA = config('constantes.ACEPTADA'); //2
+			$RECHAZADA = config('constantes.RECHAZADA'); //3
+			$ENTREGADA = config('constantes.ENTREGADA'); //4
 			// Obtener los datos y convertirlos en un array
 			$inventarios = DB::select(
 				"SELECT p.codProducto, p.descripcion,
@@ -59,11 +70,11 @@ class InventarioController extends Controller
 						JOIN recepcion_compras rcom ON dc.recepcion_compra_id = rcom.id
 						WHERE rcom.finalizado = 1
             GROUP BY producto_id) dcom ON p.id = dcom.producto_id
-            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = 1 OR estado_id = 2 THEN cantidad ELSE 0 END) AS cantidad_aprobada,
-            SUM(CASE WHEN estado_id = 4 THEN cantidad ELSE 0 END) AS cantidad_rechazada
+            LEFT JOIN (SELECT producto_id, SUM(CASE WHEN estado_id = $ENVIADA OR estado_id = $ACEPTADA THEN cantidad ELSE 0 END) AS cantidad_aprobada,
+            SUM(CASE WHEN estado_id = $ENTREGADA THEN cantidad ELSE 0 END) AS cantidad_rechazada
             FROM detalle_requisicions dr
             JOIN requisicion_productos rp ON dr.requisicion_id = rp.id
-            WHERE rp.estado_id IN (1, 2, 4)
+            WHERE rp.estado_id IN ($ENVIADA, $ACEPTADA, $ENTREGADA)
             GROUP BY producto_id) dreq ON p.id = dreq.producto_id;"
 			);
 
