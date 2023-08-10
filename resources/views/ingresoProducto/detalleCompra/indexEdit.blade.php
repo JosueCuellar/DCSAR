@@ -290,48 +290,6 @@
 
 @endsection
 @section('js')
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Ingreso de producto',
-                position: 'topRight',
-                body: '{{ session('status') }}',
-                class: 'bg-info',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'Ingreso de producto',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
     <script>
         $(document).ready(function(e) {
             $('#producto_id').select2({

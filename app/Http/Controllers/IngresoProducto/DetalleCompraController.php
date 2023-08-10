@@ -52,7 +52,7 @@ class DetalleCompraController extends Controller
 			$detalleCompra->precioUnidad = $request->precioUnidad;
 			$detalleCompra->total = $total;
 			$detalleCompra->save();
-			return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
+			return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Ingreso de producto');
 		} catch (\Exception $e) {
 			return $e->getMessage();
 		}
@@ -79,7 +79,7 @@ class DetalleCompraController extends Controller
 			$detalleCompra->total = $total;
 			$detalleCompra->update();
 
-			return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Se ha agregado correctamente el producto');
+			return redirect()->route('recepcionCompra.detalle', $recepcionCompra)->with('status', 'Ingreso de producto, actualizado');
 		} catch (\Exception $e) {
 			return $e->getMessage();
 		}
@@ -237,14 +237,7 @@ class DetalleCompraController extends Controller
 
 	public function costoPromedioCalculo($producto)
 	{
-		$existencias = 0;
-		$saldoTotal = 0;
-		$costoPromedioVar = 0;
-		$sumaCompras = 0;
-		$sumaRequi = 0;
-		$cantidadCompra = 0;
-		$cantidadRequi = 0;
-
+		$existencias = $saldoTotal = $costoPromedioVar = $sumaCompras = $sumaRequi = $cantidadCompra = $cantidadRequi = 0;
 		$detalleCompras = DetalleCompra::whereHas('recepcionCompra', function ($query) {
 			$query->where('finalizado', 1);
 		})->where('producto_id', $producto)->get();

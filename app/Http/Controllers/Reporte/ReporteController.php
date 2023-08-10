@@ -191,11 +191,11 @@ class ReporteController extends Controller
 					case 'listadoArticulos':
 						return $this->listadoArticulos($request);
 					default:
-						return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
+						return redirect()->back()->with('catch', 'Debe de seleccionar un tipo de reporte y una fecha valida');
 						break;
 				}
 			} else {
-				return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
+				return redirect()->back()->with('catch', 'Debe de seleccionar un tipo de reporte y una fecha valida');
 			}
 		} catch (\Exception $e) {
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
@@ -431,7 +431,7 @@ class ReporteController extends Controller
 				case 'salidaPorUnidadesMes':
 					return $this->salidaPorUnidadesMes($request);
 				default:
-					return redirect()->back()->with('error', 'Debe de seleccionar un tipo de reporte y una fecha valida');
+					return redirect()->back()->with('catch', 'Debe de seleccionar un tipo de reporte y una fecha valida');
 					break;
 			}
 		} catch (\Exception $e) {
@@ -496,7 +496,7 @@ class ReporteController extends Controller
 			$end_date = $request->end_date;
 
 			if ($start_date > $end_date) {
-				return redirect()->back()->with('error', 'La fecha de fin debe ser mayor o igual a la fecha de inicio');
+				return redirect()->back()->with('catch', 'La fecha de fin debe ser mayor o igual a la fecha de inicio');
 			}
 
 			$rubro_id = $request->rubro_id; // Replace with the desired rubro_id value

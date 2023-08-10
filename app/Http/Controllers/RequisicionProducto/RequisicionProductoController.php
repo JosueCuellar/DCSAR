@@ -44,7 +44,7 @@ class RequisicionProductoController extends Controller
 			}
 			return view('requisicionProducto.requisicionProducto.index', compact('requisiciones', 'request'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('error', 'Algo salio mal!');
+			return redirect()->back()->with('catch', 'Algo salio mal!');
 		}
 	}
 
@@ -164,6 +164,7 @@ class RequisicionProductoController extends Controller
 			$requisicionProducto->estado_id = $INICIALIZADA;
 			// Asignar el user_id al usuario autenticado actualmente
 			$requisicionProducto->user_id = Auth::id();
+			$requisicionProducto->nCorrelativo = NULL;
 			$requisicionProducto->save();
 			return redirect()->route('requisicionProducto.detalle', $requisicionProducto);
 		} catch (\Exception $e) {
@@ -189,9 +190,9 @@ class RequisicionProductoController extends Controller
 			$requisicionProducto->descripcion = $request->descripcion;
 			$requisicionProducto->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('requisicionProducto.index')->with('actualizado', 'Registro correcto');
+			return redirect()->route('requisicionProducto.index')->with('status', 'Registro actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar');
+			return redirect()->back()->with('catch', 'Error no se puede actualizar');
 		}
 	}
 
@@ -218,9 +219,9 @@ class RequisicionProductoController extends Controller
 			$requisicionProducto->estado_id = $ENVIADA;
 			$requisicionProducto->descripcion = $request->descripcion;
 			$requisicionProducto->save();
-			return redirect()->route('requisicionProducto.index')->with('status', 'Registro correcto');
+			return redirect()->route('requisicionProducto.index')->with('status', 'La requsicion ha sido enviada');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', $e->getMessage());
+			return redirect()->back()->with('catch', $e->getMessage());
 		}
 	}
 
@@ -264,9 +265,9 @@ class RequisicionProductoController extends Controller
 				}
 			}
 			$requisicionProducto->save();
-			return redirect()->route('requisicionProducto.entrega')->with('status', 'Registro correcto');
+			return redirect()->route('requisicionProducto.entrega')->with('status', 'La requisicion ha sido entregada');
 		} catch (\Exception $e) {
-			return redirect()->route('requisicionProducto.entrega')->with('msg', 'Error' . $e->getMessage());
+			return redirect()->route('requisicionProducto.entrega')->with('catch', 'Error' . $e->getMessage());
 		}
 	}
 
@@ -307,6 +308,11 @@ class RequisicionProductoController extends Controller
 			$RECHAZADA = config('constantes.RECHAZADA');
 			$countRequiApro = RequisicionProducto::where('estado_id', $ACEPTADA)->orderBy('id', 'desc')->first();
 			$countRequiReci = RequisicionProducto::where('estado_id', $ENTREGADA)->orderBy('id', 'desc')->first();
+			$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [$ACEPTADA, $RECHAZADA, $ENTREGADA])
+				->whereRaw("YEAR(SUBSTRING(nCorrelativo, CHARINDEX('-', nCorrelativo) + 1, LEN(nCorrelativo))) = ?", [date('Y')])
+				->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
+				->first();
+
 			if ($requisicionProducto->nCorrelativo != NULL) {
 				$requisicionProducto->save();
 			} else {
@@ -316,14 +322,12 @@ class RequisicionProductoController extends Controller
 					$date = new Carbon();
 					$requisicionProducto->nCorrelativo = '01-' . $date->format('Y');
 				} else {
-					$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [$ACEPTADA, $RECHAZADA, $ENTREGADA])
-						->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
-						->first();
+					// $lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [$ACEPTADA, $RECHAZADA, $ENTREGADA])
+					// 	->orderByRaw("CAST(LEFT(nCorrelativo, CHARINDEX('-', nCorrelativo) - 1) AS INT) DESC")
+					// 	->first();
 
 					// Get the nCorrelativo value from the last record
 					$lastNumber = $lastRequisicionProducto->nCorrelativo;
-
-
 					list($number, $year) = explode('-', $lastNumber);
 
 					// Create a new Carbon instance to get the current year
@@ -348,7 +352,7 @@ class RequisicionProductoController extends Controller
 				}
 			}
 			$requisicionProducto->save();
-			return redirect()->route('requisicionProducto.revisar')->with('status', $requisicionProducto);
+			return redirect()->route('requisicionProducto.revisar')->with('status', 'La solicitud se ha aceptado correctamente');
 		} catch (\Exception $e) {
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
@@ -394,7 +398,7 @@ class RequisicionProductoController extends Controller
 	{
 		try {
 			if ($requisicionProducto->nCorrelativo !== null) {
-				return redirect()->route('requisicionProducto.estado')->with('error', 'No se puede eliminar el registro porque ya se le asigno un numero correlativo');
+				return redirect()->route('requisicionProducto.estado')->with('catch', 'No se puede eliminar el registro porque ya se le asigno un numero correlativo');
 			}
 			$requisicionProducto->delete();
 			return redirect()->route('requisicionProducto.index')->with('delete', 'Registro eliminado');

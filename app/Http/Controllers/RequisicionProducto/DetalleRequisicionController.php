@@ -162,7 +162,7 @@ class DetalleRequisicionController extends Controller
 					$detalle_requisicion->producto_id = $producto->id;
 					$detalle_requisicion->save();
 				}
-				return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('status', 'Se ha agregado correctamente!');
+				return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('status', 'Producto agregado!');
 			}
 		} catch (\Exception $e) {
 			return redirect()->back()->with('msg', 'Error, debe de agregar un numero valido!' . $e->getMessage());
@@ -225,7 +225,7 @@ class DetalleRequisicionController extends Controller
 				$detalle->cantidad = $request->cantidad;
 				$detalle->total = ($request->cantidad) * ($detalle->precioPromedio);
 				$detalle->save();
-				return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('status', 'Se ha actualizado correctamente!');
+				return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('status', 'Producto actualizado');
 			}
 		} catch (\Exception $e) {
 			return redirect()->back()->with('msg', $e->getMessage());
@@ -239,7 +239,7 @@ class DetalleRequisicionController extends Controller
 			$detalleRequisicion->forceDelete();
 			return redirect()->route('requisicionProducto.detalle', $requisicionProducto)->with('delete', 'Se ha eliminado el registro!');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('error', 'Error, debe de agregar un numero valido!');
+			return redirect()->back()->with('catch', 'Error, debe de agregar un numero valido!');
 		}
 	}
 }

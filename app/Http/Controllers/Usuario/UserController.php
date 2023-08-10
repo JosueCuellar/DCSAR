@@ -57,9 +57,9 @@ class UserController extends Controller
 
 			$usuario->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('usuario.index')->with('status', 'Registro correcto');
+			return redirect()->route('usuario.index')->with('status', 'Usuario agregado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Ha ocurrido un error ' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
 	}
 
@@ -92,9 +92,9 @@ class UserController extends Controller
 			$usuario->syncRoles([$request->input('role')]);
 
 			//Se redirige al listado de todos los registros
-			return redirect()->route('usuario.index')->with('status', 'Registro correcto');
+			return redirect()->route('usuario.index')->with('status', 'Usuario actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -105,9 +105,9 @@ class UserController extends Controller
 
 		try {
 			$usuario->delete();
-			return redirect()->route('usuario.index')->with('delete', 'Registro eliminado');
+			return redirect()->route('usuario.index')->with('delete', 'Usuario eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
 		}
 	}
 

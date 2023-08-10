@@ -60,7 +60,7 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro                        </div>
+                        <div class="modal-body">Seleccione "Borrar" Si realmente desea eliminar este registro </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                             <form method="POST" action="">
@@ -103,69 +103,4 @@
             });
         });
     </script>
-@endsection
-
-@section('js')
-
-    @if (session('msg'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Error',
-                position: 'topRight',
-                body: '{{ session('msg') }}',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle ',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Estado agregado',
-                position: 'topRight',
-                body: '{{ session('status') }} se ha actualizado la tabla',
-                class: 'bg-success',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'Estado eliminado',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-
 @endsection

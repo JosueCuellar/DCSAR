@@ -35,9 +35,9 @@ class RubroController extends Controller
 			$rubro->descripRubro = $request->descripRubro;
 			$rubro->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('rubro.index')->with('status', 'Registro correcto');
+			return redirect()->route('rubro.index')->with('status', 'Rubro agregado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 
@@ -47,7 +47,7 @@ class RubroController extends Controller
 		try {
 			return view('catalogo.rubro.edit', compact('rubro'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -59,9 +59,9 @@ class RubroController extends Controller
 			$rubro->descripRubro = $request->descripRubro;
 			$rubro->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('rubro.index')->with('status', 'Registro correcto');
+			return redirect()->route('rubro.index')->with('status', 'Rubro actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -71,9 +71,9 @@ class RubroController extends Controller
 
 		try {
 			$rubro->delete();
-			return redirect()->route('rubro.index')->with('delete', 'Registro eliminado');
+			return redirect()->route('rubro.index')->with('delete', 'Rubro eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
 		}
 	}
 }

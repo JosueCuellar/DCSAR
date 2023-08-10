@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Catalogo;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProveedorRequest;
 use App\Models\Proveedor;
@@ -34,9 +35,9 @@ class ProveedorController extends Controller
 			$proveedor->telefonoProveedor2 = $request->telefonoProveedor2;
 			$proveedor->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('proveedor.index')->with('status', 'Registro correcto');
+			return redirect()->route('proveedor.index')->with('status', 'Proveedor agregado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 
@@ -63,9 +64,9 @@ class ProveedorController extends Controller
 			$proveedor->telefonoProveedor2 = $request->telefonoProveedor2;
 			$proveedor->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('proveedor.index')->with('status', 'Registro correcto');
+			return redirect()->route('proveedor.index')->with('status', 'Proveedor actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -75,9 +76,9 @@ class ProveedorController extends Controller
 
 		try {
 			$proveedor->delete();
-			return redirect()->route('proveedor.index')->with('delete', 'Registro eliminado');
+			return redirect()->route('proveedor.index')->with('delete', 'Proveedor eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
+			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
 		}
 	}
 }

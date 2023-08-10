@@ -113,9 +113,9 @@ class ProductoController extends Controller
 			$producto->rubro_id = $request->rubro_id;
 			$producto->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('producto.index')->with('status', 'Registro correcto');
+			return redirect()->route('producto.index')->with('status', 'Producto agregado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 	//Función que permite la edición de un registro almacenado
@@ -128,7 +128,7 @@ class ProductoController extends Controller
 			$productos = Producto::all();
 			return view('catalogo.producto.edit', compact('producto', 'productos', 'marcas', 'medidas', 'rubros'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 	//Función que actualiza un registro
@@ -149,9 +149,9 @@ class ProductoController extends Controller
 			$producto->medida_id = $request->medida_id;
 			$producto->update($prod);
 			//Se redirige al listado de todos los registros
-			return redirect()->route('producto.index')->with('status', 'Registro correcto');
+			return redirect()->route('producto.index')->with('status', 'Producto actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 	//Función que elimina un registro
@@ -162,12 +162,12 @@ class ProductoController extends Controller
 			if (File::exists($url)) {
 				$producto->delete();
 				File::delete($url);
-				return redirect()->route('producto.index')->with('delete', 'Registro eliminado');
+				return redirect()->route('producto.index')->with('delete', 'Producto eliminado');
 			} else {
-				return redirect()->back()->with('msg', 'No existe la imagen!');
+				return redirect()->back()->with('catch', 'No existe la imagen!');
 			}
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
+			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
 		}
 	}
 }

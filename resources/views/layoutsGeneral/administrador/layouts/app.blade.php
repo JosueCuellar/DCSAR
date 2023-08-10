@@ -271,22 +271,47 @@
 
     @if (session('catch'))
         <script>
-            $(document).Toasts('create', {
-                title: 'Error',
-                position: 'topRight',
-                body: '{{ session('catch') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle ',
-                delay: 3500,
-                close: false,
-            })
+            toastr.warning('{{ session('catch') }}', 'Error', {
+                positionClass: 'toast-top-right',
+                timeOut: 3500,
+                closeButton: true,
+            });
         </script>
     @endif
 
-    @yield('js_datatable')
-    @yield('js_imagen')
-    @yield('js')
+    @if (session('status'))
+        <script>
+            toastr.success('Registro correcto se ha actualizado la tabla', '{{ session('status') }}', {
+                positionClass: 'toast-top-right',
+                timeOut: 3500,
+                closeButton: true,
+            });
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            toastr.error('Registro elimindado, se ha actualizado la tabla', '{{ session('delete') }}', {
+                positionClass: 'toast-top-right',
+                timeOut: 3500,
+                closeButton: true,
+            });
+        </script>
+    @endif
+
+    @if (session('msg'))
+        <script>
+            toastr.warning('{{ session('msg') }}', 'Error', {
+                positionClass: 'toast-top-right',
+                timeOut: 3500,
+                closeButton: true,
+            });
+        </script>
+    @endif
+
+        @yield('js_datatable')
+        @yield('js_imagen')
+        @yield('js')
 
 </body>
 

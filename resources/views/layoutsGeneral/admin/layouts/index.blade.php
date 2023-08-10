@@ -414,20 +414,49 @@
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_buttons.bootstrap5.min.js') }}"></script>
 
+
     @if (session('catch'))
         <script>
-            $(document).Toasts('create', {
-                title: 'Error',
-                position: 'topRight',
-                body: '{{ session('catch') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle ',
-                delay: 3500,
-                close: false,
-            })
+            toastr.warning('{{ session('catch') }}', 'Error', {
+                positionClass: 'toast-top-right',
+                timeOut: 3500,
+                closeButton: true,
+            });
         </script>
     @endif
+
+    @if (session('status'))
+        <script>
+            toastr.success('Registro correcto se ha actualizado la tabla', '{{ session('status') }}', {
+                positionClass: 'toast-top-right',
+                timeOut: 3500,
+                closeButton: true,
+            });
+        </script>
+    @endif
+
+    @if (session('delete'))
+        <script>
+            toastr.error('Registro elimindado, se ha actualizado la tabla', '{{ session('delete') }}', {
+                positionClass: 'toast-top-right',
+                timeOut: 3500,
+                closeButton: true,
+            });
+        </script>
+    @endif
+
+		@if (session('msg'))
+    <script>
+        toastr.warning('{{ session('msg') }}', 'Error', {
+            positionClass: 'toast-top-right',
+            timeOut: 3500,
+            closeButton: true,
+        });
+    </script>
+@endif
+
+
+
 
     @yield('js_datatable')
     @yield('js_imagen')

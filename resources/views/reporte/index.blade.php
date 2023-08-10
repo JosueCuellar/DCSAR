@@ -276,22 +276,4 @@
 
         });
     </script>
-
-
-@endsection
-@section('js')
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
 @endsection

@@ -36,7 +36,7 @@ class RolController extends Controller
 	{
 		try {
 			$role->syncPermissions($request->input('permissions'));
-			return redirect()->route('roles.indexAssign');
+			return redirect()->route('roles.indexAssign')->with('status', 'Registro correcto');;
 		} catch (\Exception $e) {
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
@@ -72,9 +72,9 @@ class RolController extends Controller
 			$rol->name = $request->name;
 			$rol->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('rol.index')->with('status', 'Registro correcto');
+			return redirect()->route('rol.index')->with('status', 'Rol agregado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Ha ocurrido un error no se puede crear' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Ha ocurrido un error no se puede crear' . $e->getMessage());
 		}
 	}
 
@@ -85,7 +85,7 @@ class RolController extends Controller
 		try {
 			return view('usuario.roles.edit', compact('rol'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Ha ocurrido un error ' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
 	}
 
@@ -96,9 +96,9 @@ class RolController extends Controller
 			$rol->name = $request->name;
 			$rol->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('rol.index')->with('status', 'Registro correcto');
+			return redirect()->route('rol.index')->with('status', 'Rol actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -109,14 +109,14 @@ class RolController extends Controller
 			// Verificar si hay usuarios que tienen asignado el rol
 			if ($rol->users()->count() > 0) {
 					// Si hay usuarios con el rol asignado, mostrar un mensaje de error
-					return redirect()->back()->with('msg', 'No se puede eliminar el rol porque hay usuarios que lo tienen asignado');
+					return redirect()->back()->with('catch', 'No se puede eliminar el rol porque hay usuarios que lo tienen asignado');
 			}
 	
 			try {
 					$rol->delete();
-					return redirect()->route('rol.index')->with('delete', 'Registro eliminado');
+					return redirect()->route('rol.index')->with('delete', 'Rol eliminado');
 			} catch (\Exception $e) {
-					return redirect()->back()->with('msg', 'Ha occurrido un error' . $e->getMessage());
+					return redirect()->back()->with('catch', 'Ha occurrido un error' . $e->getMessage());
 			}
 	}
 	

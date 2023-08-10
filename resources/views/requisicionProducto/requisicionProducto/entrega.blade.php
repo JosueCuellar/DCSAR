@@ -126,61 +126,6 @@
         </form>
     </div>
 @endsection
-@section('js')
-
-    <script>
-        $('#modalObservacionDenegar').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var categoria_id = button.data('categoriaid')
-            var modal = $(this)
-            // modal.find('.modal-footer #user_id').val(user_id)
-            modal.find('form').attr('action', '{{ asset('/requisicionProducto/denegar/') }}' + '/' +
-                categoria_id);
-        })
-    </script>
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Solicitud confirmada',
-                position: 'topRight',
-                body: '{{ session('status') }} la solicitud se entrego correctamente',
-                class: 'bg-success',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'Solicitud eliminada',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-@endsection
 @section('js_datatable')
     <script>
         $(document).ready(function() {

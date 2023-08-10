@@ -17,7 +17,6 @@ class ProductoBodegaController extends Controller
 	{
 
 		try {
-			$bodegaPrincipal = 1;
 			$productos_bodegas = ProductoBodega::all();
 			return view('bodega.productoBodega.bodegaPrincipal', compact('productos_bodegas'));
 		} catch (\Exception $e) {
@@ -25,16 +24,7 @@ class ProductoBodegaController extends Controller
 		}
 	}
 
-	public function index2()
-	{
-		try {
-			$bodegaSecundaria = 2;
-			$productos_bodegas = ProductoBodega::where('bodega_id', $bodegaSecundaria)->get();
-			return view('bodega.productoBodega.bodegaPrincipal', compact('productos_bodegas'));
-		} catch (\Exception $e) {
-			return $e->getMessage();
-		}
-	}
+
 
 	public function store(Request $request, ProductoBodega $productoBodega)
 	{
@@ -52,35 +42,32 @@ class ProductoBodegaController extends Controller
 
 			// Create secondary warehouse if it does not exist
 			if (!$bodegaSecundaria) {
+				if ($cantidad > $productoBodega->cantidadDisponible) {
+					return redirect()->back()->with('catch', 'Error, no hay suficiente cantidad disponible en la bodega');
+				}
 				$bodegaSecundaria = new ProductoBodega([
 					'producto_id' => $producto,
 					'bodega_id' => $var,
-					'cantidadDisponible' => 0
+					'cantidadDisponible' => $cantidad
 				]);
+				$bodegaSecundaria->save();
+			} else {
+				// Check if there is enough available quantity in primary warehouse
+				if ($cantidad > $productoBodega->cantidadDisponible) {
+					return redirect()->back()->with('catch', 'Error, no hay suficiente cantidad disponible en la bodega');
+				}
+				// Move quantity from primary to secondary warehouse
+				$productoBodega->cantidadDisponible -= $cantidad;
+				$productoBodega->save();
+
+				$bodegaSecundaria->cantidadDisponible += $cantidad;
 				$bodegaSecundaria->save();
 			}
 
-			// Check if there is enough available quantity in primary warehouse
-			if ($cantidad > $productoBodega->cantidadDisponible) {
-				return redirect()->back()->with('msg', 'Error, no hay suficiente cantidad disponible en la bodega');
-			}
-
-			// Move quantity from primary to secondary warehouse
-			$productoBodega->cantidadDisponible -= $cantidad;
-			$productoBodega->save();
-
-			$bodegaSecundaria->cantidadDisponible += $cantidad;
-			$bodegaSecundaria->save();
-
-			// Redirect with success message
-			if ($bodega == 1) {
-				return redirect()->route('productoBodega.index')->with('status', 'Se ha agregado correctamente!');
-			} else {
-				return redirect()->route('productoBodega.index')->with('status', 'Se ha agregado correctamente!');
-			}
+			return redirect()->route('productoBodega.index')->with('status', 'Se ha agregado correctamente!');
 		} catch (\Exception $e) {
 			// Handle exception
-			return redirect()->back()->with('msg', 'Error de servidor: ' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error de servidor: ' . $e->getMessage());
 		}
 	}
 }

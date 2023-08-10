@@ -186,21 +186,49 @@
 
         </div>
     </div>
-    {{-- Notificacion para saber si hay solicitudes por revisar --}}
+@section('js_datatable')
     @if (Auth::user()->hasRole('Gerente Unidad Organizativa'))
-        @if ($existe)
-            @section('js_datatable')
-                <script>
-                    $(document).Toasts('create', {
-                        title: 'Solicitudes',
-                        position: 'topRight',
-                        body: 'Hay {{ $n }} solicitudes enviadas por revisar.',
-                        class: 'bg-info',
-                        icon: ' far fa-file',
-                    })
-                </script>
-            @endsection
+        @if ($existeEnviadas)
+            <script>
+                toastr.info('Hay {{ $nEnviadas }} solicitudes enviadas por revisar.', 'Solicitudes', {
+                    positionClass: 'toast-top-right',
+                    closeButton: true,
+                    onclick: function() {
+                        window.location.href = '/requisicionProducto/revisar';
+                    }
+                });
+            </script>
         @endif
     @endif
+
+    @if (Auth::user()->hasRole('Solicitante Unidad Organizativa'))
+        @if ($existeRechazadas)
+            <script>
+                toastr.error('Tienes {{ $nRechazadas }} solicitudes rechazadas por revisar, click sobre la notificacion.',
+                    'Solicitudes', {
+                        positionClass: 'toast-top-right',
+                        closeButton: true,
+                        onclick: function() {
+                            window.location.href = '/requisicionProducto/estado';
+                        }
+                    });
+            </script>
+        @endif
+    @endif
+
+    @if (Auth::user()->hasRole('Tecnico Encargado Almacen'))
+        @if ($existeAceptadas)
+            <script>
+                toastr.info('Hay {{ $nAprobadasTodas }} solicitudes para entregar, click sobre la notificacion.', 'Solicitudes', {
+                    closeButton: true,
+                    onclick: function() {
+                        window.location.href = '/requisicionProducto/entregaSolicitud';
+                    }
+                });
+            </script>
+        @endif
+    @endif
+
+@endsection
 
 @endsection

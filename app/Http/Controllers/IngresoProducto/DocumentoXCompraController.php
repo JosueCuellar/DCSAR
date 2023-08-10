@@ -55,9 +55,9 @@ class DocumentoXCompraController extends Controller
 				$file->move($rutaGuardarDocumento, $filename);
 				$documentoNuevo->save();
 			}
-			return redirect()->back()->with('message', 'Files uploaded successfully!');
+			return redirect()->back()->with('catch', 'Files uploaded successfully!');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('message', 'Error!');
+			return redirect()->back()->with('catch', 'Error!');
 		}
 	}
 
@@ -69,12 +69,12 @@ class DocumentoXCompraController extends Controller
 			if (File::exists($url)) {
 				File::delete($url);
 				DocumentoXCompra::where('nombreDocumento', $recepcionCompra->id . '-' . $filename)->delete();
-				return redirect()->back()->with('message', 'Exito!');
+				return redirect()->back()->with('catch', 'Exito!');
 			} else {
 				return  $m = 'File does not exist.';
 			}
 		} catch (\Exception $e) {
-			return redirect()->back()->with('message', 'Error!');
+			return redirect()->back()->with('catch', 'Error!');
 		}
 	}
 
@@ -86,12 +86,12 @@ class DocumentoXCompraController extends Controller
 			if (File::exists($url)) {
 				File::delete($url);
 				DocumentoXCompra::where('id', $id)->delete();
-				return redirect()->back()->with('message', 'Exito!');
+				return redirect()->back()->with('catch', 'Exito!');
 			} else {
 				return  $m = 'File does not exist.';
 			}
 		} catch (\Exception $e) {
-			return redirect()->back()->with('message', 'Error!');
+			return redirect()->back()->with('catch', 'Error!');
 		}
 	}
 }

@@ -16,7 +16,8 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-extra-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-bordered table-extra-sm table-striped text-center" id="dataTable6" width="100%"
+                    cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -95,62 +96,4 @@
             });
         });
     </script>
-@endsection
-@section('js')
-    @if (session('msg'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Error',
-                position: 'topRight',
-                body: '{{ session('msg') }}',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle ',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-    @if (session('status'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Marca agregada',
-                position: 'topRight',
-                body: '{{ session('status') }} se ha actualizado la tabla',
-                class: 'bg-success',
-                autohide: true,
-                icon: 'fas fa-solid fa-check',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-    @if (session('delete'))
-        <script>
-            $(document).Toasts('create', {
-                position: 'topRight',
-                title: 'Marca eliminado',
-                body: '{{ session('delete') }}, se ha actualizado la tabla',
-                class: 'bg-danger',
-                autohide: true,
-                icon: 'fas fa-solid fa-trash',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            $(document).Toasts('create', {
-                title: 'Notificación',
-                position: 'topRight',
-                body: '{{ session('error') }}',
-                class: 'bg-warning',
-                autohide: true,
-                icon: 'fas fa-exclamation-triangle',
-                delay: 3500,
-                close: false,
-            })
-        </script>
-    @endif
 @endsection

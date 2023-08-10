@@ -31,9 +31,9 @@ class MarcaController extends Controller
 			$marca->save();
 
 			//Se redirige al listado de todos los registros
-			return redirect()->route('marca.index')->with('status', 'Registro correcto');
+			return redirect()->route('marca.index')->with('status', 'Marca agregada');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede registrar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede registrar' . $e->getMessage());
 		}
 	}
 
@@ -43,7 +43,7 @@ class MarcaController extends Controller
 		try {
 			return view('catalogo.marca.edit', compact('marca'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -55,9 +55,9 @@ class MarcaController extends Controller
 			$marca->nombre =  $request->nombre;
 			$marca->save();
 			//Se redirige al listado de todos los registros
-			return redirect()->route('marca.index')->with('status', 'Registro correcto');
+			return redirect()->route('marca.index')->with('status', 'Marca actualizada');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'Error no se puede actualizar' . $e->getMessage());
+			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
 		}
 	}
 
@@ -66,9 +66,9 @@ class MarcaController extends Controller
 	{
 		try {
 			$marca->delete();
-			return redirect()->route('marca.index')->with('delete', 'Registro eliminado');
+			return redirect()->route('marca.index')->with('delete', 'Marca eliminada');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('msg', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
+			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
 		}
 	}
 }

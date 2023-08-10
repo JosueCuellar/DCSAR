@@ -55,7 +55,7 @@ class RecepcionCompraController extends Controller
 			$recepcionCompra->save();
 			return redirect()->route('recepcionCompra.documento', $recepcionCompra);
 		} catch (\Exception $e) {
-			return redirect()->back()->with('error', 'Algo salio mal!');
+			return redirect()->back()->with('catch', 'Algo salio mal!');
 		}
 	}
 
@@ -83,7 +83,7 @@ class RecepcionCompraController extends Controller
 			$recepcionCompra->save();
 			return redirect()->route('recepcionCompra.consultar', $recepcionCompra);
 		} catch (\Exception $e) {
-			return redirect()->back()->with('error', 'Algo salio mal!');
+			return redirect()->back()->with('catch', 'Algo salio mal!');
 		}
 	}
 
@@ -116,9 +116,9 @@ class RecepcionCompraController extends Controller
 				}
 			}
 			$recepcionCompra->save();
-			return redirect()->route('recepcionCompra.consultar')->with('status', 'Registro correcto');
+			return redirect()->route('recepcionCompra.consultar')->with('status', 'Registro de ingreso correcto');
 		} catch (\Exception $e) {
-			return back()->with('error', 'Algo salio mal!');
+			return back()->with('catch', 'Algo salio mal!');
 		}
 	}
 
@@ -186,7 +186,7 @@ class RecepcionCompraController extends Controller
 			$recepcionCompra->delete();
 			return redirect()->route('recepcionCompra.consultar')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('error', 'Algo salio mal!');
+			return redirect()->back()->with('catch', 'Algo salio mal!');
 		}
 	}
 
@@ -202,13 +202,7 @@ class RecepcionCompraController extends Controller
 	public function costoPromedioCalculo($producto)
 	{
 		try {
-			$existencias = 0;
-			$saldoTotal = 0;
-			$costoPromedioVar = 0;
-			$sumaCompras = 0;
-			$sumaRequi = 0;
-			$cantidadCompra = 0;
-			$cantidadRequi = 0;
+			$existencias = $saldoTotal = $costoPromedioVar = $sumaCompras = $sumaRequi = $cantidadCompra = $cantidadRequi = 0;
 			$detalleCompras = DetalleCompra::whereHas('recepcionCompra', function ($query) {
 				$query->where('finalizado', 1);
 			})->where('producto_id', $producto)->get();
@@ -231,8 +225,11 @@ class RecepcionCompraController extends Controller
 
 			$saldoTotal = $sumaCompras - $sumaRequi;
 			$existencias = $cantidadCompra - $cantidadRequi;
-			$costoPromedioVar = $saldoTotal / $existencias;
-			return $costoPromedioVar;
+			if ($existencias > 0) {
+				$costoPromedioVar = $saldoTotal / $existencias;
+			} else {
+				$costoPromedioVar = $saldoTotal / 1;
+			}			return $costoPromedioVar;
 		} catch (\Exception $e) {
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
