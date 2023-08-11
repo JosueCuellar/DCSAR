@@ -1,67 +1,53 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Configuración del entorno de desarrollo para proyecto Laravel
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este documento describe los pasos para configurar un entorno de desarrollo para un proyecto Laravel en un servidor Windows Server 2022 de 64 bits (x86) con PHP 8.1.6 y XAMPP.
 
-## About Laravel
+## Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Microsoft Windows Server 2022 64 bits (x86)
+- PHP: 8.1.6
+- XAMPP: Debe ser una versión reciente que sea compatible con PHP 8.1.6.
+- Laravel 9: Es el framework de desarrollo que se utilizará para el sistema.
+- Composer: Es la herramienta de gestión de dependencias para PHP.
+- SQLSERVER: Se utilizará para la gestión de la base de datos.
+- GIT: Es la herramienta que se utilizará para clonar el proyecto.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Descargas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- XAMPP: https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.1.6/xampp-windows-x64-8.1.6-0-VS16-installer.exe/download
+- Composer: https://getcomposer.org/Composer-Setup.exe
+- Drivers de SQL Server para PHP: https://go.microsoft.com/fwlink/?linkid=2226724
 
-## Learning Laravel
+## Instalación
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Descarga e instala XAMPP desde el enlace proporcionado en la sección "Descargas".
+2. Descarga e instala Composer desde el enlace proporcionado en la sección "Descargas".
+3. Abre el Panel de Control de Windows y busca "Editar las variables de entorno del sistema".
+4. En la ventana "Propiedades del sistema", haz clic en "Variables de entorno".
+5. En la sección "Variables del sistema", busca la variable "Path" y haz clic en "Editar".
+6. Haz clic en "Nuevo" y agrega la ruta a la carpeta donde se encuentra el ejecutable php.exe (por ejemplo, C:\xampp\php).
+7. Haz clic en "Aceptar" para guardar los cambios y cerrar todas las ventanas.
+8. Reinicia cualquier ventana de línea de comandos abierta para que los cambios surtan efecto.
+9. Instala Laravel 9, que es el framework de desarrollo utilizado para el sistema.
+10. Descarga e instala los drivers SQL SERVER PHP desde el enlace proporcionado en la sección "Descargas" y copia los archivos .dll en la carpeta xampp/php.
+11. Instala GIT, la herramienta que se utilizará para clonar el proyecto.
+12. Abre XAMPP Control Panel y asegúrate de que el servicio Apache esté corriendo.
+13. Clona el proyecto Laravel en la carpeta xampp/htdocs/ utilizando el comando `git clone`.
+14. Accede al directorio del proyecto clonado y ejecuta `composer install` para instalar las dependencias del proyecto.
+15. Copia el archivo .env.example y renómbralo como .env, luego configura los valores de conexión a la base de datos en este archivo.
+16. Genera una clave de aplicación única ejecutando `php artisan key:generate`.
+17. Crea una base de datos con el nombre "dcsar" en SQLSERVER.
+18. Ejecuta las migraciones de la base de datos con el comando `php artisan migrate`.
+19. Navega a http://localhost/dcsar/public en tu navegador web para ver la aplicación funcionando.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Uso
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Para utilizar el sistema, simplemente navega a http://localhost/dcsar/public en tu navegador web.
 
-## Laravel Sponsors
+## Contribuir
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Si deseas contribuir al proyecto, por favor lee las directrices de contribución antes de enviar tus cambios.
 
-### Premium Partners
+## Licencia
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# DCSAR
+Este proyecto está licenciado bajo la Licencia MIT.
