@@ -1,10 +1,10 @@
-Instalar Xammp, composer y Node
+Instalar Xammp PHP 8.1.6, composer, Laravel 9
 
 Clonar el repositorio
 
 ------------------------------------------------------------------------------------------------
 
-Dentro de la carpeta del proyeccto en una terminal:
+Dentro de la carpeta del proyecto en una terminal:
 
 composer global require laravel/installer
 
@@ -12,26 +12,10 @@ composer install
 
 cp .env.example .env
 
-    nombre de la base: sgi
-    
-    usuario de la base: root
-    
-    sin contrasena
+    Nombre de la base: dcsar
     
 php artisan key:generate
-
-composer require mike42/escpos-php
-
-composer require spatie/laravel-permission
-
-composer require tightenco/ziggy
-
-php artisan config:cache
-
 ------------------------------------------------------------------------------------------------
 
-hacer php artisan migrate
+Realizar un  php artisan migrate
 
-Luego desde phpMyAdmin immportar los datos del archivo sql sggi.sql
-
-Al entrar al sistema, se pedira crear un usuario, este sera el usuario administrador
