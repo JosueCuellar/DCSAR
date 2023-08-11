@@ -30,6 +30,8 @@ return new class extends Migration
 			$table->softDeletes();
 		});
 
+		// Crear un trigger que registra movimientos de entrada en el kardex
+
 		DB::unprepared("
             CREATE TRIGGER registrar_entrada
             ON recepcion_compras
@@ -46,6 +48,8 @@ return new class extends Migration
                 END
             END;
         ");
+
+		// Crear un trigger que registra movimientos de salida en el kardex
 
 		DB::unprepared("
             CREATE TRIGGER registrar_salida
@@ -64,6 +68,9 @@ return new class extends Migration
             END;
         ");
 
+
+		// Crear un trigger que actualiza el kardex después de actualizar el detalle de requisición
+
 		DB::unprepared("
 						CREATE TRIGGER actualizar_kardex_despues_actualizar_detalle_requisicion
 						ON detalle_requisicions
@@ -77,6 +84,9 @@ return new class extends Migration
 								WHERE kardex.detalle_requisicion_id = i.id;
 						END;
         ");
+
+
+		// Crear un trigger que actualiza el kardex después de actualizar el detalle de compra
 
 		DB::unprepared("
 						CREATE TRIGGER actualizar_kardex_despues_actualizar_detalle_compra
@@ -92,6 +102,8 @@ return new class extends Migration
 						END;
         ");
 
+		// Crear un trigger que marca registros en el kardex como eliminados después de borrar un detalle de requisición
+
 		DB::unprepared("
 						CREATE TRIGGER actualizar_kardex_despues_borrar_detalle_requisicion
 						ON detalle_requisicions
@@ -103,6 +115,8 @@ return new class extends Migration
 								WHERE kardex.detalle_requisicion_id IN (SELECT id FROM deleted);
 						END;
         ");
+
+		// Crear un trigger que marca registros en el kardex como eliminados después de borrar un detalle de compra
 
 		DB::unprepared("
 						CREATE TRIGGER actualizar_kardex_despues_borrar_detalle_compra

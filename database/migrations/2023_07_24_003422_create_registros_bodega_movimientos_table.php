@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreign('producto_bodega_id')->references('id')->on('producto_bodegas');
         });
 
+				// Crear un trigger que registra inserciones en la tabla producto_bodegas
+
         DB::unprepared("
             CREATE TRIGGER registrar_insert_producto_bodegas
             ON producto_bodegas
@@ -34,6 +36,8 @@ return new class extends Migration
                 FROM inserted i;
             END;
         ");
+
+				// Crear un trigger que registra actualizaciones en la tabla producto_bodegas
 
         DB::unprepared("
             CREATE TRIGGER registrar_update_producto_bodegas

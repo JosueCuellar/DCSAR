@@ -39,12 +39,21 @@ class LoginController extends Controller
 		$this->middleware('guest')->except('logout');
 	}
 
+	/**
+	 * Maneja las acciones después de que un usuario se autentica correctamente.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\User  $user
+	 * @return \Illuminate\Http\Response
+	 */
 	protected function authenticated(Request $request, $user)
 	{
+		// Verifica si el usuario tiene el rol de 'Super Administrador'
 		if ($user->hasRole('Super Administrador')) {
+			// Redirecciona al panel de control del administrador superusuario
 			return redirect()->route('dashboardAdmin');
 		}
-
+		// Redirecciona al destino originalmente intentado antes de la autenticación
 		return redirect()->intended($this->redirectPath());
 	}
 }

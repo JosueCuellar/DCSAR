@@ -16,99 +16,152 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
 
-	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
+	/**
+	 * Muestra un listado de todos los registros de usuarios almacenados en la base de datos.
+	 *
+	 * @return Illuminate\View\View La vista del índice de usuarios con los registros almacenados.
+	 */
 	public function index()
 	{
-
 		try {
+			// Recuperar todos los registros de usuarios
 			$usuarios = User::all();
 
+			// Enviar los registros a la vista del índice de usuarios
 			return view('usuario.usuario.index', compact('usuarios'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+			// En caso de error, redirigir a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'Ha ocurrido un error: ' . $e->getMessage());
 		}
 	}
 
-	//Envia un arreglo de estados
+	/**
+	 * Muestra el formulario para crear un nuevo registro de usuario.
+	 *
+	 *
+	 * @return Illuminate\View\View La vista del formulario de creación de usuarios con los datos necesarios.
+	 */
 	public function create()
 	{
-		//    $estados = Estado::all();
 		try {
+			// Recuperar todos los roles y unidades organizativas
 			$roles = Role::all();
 			$unidadesOrganizativas = UnidadOrganizativa::all();
+
+			// Enviar los roles y unidades organizativas a la vista del formulario de creación de usuarios
 			return view('usuario.usuario.create', compact('unidadesOrganizativas', 'roles'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+			// En caso de error, redirigir a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'Ha ocurrido un error: ' . $e->getMessage());
 		}
 	}
 
-	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
-	//Se hace uso de la clase Request para los mensajes de validación
+	/**
+	 * Almacena un nuevo registro de usuario en la base de datos.
+	 *.
+	 *
+	 * @param UserRequest $request La solicitud HTTP con los datos del formulario.
+	 * @return Illuminate\Http\RedirectResponse La redirección al listado de usuarios con un mensaje de estado.
+	 */
 	public function store(UserRequest $request)
 	{
 		try {
-			//Se crea y almacena un nuevo objeto
+			// Crear y almacenar un nuevo objeto de usuario
 			$usuario = new User();
 			$usuario->name = $request->name;
 			$usuario->email = $request->email;
 			$usuario->unidad_organizativa_id = $request->unidad_organizativa_id;
 			$usuario->password = Hash::make($request->password);
 			$usuario->assignRole($request->input('role'));
-
 			$usuario->save();
-			//Se redirige al listado de todos los registros
+
+			// Redirigir al listado de usuarios con un mensaje de estado
 			return redirect()->route('usuario.index')->with('status', 'Usuario agregado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+			// En caso de error, redirigir a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'Ha ocurrido un error: ' . $e->getMessage());
 		}
 	}
 
-	//Función que permite la edición de un registro almacenado
+	/**
+	 * Muestra el formulario para editar un registro de usuario existente.
+	 *
+	 *
+	 * @param User $usuario El objeto del usuario a editar.
+	 * @return Illuminate\View\View La vista del formulario de edición de usuarios con los datos necesarios.
+	 */
 	public function edit(User $usuario)
 	{
 		try {
+			// Recuperar roles y unidades organizativas
 			$roles = Role::all();
 			$unidadesOrganizativas = UnidadOrganizativa::all();
+
+			// Recuperar la unidad organizativa actual y el rol actual del usuario
 			$currentUnidadOrganizativa = $usuario->unidad_organizativa_id;
 			$currentRole = $usuario->roles->first();
+
+			// Enviar los datos a la vista del formulario de edición de usuarios
 			return view('usuario.usuario.edit', compact('usuario', 'roles', 'currentRole', 'unidadesOrganizativas', 'currentUnidadOrganizativa'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+			// En caso de error, redirigir a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'Ha ocurrido un error: ' . $e->getMessage());
 		}
 	}
 
-	//Función que actualiza un registro
+	/**
+	 * Actualiza un registro de usuario en la base de datos.
+	 *
+	 *
+	 * @param UserRequest $request La solicitud HTTP con los datos del formulario.
+	 * @param User $usuario El objeto del usuario a actualizar.
+	 * @return Illuminate\Http\RedirectResponse La redirección al listado de usuarios con un mensaje de estado.
+	 */
 	public function update(UserRequest $request, User $usuario)
 	{
 		try {
+			// Actualizar propiedades del usuario
 			$usuario->name = $request->name;
 			$usuario->email = $request->email;
+
+			// Actualizar contraseña si se proporcionó una nueva
 			if (!empty($request->input('password'))) {
 				$usuario->password = Hash::make($request->password);
 			}
+
 			$usuario->unidad_organizativa_id = $request->input('unidad_organizativa_id');
 
+			// Guardar los cambios en el usuario
 			$usuario->save();
+
+			// Sincronizar roles del usuario
 			$usuario->syncRoles([$request->input('role')]);
 
-			//Se redirige al listado de todos los registros
+			// Redirigir al listado de usuarios con un mensaje de estado
 			return redirect()->route('usuario.index')->with('status', 'Usuario actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
+			// En caso de error, redirigir a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'Error, no se puede actualizar: ' . $e->getMessage());
 		}
 	}
 
-
-	//Función que elimina un registro
+	/**
+	 * Elimina un registro de usuario de la base de datos.
+	 *
+	 * @param User $usuario El objeto del usuario a eliminar.
+	 * @return Illuminate\Http\RedirectResponse La redirección al listado de usuarios con un mensaje de estado.
+	 */
 	public function destroy(User $usuario)
 	{
-
 		try {
+			// Eliminar el usuario
 			$usuario->delete();
+
+			// Redirigir al listado de usuarios con un mensaje de estado
 			return redirect()->route('usuario.index')->with('delete', 'Usuario eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utilizar' . $e->getMessage());
+			// En caso de error, redirigir a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otras tablas lo utilizan: ' . $e->getMessage());
 		}
 	}
-
 }

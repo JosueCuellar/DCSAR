@@ -106,14 +106,14 @@
                                     <label for="start_date" class="col-sm-4 col-form-label">Fecha inicio</label>
                                     <div class="col-sm-8">
                                         <input type="month" class="form-control" id="start_date" name="start_date"
-                                          max="{{ date('Y-m') }}">
+                                            max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="end_date" class="col-sm-4 col-form-label">Fecha fin</label>
                                     <div class="col-sm-8">
                                         <input type="month" class="form-control" id="end_date" name="end_date"
-                                          max="{{ date('Y-m') }}">
+                                            max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                     <label for="fechaInput" class="col-sm-4 col-form-label">Fecha</label>
                                     <div class="col-sm-8">
                                         <input type="month" class="form-control" id="fechaInputSa" name="fechaInput"
-                                          max="{{ date('Y-m') }}">
+                                            max="{{ date('Y-m') }}">
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +247,11 @@
                 document.querySelector('#rubro_id').setAttribute('required', true);
                 document.querySelector('#start_date').setAttribute('required', true);
                 document.querySelector('#end_date').setAttribute('required', true);
+								document.querySelector('.fechaUnidades').style.display = 'none';
+                document.querySelector('#fechaInputSa').removeAttribute('required');
+                document.querySelector('#fechaInputSa').value = '';
             } else {
+
                 additionalElements.forEach((element) => {
                     element.style.display = 'none';
                 });
@@ -263,12 +267,11 @@
                     // Show the div with the class fechaUnidades
                     document.querySelector('.fechaUnidades').style.display = 'block';
                     document.querySelector('#fechaInputSa').setAttribute('required', true);
-										console.log("XD");
                 } else {
                     // Hide the div with the class fechaUnidades
                     document.querySelector('.fechaUnidades').style.display = 'none';
                     document.querySelector('#fechaInputSa').removeAttribute('required');
-										document.querySelector('#fechaInputSa').value = '';
+                    document.querySelector('#fechaInputSa').value = '';
 
                 }
             }

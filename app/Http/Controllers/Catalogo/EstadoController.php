@@ -8,68 +8,110 @@ use App\Models\Estado;
 
 class EstadoController extends Controller
 {
-	//Función que trae un listado de todos los registros de la base de datos, los almacena y envía a la vista del index
+	/**
+	 * Muestra una lista de todos los estados almacenados en la base de datos y los envía a la vista del índice.
+	 *
+	 * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+	 */
 	public function index()
 	{
 		try {
+			// Obtiene todos los registros de estados de la base de datos
 			$estados = Estado::all();
+			// Retorna la vista del índice de estados junto con la lista de estados
 			return view('catalogo.estado.index', compact('estados'));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+			// Manejo de excepciones en caso de error
+			return redirect()->back()->with('catch', 'Ha ocurrido un error: ' . $e->getMessage());
 		}
 	}
 
-	//Función que permite la creación de un nuevo registro que será almacenado dentro de la base de datos
-	//Se hace uso de la clase Request para los mensajes de validación
+
+	/**
+	 * Crea y almacena un nuevo estado dentro de la base de datos.
+	 *
+	 * @param  \App\Http\Requests\EstadoRequest  $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function store(EstadoRequest $request)
 	{
 		try {
-			//Se crea y almacena un nuevo objeto
+			// Crea un nuevo objeto Estado y asigna los valores desde el formulario
 			$estado = new Estado();
 			$estado->codigoEstado = $request->codigoEstado;
 			$estado->nombreEstado = $request->nombreEstado;
 			$estado->descripcionEstado = $request->descripcionEstado;
 			$estado->save();
-			//Se redirige al listado de todos los registros
+
+			// Redirige al listado de todos los registros de estados
 			return redirect()->route('estado.index')->with('status', 'Estado agregado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Error no se puede registrar' . $e->getMessage());
+			// Manejo de excepciones en caso de error
+			return redirect()->back()->with('catch', 'Error, no se puede registrar: ' . $e->getMessage());
 		}
 	}
 
-	//Función que permite la edición de un registro almacenado
+
+	/**
+	 * Muestra la vista de edición para un registro de estado existente.
+	 *
+	 * @param  \App\Models\Estado  $estado
+	 * @return \Illuminate\Contracts\View\View|\Illuminate\Http\Response
+	 */
 	public function edit(Estado $estado)
 	{
 		try {
+			// Retorna la vista de edición con los detalles del estado a editar
 			return view('catalogo.estado.edit', compact('estado'));
 		} catch (\Exception $e) {
+			// Manejo de excepciones en caso de error
 			return $e->getMessage();
 		}
 	}
 
-	//Función que actualiza un registro
+
+	/**
+	 * Actualiza los detalles de un registro de estado existente en la base de datos.
+	 *
+	 * @param  \App\Http\Requests\EstadoRequest  $request
+	 * @param  \App\Models\Estado  $estado
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function update(EstadoRequest $request, Estado $estado)
 	{
 		try {
+			// Actualiza los valores del estado con los datos proporcionados en el formulario
 			$estado->codigoEstado = $request->codigoEstado;
 			$estado->nombreEstado = $request->nombreEstado;
 			$estado->descripcionEstado = $request->descripcionEstado;
 			$estado->save();
-			//Se redirige al listado de todos los registros
+
+			// Redirige al listado de todos los registros de estados
 			return redirect()->route('estado.index')->with('status', 'Estado actualizado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Error no se puede actualizar' . $e->getMessage());
+			// Manejo de excepciones en caso de error
+			return redirect()->back()->with('catch', 'Error, no se puede actualizar: ' . $e->getMessage());
 		}
 	}
 
-	//Función que elimina un registro
+
+	/**
+	 * Elimina un registro de estado de la base de datos.
+	 *
+	 * @param  \App\Models\Estado  $estado
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function destroy(Estado $estado)
 	{
 		try {
+			// Elimina el registro de estado de la base de datos
 			$estado->delete();
+
+			// Redirige al listado de todos los registros de estados con mensaje de éxito
 			return redirect()->route('estado.index')->with('delete', 'Estado eliminado');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utiliza' . $e->getMessage());
+			// Manejo de excepciones en caso de error de eliminación
+			return redirect()->back()->with('catch', 'El registro no se puede eliminar, otra tabla lo utiliza: ' . $e->getMessage());
 		}
 	}
 }

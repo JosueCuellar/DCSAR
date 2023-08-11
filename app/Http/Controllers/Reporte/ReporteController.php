@@ -21,62 +21,98 @@ use IntlDateFormatter;
 
 class ReporteController extends Controller
 {
-	//
+	/**
+	 * Muestra la página principal de generación de informes.
+	 *
+	 * Este método recupera la lista de rubros desde la base de datos y los pasa a la vista 'reporte.index' para mostrarlos en la página.
+	 * Si ocurre algún error durante el proceso, el método redirige al usuario a la página anterior con un mensaje de error.
+	 *
+	 * @return Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View La vista 'reporte.index' que muestra la página principal de generación de informes.
+	 */
 	public function index()
 	{
 		try {
+			// Recuperar la lista de rubros desde la base de datos
 			$rubros = Rubro::all();
+
+			// Pasar la lista de rubros a la vista para mostrarlos en la página
 			return view('reporte.index', compact("rubros"));
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+			// En caso de error, redirigir a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'Ha ocurrido un error: ' . $e->getMessage());
 		}
 	}
 
-	//PDF comprobante de salida
+	/**
+	 * Genera un comprobante PDF para una requisición de productos.
+	 *
+	 * Este método genera un comprobante en formato PDF para una requisición de productos especificada.
+	 * Calcula el total final y recopila los datos necesarios para crear el comprobante.
+	 * Luego, utiliza la librería PDF para cargar la vista 'reporte.comprobanteRequiProduc' con los datos necesarios.
+	 * Configura el tamaño del papel y la orientación del PDF, y renderiza el PDF.
+	 * Agrega números de página al pie de página del PDF.
+	 * Finalmente, devuelve el PDF generado para su visualización o descarga.
+	 * En caso de un error, redirige al usuario a la página anterior con un mensaje de error.
+	 *
+	 * @param RequisicionProducto $requisicionProducto La instancia de la requisición de productos para la que se generará el comprobante.
+	 * @return mixed El contenido del PDF generado para su visualización o descarga.
+	 */
 	public function comprobanteRequiProductoPDF(RequisicionProducto $requisicionProducto)
 	{
 		try {
+			// Inicializar el total final y obtener la lista de productos
 			$totalFinal = 0.0;
 			$productos = Producto::all();
 
+			// Calcular el total final y obtener los detalles de la requisición
 			$detalle_requisicion = DetalleRequisicion::where('requisicion_id', $requisicionProducto->id)->get();
 			foreach ($detalle_requisicion as $item) {
 				$totalFinal += $item->total;
 			}
+
+			// Preparar los datos para la vista del PDF
 			$data = [
 				'productos' => $productos,
 				'detalle_requisicion' => $detalle_requisicion,
 				'totalFinal' => $totalFinal,
 				'requisicionProducto' => $requisicionProducto
 			];
+
+			// Cargar la vista del comprobante y generar el PDF
 			$pdf = PDF::loadView('reporte.comprobanteRequiProduc', $data);
 			$pdf->setPaper('letter', 'portrait', 'auto');
-			// 'letter' is letter size, 'portrait' is the orientation
 			$pdf->render();
 
+			// Agregar números de página al pie de página del PDF
 			$canvas = $pdf->getCanvas();
-
-			// Agregar los números de página al pie de página
-
-			// Obtener el objeto FontMetrics
 			$fontMetrics = $pdf->getFontMetrics();
 			$w = $canvas->get_width();
 			$h = $canvas->get_height();
-
-			// Agregar los números de página al pie de página
 			$font = $fontMetrics->getFont("helvetica", "bold");
 			$text = 'Página {PAGE_NUM} de {PAGE_COUNT}';
 			$textWidth = $fontMetrics->getTextWidth($text, $font, 10);
 			$x = $w - $textWidth - 150;
 			$y = $h - 30;
 			$canvas->page_text($x, $y, $text, $font, 10, array(0, 0, 0));
-			// 'letter' is letter size, 'portrait' is the orientation
+
+			// Devolver el PDF generado para su visualización o descarga
 			return $pdf->stream($requisicionProducto->nCorrelativo . '.pdf');
 		} catch (\Exception $e) {
-			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
+			// En caso de error, redirigir al usuario a la página anterior con un mensaje de error
+			return redirect()->back()->with('catch', 'Ha ocurrido un error: ' . $e->getMessage());
 		}
 	}
 
+	/**
+	 * The function ingresoProductoPDF generates a PDF report for a given RecepcionCompra object,
+	 * including details of the purchase and a total amount, and adds page numbers to the footer before
+	 * streaming the PDF for download.
+	 * 
+	 * @param RecepcionCompra recepcionCompra The parameter "recepcionCompra" is an instance of the
+	 * "RecepcionCompra" class. It is used to retrieve information related to a reception of a purchase.
+	 * 
+	 * @return a PDF file stream.
+	 */
 	public function ingresoProductoPDF(RecepcionCompra $recepcionCompra)
 	{
 		try {
@@ -164,7 +200,6 @@ class ReporteController extends Controller
 		}
 	}
 
-
 	// REPORTES MENSUALES
 
 	//Metodo que recibe el tipo de reporte que se requiere, le pasa los parametros para ecoger el reporte mensual
@@ -201,7 +236,6 @@ class ReporteController extends Controller
 			return redirect()->back()->with('catch', 'Ha ocurrido un error ' . $e->getMessage());
 		}
 	}
-
 
 	public function totalIngresoMes(Request $request)
 	{
@@ -336,13 +370,9 @@ class ReporteController extends Controller
 					DB::raw('(COALESCE((SELECT SUM(total) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso)<=? AND MONTH(fechaIngreso)<=? AND finalizado = 1)),0)-COALESCE((SELECT SUM(total) FROM detalle_requisicions WHERE producto_id=productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id=? AND YEAR(fechaRequisicion)<=? AND MONTH(fechaRequisicion)<=?)),0)) AS total')
 				)
 				->groupBy('rubros.codigoPresupuestario', 'rubros.descripRubro', 'productos.codProducto', 'productos.descripcion', 'medidas.nombreMedida', 'productos.id')
-				->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = ? AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) > 0', [$year, $month, $ENTREGADA, $year, $month])
-				->setBindings([$year, $month, $ENTREGADA, $year, $month, $year, $month, $ENTREGADA, $year, $month, $year, $month, $ENTREGADA, $year, $month, $year, $month])
+				->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) > 0', [$year, $month, $year, $month])
+				->setBindings([$year, $month, $ENTREGADA, $year, $month, $year, $month, $year, $ENTREGADA, $month, $year, $month, $ENTREGADA, $year, $month, $year, $month, $ENTREGADA, $year, $month])
 				->get();
-
-
-
-
 
 			$groupedResults = [];
 			foreach ($resultados as $row) {
