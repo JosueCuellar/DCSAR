@@ -38,6 +38,8 @@ Este documento describe los pasos para configurar un entorno de desarrollo para 
 16. Genera una clave de aplicación única ejecutando `php artisan key:generate`.
 17. Crea una base de datos con el nombre "dcsar" en SQLSERVER.
 18. Ejecuta las migraciones de la base de datos con el comando `php artisan migrate:refresh --seed`.
+y acceder al sistema con el rol de administrador, para agregar usuarios con roles y probar la aplicación
+   Correo electrónico : admin@admin.com   Contrasena : password
 19. Navega a http://localhost/dcsar/public en tu navegador web para ver la aplicación funcionando.
 
 ## Uso
