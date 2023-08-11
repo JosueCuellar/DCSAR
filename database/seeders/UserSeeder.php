@@ -16,17 +16,48 @@ class UserSeeder extends Seeder
 	{
 		//
 
-		// DB::table('unidad_organizativas')->insert([
-		// 	['nombreUnidadOrganizativa' => 'Unidad Logistica', 'descripUnidadOrganizativa' => 'Unidad Logistica'],
-		// 	['nombreUnidadOrganizativa' => 'Gerencia de Sistemas Informaticos', 'descripUnidadOrganizativa' => 'Gerencia de Sistemas Informaticos'],
+		DB::table('unidad_organizativas')->insert([
+			['nombreUnidadOrganizativa' => 'Unidad Logistica', 'descripUnidadOrganizativa' => 'Unidad Logistica'],
+			['nombreUnidadOrganizativa' => 'Gerencia de Sistemas Informaticos', 'descripUnidadOrganizativa' => 'Gerencia de Sistemas Informaticos'],
 		// 	['nombreUnidadOrganizativa' => 'Gerencia Administracion', 'descripUnidadOrganizativa' => 'Gerencia Administracion'],
-		// ]);
+		]);
+
+
+		  //
+			User::create([
+				'name' => 'Super Admin',
+				'email' => 'admin@admin.com',
+				'password' => bcrypt('password')
+		])->assignRole('Super Administrador');
 
 		User::create([
-			'name' => 'Super Admin',
-			'email' => 'admin@admin.com',
-			'password' => bcrypt('password')
-		])->assignRole('Super Administrador');
+				'name' => 'Gerente UO',
+				'email' => 'gerenteUO@gerenteUO.com',
+				'unidad_organizativa_id' => 2,
+				'password' => bcrypt('password')
+		])->assignRole('Gerente Unidad Organizativa');
+
+		User::create([
+				'name' => 'Gerente Encargado',
+				'email' => 'gerente@gerente.com',
+				'unidad_organizativa_id' => 1,
+				'password' => bcrypt('password')
+		])->assignRole('Gerente Encargado Almacen');
+
+		User::create([
+				'name' => 'Tecnico',
+				'email' => 'tecnico@tecnico.com',
+				'unidad_organizativa_id' => 1,
+				'password' => bcrypt('password')
+		])->assignRole('Tecnico Encargado Almacen');
+
+		User::create([
+				'name' => 'Solicitante',
+				'email' => 'solicitante@solicitante.com',
+				'unidad_organizativa_id' => 2,
+				'password' => bcrypt('password')
+		])->assignRole('Solicitante Unidad Organizativa');
+
 
 		// User::create([
 		// 	'name' => 'Gerente Encargado',
