@@ -14,7 +14,7 @@ Este documento describe los pasos para configurar un entorno de desarrollo para 
 
 ## Descargas
 
-- XAMPP: https://sourceforge.net/projects/xampp/files/XAMPP Windows/8.1.6/xampp-windows-x64-8.1.6-0-VS16-installer.exe/download
+- XAMPP: https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.1.6/xampp-windows-x64-8.1.6-0-VS16-installer.exe/download
 - Composer: https://getcomposer.org/Composer-Setup.exe
 - Drivers de SQL Server para PHP: https://go.microsoft.com/fwlink/?linkid=2226724
 
