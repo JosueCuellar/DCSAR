@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bodega extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'nombre_bodega',
-        'ubicacion'
-    ];
+	use HasFactory;
+	protected $fillable = [
+		'nombreBodega',
+		'ubicacion'
+	];
 }

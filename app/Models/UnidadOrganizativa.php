@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnidadOrganizativa extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'nombre_unidad_medida',
-        'descripcion_unidad_medida'
-    ];
+	use HasFactory;
+	protected $fillable = [
+		'nombreUnidadOrganizativa',
+		'descripUnidadOrganizativa'
+	];
 
+
+	public function users()
+	{
+		return $this->hasMany('App\Models\User', 'unidad_organizativa_id');
+	}
 }

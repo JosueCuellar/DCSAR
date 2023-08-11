@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocumentoXCompra extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'nombre_documento',
-        'recepcion_compra_id'
-    ];
+	use HasFactory;
+	protected $fillable = [
+		'nombreDocumento',
+		'recepcion_compra_id'
+	];
 }

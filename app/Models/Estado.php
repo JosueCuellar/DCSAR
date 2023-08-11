@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Estado extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'codigo_estado',
-        'nombre_estado',
-        'descripcion_estado'
-    ];
+	use HasFactory;
+	protected $fillable = [
+		'codigoEstado',
+		'nombreEstado',
+		'descripcionEstado'
+	];
 }

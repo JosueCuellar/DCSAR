@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rubro extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'codigo_presupuestario',
-        // 'estado_id',
-        'descripcion_rubro'
-    ];
+	use HasFactory;
+	protected $fillable = [
+		'codigoPresupuestario',
+		// 'estado_id',
+		'descripRubro'
+	];
 
-    // public function estado(){
-    //     return $this->belongsTo(Estado::class);
-    // }
+	// public function estado(){
+	//     return $this->belongsTo(Estado::class);
+	// }
 }

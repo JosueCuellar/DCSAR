@@ -6,30 +6,32 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('rubros', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            // $table->unsignedBigInteger('estado_id')->unsigned();
-            $table->string('codigo_presupuestario');
-            $table->string('descripcion_rubro');
-            // $table->foreign('estado_id')->references('id')->on('estados');
-        });
-    }
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('rubros', function (Blueprint $table) {
+			$table->id();
+			$table->timestamps();
+			// $table->unsignedBigInteger('estado_id')->unsigned();
+			$table->string('codigoPresupuestario', 6);
+			$table->string('descripRubro' , 60);
+			$table->softDeletes();
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('rubros');
-    }
+			// $table->foreign('estado_id')->references('id')->on('estados');
+		});
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::dropIfExists('rubros');
+	}
 };

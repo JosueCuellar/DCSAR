@@ -7,28 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecepcionCompra extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'fecha_ingreso',
-        'proveedor_id',
-        'nOrdenCompra',
-        'nPresupuestario',
-        'estado',
-        'codigo_factura'
-    ];
+	use HasFactory;
+	protected $fillable = [
+		'fechaIngreso',
+		'proveedor_id',
+		'nOrdenCompra',
+		'nPresupuestario',
+		'estado',
+		'codigoFactura'
+	];
 
-    public function producto()
-    {
-        return $this->belongsTo(Producto::class);
-    }
-    
-    public function detalleCompra()
-    {
-        return $this->belongsTo(DetalleCompra::class);
-    }
+	public function producto()
+	{
+		return $this->belongsTo(Producto::class);
+	}
 
-    public function proveedor()
-    {
-        return $this->belongsTo(Proveedor::class);
-    }
+	public function detalleCompra()
+	{
+		return $this->belongsTo(DetalleCompra::class);
+	}
+
+	public function proveedor()
+	{
+		return $this->belongsTo(Proveedor::class);
+	}
 }

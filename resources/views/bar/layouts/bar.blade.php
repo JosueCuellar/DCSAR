@@ -1,4 +1,4 @@
-@extends('admin.layouts.index')
+@extends('layoutsGeneral.admin.layouts.index')
 @section('bar')
 <style>
     .bar {
