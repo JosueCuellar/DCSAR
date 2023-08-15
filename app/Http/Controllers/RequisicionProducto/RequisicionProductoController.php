@@ -300,7 +300,10 @@ class RequisicionProductoController extends Controller
 		try {
 			// Constante para el estado "enviada" (definido en config/constantes.php)
 			$ENVIADA = config('constantes.ENVIADA');
-
+			// Validación personalizada para asegurar que el campo "observacion" no contenga solo números
+			Validator::extend('not_only_numbers', function ($attribute, $value, $parameters, $validator) {
+				return !preg_match('/^[0-9\s]*$/', $value);
+			});
 			// Definir reglas de validación
 			$rules = [
 				'descripcion' => ['required', 'not_only_numbers', 'max:255']
