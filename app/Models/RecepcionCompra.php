@@ -16,6 +16,9 @@ class RecepcionCompra extends Model
 		'estado',
 		'codigoFactura'
 	];
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 
 	public function producto()
 	{

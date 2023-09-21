@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Rol;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
@@ -17,7 +15,7 @@ class RoleSeeder extends Seeder
 		//
 
 
-		$roleAdmin = Role::create(['name' => 'Super Administrador']);
+		$roleAdmin = Rol::create(['name' => 'Super Administrador']);
 		$roleAdmin->givePermissionTo([
 			'Ver panel admin',
 			'Ver dashboard: Cantidad de solicitudes',
@@ -36,7 +34,7 @@ class RoleSeeder extends Seeder
 
 
 
-		$roleGerenteUO = Role::create(['name' => 'Gerente Unidad Organizativa']);
+		$roleGerenteUO = Rol::create(['name' => 'Gerente Unidad Organizativa']);
 		$roleGerenteUO->givePermissionTo([
 			'Ver dashboard: Cantidad de solicitudes',
 			'Ver dashboard: Accesos directos 1',
@@ -45,7 +43,7 @@ class RoleSeeder extends Seeder
 			'SideBar: Revisar solicitudes',
 		]);
 
-		$roleGerenteAlmacen = Role::create(['name' => 'Gerente Encargado Almacen']);
+		$roleGerenteAlmacen = Rol::create(['name' => 'Gerente Encargado Almacen']);
 		$roleGerenteAlmacen->givePermissionTo([
 			'Ver dashboard: Cantidad de solicitudes',
 			'Ver dashboard: Accesos directos 1',
@@ -60,7 +58,7 @@ class RoleSeeder extends Seeder
 			'SideBar: Catalogos',
 		]);
 
-		$roleTecnico = Role::create(['name' => 'Tecnico Encargado Almacen']);
+		$roleTecnico = Rol::create(['name' => 'Tecnico Encargado Almacen']);
 		$roleTecnico->givePermissionTo([
 			'Ver dashboard: Cantidad de solicitudes',
 			'Ver dashboard: Accesos directos 1',
@@ -76,7 +74,7 @@ class RoleSeeder extends Seeder
 		]);
 
 
-		$roleSolicitante = Role::create(['name' => 'Solicitante Unidad Organizativa']);
+		$roleSolicitante = Rol::create(['name' => 'Solicitante Unidad Organizativa']);
 		$roleSolicitante->givePermissionTo([
 			'Ver dashboard: Cantidad de solicitudes',
 			'Ver dashboard: Accesos directos 1',

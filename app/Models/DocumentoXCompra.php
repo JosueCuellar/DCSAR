@@ -12,4 +12,8 @@ class DocumentoXCompra extends Model
 		'nombreDocumento',
 		'recepcion_compra_id'
 	];
+
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 }

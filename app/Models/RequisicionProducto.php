@@ -15,6 +15,9 @@ class RequisicionProducto extends Model
 		'descripcion',
 		'observacion'
 	];
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 	public function productos()
 	{
 		return $this->belongsToMany(Producto::class, 'detalle_requisicions');

@@ -25,6 +25,9 @@ class User extends Authenticatable
 		'email',
 		'password',
 	];
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 
 	/**
 	 * The attributes that should be hidden for serialization.

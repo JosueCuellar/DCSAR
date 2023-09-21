@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Permiso;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 
 class PermisoSeeder extends Seeder
 {
@@ -16,22 +14,22 @@ class PermisoSeeder extends Seeder
 	{
 		//------------------------------------------VISUALES-----------------------------------------------
 		//Permiso administrador
-		Permission::create(['name' => 'Ver panel admin']);
+		Permiso::create(['name' => 'Ver panel admin']);
 
 		//Dashboard
-		Permission::create(['name' => 'Ver dashboard: Cantidad de solicitudes']);
-		Permission::create(['name' => 'Ver dashboard: Accesos directos 1']);
-		Permission::create(['name' => 'Ver dashboard: Accesos directos 2']);
+		Permiso::create(['name' => 'Ver dashboard: Cantidad de solicitudes']);
+		Permiso::create(['name' => 'Ver dashboard: Accesos directos 1']);
+		Permiso::create(['name' => 'Ver dashboard: Accesos directos 2']);
 
 		//SIDEBAR
-		Permission::create(['name' => 'SideBar: Requisicion de producto']);
-		Permission::create(['name' => 'SideBar: Inventario']);
-		Permission::create(['name' => 'SideBar: Revisar solicitudes']);
-		Permission::create(['name' => 'SideBar: Ingreso de producto']);
-		Permission::create(['name' => 'SideBar: Solicitudes a entregar']);
-		Permission::create(['name' => 'SideBar: Historial requisiciones']);
-		Permission::create(['name' => 'SideBar: Productos Bodega']);
-		Permission::create(['name' => 'SideBar: Reportes']);
-		Permission::create(['name' => 'SideBar: Catalogos']);
+		Permiso::create(['name' => 'SideBar: Requisicion de producto']);
+		Permiso::create(['name' => 'SideBar: Inventario']);
+		Permiso::create(['name' => 'SideBar: Revisar solicitudes']);
+		Permiso::create(['name' => 'SideBar: Ingreso de producto']);
+		Permiso::create(['name' => 'SideBar: Solicitudes a entregar']);
+		Permiso::create(['name' => 'SideBar: Historial requisiciones']);
+		Permiso::create(['name' => 'SideBar: Productos Bodega']);
+		Permiso::create(['name' => 'SideBar: Reportes']);
+		Permiso::create(['name' => 'SideBar: Catalogos']);
 	}
 }

@@ -6,9 +6,9 @@ namespace App\Http\Controllers\Usuario;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\RolRequest;
+use App\Models\Permiso;
+use App\Models\Rol;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class RolController extends Controller
 {
@@ -23,7 +23,7 @@ class RolController extends Controller
 	{
 		try {
 			// Recuperar todos los roles disponibles en la base de datos
-			$roles = Role::all();
+			$roles = Rol::all();
 
 			// Mostrar la vista de asignación de roles a usuarios con la lista de roles
 			return view('usuario.roles.indexAssign', compact('roles'));
@@ -36,14 +36,14 @@ class RolController extends Controller
 	/**
 	 * Muestra el formulario de asignación de permisos a un rol específico.
 	 *
-	 * @param Role $role El objeto del rol al que se van a asignar los permisos.
+	 * @param Rol $role El objeto del rol al que se van a asignar los permisos.
 	 * @return Illuminate\View\View El formulario de asignación de permisos con el rol y la lista de permisos disponibles.
 	 */
-	public function showAssignPermissionsForm(Role $role)
+	public function showAssignPermissionsForm(Rol $role)
 	{
 		try {
 			// Recuperar todos los permisos disponibles en la base de datos
-			$permissions = Permission::all();
+			$permissions = Permiso::all();
 			// Mostrar el formulario de asignación de permisos con el rol y la lista de permisos
 			return view('usuario.roles.assign-permissions', compact('role', 'permissions'));
 		} catch (\Exception $e) {
@@ -57,10 +57,10 @@ class RolController extends Controller
 	 *
 	 *
 	 * @param Request $request La solicitud HTTP con los permisos seleccionados.
-	 * @param Role $role El objeto del rol al que se van a asignar los permisos.
+	 * @param Rol $role El objeto del rol al que se van a asignar los permisos.
 	 * @return Illuminate\Http\RedirectResponse La redirección a la ruta de asignación de roles con un mensaje de estado.
 	 */
-	public function assignPermissions(Request $request, Role $role)
+	public function assignPermissions(Request $request, Rol $role)
 	{
 		try {
 			// Sincronizar los permisos seleccionados con el rol dado
@@ -84,7 +84,7 @@ class RolController extends Controller
 	{
 		try {
 			// Recuperar todos los roles disponibles en la base de datos
-			$roles = Role::all();
+			$roles = Rol::all();
 
 			// Mostrar la lista de roles en la vista 'usuario.roles.indexRoles'
 			return view('usuario.roles.indexRoles', compact('roles'));
@@ -121,7 +121,7 @@ class RolController extends Controller
 	{
 		try {
 			// Crear y almacenar un nuevo objeto Rol en la base de datos
-			$rol = new Role();
+			$rol = new Rol();
 			$rol->name = $request->name;
 			$rol->save();
 
@@ -137,10 +137,10 @@ class RolController extends Controller
 	 * Muestra el formulario de edición para un rol existente.
 	 *
 	 *
-	 * @param Role $rol El objeto del rol que se va a editar.
+	 * @param Rol $rol El objeto del rol que se va a editar.
 	 * @return Illuminate\View\View La vista de edición con los detalles del rol.
 	 */
-	public function editRoles(Role $rol)
+	public function editRoles(Rol $rol)
 	{
 		try {
 			// Mostrar el formulario de edición para un rol existente
@@ -156,10 +156,10 @@ class RolController extends Controller
 	 *
 	 *
 	 * @param RolRequest $request La solicitud HTTP con los datos del rol actualizado.
-	 * @param Role $rol El objeto del rol que se va a actualizar.
+	 * @param Rol $rol El objeto del rol que se va a actualizar.
 	 * @return Illuminate\Http\RedirectResponse La redirección al listado de roles con un mensaje de estado.
 	 */
-	public function updateRoles(RolRequest $request, Role $rol)
+	public function updateRoles(RolRequest $request, Rol $rol)
 	{
 		try {
 			// Actualizar los detalles del rol utilizando los datos de la solicitud
@@ -178,10 +178,10 @@ class RolController extends Controller
 	 * Elimina un rol de la base de datos.
 	 *
 	 *
-	 * @param Role $rol El objeto del rol que se va a eliminar.
+	 * @param Rol $rol El objeto del rol que se va a eliminar.
 	 * @return Illuminate\Http\RedirectResponse La redirección al listado de roles con un mensaje de estado.
 	 */
-	public function destroyRoles(Role $rol)
+	public function destroyRoles(Rol $rol)
 	{
 		// Verificar si hay usuarios que tienen asignado el rol
 		if ($rol->users()->count() > 0) {

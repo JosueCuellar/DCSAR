@@ -11,6 +11,9 @@ class Marca extends Model
 	protected $fillable = [
 		'nombre'
 	];
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 	// public function productos()
 	// {
 	//     return $this->hasMany(Producto::class);

@@ -37,7 +37,7 @@
                                                 @foreach ($rubros as $item)
                                                     <option value="{{ $item->id }}"
                                                         data-codigo="{{ $item->codigoPresupuestario }}"
-                                                        @if ($producto->rubro_id == $item->id)  @endif>
+																												@if ($producto->rubro_id == $item->id) {{ 'selected' }} @endif>
                                                         {{ $item->codigoPresupuestario . ' ' . $item->descripRubro }}
                                                     </option>
                                                 @endforeach

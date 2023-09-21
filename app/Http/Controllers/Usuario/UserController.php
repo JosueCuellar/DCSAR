@@ -6,12 +6,10 @@ namespace App\Http\Controllers\Usuario;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Rol;
 use App\Models\UnidadOrganizativa;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -45,7 +43,7 @@ class UserController extends Controller
 	{
 		try {
 			// Recuperar todos los roles y unidades organizativas
-			$roles = Role::all();
+			$roles = Rol::all();
 			$unidadesOrganizativas = UnidadOrganizativa::all();
 
 			// Enviar los roles y unidades organizativas a la vista del formulario de creación de usuarios
@@ -94,7 +92,7 @@ class UserController extends Controller
 	{
 		try {
 			// Recuperar roles y unidades organizativas
-			$roles = Role::all();
+			$roles = Rol::all();
 			$unidadesOrganizativas = UnidadOrganizativa::all();
 
 			// Recuperar la unidad organizativa actual y el rol actual del usuario

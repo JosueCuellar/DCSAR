@@ -11,4 +11,7 @@ class Medida extends Model
 	protected $fillable = [
 		'nombreMedida'
 	];
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 }

@@ -12,4 +12,7 @@ class Bodega extends Model
 		'nombreBodega',
 		'ubicacion'
 	];
+
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 }

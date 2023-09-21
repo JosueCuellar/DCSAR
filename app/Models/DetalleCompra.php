@@ -15,6 +15,9 @@ class DetalleCompra extends Model
 		'precioUnidad',
 		'fechaVenc',
 	];
+	
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 	public function recepcionCompra()
 	{
 		return $this->belongsTo(RecepcionCompra::class);

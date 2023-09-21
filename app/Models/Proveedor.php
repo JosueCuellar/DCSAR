@@ -16,4 +16,7 @@ class Proveedor extends Model
 		'telefonoProveedor1',
 		'telefonoProveedor2'
 	];
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 }

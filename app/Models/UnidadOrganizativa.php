@@ -12,6 +12,8 @@ class UnidadOrganizativa extends Model
 		'nombreUnidadOrganizativa',
 		'descripUnidadOrganizativa'
 	];
+	
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
 
 
 	public function users()

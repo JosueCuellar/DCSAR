@@ -13,6 +13,10 @@ class DetalleRequisicion extends Model
 		'precioPromedio',
 		'total'
 	];
+
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 	public function producto()
 	{
 		return $this->belongsTo(Producto::class);

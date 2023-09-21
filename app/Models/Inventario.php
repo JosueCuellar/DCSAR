@@ -13,4 +13,7 @@ class Inventario extends Model
 		'observacion',
 		'stock'
 	];
+		
+	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+
 }
