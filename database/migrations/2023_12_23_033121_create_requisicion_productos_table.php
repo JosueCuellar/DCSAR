@@ -15,7 +15,7 @@ return new class extends Migration
 	{
 		Schema::create('requisicion_productos', function (Blueprint $table) {
 			$table->id();
-			$table->dateTime('fechaRequisicion');
+			$table->string('fechaRequisicion')->nullable();
 			$table->string('nCorrelativo')->nullable();
 			$table->string('descripcion', 255)->nullable();
 			$table->string('observacion', 255)->nullable();

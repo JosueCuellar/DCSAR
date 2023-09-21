@@ -228,7 +228,7 @@ class RequisicionProductoController extends Controller
 
 			// Obtener la fecha actual
 			$date =  new DateTime();
-			$requisicionProducto->fechaRequisicion = $date;
+			$requisicionProducto->fechaRequisicion = $date->format('Y-m-d H:i:s');
 
 			// Asignar el estado "inicializada" y el user_id del usuario autenticado
 			$requisicionProducto->estado_id = $INICIALIZADA;
