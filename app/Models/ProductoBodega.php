@@ -14,7 +14,7 @@ class ProductoBodega extends Model
 		'cantidadDisponible',
 	];
 		
-	// protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
+	protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora
 
 
 	public function producto()
