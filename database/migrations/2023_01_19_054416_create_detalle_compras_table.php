@@ -22,7 +22,7 @@ return new class extends Migration
 			$table->foreign('producto_id')->references('id')->on('productos');
 			$table->foreign('recepcion_compra_id')->references('id')->on('recepcion_compras')->onDelete('cascade');
 			$table->integer('cantidadIngreso');
-			$table->string('fechaVencimiento', 10)->nullable();
+			$table->string('fechaVencimiento')->nullable();
 			$table->decimal('precioUnidad', $precision = 12, $scale = 2);
 			$table->decimal('total', $precision = 12, $scale = 2);
 			$table->timestamps();

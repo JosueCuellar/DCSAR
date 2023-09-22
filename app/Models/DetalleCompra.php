@@ -13,7 +13,7 @@ class DetalleCompra extends Model
 		'recepcion_compra_id',
 		'cantidadIngreso',
 		'precioUnidad',
-		'fechaVenc',
+		'fechaVencimiento',
 	];
 	
 	protected $dateFormat = 'd/m/Y H:i:s'; // Configura el formato de fecha y hora

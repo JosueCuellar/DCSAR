@@ -65,7 +65,7 @@ class RecepcionCompraController extends Controller
 			return redirect()->route('recepcionCompra.documento', $recepcionCompra);
 		} catch (\Exception $e) {
 			// Si ocurre un error, redirige de vuelta al formulario con un mensaje de error
-			return redirect()->back()->with('catch', 'Algo salio mal!');
+			return redirect()->back()->with('catch', 'Algo salio mal!' . $e->getMessage());
 		}
 	}
 
@@ -111,7 +111,7 @@ class RecepcionCompraController extends Controller
 			return redirect()->route('recepcionCompra.consultar', $recepcionCompra);
 		} catch (\Exception $e) {
 			// Si ocurre un error, puedes manejarlo adecuadamente, como redirigir con un mensaje de error
-			return redirect()->back()->with('catch', 'Algo salio mal!');
+			return redirect()->back()->with('catch', 'Algo salio mal!' . $e->getMessage());
 		}
 	}
 
@@ -167,7 +167,7 @@ class RecepcionCompraController extends Controller
 			return redirect()->route('recepcionCompra.consultar')->with('status', 'Registro de ingreso correcto');
 		} catch (\Exception $e) {
 			// Maneja cualquier excepción y muestra un mensaje de error
-			return back()->with('catch', 'Algo salio mal!');
+			return back()->with('catch', 'Algo salio mal!' . $e->getMessage());
 		}
 	}
 
@@ -274,7 +274,7 @@ class RecepcionCompraController extends Controller
 			return redirect()->route('recepcionCompra.consultar')->with('delete', 'Registro eliminado');
 		} catch (\Exception $e) {
 			// Si ocurre un error, captura la excepción y redirige de vuelta con un mensaje de error
-			return redirect()->back()->with('catch', 'Algo salio mal!');
+			return redirect()->back()->with('catch', 'Algo salio mal!' . $e->getMessage());
 		}
 	}
 

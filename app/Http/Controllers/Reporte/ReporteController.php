@@ -530,9 +530,8 @@ class ReporteController extends Controller
 			}
 
 			$rubro_id = $request->rubro_id; // Replace with the desired rubro_id value
-
-			$start_month_year = date('Y-m', strtotime($start_date));
-			$end_month_year = date('Y-m', strtotime($end_date));
+			$start_month_year = (int)date('Ym', strtotime($start_date));
+			$end_month_year = (int)date('Ym', strtotime($end_date));
 
 			$resultados = DB::table('detalle_requisicions')
 				->join('requisicion_productos', 'detalle_requisicions.requisicion_id', '=', 'requisicion_productos.id')
@@ -545,10 +544,11 @@ class ReporteController extends Controller
 					DB::raw('SUM(detalle_requisicions.total) as total')
 				)
 				->where('requisicion_productos.estado_id', '=', $ENTREGADA)
-				->whereRaw("FORMAT(requisicion_productos.fechaRequisicion, 'yyyy-MM') BETWEEN ? AND ?", [$start_month_year, $end_month_year])
+				->whereBetween(DB::raw("YEAR(requisicion_productos.fechaRequisicion) * 100 + MONTH(requisicion_productos.fechaRequisicion)"), [$start_month_year, $end_month_year])
 				->where('productos.rubro_id', '=', $rubro_id)
 				->groupBy('detalle_requisicions.producto_id', 'productos.descripcion', DB::raw('MONTH(requisicion_productos.fechaRequisicion)'))
 				->get();
+
 
 			// Set the locale for Carbon to Spanish
 			Carbon::setLocale('es');

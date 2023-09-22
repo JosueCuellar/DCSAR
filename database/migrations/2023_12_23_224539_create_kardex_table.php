@@ -17,7 +17,7 @@ return new class extends Migration
 	{
 		Schema::create('kardex', function (Blueprint $table) {
 			$table->id();
-			$table->dateTime('fecha_movimiento');
+			$table->string('fecha_movimiento');
 			$table->enum('tipo_movimiento', ['entrada', 'salida']);
 			$table->unsignedBigInteger('producto_id');
 			$table->integer('cantidad');
