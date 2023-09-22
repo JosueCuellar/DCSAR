@@ -371,7 +371,11 @@ class ReporteController extends Controller
 				)
 				->groupBy('rubros.codigoPresupuestario', 'rubros.descripRubro', 'productos.codProducto', 'productos.descripcion', 'medidas.nombreMedida', 'productos.id')
 				->havingRaw('COALESCE((SELECT SUM(cantidadIngreso) FROM detalle_compras WHERE producto_id = productos.id AND recepcion_compra_id IN (SELECT id FROM recepcion_compras WHERE YEAR(fechaIngreso) <= ? AND MONTH(fechaIngreso) <= ?)), 0) - COALESCE((SELECT SUM(cantidad) FROM detalle_requisicions WHERE producto_id = productos.id AND requisicion_id IN (SELECT id FROM requisicion_productos WHERE estado_id = 4 AND YEAR(fechaRequisicion) <= ? AND MONTH(fechaRequisicion) <= ?)), 0) > 0', [$year, $month, $year, $month])
-				->setBindings([$year, $month, $ENTREGADA, $year, $month, $year, $month, $year, $ENTREGADA, $month, $year, $month, $ENTREGADA, $year, $month, $year, $month, $ENTREGADA, $year, $month])
+				->setBindings([
+					$year, $month, $ENTREGADA, $year, $month,
+					$year, $month, $ENTREGADA, $year, $month, $year, $month, $ENTREGADA, $year, $month,
+					$year, $month, $ENTREGADA, $year, $month
+				])
 				->get();
 
 			$groupedResults = [];

@@ -157,4 +157,14 @@
                 aceptar_id);
         })
     </script>
+		   <script>
+        $('#modalObservacionDenegar').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var requi_id = button.data('categoriaid')
+            var modal = $(this)
+            // modal.find('.modal-footer #user_id').val(user_id)
+            modal.find('form').attr('action', '{{ asset('/requisicionProducto/denegar/') }}' + '/' +
+                requi_id);
+        })
+    </script>
 @endsection

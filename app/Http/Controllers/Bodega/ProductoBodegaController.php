@@ -43,6 +43,11 @@ class ProductoBodegaController extends Controller
 		$bodega = $productoBodega->bodega_id;
 		$var = ($bodega == 1) ? 2 : 1;
 
+		// Verifica si hay suficiente cantidad disponible en la bodega principal
+		if ($cantidad > $productoBodega->cantidadDisponible) {
+			return redirect()->back()->with('catch', 'Error, no hay suficiente cantidad disponible en la bodega');
+		}
+
 		try {
 			// Busca la bodega secundaria
 			$bodegaSecundaria = ProductoBodega::where('producto_id', $producto)
@@ -51,35 +56,23 @@ class ProductoBodegaController extends Controller
 
 			// Crea la bodega secundaria si no existe
 			if (!$bodegaSecundaria) {
-				// Verifica si hay suficiente cantidad disponible en la bodega principal
-				if ($cantidad > $productoBodega->cantidadDisponible) {
-					return redirect()->back()->with('catch', 'Error, no hay suficiente cantidad disponible en la bodega');
-				}
-
 				// Crea el registro de la bodega secundaria
 				$bodegaSecundaria = new ProductoBodega([
 					'producto_id' => $producto,
 					'bodega_id' => $var,
-					'cantidadDisponible' => $cantidad
+					'cantidadDisponible' => 0 // Inicializa con 0
 				]);
-				$bodegaSecundaria->save();
-			} else {
-				// Verifica si hay suficiente cantidad disponible en la bodega principal
-				if ($cantidad > $productoBodega->cantidadDisponible) {
-					return redirect()->back()->with('catch', 'Error, no hay suficiente cantidad disponible en la bodega');
-				}
-
-				// Mueve la cantidad desde la bodega principal a la secundaria
-				// Reduce la cantidad disponible en la bodega principal en la cantidad especificada
-				$productoBodega->cantidadDisponible -= $cantidad;
-				// Guarda los cambios en la bodega principal
-				$productoBodega->save();
-
-				// Aumenta la cantidad disponible en la bodega secundaria en la cantidad especificada
-				$bodegaSecundaria->cantidadDisponible += $cantidad;
-				// Guarda los cambios en la bodega secundaria
-				$bodegaSecundaria->save();
 			}
+
+			// Aumenta la cantidad disponible en la bodega secundaria en la cantidad especificada
+			$bodegaSecundaria->cantidadDisponible += $cantidad;
+			// Guarda los cambios en la bodega secundaria
+			$bodegaSecundaria->save();
+
+			// Reduce la cantidad disponible en la bodega principal en la cantidad especificada
+			$productoBodega->cantidadDisponible -= $cantidad;
+			// Guarda los cambios en la bodega principal
+			$productoBodega->save();
 
 			return redirect()->route('productoBodega.index')->with('status', '¡Se ha agregado correctamente!');
 		} catch (\Exception $e) {
