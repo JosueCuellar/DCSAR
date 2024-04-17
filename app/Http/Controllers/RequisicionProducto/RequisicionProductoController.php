@@ -462,8 +462,10 @@ class RequisicionProductoController extends Controller
 			$ACEPTADA = config('constantes.ACEPTADA');
 			$RECHAZADA = config('constantes.RECHAZADA');
 
-			$countRequiApro = RequisicionProducto::where('estado_id', $ACEPTADA)->orderBy('id', 'desc')->first();
-			$countRequiReci = RequisicionProducto::where('estado_id', $ENTREGADA)->orderBy('id', 'desc')->first();
+			$countRequiApro = RequisicionProducto::where('estado_id', $ACEPTADA)->whereRaw("YEAR(SUBSTRING(nCorrelativo, CHARINDEX('-', nCorrelativo) + 1, LEN(nCorrelativo))) = ?", [date('Y')])
+			->orderBy('id', 'desc')->first();
+			$countRequiReci = RequisicionProducto::where('estado_id', $ENTREGADA)->whereRaw("YEAR(SUBSTRING(nCorrelativo, CHARINDEX('-', nCorrelativo) + 1, LEN(nCorrelativo))) = ?", [date('Y')])
+			->orderBy('id', 'desc')->first();
 
 			$lastRequisicionProducto = RequisicionProducto::whereIn('estado_id', [$ACEPTADA, $RECHAZADA, $ENTREGADA])
 				->whereRaw("YEAR(SUBSTRING(nCorrelativo, CHARINDEX('-', nCorrelativo) + 1, LEN(nCorrelativo))) = ?", [date('Y')])

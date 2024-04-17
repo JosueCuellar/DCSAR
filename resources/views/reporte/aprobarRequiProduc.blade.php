@@ -10,9 +10,9 @@
 <body>
     <header name="page-header">
         <!-- Header del PDF -->
-        <img src="{{ asset('fondo/logonew.png') }}" style="max-width: 105px;float: left;">
+        <img src="{{ storage_path('fondo/logonew.png') }}" style="max-width: 105px;float: left;">
         <div style="max-width:110px;float: right;">
-            <img src="{{ asset('fondo/logopdf.png') }}" style="max-width: 58px;">
+            <img src="{{ storage_path('fondo/logopdf.png') }}" style="max-width: 58px;">
         </div>
         <p style="margin:5px;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong><span
                     style="font-size:22px;">Requisición de Materiales y Suministros de Oficina</span></strong></p>
