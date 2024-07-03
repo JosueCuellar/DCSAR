@@ -369,7 +369,7 @@
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
         <footer class="text-center main-footer" style="background-color:#313945">
-            <strong>GSI - Defensoria del Consumidor - 2023</strong>
+            <strong>GSI - Defensoria del Consumidor - 2024</strong>
         </footer>
     </div>
     <!-- ./wrapper -->

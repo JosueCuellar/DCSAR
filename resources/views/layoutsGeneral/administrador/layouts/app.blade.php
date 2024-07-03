@@ -14,16 +14,8 @@
         href="{{ asset('dependencias/css/cdn.datatables.net_responsive_2.4.1_css_responsive.dataTables.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('dependencias/css/cdn.datatables.net_buttons_2.3.6_css_buttons.bootstrap5.min.css') }}">
-    <!-- ScrollBar -->
-    <link rel="stylesheet"
-        href="{{ asset('dependencias/css/cdnjs.cloudflare.com_ajax_libs_jquery.scrollbar_0.2.11_jquery.scrollbar.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('dependencias/css/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_css_bootstrap.min.css') }}">
     <!-- Toast -->
     <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
-    <!-- Select 2 -->
-    <link rel="stylesheet"
-        href="{{ asset('dependencias/css/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_css_select2.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="{{ asset('dependencias/css/fonts.googleapis.com_css_family=Source+Sans+Pro_300,400,400i,700&display=fallback.css') }}">
@@ -32,65 +24,10 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/dist/css/adminlte.min.css') }}">
     <!-- Estilo CSS del loader -->
-    <style>
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background-color: rgba(255, 255, 255, 1);
-            /* Color blanco con opacidad del 50% */
-        }
-
-        .loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border-radius: 50%;
-            border-top: 3px solid #3498db;
-            border-right: 3px solid #3498db;
-            border-bottom: 3px solid #3498db;
-            border-left: 3px solid #ccc;
-            width: 30px;
-            height: 30px;
-            margin-top: -15px;
-            margin-left: -15px;
-            -webkit-animation: spin 2s linear infinite;
-            animation: spin 2s linear infinite;
-        }
-
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-
     <!-- Estilo CSS del loader -->
     <style>
         html {
-            font-size: 90%;
-        }
-
-        .table-extra-sm td,
-        .table-extra-sm th {
-            padding: 0.1rem;
+            font-size: 95%;
         }
     </style>
 
@@ -140,10 +77,6 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
-
-                <li class="nav-item"> <img src="{{ asset('fondo/logo22.png') }}" class="img-fluid"
-                        style="max-width: 40px" alt="Responsive image"></li>
-
 
             </ul>
 
@@ -235,7 +168,7 @@
 
         <!-- Main Footer -->
         <footer class="text-center main-footer" style="background-color:#313945">
-            <strong>GSI - Defensoria del Consumidor - 2023</strong>
+            <strong>GSI - Defensoria del Consumidor - 2024</strong>
         </footer>
 
     </div>
@@ -246,7 +179,6 @@
     <!-- jQuery -->
     <script src="{{ asset('dependencias/js/code.jquery.com_jquery-3.6.4.min.js') }}"></script>
     <!-- Bootstrap -->
-    <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_select2@4.1.0-rc.0_dist_js_select2.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('vendor/dist/js/adminlte.js') }}"></script>
@@ -255,16 +187,10 @@
     <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_bs5-lightbox@1.8.3_dist_index.bundle.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_js_bootstrap.bundle.min.js') }}">
     </script>
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('dependencias/js/cdnjs.cloudflare.com_ajax_libs_jquery-easing_1.4.1_jquery.easing.min.js') }}">
-    </script>
     <!-- DataTables -->
     <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('dependencias/js/cdnjs.cloudflare.com_ajax_libs_jquery.scrollbar_0.2.11_jquery.scrollbar.min.js') }}">
     </script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('dependencias/js/cdn.datatables.net_buttons_2.3.6_js_buttons.bootstrap5.min.js') }}"></script>
@@ -309,16 +235,10 @@
         </script>
     @endif
 
-        @yield('js_datatable')
-        @yield('js_imagen')
-        @yield('js')
+    @yield('js_datatable')
+    @yield('js_imagen')
+    @yield('js')
 
 </body>
-
-<script>
-    $(window).on('load', function() {
-        $('#preloader').slideUp('850');
-    });
-</script>
 
 </html>

@@ -2,10 +2,7 @@
 @section('title', 'Usuarios')
 @section('header')
     <div class="col-12">
-        <h2>Lista de usuarios</h2>
-    </div>
-
-    <div class="col-12">
+			<h2>Lista de usuarios</h2>
         <form action="{{ route('usuario.create') }}" method="GET">
             @csrf
             <button type="submit" class="btn btn-success text-left" role="button" aria-pressed="true"><i
@@ -17,45 +14,16 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-extra-sm table-striped text-center" id="dataTable6" width="100%" cellspacing="0">
+                <table class="table table-bordered table-sm text-center" id="tablaUsuarios" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">ID</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Email</th>
                             <th scope="col">Rol</th>
                             <th scope="col">Unidad organizativa</th>
                             <th scope="col">Opciones</th>
-
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($usuarios as $item)
-                            <tr>
-                                <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>@php
-                                    $roles = $item->getRoleNames();
-                                @endphp
-
-                                    @foreach ($roles as $role)
-                                        {{ $role }}
-                                    @endforeach
-                                </td>
-                                <td> {{ $item->unidadOrganizativa->nombreUnidadOrganizativa ?? '' }}</td>
-                                <td>
-                                    <a href="{{ route('usuario.edit', $item->id) }}">
-                                        <ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>
-                                    </a>
-                                    <a href="{{ route('usuario.destroy', $item) }}" data-toggle="modal"
-                                        data-target="#deleteModal" data-delete="{{ $item->id }}">
-                                        <ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
             <!-- delete Modal-->
@@ -98,17 +66,57 @@
             modal.find('form').attr('action', 'usuario/destroy/' + delete_id);
         })
     </script>
+
     <script>
         $(document).ready(function() {
-            $('#dataTable6').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                },
-                "autoWidth": false,
-                "responsive": true,
-                "columnDefs": [{
-                    "responsivePriority": 10001,
-                    "targets": 1
+            $('#tablaUsuarios').DataTable({
+                processing: true,
+                serverSide: true,
+                order: [
+                    [0, "asc"]
+                ],
+                ajax: '{{ route('usuarios.datos') }}',
+                columns: [{
+                        data: "name",
+                        name: 'name'
+
+                    },
+                    {
+                        data: "email",
+                        name: 'email'
+                    },
+                    {
+                        data: "roles",
+                        name: 'roles'
+
+                    },
+                    {
+                        data: "unidad_organizativa",
+                        name: 'unidad_organizativa'
+
+                    },
+                    {
+                        data: 'id',
+                        name: 'actions',
+                        render: function(data, type, row) {
+                            return '<td>' +
+                                '<a href="/usuario/edit/' + data + '">' +
+                                '<ion-icon name="create-outline" class="fa-lg text-primary"></ion-icon>' +
+                                '</a>' +
+                                '<a href="/usuario/destroy/' + data +
+                                '" data-toggle="modal" data-target="#deleteModal" data-delete="' +
+                                data + '">' +
+                                '<ion-icon name="trash-outline" class="fa-lg text-danger"></ion-icon>' +
+                                '</a>' +
+                                '</td>';
+                        }
+                    }
+                ],
+                autoWidth: false,
+                responsive: true,
+                columnDefs: [{
+                    responsivePriority: 10001,
+                    targets: 1
                 }]
             });
         });

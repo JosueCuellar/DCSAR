@@ -207,6 +207,8 @@ Route::middleware(['can:Ver panel admin'])->group(function () {
 	//----------------------------Usuarios------------------------
 	//listar
 	Route::get('usuario', [UserController::class, 'index'])->name('usuario.index')->middleware('can:Ver panel admin');
+	Route::get('/usuario/datos', [UserController::class, 'getUsuarios'])->name('usuarios.datos');
+
 	//crear
 	Route::get('usuario/crear', [UserController::class, 'create'])->name('usuario.create');
 	Route::post('usuario/store', [UserController::class, 'store'])->name('usuario.store');

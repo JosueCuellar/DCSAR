@@ -69,8 +69,8 @@
                                     <th scope="col">Producto</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Medida</th>
-                                    <th scope="col">P. Prom</th>
-                                    <th scope="col">Sub-total</th>
+                                    {{-- <th scope="col">P. Prom</th>
+                                    <th scope="col">Sub-total</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,8 +94,7 @@
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <button class="btn btn-success" type="submit" id="button-addon2">
-                                                            <ion-icon name="save-outline"></ion-icon>
-                                                        </button>
+Actualizar                                                       </button>
                                                     </div>
                                                     <input type="number" id="cantidad"
                                                         value="{{ old('cantidad', $item->cantidad) }}" name="cantidad"
@@ -108,8 +107,8 @@
                                             </form>
                                         </td>
                                         <td>{{ $item->producto->medida->nombreMedida }}</td>
-                                        <td>${{ number_format($item->precioPromedio, 2) }}</td>
-                                        <td>${{ number_format($item->total, 2) }}</td>
+                                        {{-- <td>${{ number_format($item->precioPromedio, 2) }}</td>
+                                        <td>${{ number_format($item->total, 2) }}</td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -119,8 +118,8 @@
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">${{ $totalFinal }}</th>
+                                    {{-- <th scope="col">Total</th>
+                                    <th scope="col">${{ $totalFinal }}</th> --}}
                                 </tr>
                             </tfoot>
                         </table>

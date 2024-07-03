@@ -190,6 +190,7 @@ return [
 		Illuminate\View\ViewServiceProvider::class,
 		Barryvdh\DomPDF\ServiceProvider::class,
 		Yajra\DataTables\DataTablesServiceProvider::class,
+		Laravel\Sail\SailServiceProvider::class,
 
 		/*
          * Package Service Providers...
